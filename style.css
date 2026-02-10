@@ -2628,3 +2628,31 @@ body {
     font-weight: 600;
     font-size: 11px;
 }
+
+/* SIFU LIVE SYNC IMPROVEMENTS */
+@keyframes pulse-amber-border {
+    0% { border-color: var(--sifu-amber); box-shadow: 0 0 0 0 rgba(249, 171, 0, 0.4); }
+    70% { border-color: #ffc107; box-shadow: 0 0 0 10px rgba(249, 171, 0, 0); }
+    100% { border-color: var(--sifu-amber); box-shadow: 0 0 0 0 rgba(249, 171, 0, 0); }
+}
+
+@keyframes pulse-green {
+    0% { opacity: 0.6; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0.6; transform: scale(0.95); }
+}
+
+.btn-comm.master.pulse-sync {
+    animation: pulse-amber-border 2s infinite !important;
+    transition: all 0.3s ease;
+}
+
+.sync-flash-anim {
+    animation: logo-sync-flash 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes logo-sync-flash {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 var(--sifu-blue); }
+    50% { transform: scale(1.2); box-shadow: 0 0 20px 10px var(--sifu-blue-glow); background: var(--accent-green); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 var(--sifu-blue); }
+}

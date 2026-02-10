@@ -646,10 +646,23 @@ async function activateMasterLiveWatch(handle) {
     showToast('SISTEMA SINCRONIZADO: MODO LIVE ACTIVO', 'success');
     updateTicker("SISTEMA: AUTOMATIZACIÓN TOTAL. MODIFICA EL EXCEL Y GUARDA PARA ACTUALIZAR.");
 
+    const syncBadge = document.createElement('span');
+    syncBadge.id = 'live-sync-badge';
+    syncBadge.innerHTML = '● LIVE';
+    syncBadge.style.cssText = 'color: #34a853; font-size: 9px; font-weight: 800; margin-left: 8px; animation: pulse-green 2s infinite;';
+    btn.appendChild(syncBadge);
 
     let lastModified = 0;
 
     setInterval(async () => {
+        // Visual feedback of checking
+        const icon = document.getElementById('sync-icon');
+        if (icon) {
+            icon.style.transition = 'transform 0.5s';
+            icon.style.transform = 'rotate(180deg)';
+            setTimeout(() => icon.style.transform = 'rotate(0deg)', 400);
+        }
+
         // Pausar watchdog si estamos guardando al Excel
         if (isSavingToExcel) {
             return;
@@ -671,14 +684,19 @@ async function activateMasterLiveWatch(handle) {
                 if (lastModified !== 0) {
                     showToast('↓ ACTUALIZANDO DESDE EXCEL...', 'info');
                     flashDashboard();
+                    updateTicker("SISTEMA: ACTUALIZACIÓN RECIBIDA DE EXCEL");
                 }
                 lastModified = file.lastModified;
                 handleExcelFile(file);
             }
         } catch (err) {
             console.log("Esperando autorización del navegador...");
+            if (syncBadge) {
+                syncBadge.innerHTML = '● PAUSADO';
+                syncBadge.style.color = 'var(--sifu-amber)';
+            }
         }
-    }, 1000);
+    }, 800);
 }
 
 // Auto-Detección de Vínculo Previo al Cargar (Bootloader)
@@ -695,6 +713,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btn.innerHTML = '<span>🔌</span> PULSA PARA REANUDAR';
                     btn.classList.add('pulse-sync'); // Añadir efecto visual
                     btn.style.borderColor = 'var(--sifu-amber)';
+                    btn.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+                    btn.style.animation = 'pulse-amber-border 2s infinite';
                     btn.title = "Archivo detectado: " + savedHandle.name;
                     updateTicker("SISTEMA: VÍNCULO A " + savedHandle.name.toUpperCase() + " DETECTADO. PULSE PARA REACTIVAR.");
                     showToast("SESIÓN PREVIA DETECTADA: " + savedHandle.name, 'info');
