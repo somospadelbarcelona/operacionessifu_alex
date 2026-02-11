@@ -198,14 +198,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (syncEl) syncEl.textContent = `ÚLTIMA SYNC: ${lastSync}`;
     }
 
-    // 2. LÓGICA DE FALLBACK:
+    // 2. LÓGICA DE FALLBACK CON PERSISTENCIA AUTOMÁTICA:
     // Solo cargamos el archivo estático si no hay NADA en la memoria atómica
     if (!wasLoaded && typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
-        console.log("Cargando datos iniciales (Primera vez)");
+        console.log("📦 Cargando datos integrados (129 servicios)");
         processMasterArray(INITIAL_MASTER_DATA);
-        updateTicker("SISTEMA: DATOS CARGADOS DESDE ARCHIVO INICIAL");
+        saveAllState(); // ⭐ PERSISTIR INMEDIATAMENTE EN INDEXEDDB
+        updateTicker("SISTEMA: DATOS INTEGRADOS Y PERSISTIDOS [129 SERVICIOS]");
     } else if (wasLoaded) {
-        console.log("Sincronizando vistas con datos recuperados...");
+        console.log("🔄 Sincronizando vistas con datos recuperados...");
         renderAll();
         updateTicker("SISTEMA: DATOS RECUPERADOS CON ÉXITO");
     } else {
