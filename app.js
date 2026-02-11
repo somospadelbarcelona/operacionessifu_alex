@@ -58,7 +58,10 @@ function loadGlobalState() {
                 glassPlanning: parsed.glassPlanning || [],
                 stats: parsed.stats || { activeWorkers: 24 },
                 notes: parsed.notes || [],
-                masterData: parsed.masterData || [],
+                // Prioritize fresh data from file if available (fixes "7 descubiertos" persistence issue)
+                masterData: (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0)
+                    ? INITIAL_MASTER_DATA
+                    : (parsed.masterData || []),
                 filterType: parsed.filterType || null
             };
 
