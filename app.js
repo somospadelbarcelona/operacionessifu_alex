@@ -684,7 +684,8 @@ async function activateMasterLiveWatch(handle) {
                 if (lastModified !== 0) {
                     showToast('↓ ACTUALIZANDO DESDE EXCEL...', 'info');
                     flashDashboard();
-                    updateTicker("SISTEMA: ACTUALIZACIÓN RECIBIDA DE EXCEL");
+                    const now = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                    updateTicker(`SISTEMA: ACTUALIZACIÓN EXTERNA DETECTADA (${now})`);
                 }
                 lastModified = file.lastModified;
                 handleExcelFile(file);
@@ -1806,7 +1807,20 @@ function updateOperationalChart() {
     if (!operationalChart || !state.masterData.length) return;
 
     const total = state.masterData.length;
-    const uncovered = state.masterData.filter(r => (r['ESTADO'] || '').toString().toUpperCase().includes('DESCUBIERTO')).length;
+    const keys = Object.keys(state.masterData[0]);
+    const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || 'ESTADO';
+    const kTitular = keys.find(k => k.toUpperCase().includes('TITULAR')) || 'TITULAR';
+
+    const uncovered = state.masterData.filter(r => {
+        const eUpper = (r[kEstado] || '').toString().toUpperCase();
+        const tUpper = (r[kTitular] || '').toString().toUpperCase();
+
+        const isSpecial = eUpper.includes('BRIGADA') || tUpper.includes('RUTA CRISTALES') || eUpper.includes('OBRAS') || eUpper.includes('CERRADO');
+        const isDesc = eUpper.includes('DESCUBIERTO') || (eUpper === '' && tUpper === '') || (tUpper === 'SIN TITULAR');
+
+        return isDesc && !isSpecial;
+    }).length;
+
     const incidents = state.incidents.length;
     const ok = Math.max(0, total - uncovered - incidents);
 
@@ -1858,10 +1872,15 @@ function updateInsights() {
     const kEstado = keys.find(k => k.toUpperCase().includes('ESTADO')) || 'ESTADO';
     const kSalud = keys.find(k => k.toUpperCase().includes('SALUD')) || keys.find(k => k.toUpperCase().includes('IT')) || '';
 
-    // Count Uncovered
+    // Count Uncovered (Consolidated logic)
     const uncoveredCount = state.masterData.filter(row => {
-        const val = (row[kEstado] || '').toString().toUpperCase();
-        return val.includes('DESCUBIERTO');
+        const valE = (row[kEstado] || '').toString().toUpperCase();
+        const valT = (row[keys.find(k => k.toUpperCase().includes('TITULAR')) || 'TITULAR'] || '').toString().toUpperCase();
+
+        const isSpecial = valE.includes('BRIGADA') || valT.includes('RUTA CRISTALES') || valE.includes('OBRAS') || valE.includes('CERRADO');
+        const isDesc = valE.includes('DESCUBIERTO') || (valE === '' && valT === '') || (valT === 'SIN TITULAR');
+
+        return isDesc && !isSpecial;
     }).length;
 
     // Count Absences (IT / Sick Leave)
