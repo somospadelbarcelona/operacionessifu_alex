@@ -228,6 +228,20 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTicker("SISTEMA: INICIADO CON ESTADO VACÍO");
     }
 
+    // Initialize AI Engine with visual feedback
+    // Initialize AI Engine with visual feedback (ONLY ONCE)
+    if (typeof generateAIInsights === 'function' && !window.IS_AI_INITIALIZED) {
+        window.IS_AI_INITIALIZED = true;
+        setTimeout(() => {
+            generateAIInsights();
+            // PREMIUM STARTUP FEEDBACK
+            showToast("✨ SISTEMA CEREBRO v8.2 ACTIVADO", "bg-blue");
+            setTimeout(() => {
+                showToast("🧠 MOTOR INTELIGENCIA ARTIFICIAL: ONLINE", "bg-purple");
+            }, 800);
+        }, 1500);
+    }
+
     setupEventListeners();
     startTicker();
     initVoiceCommand();
@@ -366,77 +380,27 @@ function setupEventListeners() {
         };
     }
 
-    document.querySelectorAll('.close-modal').forEach(btn => {
-        btn.onclick = () => {
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-        };
-    });
-
-    const incForm = document.getElementById('incident-form');
-    if (incForm) {
-        incForm.onsubmit = (e) => {
-            e.preventDefault();
-            const type = document.getElementById('incident-type').value;
-            const worker = document.getElementById('worker-name').value;
-            const priority = document.querySelector('input[name="priority"]:checked').value;
-            const manualDate = document.getElementById('incident-date').value;
-            const manualTime = document.getElementById('incident-time').value;
-            const now = new Date();
-            const finalDate = manualDate || now.toLocaleDateString('es-ES');
-            const finalTime = manualTime || now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-
-            const newIncident = {
-                id: Date.now(),
-                worker: worker,
-                type: type,
-                priority: priority,
-                desc: document.getElementById('incident-desc').value,
-                time: finalTime,
-                date: finalDate,
-                reported: false
-            };
-            state.incidents.unshift(newIncident);
-            markUnsavedChanges();
-            saveAndRender();
-            updateTicker(`SISTEMA: INCIDENCIA REGISTRADA (${worker})`);
-            e.target.reset();
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-        };
-    }
-
-
-    if (noteForm) {
-        noteForm.onsubmit = (e) => {
-            e.preventDefault();
-            const text = document.getElementById('note-text').value;
-            if (!text.trim()) return;
-
-            const newNote = {
-                id: Date.now(),
-                text: text,
-                tag: 'INFO', // Default tag
-                date: new Date().toLocaleDateString('es-ES'),
-                completed: false
-            };
-            state.notes.unshift(newNote);
-            markUnsavedChanges();
-            saveAndRender();
-            updateTicker("SISTEMA: TAREA AÑADIDA A LA AGENDA");
-            e.target.reset();
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-        };
-    }
+    // Event listeners are handled by setupEventListeners() at the end of the file
+    // to prevent duplication and ensure safe initialization.
 
     if (globalSearch) {
         globalSearch.onkeydown = (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                console.log("Buscando incidencias: ", globalSearch.value);
-                renderIncidents(globalSearch.value.toLowerCase().trim());
-                showToast("Búsqueda global ejecutada", "success");
+                const query = globalSearch.value.trim();
+                console.log("Global Search: ", query);
+
+                // 1. Try AI Processing first
+                if (typeof processGlobalSearch === 'function') {
+                    processGlobalSearch(query);
+                }
+
+                // 2. Fallback to standard incident search
+                renderIncidents(query.toLowerCase());
             }
         };
-        globalSearch.oninput = (e) => renderIncidents(e.target.value.toLowerCase());
+        // Remove oninput real-time filtering for global search to avoid confusion with AI commands
+        // or keep it just for local incidents if desired. For now, let's keep it simple.
     }
 
     const mSearch = document.getElementById('master-search-input');
@@ -786,6 +750,9 @@ async function saveToExcelMaster() {
             showToast('↑ CAMBIOS GUARDADOS EN EXCEL', 'success');
             updateSaveIndicator('saved');
             flashDashboard();
+
+            // Refresh AI Analysis
+            if (typeof generateAIInsights === 'function') generateAIInsights();
         } catch (err) {
             console.error("Save failed:", err);
             isSavingToExcel = false; // Reanudar watchdog incluso si falla
@@ -2441,12 +2408,12 @@ function showToast(msg, type = 'info') {
     const toast = document.createElement('div');
     toast.className = `toast ${type} `;
     toast.innerHTML = `
-    < div style = "display:flex; align-items:center; gap:10px;" >
+        <div style="display:flex; align-items:center; gap:10px;">
             <span style="font-size:16px;">${type === 'success' ? '✅' : (type === 'error' ? '⚠️' : 'ℹ️')}</span>
             <span>${msg}</span>
-        </div >
-    <span class="toast-close" onclick="this.parentElement.remove()">×</span>
-`;
+        </div>
+        <span class="toast-close" onclick="this.parentElement.remove()">×</span>
+    `;
 
     container.appendChild(toast);
     setTimeout(() => {
@@ -2523,7 +2490,7 @@ function updateTopIncidents() {
 }
 
 function initVoiceCommand() {
-    const btn = document.getElementById('voice-btn');
+    const btn = document.getElementById('voice-command-btn'); // Corrected ID
     const input = document.getElementById('quick-input-bar');
     if (!btn || !input) return;
 
@@ -2734,3 +2701,118 @@ window.exportStatusToPDF = () => {
 
     html2pdf().set(opt).from(tempContainer).save();
 };
+
+function setupEventListeners() {
+    // --- INCIDENT FORM ---
+    const incidentForm = document.getElementById('incident-form');
+    if (incidentForm) {
+        incidentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const worker = document.getElementById('worker-name').value;
+            const type = document.getElementById('incident-type').value;
+            const priorityElement = document.querySelector('input[name="priority"]:checked');
+            const priority = priorityElement ? priorityElement.value : 'MID';
+            const desc = document.getElementById('incident-desc').value;
+
+            if (worker && desc) {
+                // Function to add incident must exist
+                if (typeof addIncident === 'function') {
+                    addIncident({ worker, type, priority, desc });
+                } else {
+                    // Fallback if addIncident not found (should be in app.js scope)
+                    state.incidents.unshift({
+                        id: Date.now(),
+                        worker, type, priority, desc,
+                        date: new Date().toLocaleDateString('es-ES'),
+                        time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                        reported: false
+                    });
+                    saveAndRender();
+                }
+
+                const modal = document.getElementById('incident-modal');
+                if (modal) modal.classList.remove('active');
+                e.target.reset();
+                if (typeof showToast === 'function') showToast('Incidencia registrada correctamente', 'success');
+            }
+        });
+    }
+
+    // --- NOTE FORM ---
+    const noteForm = document.getElementById('note-form');
+    if (noteForm) {
+        noteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = document.getElementById('note-text').value;
+            if (text) {
+                if (typeof addNote === 'function') {
+                    addNote(text);
+                } else {
+                    state.notes.unshift({
+                        id: Date.now(),
+                        text: text,
+                        tag: 'INFO',
+                        date: new Date().toLocaleDateString('es-ES'),
+                        completed: false
+                    });
+                    saveAndRender();
+                }
+
+                const modal = document.getElementById('note-modal');
+                if (modal) modal.classList.remove('active');
+                e.target.reset();
+                if (typeof showToast === 'function') showToast('Nota añadida a la agenda', 'success');
+            }
+        });
+    }
+
+    // --- MODAL TRIGGERS (Safe Checks) ---
+    const btnAddIncident = document.getElementById('btn-add-incident');
+    if (btnAddIncident) btnAddIncident.onclick = () => {
+        const m = document.getElementById('incident-modal');
+        if (m) m.classList.add('active');
+    };
+
+    const btnAddIncidentV2 = document.getElementById('btn-add-incident-v2');
+    if (btnAddIncidentV2) btnAddIncidentV2.onclick = () => {
+        const m = document.getElementById('incident-modal');
+        if (m) m.classList.add('active');
+    };
+
+    const btnAddNote = document.getElementById('btn-add-note');
+    if (btnAddNote) btnAddNote.onclick = () => {
+        const m = document.getElementById('note-modal');
+        if (m) m.classList.add('active');
+    };
+
+    const btnAddNoteV2 = document.getElementById('btn-add-note-v2');
+    if (btnAddNoteV2) btnAddNoteV2.onclick = () => {
+        const m = document.getElementById('note-modal');
+        if (m) m.classList.add('active');
+    };
+
+    // Close buttons
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.onclick = function () {
+            const m = this.closest('.modal');
+            if (m) m.classList.remove('active');
+        };
+    });
+
+    // --- TABS LOGIC ---
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            if (typeof switchTab === 'function') switchTab(tabId);
+        });
+    });
+
+    // --- THEME TOGGLE ---
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.onclick = () => {
+            document.body.dataset.theme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', document.body.dataset.theme);
+        };
+    }
+}
