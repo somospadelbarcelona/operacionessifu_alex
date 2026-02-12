@@ -234,10 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.IS_AI_INITIALIZED = true;
         setTimeout(() => {
             generateAIInsights();
-            // PREMIUM STARTUP FEEDBACK
-            showToast("✨ SISTEMA CEREBRO v8.2 ACTIVADO", "bg-blue");
+            // PROFESSIONAL STARTUP FEEDBACK
+            showToast("✨ SISTEMA INFORMER v8.2 LISTO", "bg-blue");
             setTimeout(() => {
-                showToast("🧠 MOTOR INTELIGENCIA ARTIFICIAL: ONLINE", "bg-purple");
+                showToast("📊 MOTOR DE ANÁLISIS: ONLINE", "bg-purple");
             }, 800);
         }, 1500);
     }
@@ -318,10 +318,9 @@ function setupEventListeners() {
     // Modificación de Ingeniería: Lógica de Reconexión Inteligente
     if (masterBtn) {
         masterBtn.onclick = async () => {
-            // 1. PUTA CRÍTICA: Si hay un handle pendiente de reconexión, usuarlo DIRECTAMENTE.
+            // 1. RECONEXIÓN (PENDING RESUME)
             if (window.pendingResumeHandle) {
                 try {
-                    // Solicitar permiso RW (Lectura/Escritura) sobre el handle existente
                     const options = { mode: 'readwrite' };
                     if ((await window.pendingResumeHandle.queryPermission(options)) !== 'granted') {
                         if ((await window.pendingResumeHandle.requestPermission(options)) !== 'granted') {
@@ -329,9 +328,8 @@ function setupEventListeners() {
                             return;
                         }
                     }
-                    // Reactivar Watchdog con el handle recuperado
                     activateMasterLiveWatch(window.pendingResumeHandle);
-                    window.pendingResumeHandle = null; // Consumir handle
+                    window.pendingResumeHandle = null;
                     return;
                 } catch (err) {
                     console.error("Error al reanudar handle:", err);
@@ -339,24 +337,35 @@ function setupEventListeners() {
                 }
             }
 
-            // 2. Flujo normal (Primera vez)
-            if (window.showOpenFilePicker) {
+            // 2. MODO LOCAL (FILE://) - Forzar input manual
+            if (window.location.protocol === 'file:') {
+                masterInput.click();
+                return;
+            }
+
+            // 3. FLUJO NORMAL (WEB/HTTPS) - Intentar File System Access API
+            if ('showOpenFilePicker' in window) {
                 try {
                     const [handle] = await window.showOpenFilePicker({
                         types: [{
-                            description: 'Excel Master',
-                            accept: { 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx', '.xls'] }
+                            description: 'Excel Files',
+                            accept: { 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'] }
                         }],
                         multiple: false
                     });
 
                     if (handle) {
-                        activateMasterLiveWatch(handle);
+                        const file = await handle.getFile();
+                        handleExcelFile(file);
+                        // Opcional: Guardar handle para futuro si se desea
+                        // activateMasterLiveWatch(handle); 
                     }
                 } catch (err) {
-                    // Fallback silencioso si cancela
+                    // Si cancela, no pasa nada
+                    if (err.name !== 'AbortError') console.error(err);
                 }
             } else {
+                // Fallback para navegadores viejos / no soportados
                 masterInput.click();
             }
         };
@@ -1589,6 +1598,7 @@ function renderIncidents(query = '') {
             <div class="item-desc">
                 <strong style="color:var(--sifu-blue);">${inc.type}</strong>: ${inc.desc || 'Sin descripción detallada'}
             </div>
+            <div style="font-size:10px; opacity:0.7;">ASISTENTE: ONLINE</div>
             <div style="font-size:11px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
                 <span>📅 ${formatNoteDate(inc.date)}</span>
                 <span>⏰ ${inc.time}</span>
