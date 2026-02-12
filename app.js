@@ -22,6 +22,11 @@ const DataManager = {
     }
 };
 
+// --- FALLBACK SAFETY NET ---
+if (typeof INITIAL_MASTER_DATA === 'undefined') {
+    console.warn("⚠️ master_data.js no se cargó correctamente. Usando array vacío.");
+    window.INITIAL_MASTER_DATA = [];
+}
 const DEFAULT_STATE = {
     incidents: [],
     absences: [],
@@ -39,21 +44,16 @@ const DEFAULT_STATE = {
 const ATOMIC_STATE_KEY = 'sifu_universal_state_v5';
 let state = { ...DEFAULT_STATE };
 
-function loadGlobalState() {
+async function loadGlobalState() {
     try {
-        console.log('🔍 Intentando cargar estado guardado...');
+        console.log('🔍 Intentando cargar estado guardado (LocalStorage)...');
         const saved = localStorage.getItem(ATOMIC_STATE_KEY);
 
         if (saved) {
             console.log('✅ Datos encontrados en localStorage, tamaño:', saved.length, 'caracteres');
             const parsed = JSON.parse(saved);
-            console.log('✅ Datos parseados correctamente:', {
-                incidents: parsed.incidents?.length || 0,
-                notes: parsed.notes?.length || 0,
-                masterData: parsed.masterData?.length || 0
-            });
 
-            // Asignar directamente el estado parseado (con fallback a defaults)
+            // Reconstrucción del estado con preservación de masterData si hay datos estáticos frescos
             state = {
                 incidents: parsed.incidents || [],
                 absences: parsed.absences || [],
@@ -62,49 +62,42 @@ function loadGlobalState() {
                 glassPlanning: parsed.glassPlanning || [],
                 stats: parsed.stats || { activeWorkers: 24 },
                 notes: parsed.notes || [],
-                // Prioritize fresh data from file if available (fixes "7 descubiertos" persistence issue)
-                masterData: (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0)
-                    ? INITIAL_MASTER_DATA
-                    : (parsed.masterData || []),
+                masterData: parsed.masterData || [],
                 filterType: parsed.filterType || null,
                 stickyContent: parsed.stickyContent || ''
             };
 
+            // REGLA DE ACTUALIZACIÓN: Si INITIAL_MASTER_DATA existe y el state actual está vacío, lo inyectamos.
+            if (state.masterData.length === 0 && typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
+                console.log("📦 Inyectando INITIAL_MASTER_DATA en estado vacío.");
+                state.masterData = INITIAL_MASTER_DATA;
+            }
 
             console.log('✅ Estado cargado exitosamente desde localStorage');
             return true;
-        } else {
-            console.log('⚠️ No hay datos en localStorage, intentando IndexedDB...');
-            // Intentar cargar desde IndexedDB de forma asíncrona
-            loadStateFromIndexedDB().then(data => {
-                if (data) {
-                    state = {
-                        incidents: data.incidents || [],
-                        absences: data.absences || [],
-                        uncovered: data.uncovered || [],
-                        orders: data.orders || [],
-                        glassPlanning: data.glassPlanning || [],
-                        stats: data.stats || { activeWorkers: 24 },
-                        notes: data.notes || [],
-                        masterData: data.masterData || [],
-                        filterType: data.filterType || null,
-                        stickyContent: data.stickyContent || ''
-                    };
+        }
 
-                    console.log('✅ Estado cargado desde IndexedDB');
-                    renderAll();
-                }
-            });
+        console.log('⚠️ No hay datos en localStorage, consultando IndexedDB...');
+        const indexedData = await loadStateFromIndexedDB();
+
+        if (indexedData) {
+            state = {
+                incidents: indexedData.incidents || [],
+                absences: indexedData.absences || [],
+                uncovered: indexedData.uncovered || [],
+                orders: indexedData.orders || [],
+                glassPlanning: indexedData.glassPlanning || [],
+                stats: indexedData.stats || { activeWorkers: 24 },
+                notes: indexedData.notes || [],
+                masterData: indexedData.masterData || [],
+                filterType: indexedData.filterType || null,
+                stickyContent: indexedData.stickyContent || ''
+            };
+            console.log('✅ Estado cargado desde IndexedDB');
+            return true;
         }
     } catch (e) {
-        console.error('❌ Error cargando estado:', e);
-        // Intentar IndexedDB como último recurso
-        loadStateFromIndexedDB().then(data => {
-            if (data) {
-                state = data;
-                renderAll();
-            }
-        });
+        console.error('❌ Error crítico en loadGlobalState:', e);
     }
     return false;
 }
@@ -191,74 +184,70 @@ const hIncidents = document.getElementById('h-stat-incidents');
 const hActive = document.getElementById('h-stat-active');
 
 // Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    updateDate();
-    initCharts();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        updateDate();
+        initCharts();
 
-    // 1. CARGA ATÓMICA DE DATOS (ORDEN CORREGIDO)
-    // Primero intentamos cargar datos guardados
-    const wasLoaded = loadGlobalState();
+        // 1. CARGA ATÓMICA Y ASÍNCRONA DE DATOS
+        const wasLoaded = await loadGlobalState();
 
-    // Si NO se cargó nada, entonces usamos valores por defecto
-    if (!wasLoaded) {
-        console.log('No hay datos guardados, usando estado por defecto');
-        state = { ...DEFAULT_STATE };
-    }
+        if (!wasLoaded) {
+            console.log('No hay datos guardados, inicializando con defaults.');
+            state = { ...DEFAULT_STATE };
 
-    const lastSync = localStorage.getItem('sifu_last_sync');
-    if (lastSync) {
-        const syncEl = document.getElementById('last-sync-time');
-        if (syncEl) syncEl.textContent = `ÚLTIMA SYNC: ${lastSync}`;
-    }
-
-    // 2. LÓGICA DE FALLBACK CON PERSISTENCIA AUTOMÁTICA:
-    // Solo cargamos el archivo estático si no hay NADA en la memoria atómica
-    if (!wasLoaded && typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
-        console.log("📦 Cargando datos integrados (129 servicios)");
-        processMasterArray(INITIAL_MASTER_DATA);
-        saveAllState(); // ⭐ PERSISTIR INMEDIATAMENTE EN INDEXEDDB
-        updateTicker("SISTEMA: DATOS INTEGRADOS Y PERSISTIDOS [129 SERVICIOS]");
-    } else if (wasLoaded) {
-        console.log("🔄 Sincronizando vistas con datos recuperados...");
-        renderAll();
-        updateTicker("SISTEMA: DATOS RECUPERADOS CON ÉXITO");
-    } else {
-        // Si no se cargó nada y no hay datos iniciales, simplemente renderiza el estado por defecto (vacío)
-        renderAll();
-        updateTicker("SISTEMA: INICIADO CON ESTADO VACÍO");
-    }
-
-    // Initialize AI Engine with visual feedback
-    // Initialize AI Engine with visual feedback (ONLY ONCE)
-    if (typeof generateAIInsights === 'function' && !window.IS_AI_INITIALIZED) {
-        window.IS_AI_INITIALIZED = true;
-        setTimeout(() => {
-            generateAIInsights();
-            // PROFESSIONAL STARTUP FEEDBACK
-            showToast("✨ SISTEMA INFORMER v8.2 LISTO", "bg-blue");
-            setTimeout(() => {
-                showToast("📊 MOTOR DE ANÁLISIS: ONLINE", "bg-purple");
-            }, 800);
-        }, 1500);
-    }
-
-    setupEventListeners();
-    startTicker();
-    initVoiceCommand();
-
-    // Auto-fetch Excel from server (GitHub) if available
-    checkServerExcel();
-
-    // AUTO-GUARDADO PERIÓDICO (cada 3 segundos)
-    setInterval(() => {
-        if (hasUnsavedChanges) {
-            saveAllState();
-            console.log('Auto-guardado ejecutado');
+            if (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
+                console.log("📦 Cargando datos integrados de respaldo.");
+                processMasterArray(INITIAL_MASTER_DATA);
+                saveAllState();
+                updateTicker("SISTEMA: DATOS INTEGRADOS Y PERSISTIDOS [129 SERVICIOS]");
+            }
         }
-    }, 3000);
 
-    // Inicializar indicador de guardado
-    initSaveIndicator();
+        const lastSync = localStorage.getItem('sifu_last_sync');
+        if (lastSync) {
+            const syncEl = document.getElementById('last-sync-time');
+            if (syncEl) syncEl.textContent = `ÚLTIMA SYNC: ${lastSync}`;
+        }
+
+        // Renderizado Final una vez los datos están cargados
+        console.log("🔄 Sincronizando vistas...");
+        renderAll();
+        if (wasLoaded) updateTicker("SISTEMA: DATOS RECUPERADOS CON ÉXITO");
+
+        // Initialize AI Engine with visual feedback (ONLY ONCE)
+        if (typeof generateAIInsights === 'function' && !window.IS_AI_INITIALIZED) {
+            window.IS_AI_INITIALIZED = true;
+            setTimeout(() => {
+                generateAIInsights();
+                showToast("✨ SISTEMA INFORMER v8.2 LISTO", "bg-blue");
+                setTimeout(() => {
+                    showToast("📊 MOTOR DE ANÁLISIS: ONLINE", "bg-purple");
+                }, 800);
+            }, 1500);
+        }
+
+        setupEventListeners();
+        startTicker();
+        initVoiceCommand();
+
+        // Auto-fetch Excel from server (GitHub) if available
+        checkServerExcel();
+
+        // AUTO-GUARDADO PERIÓDICO (cada 3 segundos)
+        setInterval(() => {
+            if (hasUnsavedChanges) {
+                saveAllState();
+                console.log('Auto-guardado ejecutado');
+            }
+        }, 3000);
+
+        // Inicializar indicador de guardado
+        initSaveIndicator();
+    } catch (e) {
+        console.error("CRITICAL INIT ERROR:", e);
+        alert("ERROR CRÍTICO AL INICIAR: " + e.message + "\n\nPor favor, reporte este mensaje.");
+    }
 });
 
 
@@ -276,7 +265,7 @@ function updateDate() {
     }
 }
 
-function setupEventListeners() {
+function setupCoreInteractions() {
     const fab = document.getElementById('main-fab');
     const fabMenu = document.getElementById('fab-menu');
     if (fab) {
@@ -284,6 +273,19 @@ function setupEventListeners() {
             fab.classList.toggle('active');
             if (fabMenu) fabMenu.classList.toggle('active');
         };
+    }
+
+    // Sticky Toolbar Scroll Enhancement
+    const scrollWrapper = document.querySelector('.master-content-wrapper');
+    const toolbar = document.querySelector('.master-toolbar');
+    if (scrollWrapper && toolbar) {
+        scrollWrapper.addEventListener('scroll', () => {
+            if (scrollWrapper.scrollTop > 10) {
+                toolbar.classList.add('scrolled');
+            } else {
+                toolbar.classList.remove('scrolled');
+            }
+        });
     }
 
     // Add Drag & Drop for Absences Reordering
@@ -877,19 +879,31 @@ function processMasterArray(rawData) {
     const keyServicio = findKey('SERVICIO') || 'SERVICIO';
     const keyTitular = findKey('TITULAR') || 'TITULAR';
     const keyEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') ||
-        keys.find(k => k.toUpperCase().includes('ESTADO') && !k.toUpperCase().includes('SALUD')) ||
+        keys.find(k => k.toUpperCase().includes('ESTADO') && !k.toUpperCase().includes('SALUD') && !k.includes('1')) ||
         'ESTADO';
-    const keyEstadoSalud = keys.find(k => k.toUpperCase().includes('ESTADO') && k !== keyEstado) || keys.find(k => k.toUpperCase().includes('BAJA')) || keys.find(k => k.toUpperCase().includes('IT')) || 'ESTADO.1';
+    // Buscar específicamente ESTADO1 o columnas de salud/IT
+    const keyEstadoSalud = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') ||
+        keys.find(k => k.toUpperCase().includes('SALUD')) ||
+        keys.find(k => k.toUpperCase().includes('BAJA')) ||
+        keys.find(k => k.toUpperCase().includes('IT')) ||
+        'ESTADO1';
     const keySuplente = findKey('SUPLENTE') || 'SUPLENTE';
     const keyHorario = findKey('HORARIO') || 'HORARIO';
 
+    console.log('🔍 Columnas detectadas:', { keyEstado, keyEstadoSalud, keyServicio, keyTitular });
+
     rawData.forEach((row, index) => {
-        const servicio = row[keyServicio] || 'CENTRO DESCONOCIDO';
+        const servicio = row[keyServicio] || '';
         const titular = row[keyTitular] || '';
         const estadoSalud = row[keyEstadoSalud] || '';
         const estadoCobertura = row[keyEstado] || '';
         const suplente = row[keySuplente] || '';
         const horario = row[keyHorario] || '';
+
+        // Skip empty rows (common at the end of Excel files)
+        if (!servicio || servicio.toString().trim() === '') {
+            return; // Skip this row
+        }
 
         const estadoUpper = estadoCobertura ? estadoCobertura.toString().toUpperCase() : '';
         const titularUpper = titular ? titular.toString().toUpperCase() : '';
@@ -950,21 +964,7 @@ function saveAndRender() {
     renderAll();
 }
 
-function renderAll() {
-    renderPriorityPanel();
-    renderMasterSummary();
-    renderAbsences();
-    renderUncovered();
-    renderOrders();
-    renderIncidents();
-    renderNotes();
-    updateHeaderStats();
-    updateCharts();
-    updateSisPredict();
-    updateInsights();
-    updateAnalytics();
-    updateEmergencyPopup();
-}
+// function renderAll removed - duplicated at line 2100
 
 function renderPriorityPanel() {
     const panel = document.getElementById('critical-actions');
@@ -1377,6 +1377,22 @@ function renderMasterBodyOnly() {
 
     const globalQuery = (searchInput ? searchInput.value : '').toLowerCase().trim();
 
+    if (!state.masterData || state.masterData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No hay datos. Carga un Excel (SYNC MASTER).</td></tr>';
+        if (countEl) countEl.textContent = '0';
+        if (statsContainer) statsContainer.innerHTML = '';
+        return;
+    }
+
+    const keys = Object.keys(state.masterData[0]);
+    const findK = (q) => keys.find(k => k.toUpperCase().includes(q));
+
+    const kServicio = findK('SERVICIO') || keys[0];
+    const kTitular = findK('TITULAR') || keys[1] || 'TITULAR';
+    const kHorario = findK('HORARIO') || keys[2] || 'HORARIO';
+    const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || findK('ESTADO') || keys[3];
+    const kSuplente = findK('SUPLENTE') || (keys.length > 4 ? keys[4] : 'SUPLENTE');
+
     // Filtering Logic
     let filtered = state.masterData.filter(row => {
         // 1. Global Search
@@ -1386,15 +1402,8 @@ function renderMasterBodyOnly() {
         }
 
         // 2. Column Filters
-        // Map Keys dynamically (best effort)
-        const keys = Object.keys(state.masterData[0]);
-        const findK = (q) => keys.find(k => k.toUpperCase().includes(q));
+        // (Uses variables defined in outer scope)
 
-        const kServicio = findK('SERVICIO') || keys[0];
-        const kTitular = findK('TITULAR') || keys[1] || 'TITULAR';
-        const kHorario = findK('HORARIO') || keys[2] || 'HORARIO';
-        const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || findK('ESTADO') || keys[3];
-        const kSuplente = findK('SUPLENTE') || (keys.length > 4 ? keys[4] : 'SUPLENTE');
 
         if (columnFilters.servicio && !(row[kServicio] || '').toString().toLowerCase().includes(columnFilters.servicio)) return false;
         if (columnFilters.titular && !(row[kTitular] || '').toString().toLowerCase().includes(columnFilters.titular)) return false;
@@ -1434,13 +1443,8 @@ function renderMasterBodyOnly() {
     }
 
     // Mapping Keys for Display
-    const keys = Object.keys(state.masterData[0]);
-    const findK = (q) => keys.find(k => k.toUpperCase().includes(q));
-    const kServicio = findK('SERVICIO') || keys[0];
-    const kTitular = findK('TITULAR') || keys[1] || 'TITULAR';
-    const kHorario = findK('HORARIO') || keys[2] || 'HORARIO';
-    const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || findK('ESTADO') || keys[3];
-    const kSuplente = findK('SUPLENTE') || (keys.length > 4 ? keys[4] : 'SUPLENTE');
+    // Use existing keys and mappings from top of function
+
 
     const displayLimit = 300;
     const dataToShow = filtered.slice(0, displayLimit);
@@ -1520,7 +1524,13 @@ function updateEmergencyPopup() {
     const keyH = keys.find(k => k.toUpperCase().includes('HORARIO')) || 'HORARIO';
     const keyS = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
 
-    const discovered = state.masterData.filter(r => (r[keyE] || '').toString().toUpperCase().includes('DESCUBIERTO'));
+    const discovered = state.masterData.filter(r => {
+        const servicio = (r[keyS] || '').toString().trim();
+        // Skip rows without a valid service name
+        if (!servicio) return false;
+
+        return (r[keyE] || '').toString().toUpperCase().includes('DESCUBIERTO');
+    });
     const container = document.getElementById('emergency-popup-container');
 
     if (discovered.length === 0) {
@@ -1631,7 +1641,7 @@ function renderNotes() {
         if (notes.length === 0) return '<div class="empty-state">EL CEREBRO OPERATIVO ESTÁ LIMPIO.</div>';
         return notes.map(note => {
             const tag = note.tag || 'INFO';
-            const tagClass = `tag - ${tag.toLowerCase()} `;
+            const tagClass = `tag-${tag.toLowerCase()}`;
             const tagIcon = tag === 'URGENTE' ? '🔥' : (tag === 'SEGUIMIENTO' ? '📞' : '📌');
             return `
     <div class="note-item ${tagClass} ${note.completed ? 'completed' : ''}" style="cursor:pointer;" onclick="toggleNote(${note.id})">
@@ -1718,9 +1728,66 @@ window.toggleNote = (id) => {
     if (note) { note.completed = !note.completed; saveAndRender(); }
 };
 
+function refreshMetrics() {
+    if (!state.masterData || state.masterData.length === 0) {
+        state.uncovered = [];
+        state.absences = [];
+        return;
+    }
+
+    const keys = Object.keys(state.masterData[0]);
+    const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+    const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
+    const kSalud = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') ||
+        keys.find(k => k.toUpperCase().includes('SALUD')) ||
+        keys.find(k => k.toUpperCase().includes('BAJA')) ||
+        'ESTADO1';
+    const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
+    const kHorario = keys.find(k => k.toUpperCase().includes('HORARIO')) || 'HORARIO';
+
+    // 1. Sincronizar state.uncovered
+    state.uncovered = state.masterData.filter(row => {
+        const valS = (row[kServicio] || '').toString().trim();
+        // Skip rows without a valid service name
+        if (!valS) return false;
+
+        const valE = (row[kEstado] || '').toString().toUpperCase();
+        const valT = (row[kTitular] || '').toString().toUpperCase();
+        const isSpecial = valE.includes('BRIGADA') || valT.includes('RUTA CRISTALES') || valE.includes('OBRAS') || valE.includes('CERRADO');
+        const isDesc = valE.includes('DESCUBIERTO') || (valE === '' && valT === '') || (valT === 'SIN TITULAR');
+        return isDesc && !isSpecial;
+    }).map(row => ({
+        id: Date.now() + Math.random(),
+        center: row[kServicio] || '---',
+        worker: row[kTitular] || 'DESCUBIERTO',
+        shift: row[kHorario] || '--:--',
+        risk: true
+    }));
+
+    // 2. Sincronizar state.absences
+    state.absences = state.masterData.filter(row => {
+        const valE = (row[kEstado] || '').toString().toUpperCase();
+        const valS = kSalud ? (row[kSalud] || '').toString().toUpperCase() : '';
+        // Detectar BAJA, IT, VACACIONES en cualquiera de las dos columnas
+        return valE.includes('BAJA') || valE.includes('IT') ||
+            valS.includes('BAJA') || valS.includes('IT') || valS.includes('VACACIONES');
+    }).map(row => ({
+        id: Date.now() + Math.random(),
+        worker: row[kTitular] || 'PERSONAL',
+        center: row[kServicio] || '---',
+        reason: (row[kSalud] || row[kEstado] || 'BAJA IT').toString()
+    }));
+}
+
 function updateHeaderStats() {
+    refreshMetrics(); // Asegurar datos frescos
+
     if (hIncidents) hIncidents.textContent = state.incidents.length;
-    if (hActive) hActive.textContent = state.stats.activeWorkers;
+
+    const total = state.masterData.length;
+    const active = Math.max(0, total - state.uncovered.length - state.absences.length);
+    if (hActive) hActive.textContent = active;
+    state.stats.activeWorkers = active;
 }
 
 function processQuickInput(text) {
@@ -1807,10 +1874,15 @@ window.showStatusModal = (title, contentHTML) => {
 window.showUncoveredDetails = () => {
     if (!state.masterData) return;
     const uncovered = state.masterData.filter(row => {
+        const keys = Object.keys(row);
+        const servicioKey = keys.find(k => k.toUpperCase().includes('SERVICIO'));
+        const servicio = servicioKey ? (row[servicioKey] || '').toString().trim() : '';
+
+        // Skip rows without a valid service name
+        if (!servicio) return false;
+
         const rowValues = Object.values(row).map(v => (v || '').toString().toUpperCase());
         // Check for 'DESCUBIERTO' in any column, or 'SIN TITULAR'
-        // Ideally checking specific columns is better but dynamic keys make it tricky.
-        // Let's assume 'DESCUBIERTO' keyword is strong enough for status.
         return rowValues.some(v => v.includes('DESCUBIERTO')) || rowValues.some(v => v === 'SIN TITULAR');
     });
 
@@ -1837,10 +1909,19 @@ window.showUncoveredDetails = () => {
 
 window.showAbsenceDetails = () => {
     if (!state.masterData) return;
-    // Heuristic for Absences: Look for "BAJA", "IT", "ENFERMEDAD" in non-service columns
+
+    const keys = Object.keys(state.masterData[0]);
+    const kEstado1 = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') ||
+        keys.find(k => k.toUpperCase().includes('SALUD')) ||
+        keys.find(k => k.toUpperCase().includes('BAJA')) ||
+        'ESTADO1';
+    const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
+    const kTitular = keys.find(k => k.toUpperCase().includes('TITULAR')) || 'TITULAR';
+
+    // Filter by ESTADO1 column specifically
     const absences = state.masterData.filter(row => {
-        const rowStr = Object.values(row).join(' ').toUpperCase();
-        return rowStr.includes('BAJA') || rowStr.includes(' I.T.') || rowStr.includes('IT ');
+        const estado1 = (row[kEstado1] || '').toString().toUpperCase();
+        return estado1.includes('BAJA') || estado1.includes('IT') || estado1.includes('VACACIONES');
     });
 
     if (absences.length === 0) {
@@ -1849,14 +1930,13 @@ window.showAbsenceDetails = () => {
     }
 
     const html = `<table class="master-table">
-        <thead><tr><th>SERVICIO</th><th>TITULAR</th><th>ESTADO</th></tr></thead>
+        <thead><tr><th>SERVICIO</th><th>TITULAR</th><th>ESTADO1</th></tr></thead>
         <tbody>
             ${absences.map(row => {
-        const keys = Object.keys(row);
-        const srv = row[keys.find(k => k.toUpperCase().includes('SERVICIO'))] || '-';
-        const tit = row[keys.find(k => k.toUpperCase().includes('TITULAR'))] || '-';
-        const est = row[keys.find(k => k.toUpperCase().includes('ESTADO'))] || '-';
-        return `<tr><td>${srv}</td><td>${tit}</td><td>${est}</td></tr>`;
+        const srv = row[kServicio] || '-';
+        const tit = row[kTitular] || '-';
+        const est1 = row[kEstado1] || '-';
+        return `<tr><td>${srv}</td><td>${tit}</td><td>${est1}</td></tr>`;
     }).join('')}
         </tbody>
     </table>`;
@@ -2045,10 +2125,10 @@ window.switchTab = (tabId) => {
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
-    const target = document.getElementById(`tab - ${tabId} `);
+    const target = document.getElementById(`tab-${tabId}`);
     if (target) {
         target.classList.add('active');
-        const btn = document.querySelector(`.tab - btn[onclick *= "${tabId}"]`);
+        const btn = document.querySelector(`.tab-btn[onclick*="${tabId}"]`);
         if (btn) btn.classList.add('active');
         if (tabId === 'resumen') setTimeout(updateCharts, 100);
     }
@@ -2080,8 +2160,52 @@ function updateCharts() {
     updateOperationalChart();
 }
 
+
+function renderAll() {
+    updateDate();
+    updateHeaderStats();
+
+    // Render Modules
+    if (typeof renderIncidents === 'function') renderIncidents();
+    if (typeof renderNotes === 'function') renderNotes();
+    if (typeof renderMasterSummary === 'function') renderMasterSummary();
+    if (typeof renderAbsences === 'function') renderAbsences();
+    if (typeof renderUncovered === 'function') renderUncovered();
+    if (typeof renderOrders === 'function') renderOrders();
+    if (typeof renderPriorityPanel === 'function') renderPriorityPanel();
+
+    // Charts & Analytics
+    if (typeof updateCharts === 'function') updateCharts();
+    if (typeof updateOperationalChart === 'function') updateOperationalChart();
+    if (typeof updateSisPredict === 'function') updateSisPredict();
+    if (typeof updateInsights === 'function') updateInsights();
+    if (typeof updateAnalytics === 'function') updateAnalytics();
+    if (typeof updateEmergencyPopup === 'function') updateEmergencyPopup();
+
+    console.log("🔄 Dashboard renderizado completamente (Pipeline Consolidado).");
+}
+
 let operationalChart = null;
+
+
+function processMasterArray(data) {
+    if (!data || !Array.isArray(data)) {
+        console.error("❌ processMasterArray: Datos inválidos", data);
+        return;
+    }
+
+    state.masterData = data;
+    console.log(`✅ procesMasterArray: Cargados ${data.length} registros.`);
+
+    // Reset filters
+    columnFilters = { servicio: '', titular: '', horario: '', estado: '', suplente: '' };
+
+    // Update UI
+    renderAll();
+}
+
 function initOperationalChart() {
+
     const ctx = document.getElementById('operationalHealthChart');
     if (!ctx) return;
     operationalChart = new Chart(ctx, {
@@ -2108,32 +2232,14 @@ function updateOperationalChart() {
     if (!operationalChart || !state.masterData.length) return;
 
     const total = state.masterData.length;
-    const keys = Object.keys(state.masterData[0]);
-    // Detección ultra-robusta: coincidencia exacta trimmed o contiene pero no es salud/it
-    const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') ||
-        keys.find(k => k.toUpperCase().includes('ESTADO') && !k.toUpperCase().includes('SALUD') && !k.toUpperCase().includes('IT')) ||
-        'ESTADO';
-    const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') ||
-        keys.find(k => k.toUpperCase().includes('TITULAR')) ||
-        'TITULAR';
-
-    const uncovered = state.masterData.filter(r => {
-        const eUpper = (r[kEstado] || '').toString().toUpperCase();
-        const tUpper = (r[kTitular] || '').toString().toUpperCase();
-
-        const isSpecial = eUpper.includes('BRIGADA') || tUpper.includes('RUTA CRISTALES') || eUpper.includes('OBRAS') || eUpper.includes('CERRADO');
-        const isDesc = eUpper.includes('DESCUBIERTO') || (eUpper === '' && tUpper === '') || (tUpper === 'SIN TITULAR');
-
-        return isDesc && !isSpecial;
-    }).length;
-
+    const uncovered = state.uncovered.length;
     const incidents = state.incidents.length;
     const ok = Math.max(0, total - uncovered - incidents);
 
     operationalChart.data.datasets[0].data = [ok, incidents, uncovered];
     operationalChart.update();
 
-    const coveragePct = ((ok / total) * 100).toFixed(0);
+    const coveragePct = total > 0 ? ((ok / total) * 100).toFixed(0) : "0";
     const coverEl = document.getElementById('coverage-percent');
     if (coverEl) coverEl.textContent = coveragePct + '%';
 
@@ -2173,44 +2279,18 @@ function updateInsights() {
 
     if (!state.masterData || state.masterData.length === 0) return;
 
-    // --- PROFESSIONAL DATA SCANNING ---
-    const keys = Object.keys(state.masterData[0]);
-    // Priorizar coincidencia exacta trimmed
-    const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') ||
-        keys.find(k => k.toUpperCase().includes('ESTADO') && !k.toUpperCase().includes('SALUD') && !k.toUpperCase().includes('IT')) ||
-        'ESTADO';
-    const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') ||
-        keys.find(k => k.toUpperCase().includes('TITULAR')) ||
-        'TITULAR';
-    const kSalud = keys.find(k => k.toUpperCase().includes('SALUD')) ||
-        keys.find(k => k.toUpperCase().includes('IT')) ||
-        keys.find(k => k.toUpperCase().includes('ESTADO.')) ||
-        '';
-
-    // Count Uncovered (Consolidated logic)
-    const uncoveredCount = state.masterData.filter(row => {
-        const valE = (row[kEstado] || '').toString().toUpperCase();
-        const valT = (row[keys.find(k => k.toUpperCase().includes('TITULAR')) || 'TITULAR'] || '').toString().toUpperCase();
-
-        const isSpecial = valE.includes('BRIGADA') || valT.includes('RUTA CRISTALES') || valE.includes('OBRAS') || valE.includes('CERRADO');
-        const isDesc = valE.includes('DESCUBIERTO') || (valE === '' && valT === '') || (valT === 'SIN TITULAR');
-
-        return isDesc && !isSpecial;
-    }).length;
-
-    // Count Absences (IT / Sick Leave)
-    const absencesCount = state.masterData.filter(row => {
-        const valE = (row[kEstado] || '').toString().toUpperCase();
-        const valS = kSalud ? (row[kSalud] || '').toString().toUpperCase() : '';
-        return valE.includes('BAJA') || valE.includes(' IT') || valS.includes('BAJA') || valS.includes('SI');
-    }).length;
+    const uncoveredCount = state.uncovered.length;
+    const absencesCount = state.absences.length;
 
     // Update Bridge Cards
     if (valUncovered) {
         valUncovered.textContent = uncoveredCount;
         const card = document.getElementById('metric-uncovered');
-        if (uncoveredCount > 0) card.classList.add('critical-pulse');
-        else card.classList.remove('critical-pulse');
+        if (uncoveredCount > 0) {
+            if (card) card.classList.add('critical-pulse');
+        } else {
+            if (card) card.classList.remove('critical-pulse');
+        }
     }
 
     if (valAbsences) {
@@ -2223,7 +2303,7 @@ function updateInsights() {
 
     if (valActive) {
         const total = state.masterData.length;
-        const percent = (((total - uncoveredCount) / total) * 100).toFixed(1);
+        const percent = total > 0 ? (((total - uncoveredCount) / total) * 100).toFixed(1) : "0";
         valActive.textContent = percent + '%';
     }
 
@@ -2247,11 +2327,10 @@ function updateInsights() {
     const insights = [];
 
     // 1. Análisis de Cobertura (Critical)
-    const uncovered = state.uncovered.length;
-    if (uncovered > 0) {
+    if (uncoveredCount > 0) {
         insights.push({
             type: 'critical',
-            text: `⚠️ ALERTA: ${uncovered} servicios descubiertos requieren acción inmediata.`,
+            text: `⚠️ ALERTA: ${uncoveredCount} servicios descubiertos requieren acción inmediata.`,
             tag: 'URGENTE'
         });
     }
@@ -2289,12 +2368,12 @@ function updateInsights() {
     }
 
     panel.innerHTML = insights.map(i => `
-    < div class="insight-card" >
+        <div class="insight-card">
             <div class="insight-tag ${i.type === 'critical' ? 'critical' : (i.type === 'performance' ? 'performance' : 'ai-suggest')}">
                 ${i.tag}
             </div>
             <div class="insight-text">${i.text}</div>
-        </div >
+        </div>
     `).join('');
 }
 function scrollToModule(id) {
@@ -2381,12 +2460,12 @@ function renderRealEmails(emails) {
     if (unreadCount) unreadCount.textContent = unreads;
 
     feed.innerHTML = emails.map(email => `
-    < div class="outlook-item ${!email.isRead ? 'unread' : ''}" onclick = "window.open('${email.webLink || '#'}', '_blank')" >
+        <div class="outlook-item ${!email.isRead ? 'unread' : ''}" onclick="window.open('${email.webLink || '#'}', '_blank')">
             <div style="font-weight:700; font-size:13px; color:var(--sifu-blue); margin-bottom:4px;">${email.sender.emailAddress.name}</div>
             <div style="font-weight:600; font-size:12px; margin-bottom:2px;">${email.subject}</div>
             <div style="font-size:11px; color:var(--text-dim); overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">${email.bodyPreview}</div>
             <div style="font-size:10px; color:var(--text-dim); text-align:right; margin-top:4px;">${new Date(email.receivedDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-        </div >
+        </div>
     `).join('');
 }
 
@@ -2394,18 +2473,18 @@ function renderOutlookMock() {
     const feed = document.getElementById('outlook-feed');
     if (!feed) return;
     feed.innerHTML = `
-    < div class="outlook-item unread" >
+        <div class="outlook-item unread">
             <div style="font-weight:700; font-size:13px; color:var(--sifu-blue); margin-bottom:4px;">Soporte IT</div>
             <div style="font-weight:600; font-size:12px; margin-bottom:2px;">Mantenimiento Programado</div>
             <div style="font-size:11px; color:var(--text-dim);">Recordatorio: El sistema se actualizará esta noche.</div>
             <div style="font-size:10px; color:var(--text-dim); text-align:right; margin-top:4px;">10:30</div>
-        </div >
-    <div class="outlook-item">
-        <div style="font-weight:700; font-size:13px; color:var(--sifu-blue); margin-bottom:4px;">Recursos Humanos</div>
-        <div style="font-weight:600; font-size:12px; margin-bottom:2px;">Nuevas Incorporaciones</div>
-        <div style="font-size:11px; color:var(--text-dim);">Adjunto lista de personal nuevo.</div>
-        <div style="font-size:10px; color:var(--text-dim); text-align:right; margin-top:4px;">09:15</div>
-    </div>
+        </div>
+        <div class="outlook-item">
+            <div style="font-weight:700; font-size:13px; color:var(--sifu-blue); margin-bottom:4px;">Recursos Humanos</div>
+            <div style="font-weight:600; font-size:12px; margin-bottom:2px;">Nuevas Incorporaciones</div>
+            <div style="font-size:11px; color:var(--text-dim);">Adjunto lista de personal nuevo.</div>
+            <div style="font-size:10px; color:var(--text-dim); text-align:right; margin-top:4px;">09:15</div>
+        </div>
 `;
 }
 
@@ -2466,12 +2545,12 @@ function updateHeatmap() {
         else if (dayIncidents > 0) level = 1;
 
         html += `
-    < div class="heatmap-day level-${level}" >
-                <span>${dayLabel}</span>
-                <strong>${dayIncidents}</strong>
-                <span style="font-size:8px;">${dayIncidents} alert.</span>
-            </div >
-    `;
+        <div class="heatmap-day level-${level}">
+            <span>${dayLabel}</span>
+            <strong>${dayIncidents}</strong>
+            <span style="font-size:8px;">${dayIncidents} alert.</span>
+        </div>
+        `;
     }
     heatmap.innerHTML = html;
 }
@@ -2495,10 +2574,10 @@ function updateTopIncidents() {
     }
 
     list.innerHTML = sorted.map(([worker, count]) => `
-    < div class="top-incident-item" >
+        <div class="top-incident-item">
             <span class="worker">${worker}</span>
             <span class="count">${count} ALERTAS</span>
-        </div >
+        </div>
     `).join('');
 }
 
@@ -2608,13 +2687,13 @@ position: fixed;
 top: 20px;
 right: 20px;
 padding: 8px 16px;
-border - radius: 20px;
-font - size: 12px;
-font - weight: 700;
-z - index: 10000;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 700;
+z-index: 10000;
 transition: all 0.3s ease;
 opacity: 0;
-pointer - events: none;
+pointer-events: none;
 `;
         document.body.appendChild(indicator);
     }
@@ -2716,6 +2795,7 @@ window.exportStatusToPDF = () => {
 };
 
 function setupEventListeners() {
+    setupCoreInteractions();
     // --- INCIDENT FORM ---
     const incidentForm = document.getElementById('incident-form');
     if (incidentForm) {
@@ -2828,6 +2908,9 @@ function setupEventListeners() {
             localStorage.setItem('theme', document.body.dataset.theme);
         };
     }
+
+    // --- ORDERS MODULE LISTENERS ---
+    setupOrdersListeners();
 }
 
 // --- AUTO-FETCH EXCEL FROM SERVER (GITHUB SYNC) ---
@@ -2840,44 +2923,149 @@ async function checkServerExcel() {
     }
 
     try {
-        console.log("☁️ Buscando actualización de Master en servidor...");
-        // Add cache busting to force fresh fetch
-        const response = await fetch('./MASTER GENERAL.xlsx?t=' + new Date().getTime());
-
-        if (!response.ok) {
-            console.log("⚠️ No se encontró MASTER GENERAL.xlsx en servidor o error de red.");
-            return;
-        }
+        const response = await fetch('./MASTER GENERAL.xlsx');
+        if (!response.ok) throw new Error("No se encontró el archivo en servidor");
 
         const arrayBuffer = await response.arrayBuffer();
-        if (arrayBuffer.byteLength === 0) {
-            console.log("⚠️ El archivo Excel está vacío.");
-            return;
-        }
-
         const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: 'array' });
+
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+        if (jsonData && jsonData.length > 0) {
+            state.masterData = jsonData; // Assuming state.masterData is the global source of truth
+            // If you intend to use globalMasterData and originalMasterData as new global state variables,
+            // they should be declared globally and assigned here. For now, I'll update state.masterData.
+            // globalMasterData = jsonData; // If these were declared globally
+            // originalMasterData = [...jsonData]; // If these were declared globally
+
+            // Persistir (assuming saveDataToIndexedDB and updateDashboardCounts exist elsewhere)
+            // saveDataToIndexedDB(globalMasterData);
+            // updateDashboardCounts();
+
+            // Re-render the master table
+            renderMasterSummary(); // This will re-render the table based on state.masterData
+
+            showToast("✅ MASTER sincronizado desde servidor (GitHub)", "success");
+            console.log("✅ Datos cargados desde MASTER GENERAL.xlsx (Servidor)");
+        }
+    } catch (error) {
+        console.warn("⚠️ No se pudo cargar MASTER GENERAL.xlsx del servidor:", error);
+        // No mostrar error al usuario si falla silenciosamente, ya usará el botón manual si quiere
+    }
+}
+
+
+// --- ORDERS MODULE LOGIC ---
+
+// 1. Setup Orders Event Listeners (Call this in setupEventListeners)
+function setupOrdersListeners() {
+    const btnLoadOrders = document.getElementById('btn-load-orders');
+    const ordersInput = document.getElementById('orders-file-input');
+    const ordersSearch = document.getElementById('orders-search');
+
+    if (btnLoadOrders && ordersInput) {
+        btnLoadOrders.onclick = () => ordersInput.click();
+
+        ordersInput.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) handleOrdersExcel(file);
+        };
+    }
+
+    if (ordersSearch) {
+        ordersSearch.oninput = (e) => filterOrders(e.target.value);
+    }
+}
+
+// 2. Handle Excel File
+async function handleOrdersExcel(file) {
+    try {
+        const data = await file.arrayBuffer();
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        // Asumimos que la primera hoja es la correcta o buscamos "PEDIDO"
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
 
         // Convert to JSON
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
 
-        if (jsonData.length > 0) {
-            console.log(`✅ EXCEL DESCARGADO DEL SERVIDOR: ${jsonData.length} filas.`);
-
-            // Process data using existing logic
-            processMasterArray(jsonData);
-
-            // Update UI feedback
-            updateTicker(`SISTEMA: DATOS SINCRONIZADOS DE SERVIDOR [${jsonData.length} SERVICIOS]`);
-            showToast(`☁️ Datos actualizados desde la nube (${jsonData.length} registros)`, "success");
-
-            // Re-render everything to show new data
-            renderAll();
+        if (jsonData && jsonData.length > 0) {
+            state.orders = jsonData; // Store in global state
+            renderOrdersTable(state.orders);
+            showToast(`📦 Se han cargado ${jsonData.length} pedidos`, "success");
+        } else {
+            showToast("⚠️ El archivo parece estar vacío o no es válido", "warning");
         }
-    } catch (e) {
-        console.error("❌ Error verificando Excel del servidor:", e);
-        showToast("❌ Error al conectar con servidor", "error");
+    } catch (err) {
+        console.error("Error loading orders:", err);
+        showToast("❌ Error al leer el archivo de pedidos", "error");
     }
 }
+
+// 3. Render Orders Table
+function renderOrdersTable(data) {
+    const container = document.getElementById('orders-table-container');
+    if (!container) return;
+
+    if (!data || data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No hay datos para mostrar</p></div>';
+        return;
+    }
+
+    // Dynamic Headers based on first row
+    const headers = Object.keys(data[0]);
+
+    let html = `
+        <table class="data-table">
+            <thead>
+                <tr>
+                    ${headers.map(h => `<th>${h}</th>`).join('')}
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    // Rows (Limit to 500 for performance if needed, or pagination)
+    data.slice(0, 500).forEach(row => {
+        html += '<tr>';
+        headers.forEach(header => {
+            html += `<td>${row[header] || ''}</td>`;
+        });
+        html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+
+    // Add count info
+    html = `<div class="table-info">Mostrando ${Math.min(data.length, 500)} de ${data.length} registros</div>` + html;
+
+    container.innerHTML = html;
+}
+
+// 4. Filter Orders
+function filterOrders(query) {
+    if (!state.orders) {
+        renderOrdersTable([]);
+        return;
+    }
+    if (!query) {
+        renderOrdersTable(state.orders);
+        return;
+    }
+
+    const lowerQuery = query.toLowerCase();
+    const filtered = state.orders.filter(row => {
+        return Object.values(row).some(val =>
+            String(val).toLowerCase().includes(lowerQuery)
+        );
+    });
+
+    renderOrdersTable(filtered);
+}
+
+
+

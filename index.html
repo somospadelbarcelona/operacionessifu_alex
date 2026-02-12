@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ai_styles.css">
+    <link rel="stylesheet" href="filter_bar_sticky.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -204,12 +205,18 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Stats Summary (Fixed) -->
                                 <div id="master-stats-summary" class="master-compact-stats">
                                     <!-- Dynamic Stats -->
                                 </div>
-                                <div id="master-summary-feed" class="scroll-feed"
-                                    style="max-height: 600px; overflow-x: hidden;">
-                                    <!-- Table JS Inject -->
+
+                                <!-- Scrollable Content Wrapper -->
+                                <div class="master-content-wrapper"
+                                    style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
+                                    <div id="master-summary-feed" class="scroll-feed">
+                                        <!-- Table JS Inject -->
+                                    </div>
                                 </div>
                             </div>
 
@@ -242,67 +249,89 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="tab-content" id="tab-abonos">
-                        <div class="module-card" id="module-absences" style="width: 100%;">
-                            <h3>TRABAJADORES CON BAJA IT <span class="badge blue">LIVE</span></h3>
-                            <div id="absences-feed" class="scroll-feed" style="max-height: 700px;"></div>
-                        </div>
-                    </div>
 
-                    <div class="tab-content" id="tab-descubiertos">
-                        <div class="module-card" id="module-uncovered" style="width: 100%;">
-                            <h3>CONTROL DE DESCUBIERTOS <span class="badge red">URGENTE</span></h3>
-                            <div id="uncovered-feed" class="scroll-feed" style="max-height: 700px;"></div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tab-pedidos">
-                        <div class="module-card" id="module-orders" style="width: 100%;">
-                            <h3>GESTOR DE PEDIDOS Y MATERIALES <span class="badge blue">LOGÍSTICA</span></h3>
-                            <div id="orders-feed" class="scroll-feed" style="max-height: 700px;"></div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tab-resumen">
-                        <div class="module-card" id="module-summary" style="width: 100%;">
-                            <h3>RESUMEN EJECUTIVO DE OPERACIONES</h3>
-                            <div class="analytics-row"
-                                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; margin-top: 20px;">
-                                <div class="analytics-card">
-                                    <h4>MAPA DE CALOR DE INCIDENCIAS (ÚLTIMOS 7 DÍAS)</h4>
-                                    <div id="incidents-heatmap" class="heatmap-container"
-                                        style="height: 250px; position: relative;">
-                                        <canvas id="heatmapCanvas"></canvas>
+                        <div class="tab-content" id="tab-pedidos">
+                            <section class="orders-section">
+                                <div class="orders-header">
+                                    <h2 class="section-title">GESTIÓN DE PEDIDOS</h2>
+                                    <div class="orders-controls">
+                                        <input type="file" id="orders-file-input" accept=".xlsx" style="display:none">
+                                        <button class="btn-primary" id="btn-load-orders">
+                                            📂 CARGAR PEDIDOS
+                                        </button>
+                                        <div class="search-box">
+                                            <input type="text" id="orders-search"
+                                                placeholder="Buscar pedido, artículo, código...">
+                                            <i class="fas fa-search search-icon"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="analytics-card">
-                                    <h4>RECURRENTES / TOP ALERTAS</h4>
-                                    <div id="top-incidents-list" class="heatmap-container"
-                                        style="height: 250px; position: relative;">
-                                        <canvas id="topClientsChart"></canvas>
+                                <div id="orders-table-container" class="table-container">
+                                    <div class="empty-state">
+                                        <p>📂 Carga el archivo "PLANTILLA PEDIDO" para ver los datos.</p>
                                     </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="tab-content" id="tab-abonos">
+                            <div class="module-card" id="module-absences" style="width: 100%;">
+                                <h3>TRABAJADORES CON BAJA IT <span class="badge blue">LIVE</span></h3>
+                                <div id="absences-feed" class="scroll-feed" style="max-height: 700px;"></div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="tab-descubiertos">
+                            <div class="module-card" id="module-uncovered" style="width: 100%;">
+                                <h3>CONTROL DE DESCUBIERTOS <span class="badge red">URGENTE</span></h3>
+                                <div id="uncovered-feed" class="scroll-feed" style="max-height: 700px;"></div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="tab-content" id="tab-resumen">
+                            <div class="module-card" id="module-summary" style="width: 100%;">
+                                <h3>RESUMEN EJECUTIVO DE OPERACIONES</h3>
+                                <div class="analytics-row"
+                                    style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; margin-top: 20px;">
+                                    <div class="analytics-card">
+                                        <h4>MAPA DE CALOR DE INCIDENCIAS (ÚLTIMOS 7 DÍAS)</h4>
+                                        <div id="incidents-heatmap" class="heatmap-container"
+                                            style="height: 250px; position: relative;">
+                                            <canvas id="heatmapCanvas"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h4>RECURRENTES / TOP ALERTAS</h4>
+                                        <div id="top-incidents-list" class="heatmap-container"
+                                            style="height: 250px; position: relative;">
+                                            <canvas id="topClientsChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="notes-feed" class="scroll-feed notebook-feed" style="max-height: 250px;">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
-    </main>
+        </main>
 
-    <!-- Hud Footer -->
-    <footer class="hud-footer">
-        <div id="current-date"></div>
-        <div class="live-ticker">
-            <span id="live-ticker-text">CARGANDO CEREBRO OPERATIVO...</span>
-        </div>
-        <div class="quick-input">
-            <input type="text" id="quick-input-bar" placeholder="COMANDO RÁPIDO: ESCRIBE PARA REGISTRAR INCIDENCIA...">
-            <button id="voice-btn" class="voice-btn" title="Comando por Voz">🎙️</button>
-        </div>
-    </footer>
+        <!-- Hud Footer -->
+        <footer class="hud-footer">
+            <div id="current-date"></div>
+            <div class="live-ticker">
+                <span id="live-ticker-text">CARGANDO CEREBRO OPERATIVO...</span>
+            </div>
+            <div class="quick-input">
+                <input type="text" id="quick-input-bar"
+                    placeholder="COMANDO RÁPIDO: ESCRIBE PARA REGISTRAR INCIDENCIA...">
+                <button id="voice-btn" class="voice-btn" title="Comando por Voz">🎙️</button>
+            </div>
+        </footer>
 
     </div>
 
@@ -393,7 +422,6 @@
 
     <!-- Sistema de persistencia con IndexedDB (más confiable que localStorage) -->
     <script src="indexeddb-persist.js"></script>
-    <script src="master_data.js"></script>
     <script src="ai_service.js"></script>
     <script src="analytics_engine.js"></script>
     <script src="app.js"></script>

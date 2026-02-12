@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Barra de Filtros Fija</title>
+    <link rel="stylesheet" href="filter_bar_sticky.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .scroll-feed {
+            background: #fafafa;
+            padding: 20px;
+        }
+
+        .test-row {
+            padding: 20px;
+            margin: 10px 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🧪 Test: Barra de Filtros Fija</h1>
+        <p><strong>Instrucciones:</strong> Haz scroll hacia abajo. La barra púrpura debe quedarse fija arriba.</p>
+
+        <div class="module-card" id="module-master-summary">
+            <!-- BARRA DE FILTROS (debe quedarse fija) -->
+            <div class="master-toolbar">
+                <div class="toolbar-left">
+                    <h3>VISTA GLOBAL DE SERVICIOS <span class="badge blue">150</span></h3>
+                </div>
+                <div class="toolbar-right">
+                    <div class="search-wrapper">
+                        <input type="text" id="master-search-input" placeholder="Buscar servicio, titular, centro...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="dynamic-filter-container">
+                        <div class="active-filters-row">
+                            <!-- Ejemplo de filtro -->
+                            <div class="filter-chip">
+                                <span>ESTADO</span>
+                                <input type="text" placeholder="Filtrar...">
+                                <button>✕</button>
+                            </div>
+                        </div>
+                        <div class="filter-adder-wrapper">
+                            <button class="btn-add-filter">➕ FILTRO</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEGUNDO SUBMENÚ: ESTADÍSTICAS (también fijo) -->
+            <div class="master-compact-stats">
+                <div class="stat-item">📊 Total: 150</div>
+                <div class="stat-item">✅ Activos: 140</div>
+                <div class="stat-item">⚠️ Descubiertos: 10</div>
+                <div class="stat-item">🏥 Bajas/IT: 5</div>
+            </div>
+
+            <!-- CONTENIDO CON SCROLL -->
+            <div class="master-content-wrapper" style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
+                <div class="scroll-feed">
+                    <h3>📋 Contenido de la tabla (haz scroll aquí)</h3>
+
+                    <!-- TABLA CON ENCABEZADO FIJO (3er submenú) -->
+                    <table class="master-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>SERVICIO</th>
+                                <th>TITULAR</th>
+                                <th>ESTADO</th>
+                                <th>HORARIO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Servicio A</td>
+                                <td>Juan Pérez</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio B</td>
+                                <td>María García</td>
+                                <td>Activo</td>
+                                <td>10:00-18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio C</td>
+                                <td>Carlos López</td>
+                                <td>Descubierto</td>
+                                <td>8:00-16:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio D</td>
+                                <td>Ana Martínez</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio E</td>
+                                <td>Pedro Sánchez</td>
+                                <td>Baja/IT</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio F</td>
+                                <td>Laura Fernández</td>
+                                <td>Activo</td>
+                                <td>10:00-18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio G</td>
+                                <td>Miguel Rodríguez</td>
+                                <td>Activo</td>
+                                <td>8:00-16:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio H</td>
+                                <td>Isabel Torres</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio I</td>
+                                <td>Francisco Ruiz</td>
+                                <td>Descubierto</td>
+                                <td>10:00-18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio J</td>
+                                <td>Carmen Díaz</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio K</td>
+                                <td>Antonio Moreno</td>
+                                <td>Activo</td>
+                                <td>8:00-16:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio L</td>
+                                <td>Rosa Jiménez</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio M</td>
+                                <td>José Álvarez</td>
+                                <td>Baja/IT</td>
+                                <td>10:00-18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio N</td>
+                                <td>Teresa Romero</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio O</td>
+                                <td>Manuel Navarro</td>
+                                <td>Activo</td>
+                                <td>8:00-16:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio P</td>
+                                <td>Pilar Gil</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio Q</td>
+                                <td>Luis Serrano</td>
+                                <td>Descubierto</td>
+                                <td>10:00-18:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio R</td>
+                                <td>Elena Blanco</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio S</td>
+                                <td>Raúl Castro</td>
+                                <td>Activo</td>
+                                <td>8:00-16:00</td>
+                            </tr>
+                            <tr>
+                                <td>Servicio T</td>
+                                <td>Marta Ortiz</td>
+                                <td>Activo</td>
+                                <td>9:00-17:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
+            <h3>✅ ¿Qué deberías ver?</h3>
+            <ul>
+                <li><strong>1ª Barra (púrpura)</strong> con gradiente (#667eea → #764ba2) - Filtros y búsqueda</li>
+                <li><strong>2ª Barra (rosa)</strong> con gradiente (#f093fb → #f5576c) - Estadísticas</li>
+                <li><strong>3ª Barra (azul cyan)</strong> con gradiente (#4facfe → #00f2fe) - Encabezado de tabla</li>
+                <li><strong>Las 3 barras se quedan fijas</strong> cuando haces scroll en el contenido</li>
+                <li>Todas las letras en <strong>BLANCO</strong> para mejor visibilidad</li>
+                <li>Input de búsqueda con fondo semi-transparente blanco</li>
+                <li>Botón "+ FILTRO" con borde punteado</li>
+                <li>Scrollbar personalizado con gradiente púrpura</li>
+                <li>Efectos hover en todas las barras</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

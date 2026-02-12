@@ -49,8 +49,8 @@ const AIService = {
                 uncoveredItems.push(serviceName);
             }
 
-            // Rule 2: Uncovered Sick Leave (High Risk)
-            if (status1.includes('BAJA') || obs.includes('baja')) {
+            // Rule 2: Uncovered Sick Leave (Strict Match on Status)
+            if (status1.includes('BAJA') || status.includes('BAJA') || status.includes(' IT')) {
                 // If no substitute is listed (simple check)
                 if (!row.SUPLENTE || row.SUPLENTE.length < 3) {
                     integrityScore -= 2;
@@ -58,8 +58,8 @@ const AIService = {
                 }
             }
 
-            // Rule 3: Vacations ending soon (Prediction)
-            if (obs.includes('vacaciones')) {
+            // Rule 3: Vacations ending soon (Strict Match on Status)
+            if (status1.includes('VACACIONES')) {
                 // Pseudo-logic for detecting if dates are involved
                 if (Math.random() > 0.9) {
                     vacationItems.push(serviceName);

@@ -27,8 +27,8 @@ function renderHeatmap() {
         const obs = (row.OBSERVACIONES || '').toLowerCase();
 
         if (est.includes('DESCUBIERTO')) uncovered++;
-        else if (est1.includes('BAJA') || obs.includes('baja')) medical++;
-        else if (est1.includes('VACACIONES') || obs.includes('vacaciones')) vacations++;
+        else if (est1.includes('BAJA') || est.includes('BAJA') || est.includes(' IT')) medical++;
+        else if (est1.includes('VACACIONES')) vacations++;
         else covered++;
     });
 
