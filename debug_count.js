@@ -1,17 +1,29 @@
-
 const fs = require('fs');
-const path = 'c:/Users/acoscolin/OneDrive - GRUPO SIFU INTEGRACION LABORAL SL/Escritorio/INFORMER SIFU/master_data.js';
+const content = fs.readFileSync('c:/Users/acoscolin/OneDrive - GRUPO SIFU INTEGRACION LABORAL SL/Escritorio/INFORMER SIFU/master_data.js', 'utf8');
+const dataStr = content.substring(content.indexOf('['));
+const data = JSON.parse(dataStr.substring(0, dataStr.lastIndexOf(']') + 1));
 
-try {
-    const data = fs.readFileSync(path, 'utf8');
-    // Simple regex to count "ESTADO":"DESCUBIERTO" or similar
-    // The file format is JSON-like inside a variable declaration
-    const matches = data.match(/"ESTADO"\s*:\s*"[^"]*DESCUBIERTO[^"]*"/gi);
-    console.log("Total explicit DESCUBIERTO matches:", matches ? matches.length : 0);
-
-    // Also check for empty TITULAR which might count as uncovered in app logic logic
-    // (titularUpper === 'SIN TITULAR') etc
-    // This is harder to grep, but let's check explicit "DESCUBIERTO"
-} catch (err) {
-    console.error(err);
-}
+let count = 0;
+data.forEach(row => {
+    const keys = Object.keys(row);
+    const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+    const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
+    const status = (row[kEstado] || '').toString().toUpperCase();
+    const titular = (row[kTitular] || '').toString().toUpperCase();
+    const isSpecial = status.includes('BRIGADA') || titular.includes('RUTA CRISTALES') || status.includes('OBRAS') || status.includes('CERRADO');
+    const isDesc = (
+        status.includes('DESCUBIERTO') ||
+        status.includes('VACANTE') ||
+        status.includes('SIN ASIGNAR') ||
+        titular.includes('SIN TITULAR') ||
+        titular.includes('DESCUBIERTO') ||
+        titular.includes('VACANTE') ||
+        (status === '' && (titular === '' || titular === 'SIN TITULAR')) ||
+        (status === 'PENDIENTE' && titular === '')
+    ) && !isSpecial;
+    if (isDesc) {
+        count++;
+        console.log(`DESCUBIERTO: ${row.SERVICIO || 'no service'} - ${status} - ${titular}`);
+    }
+});
+console.log('TOTAL:', count);

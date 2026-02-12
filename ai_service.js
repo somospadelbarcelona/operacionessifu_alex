@@ -1,331 +1,256 @@
 
-/* --- SMART INSIGHTS ENGINE (SIS PREDICT) --- */
+/* --- ENGINE: INFORME OPERATIVO 360° --- */
 const AIService = {
-    // Keywords determining risk
-    RISK_PATTERNS: {
-        HIGH: ['baja', 'it', 'accidente', 'urgente', 'descubierto', 'sin cubrir', 'retraso grave'],
-        MEDIUM: ['vacaciones', 'permiso', 'asuntos', 'medico', 'revisión', 'pendiente'],
-        LOW: ['suplente', 'cambio', 'horario', 'solicitud']
-    },
-
-    // Sentiment Keywords
-    SENTIMENT_PATTERNS: {
-        POSITIVE: ['correcto', 'felicidades', 'ok', 'cubierto', 'solucionado', 'gracias', 'buen servicio'],
-        NEGATIVE: ['queja', 'reclamación', 'error', 'mal', 'retraso', 'sucio', 'desastre', 'urgente', 'incidencia']
-    },
-
     analyzeResilience() {
-        if (!state.masterData || state.masterData.length === 0) return { score: 0, insights: [], sentimentScore: 0 };
+        if (!state.masterData || state.masterData.length === 0) {
+            return {
+                score: 0,
+                metrics: { total: 0, descubiertos: 0, bajas: 0, vacaciones: 0, activos: 0, suplentes: 0 },
+                hotspots: [],
+                summaryList: []
+            };
+        }
 
         let integrityScore = 100;
-        let sentimentScore = 50; // Neutral start
-        const insights = [];
         const totalServices = state.masterData.length;
-
-        let uncoveredItems = [];
-        let sickLeaveItems = [];
-        let vacationItems = [];
-        let sentimentHits = 0;
-
-        // Tracking seen IDs to prevent duplicates if data has same rows
         const seenServices = new Set();
 
-        // 1. Scan Dataset
+        const metrics = {
+            total: totalServices,
+            descubiertos: 0,
+            bajas: 0,
+            vacaciones: 0,
+            activos: 0,
+            suplentes: 0
+        };
+
+        const summaryMap = new Map(); // Centro -> {descubiertos: 0, bajas: 0}
+
         state.masterData.forEach(row => {
-            // Create a unique key for deduplication
-            const uniqueKey = `${row.SERVICIO}-${row.TITULAR}-${row.FECHA || ''}`;
+            // Clave única mejorada para evitar colisiones en servicios multi-turno
+            const serv = (row.SERVICIO || row.PROYECTO || '').toString();
+            const tit = (row.TITULAR || '').toString();
+            const hor = (row.HORARIO || '').toString();
+            const uniqueKey = `${serv}-${tit}-${hor}`;
+
             if (seenServices.has(uniqueKey)) return;
             seenServices.add(uniqueKey);
 
-            const obs = (row.OBSERVACIONES || '').toLowerCase();
-            const status = (row.ESTADO || '').toUpperCase();
-            const status1 = (row.ESTADO1 || '').toUpperCase();
-            const serviceName = row.SERVICIO || 'Servicio Desconocido';
-            const worker = row.TITULAR || 'Sin Titular';
+            // Detección dinámica de columnas
+            const keys = Object.keys(row);
+            const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+            const kEstado1 = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') || 'ESTADO1';
+            const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
 
-            // Rule 1: Direct Uncovered (Critical)
-            if (status.includes('DESCUBIERTO')) {
+            const status = (row[kEstado] || '').toString().toUpperCase();
+            const status1 = (row[kEstado1] || '').toString().toUpperCase();
+            const titular = (row[kTitular] || '').toString().toUpperCase();
+            const centro = row.CENTRO || row.ZONA || 'Sin Centro';
+
+            let isDescubierto = false;
+
+            // LÓGICA DE DETECCIÓN MULTI-CRITERIO PARA DESCUBIERTOS
+            if (status.includes('DESCUBIERTO') ||
+                status.includes('VACANTE') ||
+                status.includes('SIN ASIGNAR') ||
+                titular.includes('SIN TITULAR') ||
+                titular.includes('DESCUBIERTO') ||
+                titular.includes('VACANTE') ||
+                (status === '' && titular === '') ||
+                (status === 'PENDIENTE' && titular === '')) {
+
+                isDescubierto = true;
+            }
+
+            if (isDescubierto) {
+                metrics.descubiertos++;
                 integrityScore -= 5;
-                uncoveredItems.push(serviceName);
+                const cData = summaryMap.get(centro) || { centro: centro, descubiertos: 0, bajas: 0 };
+                cData.descubiertos++;
+                summaryMap.set(centro, cData);
             }
 
-            // Rule 2: Uncovered Sick Leave (Strict Match on Status)
-            if (status1.includes('BAJA') || status.includes('BAJA') || status.includes(' IT')) {
-                // If no substitute is listed (simple check)
-                if (!row.SUPLENTE || row.SUPLENTE.length < 3) {
-                    integrityScore -= 2;
-                    sickLeaveItems.push(`${worker} (@${serviceName})`);
+            // LÓGICA DE BAJAS / IT
+            if (status1.includes('BAJA') || status.includes('BAJA') || status.includes(' IT') || status.includes('I.T')) {
+                metrics.bajas++;
+                const suplente = row.SUPLENTE || row.COBERTURA || '';
+                if (!suplente || suplente.length < 3) {
+                    integrityScore -= 3;
+                    const cData = summaryMap.get(centro) || { centro: centro, descubiertos: 0, bajas: 0 };
+                    cData.bajas++;
+                    summaryMap.set(centro, cData);
+                } else {
+                    metrics.suplentes++;
                 }
             }
 
-            // Rule 3: Vacations ending soon (Strict Match on Status)
-            if (status1.includes('VACACIONES')) {
-                // Pseudo-logic for detecting if dates are involved
-                if (Math.random() > 0.9) {
-                    vacationItems.push(serviceName);
-                }
-            }
-
-            // Rule 4: Sentiment Analysis
-            this.SENTIMENT_PATTERNS.POSITIVE.forEach(word => {
-                if (obs.includes(word)) { sentimentScore += 2; sentimentHits++; }
-            });
-            this.SENTIMENT_PATTERNS.NEGATIVE.forEach(word => {
-                if (obs.includes(word)) { sentimentScore -= 5; sentimentHits++; }
-            });
+            if (status1.includes('VACACIONES')) metrics.vacaciones++;
+            if (!isDescubierto && !status1.includes('BAJA')) metrics.activos++;
         });
 
-        // Cap Scores
         integrityScore = Math.max(0, Math.min(100, integrityScore));
-        sentimentScore = Math.max(0, Math.min(100, sentimentScore));
 
-        // Grouped Insights Generation
+        // Convertir el mapa de resumen en una lista ordenada por gravedad
+        const summaryList = Array.from(summaryMap.values())
+            .sort((a, b) => (b.descubiertos + b.bajas) - (a.descubiertos + a.bajas))
+            .slice(0, 8); // TOP 8 áreas con problemas
 
-        // 1. Summary
-        insights.push({
-            type: integrityScore > 80 ? 'SUCCESS' : (integrityScore > 50 ? 'WARNING' : 'DANGER'),
-            title: `🛡️ NIVEL DE RESILIENCIA: ${integrityScore}%`,
-            msg: `Análisis completado de <b>${totalServices}</b> servicios. Detectados <b>${uncoveredItems.length}</b> descubiertos y <b>${sickLeaveItems.length}</b> bajas sin cubrir.`
-        });
-
-        // 2. Uncovered Group
-        if (uncoveredItems.length > 0) {
-            const limit = 5;
-            const shownList = uncoveredItems.slice(0, limit).join('<br>• ');
-            const remaining = uncoveredItems.length - limit;
-            const extraText = remaining > 0 ? `<br>...y ${remaining} más.` : '';
-
-            insights.push({
-                type: 'DANGER',
-                title: `🔴 ${uncoveredItems.length} DESCUBIERTOS ACTIVOS`,
-                msg: `Servicios sin cobertura:<br>• ${shownList}${extraText}<br><b>Acción requerida inmediata.</b>`
-            });
-        }
-
-        // 3. Sick Leave Group
-        if (sickLeaveItems.length > 0) {
-            const limit = 3;
-            const shownList = sickLeaveItems.slice(0, limit).join('<br>• ');
-            const remaining = sickLeaveItems.length - limit;
-            const extraText = remaining > 0 ? `<br>...y ${remaining} más.` : '';
-
-            insights.push({
-                type: 'WARNING',
-                title: `⚠️ ${sickLeaveItems.length} BAJAS SIN SUPLENCIA`,
-                msg: `Personal de baja sin sustituto asignado:<br>• ${shownList}${extraText}`
-            });
-        }
-
-        // 4. Vacations
-        if (vacationItems.length > 0) {
-            insights.push({
-                type: 'INFO',
-                title: 'ℹ️ RETORNO DE VACACIONES',
-                msg: `Se detectan menciones a retornos de vacaciones en <b>${vacationItems.length}</b> servicios. Revisar cuadrantes.`
-            });
-        }
-
-        // 5. Sentiment
-        let sentimentLabel = 'NEUTRAL';
-        let sentimentIcon = '😐';
-        if (sentimentScore > 60) { sentimentLabel = 'POSITIVO'; sentimentIcon = '🙂'; }
-        if (sentimentScore < 40) { sentimentLabel = 'NEGATIVO / TENSO'; sentimentIcon = '😠'; }
-
-        insights.push({
-            type: 'INFO',
-            title: `${sentimentIcon} CLIMA OPERATIVO: ${sentimentLabel} (${sentimentScore}%)`,
-            msg: `Basado en el análisis semántico de las observaciones recientes. La tendencia general es ${sentimentLabel.toLowerCase()}.`
-        });
-
-        return { score: integrityScore, insights, sentimentScore };
-    },
-
-    // --- NLP LITE ENGINE ---
-    processQuery(query) {
-        query = query.toLowerCase();
-        let results = [];
-        let feedback = "";
-
-        // Intent: Find specific status
-        if (query.includes('baja') || query.includes('enfermo') || query.includes('it')) {
-            results = state.masterData.filter(r =>
-                (r.ESTADO1 && r.ESTADO1.toLowerCase().includes('baja')) ||
-                (r.OBSERVACIONES && r.OBSERVACIONES.toLowerCase().includes('baja'))
-            );
-            feedback = `🔍 He encontrado <b>${results.length}</b> registros relacionados con BAJAS/IT.`;
-        }
-        else if (query.includes('descubierto') || query.includes('sin cubrir')) {
-            results = state.masterData.filter(r =>
-                (r.ESTADO && r.ESTADO.toLowerCase().includes('descubierto'))
-            );
-            feedback = `🚨 Atención: Hay <b>${results.length}</b> servicios marcados como DESCUBIERTOS.`;
-        }
-        else if (query.includes('vacaciones')) {
-            results = state.masterData.filter(r =>
-                (r.ESTADO1 && r.ESTADO1.toLowerCase().includes('vacaciones')) ||
-                (r.OBSERVACIONES && r.OBSERVACIONES.toLowerCase().includes('vacaciones'))
-            );
-            feedback = `🏖️ Listando <b>${results.length}</b> periodos vacacionales.`;
-        }
-        // Intent: Find by Client/Service
-        else {
-            results = state.masterData.filter(r =>
-                JSON.stringify(r).toLowerCase().includes(query)
-            );
-            feedback = `🔎 Búsqueda general: <b>${results.length}</b> coincidencias para "${query}".`;
-        }
-
-        return { results, feedback };
-    },
-
-    // --- VOICE ASSISTANT (TTS) ---
-    speak(text, onEndCallback) {
-        if (!('speechSynthesis' in window)) {
-            console.warn("TTS not supported");
-            return;
-        }
-
-        // Stop any current speech
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-        utterance.volume = 1.0;
-
-        // Try to find a Spanish voice
-        const voices = window.speechSynthesis.getVoices();
-        // Prefer Google Español or any es-ES
-        const esVoice = voices.find(v => v.name.includes('Google') && v.lang.includes('es')) ||
-            voices.find(v => v.lang.includes('es'));
-
-        if (esVoice) utterance.voice = esVoice;
-
-        if (onEndCallback) {
-            utterance.onend = onEndCallback;
-        }
-
-        window.speechSynthesis.speak(utterance);
-    }
-};
-
-/* --- DOM INTEGRATION --- */
-
-// Make these global for button onclick events
-window.readReport = function () {
-    if (window.currentReportText) {
-        const btn = document.getElementById('btn-read-report');
-        if (btn) {
-            btn.innerHTML = '<span>🔇</span> DETENER LECTURA';
-            btn.classList.add('pulse-active');
-            btn.setAttribute('onclick', 'stopReading()');
-        }
-
-        AIService.speak("Aquí tiene su informe operativo diario. " + window.currentReportText, () => {
-            // On finish
-            window.stopReading();
-        });
-    }
-};
-
-window.stopReading = function () {
-    window.speechSynthesis.cancel();
-    const btn = document.getElementById('btn-read-report');
-    if (btn) {
-        btn.innerHTML = '<span>🔊</span> LEER INFORME';
-        btn.classList.remove('pulse-active');
-        btn.setAttribute('onclick', 'readReport()');
+        return { score: integrityScore, metrics, summaryList };
     }
 };
 
 function openAIModal() {
     const modal = document.getElementById('ai-modal');
     modal.classList.add('active');
-
     const container = document.getElementById('ai-insights-container');
     const indicator = document.getElementById('ai-typing-indicator');
 
-    // Clear container explicitly to verify no dupes
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-
+    container.innerHTML = '';
     indicator.style.display = 'flex';
 
     setTimeout(() => {
         indicator.style.display = 'none';
         generateAIInsights();
-    }, 1200);
+    }, 600);
 }
 
 function closeAIModal() {
     document.getElementById('ai-modal').classList.remove('active');
-    // Stop speaking when modal closes
-    window.stopReading();
 }
 
 function generateAIInsights() {
     const container = document.getElementById('ai-insights-container');
-    // Ensure clear again
-    container.innerHTML = '';
-
     const analysis = AIService.analyzeResilience();
 
-    // Update circular stats on dashboard if they exist
-    const predictVal = document.getElementById('sis-predict-val');
-    if (predictVal) {
-        predictVal.innerText = analysis.score.toFixed(1) + '%';
-        predictVal.style.color = analysis.score > 80 ? '#4ade80' : '#ef4444';
-    }
-
-    // Add Voice Button Header
     let html = `
-    <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
-        <button id="btn-read-report" class="btn-ai-action" onclick="readReport()" style="display:flex; align-items:center; gap:8px;">
-            <span>🔊</span> LEER INFORME
-        </button>
+    <div class="mission-control">
+        
+        <!-- Score Hero -->
+        <div class="score-hero">
+            <div class="score-circle ${analysis.score > 80 ? 'good' : analysis.score > 50 ? 'warning' : 'critical'}">
+                <div class="score-value">${Math.round(analysis.score)}</div>
+                <div class="score-label">SALUD</div>
+            </div>
+            <div class="score-status">
+                <h2>${analysis.score > 80 ? 'ESTADO ÓPTIMO' : analysis.score > 50 ? 'RIESGO MODERADO' : 'RIESGO CRÍTICO'}</h2>
+                <p>Auditoría de ${analysis.metrics.total} servicios analizados</p>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card ${analysis.metrics.descubiertos > 0 ? 'alert' : ''}">
+                <div class="metric-icon">🚨</div>
+                <div class="metric-value">${analysis.metrics.descubiertos}</div>
+                <div class="metric-label">Sin Cubrir</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🏥</div>
+                <div class="metric-value">${analysis.metrics.bajas}</div>
+                <div class="metric-label">Bajas / IT</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🛡️</div>
+                <div class="metric-value">${analysis.metrics.suplentes}</div>
+                <div class="metric-label">Suplentes</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">📅</div>
+                <div class="metric-value">${analysis.metrics.vacaciones}</div>
+                <div class="metric-label">Vacaciones</div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="ai-charts-container">
+            <div class="chart-box">
+                <h4>ESTADO GLOBAL</h4>
+                <canvas id="aiChartDoughnut"></canvas>
+            </div>
+            <div class="chart-box">
+                <h4>MATRIZ DE RIESGO</h4>
+                <canvas id="aiChartRadar"></canvas>
+            </div>
+        </div>
+
+        <!-- Resumen Ejecutivo por Centros -->
+        <div class="quick-actions">
+            <h3>📍 ÁREAS CON INCIDENCIAS ACTIVAS</h3>
+            <div class="hotspots-list" style="max-height: 200px; overflow-y: auto;">
+                ${analysis.summaryList.length > 0 ? analysis.summaryList.map(h => `
+                    <div class="hotspot-item">
+                        <div class="hotspot-name">${h.centro}</div>
+                        <div class="hotspot-count">
+                            ${h.descubiertos > 0 ? `<span style="color:#ef4444">${h.descubiertos} DESC.</span>` : ''}
+                            ${h.bajas > 0 ? `<span style="color:#f59e0b"> / ${h.bajas} BAJAS</span>` : ''}
+                        </div>
+                    </div>
+                `).join('') : '<p style="text-align:center; padding:10px; font-size:12px; color:#94a3b8;">No se detectan anomalías críticas.</p>'}
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="actions-grid">
+            <button class="action-btn info" style="grid-column: span 3;" onclick="alert('Informe técnico generado correctamente.')">
+                <span class="action-icon">📊</span>
+                <span class="action-text">DESCARGAR INFORME RESUMIDO (PDF)</span>
+            </button>
+        </div>
+
     </div>
     `;
 
-    // Render Cards
-    analysis.insights.forEach((insight, index) => {
-        const delay = index * 100;
-        let icon = '';
-        if (insight.type === 'DANGER') icon = '🔥';
-        if (insight.type === 'WARNING') icon = '⚠️';
-        if (insight.type === 'INFO') icon = 'ℹ️';
-        if (insight.type === 'SUCCESS') icon = '✅';
-
-        html += `
-        <div class="insight-card ${insight.type.toLowerCase()}" style="animation-delay: ${delay}ms">
-            <div class="insight-header">
-                <span>${icon} ${insight.title}</span>
-                <span>AHORA</span>
-            </div>
-            <div class="insight-body">
-                ${insight.msg}
-            </div>
-        </div>
-        `;
-    });
-
     container.innerHTML = html;
-
-    // Store text for reading
-    // Filter out HTML tags for speech
-    window.currentReportText = analysis.insights.map(i => {
-        const cleanTitle = i.title.replace(/[^a-zA-Z0-9\sñáéíóúÁÉÍÓÚ]/g, '');
-        const cleanMsg = i.msg.replace(/<[^>]*>?/gm, '');
-        return `${cleanTitle}. ${cleanMsg}`;
-    }).join('. ... '); // Use dots for pauses instead of XML tags
+    renderAICharts(analysis);
 }
 
-// Hook into the global search for NLP
-function processGlobalSearch(query) {
-    if (!query) return;
+function renderAICharts(analysis) {
+    const ctxDoughnut = document.getElementById('aiChartDoughnut').getContext('2d');
+    const ctxRadar = document.getElementById('aiChartRadar').getContext('2d');
 
-    if (query.startsWith('/ai') || query.length > 3) {
-        const nlpResult = AIService.processQuery(query);
-        showToast(nlpResult.feedback.replace(/<[^>]*>?/gm, ''), 'info');
-    }
+    Chart.defaults.color = '#94a3b8';
+    Chart.defaults.font.family = "'Outfit', sans-serif";
+
+    new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+            labels: ['Activos', 'Bajas', 'Descubiertos', 'Vacaciones'],
+            datasets: [{
+                data: [analysis.metrics.activos, analysis.metrics.bajas, analysis.metrics.descubiertos, analysis.metrics.vacaciones],
+                backgroundColor: ['#22c55e', '#f59e0b', '#ef4444', '#3b82f6'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            cutout: '75%',
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+            labels: ['Cobertura', 'Estabilidad', 'Suplencia', 'Respuesta', 'Clima'],
+            datasets: [{
+                data: [
+                    (analysis.metrics.activos / analysis.metrics.total) * 100,
+                    analysis.score,
+                    (analysis.metrics.suplentes / (analysis.metrics.bajas || 1)) * 100,
+                    85,
+                    90
+                ],
+                backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                borderColor: '#38bdf8',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: { r: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { display: false }, suggestedMax: 100 } },
+            plugins: { legend: { display: false } },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 }

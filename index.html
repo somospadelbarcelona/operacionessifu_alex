@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ai_styles.css">
     <link rel="stylesheet" href="filter_bar_sticky.css">
+    <link rel="stylesheet" href="notepad.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -27,10 +28,12 @@
         <header class="global-header">
             <div class="header-main">
                 <div class="brand">
-                    <div class="logo-box">S</div>
+                    <div class="logo-box">
+                        <img src="img/logo sifu.png" alt="SIFU Logo"
+                            style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
                     <div class="brand-text">
                         <span class="brand-title">PANEL DE CONTROL</span>
-                        <span class="brand-subtitle">SIFU ELITE MANAGEMENT</span>
                     </div>
                 </div>
 
@@ -84,8 +87,8 @@
                         <div class="h-stat-value" style="color:var(--accent-green);">9.8/10</div>
                     </div>
 
-                    <button id="btn-ai-manager" class="btn-ai-glow" onclick="openAIModal()">
-                        <span class="ai-sparkle">✨</span> ASISTENTE
+                    <button id="btn-situational-report" class="btn-ai-glow" onclick="openSituationalReport()">
+                        <span class="ai-sparkle">📊</span> INFORME SITUACIONAL
                     </button>
                 </div>
             </div>
@@ -175,7 +178,7 @@
                         </section>
 
                         <div class="modules-container">
-                            <div class="module-card" id="module-master-summary" style="grid-column: span 2;">
+                            <div class="module-card" id="module-master-summary">
                                 <div class="master-toolbar">
                                     <div class="toolbar-left">
                                         <h3>VISTA GLOBAL DE SERVICIOS <span class="badge blue"
@@ -183,9 +186,11 @@
                                     </div>
                                     <div class="toolbar-right">
                                         <div class="search-wrapper">
-                                            <input type="text" id="master-search-input"
-                                                placeholder="Buscar servicio, titular, centro...">
                                             <span class="search-icon">🔍</span>
+                                            <input type="text" id="master-search-input"
+                                                aria-label="Buscar en tabla maestra"
+                                                oninput="if(typeof renderMasterBodyOnly === 'function') renderMasterBodyOnly()"
+                                                placeholder="Buscar servicio, titular, centro...">
                                         </div>
 
                                         <!-- Dynamic Filters Area -->
@@ -221,30 +226,49 @@
                             </div>
 
                             <div class="secondary-modules">
-                                <div class="module-card" id="module-incidents">
-                                    <h3>BITÁCORA DE INCIDENCIAS <span class="badge green">ACTIVO</span></h3>
-                                    <div id="incidents-feed" class="scroll-feed" style="max-height: 300px;"></div>
+                                <!-- RADAR DE URGENCIA -->
+                                <div class="module-card" id="module-urgency-radar">
+                                    <h3>📍 RADAR DE URGENCIA <span class="badge red">ACTIVO</span></h3>
+                                    <div id="urgency-list" class="urgency-feed">
+                                        <!-- Centros críticos inyectados aquí -->
+                                    </div>
                                 </div>
 
-                                <div class="module-card" id="module-notes" style="grid-column: span 1;">
-                                    <div class="module-header-actions">
-                                        <h3>AGENDA OPERATIVA <span class="badge cyan">HOY</span></h3>
-                                        <button class="btn-clear-all" onclick="clearAllNotes()">Limpiar
-                                            terminadas</button>
-                                    </div>
-                                    <div class="notebook-input-area">
-                                        <textarea id="note-input"
-                                            placeholder="Apunta aquí cualquier decisión o nota pendiente... (Ctrl+Enter para guardar)"></textarea>
-                                        <div class="notebook-controls">
-                                            <div class="tag-selector">
-                                                <span class="tag-btn active" data-tag="INFO">Info</span>
-                                                <span class="tag-btn" data-tag="URGENTE">🔥</span>
-                                                <span class="tag-btn" data-tag="SEGUIMIENTO">📞</span>
+                                <!-- CENTRO DE ACCIÓN RÁPIDA -->
+                                <div class="module-card" id="module-quick-actions">
+                                    <h3>⚡ CENTRO DE ACCIÓN RÁPIDA</h3>
+                                    <div class="smart-action-grid">
+                                        <button class="smart-btn danger" onclick="filterByUrgency('DESCUBIERTO')">
+                                            <span class="icon">🚨</span>
+                                            <div class="text">
+                                                <strong>DESCUBIERTOS</strong>
+                                                <span>Acción Inmediata</span>
                                             </div>
-                                            <button class="btn-add-note" onclick="addNoteFromCerebro()">GUARDAR</button>
-                                        </div>
-                                    </div>
-                                    <div id="notes-feed" class="scroll-feed notebook-feed" style="max-height: 250px;">
+                                            <span id="count-descubiertos" class="smart-badge">0</span>
+                                        </button>
+                                        <button class="smart-btn warning" onclick="filterByUrgency('BAJA')">
+                                            <span class="icon">🏥</span>
+                                            <div class="text">
+                                                <strong>IT SIN SUPLENTE</strong>
+                                                <span>Revisar Cobertura</span>
+                                            </div>
+                                            <span id="count-bajas" class="smart-badge">0</span>
+                                        </button>
+                                        <button class="smart-btn info" onclick="filterByUrgency('MAÑANA')">
+                                            <span class="icon">📅</span>
+                                            <div class="text">
+                                                <strong>TERMINAN HOY/MAÑ.</strong>
+                                                <span>Renovar / Buscar</span>
+                                            </div>
+                                            <span id="count-terminan" class="smart-badge">0</span>
+                                        </button>
+                                        <button class="smart-btn success" onclick="clearTableFilters()">
+                                            <span class="icon">🔄</span>
+                                            <div class="text">
+                                                <strong>VISTA TOTAL</strong>
+                                                <span>Limpiar Filtros</span>
+                                            </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -410,43 +434,92 @@
         </div>
     </div>
 
-    <!-- Floating AI Status Widget (New) -->
-    <div id="ai-float-widget" class="ai-float-widget" onclick="openAIModal()">
-        <div class="ai-float-icon">⚛️</div>
-        <div class="ai-float-text">
-            <span class="ai-label">SIS AI</span>
-            <span class="ai-status">ONLINE</span>
-        </div>
-        <div class="ai-float-glow"></div>
-    </div>
+
 
     <!-- Sistema de persistencia con IndexedDB (más confiable que localStorage) -->
     <script src="indexeddb-persist.js"></script>
     <script src="ai_service.js"></script>
     <script src="analytics_engine.js"></script>
     <script src="app.js"></script>
-    <!-- AI Manager Modal (Renamed) -->
-    <div id="ai-modal" class="modal">
-        <div class="modal-content ai-modal-content">
-            <div class="ai-header">
-                <div class="ai-avatar">⚛️</div>
-                <div class="ai-title">
-                    <h3>SIS PREDICT</h3>
-                    <span>CORE INTELLIGENCE MODULE</span>
+    <!-- Situational Report Modal -->
+    <div id="situational-report-modal" class="modal">
+        <div class="modal-content report-modal-content">
+            <div class="report-header">
+                <div class="report-title-group">
+                    <div class="report-icon">📊</div>
+                    <div>
+                        <h2>INFORME DE SITUACIÓN EN TIEMPO REAL</h2>
+                        <span class="report-subtitle">ANÁLISIS OPERATIVO 360° | ACTUALIZADO: AHORA MISMO</span>
+                    </div>
                 </div>
-                <button class="close-modal" onclick="closeAIModal()">&times;</button>
+                <button class="close-modal" onclick="closeSituationalReport()">&times;</button>
             </div>
-            <div class="ai-body">
-                <div id="ai-typing-indicator" class="ai-typing">
-                    <span></span><span></span><span></span>
+
+            <div class="report-body">
+                <!-- Top Metrics Row -->
+                <div class="report-metrics-grid">
+                    <div class="metric-card coverage">
+                        <div class="metric-label">COBERTURA TOTAL</div>
+                        <div class="metric-value" id="report-coverage-val">--%</div>
+                        <div class="metric-trendup">Objetivo: 98%</div>
+                    </div>
+                    <div class="metric-card active">
+                        <div class="metric-label">OPERATIVOS ACTIVOS</div>
+                        <div class="metric-value" id="report-active-val">--</div>
+                    </div>
+                    <div class="metric-card risk">
+                        <div class="metric-label">DESCUBIERTOS</div>
+                        <div class="metric-value" id="report-uncovered-val">--</div>
+                        <div class="metric-sub">Requiere Atención</div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-label">ABSENTISMO TOTAL</div>
+                        <div class="metric-value" id="report-absences-val">--</div>
+                        <div class="metric-sub">Bajas + IT + Vacs</div>
+                    </div>
                 </div>
-                <div id="ai-insights-container" class="ai-insights">
-                    <!-- Insights will be injected here -->
+
+                <!-- Charts Row -->
+                <div class="report-charts-grid">
+                    <div class="chart-container">
+                        <h4>ESTADO DE LA FUERZA LABORAL</h4>
+                        <div class="canvas-wrapper">
+                            <canvas id="reportChartCoverage"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h4>DESGLOSE DE AUSENCIAS</h4>
+                        <div class="canvas-wrapper">
+                            <canvas id="reportChartAbsences"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis & Action Row -->
+                <div class="report-analysis-grid">
+                    <div class="analysis-card hotspots">
+                        <h4>🔥 PUNTOS CALIENTES (HOTSPOTS)</h4>
+                        <ul id="report-hotspots-list" class="report-list">
+                            <!-- Injected via JS -->
+                        </ul>
+                    </div>
+                    <div class="analysis-card actions">
+                        <h4>⚡ PLAN DE ACCIÓN RECOMENDADO</h4>
+                        <ul id="report-actions-list" class="report-list action-mode">
+                            <!-- Injected via JS -->
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="ai-footer">
-                <button class="btn-ai-action" onclick="generateAIInsights()">🔄 RE-ANALIZAR</button>
-                <button class="btn-ai-action secondary" onclick="closeAIModal()">ENTENDIDO</button>
+
+            <div class="report-footer">
+                <div class="footer-info">Generado automáticamente por SIFU Intelligence Engine based on Master Data.
+                </div>
+                <div class="footer-actions">
+                    <button class="btn-report-action pdf" onclick="downloadReportPDF()">📄 PDF</button>
+                    <button class="btn-report-action print" onclick="window.print()">🖨️ IMPRIMIR</button>
+                    <button class="btn-report-action close" onclick="closeSituationalReport()">CERRAR INFORME</button>
+                </div>
             </div>
         </div>
     </div>
@@ -477,6 +550,14 @@
 
     <!-- PDF Export Lib -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Main Application -->
+    <script src="indexeddb-persist.js"></script>
+    <script src="master_data.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Notepad Auto-Save -->
+    <script src="notepad.js"></script>
 
 </body>
 

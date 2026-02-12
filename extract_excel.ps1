@@ -1,81 +1,73 @@
-$errorActionPreference = "Stop"
-$originalPath = 'C:\Users\acoscolin\OneDrive - GRUPO SIFU INTEGRACION LABORAL SL\Escritorio\INFORMER SIFU\MASTER GENERAL.xlsx'
-$tempPath = [System.IO.Path]::GetTempFileName() + ".xlsx"
+$ErrorActionPreference = "Stop"
+
+$excelPath = "C:\Users\acoscolin\OneDrive - GRUPO SIFU INTEGRACION LABORAL SL\Escritorio\INFORMER SIFU\MASTER GENERAL.xlsx"
+$jsPath = "C:\Users\acoscolin\OneDrive - GRUPO SIFU INTEGRACION LABORAL SL\Escritorio\INFORMER SIFU\master_data.js"
+
+$tempFile = [System.IO.Path]::GetTempFileName() + ".xlsx"
 
 try {
-    Write-Host "Copiando archivo a temporal: $tempPath"
-    Copy-Item -Path $originalPath -Destination $tempPath -Force
+    Copy-Item -Path $excelPath -Destination $tempFile -Force
+    Write-Host "READING EXCEL..."
 
     $excel = New-Object -ComObject Excel.Application
     $excel.Visible = $false
     $excel.DisplayAlerts = $false
 
-    $wb = $excel.Workbooks.Open($tempPath)
+    $wb = $excel.Workbooks.Open($tempFile)
     $ws = $wb.Sheets.Item(1)
-    
-    # Get all data as 2D array (1-based)
-    $allData = $ws.UsedRange.Value2
-    
-    $rows = $allData.GetUpperBound(0)
-    $cols = $allData.GetUpperBound(1)
 
-    Write-Host "Analizando $rows filas y $cols columnas (Fast Mode)..."
+    $range = $ws.UsedRange
+    $data = $range.Value2
+    
+    $rowCount = $range.Rows.Count
+    $colCount = $range.Columns.Count
 
-    # Get Headers (Row 1)
+    Write-Host "PROCESSING ROWS: $rowCount"
+
     $headers = @()
-    for ($c = 1; $c -le $cols; $c++) {
-        $h = $allData[1, $c]
+    for ($c = 1; $c -le $colCount; $c++) {
+        $h = $data[1, $c]
         if ([string]::IsNullOrWhiteSpace($h)) { $h = "COL_$c" }
-        $headers += $h
+        $headers += $h.ToString().Trim()
     }
 
-    $data = @()
-    # Skip header row, start from 2
-    for ($r = 2; $r -le $rows; $r++) { 
+    $jsonObjects = @()
+    
+    for ($r = 2; $r -le $rowCount; $r++) {
         $obj = @{}
         $hasData = $false
-        for ($c = 1; $c -le $cols; $c++) {
-            $val = $allData[$r, $c]
-            
-            # Convert null to empty string
-            if ($null -eq $val) { $val = "" }
-            
-            $header = $headers[$c - 1]
-            
-            # Clean header name for JSON property
-            $propName = $header -replace '[^a-zA-Z0-9_]', '_'
-            
-            $obj[$propName] = $val
-            
-            if (-not [string]::IsNullOrWhiteSpace($val)) {
+        
+        for ($c = 1; $c -le $colCount; $c++) {
+            $val = $data[$r, $c]
+            if ($null -ne $val -and $val -ne "") {
+                $key = $headers[$c - 1]
+                $obj[$key] = $val
                 $hasData = $true
             }
         }
-        # Only add row if it has some data
+
         if ($hasData) {
-            $data += $obj
+            $jsonObjects += $obj
         }
     }
 
-    $wb.Close($false)
-    $excel.Quit()
-
-    $json = $data | ConvertTo-Json -Depth 2 -Compress
+    $json = $jsonObjects | ConvertTo-Json -Depth 2 -Compress
     $finalContent = "const INITIAL_MASTER_DATA = $json;"
-    [System.IO.File]::WriteAllText('C:\Users\acoscolin\OneDrive - GRUPO SIFU INTEGRACION LABORAL SL\Escritorio\INFORMER SIFU\master_data.js', $finalContent, [System.Text.Encoding]::UTF8)
+    
+    [System.IO.File]::WriteAllText($jsPath, $finalContent, [System.Text.Encoding]::UTF8)
 
-    Write-Host "✅ master_data.js actualizado con $($data.Count) registros."
+    Write-Host "DONE: master_data.js updated."
+
 }
 catch {
-    Write-Error "Error: $($_.Exception.Message)"
+    Write-Error "ERROR: $($_.Exception.Message)"
 }
 finally {
-    if ($excel) {
-        $excel.Quit()
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel) | Out-Null
-    }
-    # Clean up temp file
-    if (Test-Path $tempPath) {
-        Remove-Item -Path $tempPath -Force -ErrorAction SilentlyContinue
-    }
+    if ($wb) { $wb.Close($false); [System.Runtime.Interopservices.Marshal]::ReleaseComObject($wb) | Out-Null }
+    if ($excel) { $excel.Quit(); [System.Runtime.Interopservices.Marshal]::ReleaseComObject($excel) | Out-Null }
+    
+    [System.GC]::Collect()
+    [System.GC]::WaitForPendingFinalizers()
+
+    if (Test-Path $tempFile) { Remove-Item $tempFile -Force -ErrorAction SilentlyContinue }
 }

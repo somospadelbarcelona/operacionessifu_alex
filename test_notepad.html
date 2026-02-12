@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Bloc de Notas</title>
+    <link rel="stylesheet" href="notepad.css">
+</head>
+
+<body style="padding: 20px; font-family: Arial, sans-serif;">
+    <h1>🧪 Test: Bloc de Notas con Auto-Guardado</h1>
+
+    <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <h3>Instrucciones:</h3>
+        <ol>
+            <li>Escribe una tarea en el campo de abajo</li>
+            <li>Presiona <strong>Enter</strong></li>
+            <li>La nota aparecerá abajo</li>
+            <li><strong>Recarga la página (F5)</strong> → La nota debe seguir ahí ✅</li>
+            <li>Abre la <strong>Consola del navegador (F12)</strong> para ver los logs</li>
+        </ol>
+    </div>
+
+    <!-- Bloc de Notas -->
+    <section class="top-notepad-section">
+        <div class="notepad-header">
+            <span class="section-tag">
+                BLOC DE NOTAS
+                <span class="badge blue" id="top-notes-count"
+                    style="background: #2196F3; color: white; padding: 4px 12px; border-radius: 12px; margin-left: 8px;">0</span>
+            </span>
+            <div class="quick-note-box">
+                <input type="text" id="quick-note-top" placeholder="Añadir tarea rápida... (Enter para guardar)">
+            </div>
+        </div>
+        <div id="top-notes-feed" class="top-notes-horizontal">
+            <!-- JS Inject: Note Cards -->
+        </div>
+    </section>
+
+    <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px;">
+        <h3>🔍 Debugging:</h3>
+        <p>Abre la consola del navegador (F12) para ver:</p>
+        <ul>
+            <li>✅ "notepad.js cargado"</li>
+            <li>🚀 "Inicializando NotesManager..."</li>
+            <li>📝 "Notas cargadas: X"</li>
+            <li>✅ "Nota añadida: [tu texto]"</li>
+            <li>✅ "X notas guardadas automáticamente"</li>
+        </ul>
+        <p><strong>localStorage Key:</strong> <code>sifu_notepad_notes</code></p>
+        <button onclick="console.log(localStorage.getItem('sifu_notepad_notes'))"
+            style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Ver localStorage en Consola
+        </button>
+        <button onclick="localStorage.removeItem('sifu_notepad_notes'); location.reload();"
+            style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+            Limpiar Todo y Recargar
+        </button>
+    </div>
+
+    <script src="notepad.js"></script>
+</body>
+
+</html>

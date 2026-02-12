@@ -46,60 +46,38 @@ let state = { ...DEFAULT_STATE };
 
 async function loadGlobalState() {
     try {
-        console.log('🔍 Intentando cargar estado guardado (LocalStorage)...');
+        console.log('🔍 Sincronizando datos...');
         const saved = localStorage.getItem(ATOMIC_STATE_KEY);
+        let parsed = null;
 
         if (saved) {
-            console.log('✅ Datos encontrados en localStorage, tamaño:', saved.length, 'caracteres');
-            const parsed = JSON.parse(saved);
+            parsed = JSON.parse(saved);
+            console.log('✅ LocalStorage cargado.');
+        } else {
+            parsed = await loadStateFromIndexedDB();
+            if (parsed) console.log('✅ IndexedDB cargado.');
+        }
 
-            // Reconstrucción del estado con preservación de masterData si hay datos estáticos frescos
-            state = {
-                incidents: parsed.incidents || [],
-                absences: parsed.absences || [],
-                uncovered: parsed.uncovered || [],
-                orders: parsed.orders || [],
-                glassPlanning: parsed.glassPlanning || [],
-                stats: parsed.stats || { activeWorkers: 24 },
-                notes: parsed.notes || [],
-                masterData: parsed.masterData || [],
-                filterType: parsed.filterType || null,
-                stickyContent: parsed.stickyContent || ''
-            };
+        if (parsed) {
+            state = { ...DEFAULT_STATE, ...parsed };
+        } else {
+            state = { ...DEFAULT_STATE };
+        }
 
-            // REGLA DE ACTUALIZACIÓN: Si INITIAL_MASTER_DATA existe y el state actual está vacío, lo inyectamos.
-            if (state.masterData.length === 0 && typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
-                console.log("📦 Inyectando INITIAL_MASTER_DATA en estado vacío.");
+        // --- DATA INTEGRITY CHECK ---
+        if (!state.masterData || state.masterData.length === 0) {
+            if (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
+                console.log('📦 Backup: Usando datos estáticos integrados.');
                 state.masterData = INITIAL_MASTER_DATA;
+                saveAllState();
             }
-
-            console.log('✅ Estado cargado exitosamente desde localStorage');
-            return true;
         }
-
-        console.log('⚠️ No hay datos en localStorage, consultando IndexedDB...');
-        const indexedData = await loadStateFromIndexedDB();
-
-        if (indexedData) {
-            state = {
-                incidents: indexedData.incidents || [],
-                absences: indexedData.absences || [],
-                uncovered: indexedData.uncovered || [],
-                orders: indexedData.orders || [],
-                glassPlanning: indexedData.glassPlanning || [],
-                stats: indexedData.stats || { activeWorkers: 24 },
-                notes: indexedData.notes || [],
-                masterData: indexedData.masterData || [],
-                filterType: indexedData.filterType || null,
-                stickyContent: indexedData.stickyContent || ''
-            };
-            console.log('✅ Estado cargado desde IndexedDB');
-            return true;
-        }
+        return true;
     } catch (e) {
-        console.error('❌ Error crítico en loadGlobalState:', e);
+        console.error('❌ Fallo en loadGlobalState:', e);
+        state = { ...DEFAULT_STATE };
+        return false;
     }
-    return false;
 }
 
 // SISTEMA DE GUARDADO CONSOLIDADO Y ROBUSTO
@@ -228,6 +206,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         setupEventListeners();
+        renderAll(); // Final Sync
         startTicker();
         initVoiceCommand();
 
@@ -861,83 +840,66 @@ function processMasterData(workbook) {
 }
 
 function processMasterArray(rawData) {
-    if (!rawData || rawData.length === 0) {
-        updateTicker("⚠️ ALERTA: EXCEL LEÍDO PERO SIN DATOS");
+    if (!rawData || !Array.isArray(rawData)) {
+        console.error("❌ processMasterArray: Datos inválidos");
         return;
     }
+
     state.masterData = rawData;
+    state.filteredData = null; // Clean active filters
 
     const newAbsences = [];
     const newUncovered = [];
-    // Detección Dinámica de Columnas (Smart Key Mapping)
     if (!rawData.length) return;
-    const keys = Object.keys(rawData[0]);
 
-    // Función auxiliar para encontrar la mejor clave coincidente (insensible a espacios)
+    const keys = Object.keys(rawData[0]);
     const findKey = (search) => keys.find(k => k.toUpperCase().trim() === search || k.toUpperCase().includes(search));
 
     const keyServicio = findKey('SERVICIO') || 'SERVICIO';
     const keyTitular = findKey('TITULAR') || 'TITULAR';
-    const keyEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') ||
-        keys.find(k => k.toUpperCase().includes('ESTADO') && !k.toUpperCase().includes('SALUD') && !k.includes('1')) ||
-        'ESTADO';
-    // Buscar específicamente ESTADO1 o columnas de salud/IT
-    const keyEstadoSalud = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') ||
-        keys.find(k => k.toUpperCase().includes('SALUD')) ||
-        keys.find(k => k.toUpperCase().includes('BAJA')) ||
-        keys.find(k => k.toUpperCase().includes('IT')) ||
-        'ESTADO1';
+    const keyEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+    const keyEstadoSalud = findKey('ESTADO1') || 'ESTADO1';
     const keySuplente = findKey('SUPLENTE') || 'SUPLENTE';
     const keyHorario = findKey('HORARIO') || 'HORARIO';
-
-    console.log('🔍 Columnas detectadas:', { keyEstado, keyEstadoSalud, keyServicio, keyTitular });
 
     rawData.forEach((row, index) => {
         const servicio = row[keyServicio] || '';
         const titular = row[keyTitular] || '';
-        const estadoSalud = row[keyEstadoSalud] || '';
-        const estadoCobertura = row[keyEstado] || '';
-        const suplente = row[keySuplente] || '';
-        const horario = row[keyHorario] || '';
+        const estadoUpper = (row[keyEstado] || '').toString().toUpperCase();
+        const saludUpper = (row[keyEstadoSalud] || '').toString().toUpperCase();
+        const isBaja = saludUpper.includes('BAJA') || saludUpper.includes('IT') || saludUpper.includes('I.T') || saludUpper.includes('VACACIONES') || estadoUpper.includes('BAJA') || estadoUpper.includes('IT');
 
-        // Skip empty rows (common at the end of Excel files)
-        if (!servicio || servicio.toString().trim() === '') {
-            return; // Skip this row
-        }
-
-        const estadoUpper = estadoCobertura ? estadoCobertura.toString().toUpperCase() : '';
-        const titularUpper = titular ? titular.toString().toUpperCase() : '';
-        const saludUpper = estadoSalud ? estadoSalud.toString().toUpperCase() : '';
-
-        // 1. GESTIÓN DE AUSENCIAS (Detectando Bajas, IT, Vacaciones)
-        if (saludUpper && (saludUpper.includes('BAJA') || saludUpper.includes('IT') || saludUpper.includes('VACACIONES'))) {
+        if (isBaja) {
             newAbsences.push({
                 id: Date.now() + index,
-                worker: titular || 'TITULAR NO ASIGNADO',
+                worker: titular || 'TITULAR',
                 center: servicio,
-                shift: horario || 'CONSULTAR EXCEL',
-                reason: estadoSalud,
-                suggestedSubstitute: suplente || 'PENDIENTE ASIGNAR'
+                shift: row[keyHorario] || '',
+                reason: row[keyEstadoSalud] || row[keyEstado] || 'BAJA',
+                suggestedSubstitute: row[keySuplente] || ''
             });
         }
 
-        // 2. LÓGICA DE DESCUBIERTOS INTELIGENTE
-        const isSpecialService = estadoUpper.includes('BRIGADA') ||
-            titularUpper.includes('RUTA CRISTALES') ||
-            estadoUpper.includes('OBRAS') ||
-            estadoUpper.includes('CERRADO');
+        const isSpecial = estadoUpper.includes('BRIGADA') || estadoUpper.includes('OBRAS') || estadoUpper.includes('CERRADO');
 
-        const isDescubierto = estadoUpper.includes('DESCUBIERTO') ||
-            (estadoUpper === '' && titularUpper === '') ||
-            (titularUpper === 'SIN TITULAR');
+        // --- SMART DISCOVERY LOGIC ---
+        const isDesc = (
+            estadoUpper.includes('DESCUBIERTO') ||
+            estadoUpper.includes('VACANTE') ||
+            estadoUpper.includes('SIN ASIGNAR') ||
+            titular.toUpperCase().includes('SIN TITULAR') ||
+            titular.toUpperCase().includes('DESCUBIERTO') ||
+            (estadoUpper === '' && (titular === '' || titular === 'SIN TITULAR')) ||
+            (estadoUpper === 'PENDIENTE' && titular === '')
+        );
 
-        if (isDescubierto && !isSpecialService) {
+        if (isDesc && !isSpecial) {
             newUncovered.push({
                 id: Date.now() + index + 1000,
                 center: servicio,
                 worker: titular || 'DESCUBIERTO',
-                shift: horario || 'CONSULTAR HORARIO',
-                startTime: horario ? (horario.split('DE')[0] || 'URGENTE') : 'URGENTE',
+                shift: row[keyHorario] || '',
+                startTime: 'URGENTE',
                 risk: true
             });
         }
@@ -946,13 +908,8 @@ function processMasterArray(rawData) {
     state.absences = newAbsences;
     state.uncovered = newUncovered;
     saveAllState();
-
-    // Al cargar nuevos datos, forzamos repoblación del sistema dinámico
-    hasInitializedFilters = false; // Permitir re-detección inteligente de columnas
-    renderFilterChips();
     renderAll();
-
-    updateTicker(`${rawData.length} SERVICIOS ANALIZADOS [SISTEMA OK]`);
+    updateTicker(`${rawData.length} SERVICIOS SINCRONIZADOS`);
 }
 
 // FUNCIÓN ELIMINADA - Ahora usamos la versión consolidada arriba (línea ~54)
@@ -1393,8 +1350,11 @@ function renderMasterBodyOnly() {
     const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || findK('ESTADO') || keys[3];
     const kSuplente = findK('SUPLENTE') || (keys.length > 4 ? keys[4] : 'SUPLENTE');
 
+    // Base data: prioritize filteredData if set by Quick Action buttons
+    const baseData = state.filteredData || state.masterData;
+
     // Filtering Logic
-    let filtered = state.masterData.filter(row => {
+    let filtered = baseData.filter(row => {
         // 1. Global Search
         if (globalQuery) {
             const rowStr = Object.values(row).join(' ').toLowerCase();
@@ -1459,10 +1419,19 @@ function renderMasterBodyOnly() {
         const e = row[kEstado] || '';
         const sup = row[kSuplente] || '';
 
-        const eUpper = e.toString().toUpperCase();
-        const tUpper = t.toString().toUpperCase();
+        const eUpper = (e || '').toString().toUpperCase();
+        const tUpper = (t || '').toString().toUpperCase();
         const isSpecialRow = eUpper.includes('BRIGADA') || tUpper.includes('RUTA CRISTALES') || eUpper.includes('OBRAS') || eUpper.includes('CERRADO');
-        const isDisc = (eUpper.includes('DESCUBIERTO') || (eUpper === '' && tUpper === '') || (tUpper === 'SIN TITULAR')) && !isSpecialRow;
+        const isDisc = (
+            eUpper.includes('DESCUBIERTO') ||
+            eUpper.includes('VACANTE') ||
+            eUpper.includes('SIN ASIGNAR') ||
+            tUpper.includes('SIN TITULAR') ||
+            tUpper.includes('DESCUBIERTO') ||
+            tUpper.includes('VACANTE') ||
+            (eUpper === '' && (tUpper === '' || tUpper === 'SIN TITULAR')) ||
+            (eUpper === 'PENDIENTE' && tUpper === '')
+        ) && !isSpecialRow;
         const rowClass = isDisc ? 'critical-row' : '';
         const badgeClass = isDisc ? 'red' : 'green';
 
@@ -1748,13 +1717,25 @@ function refreshMetrics() {
     // 1. Sincronizar state.uncovered
     state.uncovered = state.masterData.filter(row => {
         const valS = (row[kServicio] || '').toString().trim();
-        // Skip rows without a valid service name
         if (!valS) return false;
 
         const valE = (row[kEstado] || '').toString().toUpperCase();
         const valT = (row[kTitular] || '').toString().toUpperCase();
+
         const isSpecial = valE.includes('BRIGADA') || valT.includes('RUTA CRISTALES') || valE.includes('OBRAS') || valE.includes('CERRADO');
-        const isDesc = valE.includes('DESCUBIERTO') || (valE === '' && valT === '') || (valT === 'SIN TITULAR');
+
+        // --- CONSOLIDATED SMART DISCOVERY ---
+        const isDesc = (
+            valE.includes('DESCUBIERTO') ||
+            valE.includes('VACANTE') ||
+            valE.includes('SIN ASIGNAR') ||
+            valT.includes('SIN TITULAR') ||
+            valT.includes('DESCUBIERTO') ||
+            valT.includes('VACANTE') ||
+            (valE === '' && (valT === '' || valT === 'SIN TITULAR')) ||
+            (valE === 'PENDIENTE' && valT === '')
+        );
+
         return isDesc && !isSpecial;
     }).map(row => ({
         id: Date.now() + Math.random(),
@@ -1873,37 +1854,63 @@ window.showStatusModal = (title, contentHTML) => {
 
 window.showUncoveredDetails = () => {
     if (!state.masterData) return;
+
+    // --- SHARED SMART DISCOVERY LOGIC ---
     const uncovered = state.masterData.filter(row => {
         const keys = Object.keys(row);
-        const servicioKey = keys.find(k => k.toUpperCase().includes('SERVICIO'));
-        const servicio = servicioKey ? (row[servicioKey] || '').toString().trim() : '';
+        const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+        const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
 
-        // Skip rows without a valid service name
-        if (!servicio) return false;
+        const status = (row[kEstado] || '').toString().toUpperCase();
+        const titular = (row[kTitular] || '').toString().toUpperCase();
 
-        const rowValues = Object.values(row).map(v => (v || '').toString().toUpperCase());
-        // Check for 'DESCUBIERTO' in any column, or 'SIN TITULAR'
-        return rowValues.some(v => v.includes('DESCUBIERTO')) || rowValues.some(v => v === 'SIN TITULAR');
+        // Must have at least a service name to be valid
+        const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO'));
+        if (!row[kServicio]) return false;
+
+        return (
+            status.includes('DESCUBIERTO') ||
+            status.includes('VACANTE') ||
+            status.includes('SIN ASIGNAR') ||
+            titular.includes('SIN TITULAR') ||
+            titular.includes('DESCUBIERTO') ||
+            titular.includes('VACANTE') ||
+            (status === '' && (titular === '' || titular === 'SIN TITULAR')) ||
+            (status === 'PENDIENTE' && titular === '')
+        );
     });
 
     if (uncovered.length === 0) {
-        showStatusModal('DESCUBIERTOS', '<p>No hay servicios descubiertos actualmente.</p>');
+        showStatusModal('DESCUBIERTOS', '<p style="text-align:center; padding:20px; color:var(--text-dim);">✅ No hay servicios descubiertos actualmente.</p>');
         return;
     }
 
-    const html = `<table class="master-table">
-        <thead><tr><th>SERVICIO</th><th>ESTADO</th><th>HORARIO</th></tr></thead>
-        <tbody>
-            ${uncovered.map(row => {
+    const html = `
+    <div class="modal-list-container">
+        <table class="master-table">
+            <thead>
+                <tr>
+                    <th>SERVICIO</th>
+                    <th>ESTADO</th>
+                    <th>HORARIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${uncovered.map(row => {
         const keys = Object.keys(row);
-        // Simple heuristic to find columns
-        const srv = row[keys.find(k => k.toUpperCase().includes('SERVICIO'))] || Object.values(row)[0] || '-';
-        const est = row[keys.find(k => k.toUpperCase().includes('ESTADO'))] || 'DESCUBIERTO';
+        const srv = row[keys.find(k => k.toUpperCase().includes('SERVICIO'))] || '-';
+        const est = row[keys.find(k => k.toUpperCase().trim() === 'ESTADO')] || 'DESCUBIERTO';
         const hor = row[keys.find(k => k.toUpperCase().includes('HORARIO'))] || '-';
-        return `<tr><td>${srv}</td><td class="status-descubierto">${est}</td><td>${hor}</td></tr>`;
+        return `
+                        <tr class="critical-row">
+                            <td><div class="td-content"><b>${srv}</b></div></td>
+                            <td><span class="badge red">${est}</span></td>
+                            <td><div class="td-content" style="font-family:monospace; color:var(--sifu-blue);">${hor}</div></td>
+                        </tr>`;
     }).join('')}
-        </tbody>
-    </table>`;
+            </tbody>
+        </table>
+    </div>`;
     showStatusModal(`DESCUBIERTOS (${uncovered.length})`, html);
 };
 
@@ -1918,10 +1925,21 @@ window.showAbsenceDetails = () => {
     const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
     const kTitular = keys.find(k => k.toUpperCase().includes('TITULAR')) || 'TITULAR';
 
-    // Filter by ESTADO1 column specifically
+    // Filter by ESTADO1 column specifically using Smart Discovery logic
     const absences = state.masterData.filter(row => {
-        const estado1 = (row[kEstado1] || '').toString().toUpperCase();
-        return estado1.includes('BAJA') || estado1.includes('IT') || estado1.includes('VACACIONES');
+        const keys = Object.keys(row);
+        const kEst = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
+        const kEst1 = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') || 'ESTADO1';
+
+        const stateUpper = (row[kEst] || '').toString().toUpperCase();
+        const healthUpper = (row[kEst1] || '').toString().toUpperCase();
+
+        return healthUpper.includes('BAJA') ||
+            healthUpper.includes('IT') ||
+            healthUpper.includes('I.T') ||
+            healthUpper.includes('VACACIONES') ||
+            stateUpper.includes('BAJA') ||
+            stateUpper.includes('IT');
     });
 
     if (absences.length === 0) {
@@ -1970,17 +1988,234 @@ window.showIncidentDetails = () => {
     showStatusModal(`INCIDENCIAS (${state.incidents.length})`, html);
 };
 
-window.openAIModal = () => {
-    const modal = document.getElementById('ai-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        generateAIInsights();
+/* --- SITUATIONAL REPORT LOGIC --- */
+let reportChartCoverageInstance = null;
+let reportChartAbsencesInstance = null;
+
+window.openSituationalReport = () => {
+    refreshMetrics(); // Ensure data is fresh
+
+    const modal = document.getElementById('situational-report-modal');
+    if (!modal) return;
+
+    modal.style.display = 'flex';
+
+    // Update Metrics
+    const total = state.masterData ? state.masterData.length : 0;
+    const uncoveredCount = state.uncovered.length;
+    const absencesCount = state.absences.length;
+    const activeCount = Math.max(0, total - uncoveredCount - absencesCount);
+    const coveragePct = total > 0 ? ((activeCount / total) * 100).toFixed(1) : 0;
+
+    const elCov = document.getElementById('report-coverage-val');
+    if (elCov) elCov.textContent = `${coveragePct}%`;
+    const elAct = document.getElementById('report-active-val');
+    if (elAct) elAct.textContent = activeCount;
+    const elUnc = document.getElementById('report-uncovered-val');
+    if (elUnc) elUnc.textContent = uncoveredCount;
+    const elAbs = document.getElementById('report-absences-val');
+    if (elAbs) elAbs.textContent = absencesCount;
+
+    // Render Charts and Analysis
+    setTimeout(() => {
+        renderReportCharts(activeCount, uncoveredCount, absencesCount);
+        updateReportAnalysis(uncoveredCount);
+    }, 100);
+};
+
+window.closeSituationalReport = () => {
+    const modal = document.getElementById('situational-report-modal');
+    if (modal) modal.style.display = 'none';
+};
+
+function renderReportCharts(active, uncovered, absences) {
+    if (typeof Chart === 'undefined') {
+        console.warn('Chart.js library not loaded.');
+        return;
+    }
+
+    const ctxCov = document.getElementById('reportChartCoverage');
+    const ctxAbs = document.getElementById('reportChartAbsences');
+
+    if (reportChartCoverageInstance) {
+        reportChartCoverageInstance.destroy();
+        reportChartCoverageInstance = null;
+    }
+    if (reportChartAbsencesInstance) {
+        reportChartAbsencesInstance.destroy();
+        reportChartAbsencesInstance = null;
+    }
+
+    if (ctxCov) {
+        reportChartCoverageInstance = new Chart(ctxCov, {
+            type: 'doughnut',
+            data: {
+                labels: ['Activos', 'Descubiertos', 'Absentismo'],
+                datasets: [{
+                    data: [active, uncovered, absences],
+                    backgroundColor: ['#10b981', '#ef4444', '#f59e0b'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } }
+                }
+            }
+        });
+    }
+
+    if (ctxAbs) {
+        // Group absences by type manually since state.absences is flat
+        const types = { 'BAJA IT': 0, 'VACACIONES': 0, 'PERMISOS': 0, 'OTROS': 0 };
+        state.absences.forEach(a => {
+            const r = (a.reason || '').toUpperCase();
+            if (r.includes('BAJA') || r.includes('IT')) types['BAJA IT']++;
+            else if (r.includes('VACACIONES')) types['VACACIONES']++;
+            else if (r.includes('PERMISO')) types['PERMISOS']++;
+            else types['OTROS']++;
+        });
+
+        reportChartAbsencesInstance = new Chart(ctxAbs, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(types),
+                datasets: [{
+                    label: 'Cantidad',
+                    data: Object.values(types),
+                    backgroundColor: ['#3b82f6', '#8b5cf6', '#ec4899', '#64748b'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { stepSize: 1 } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
     }
 }
 
-window.closeAIModal = () => {
-    const modal = document.getElementById('ai-modal');
-    if (modal) modal.style.display = 'none';
+function updateReportAnalysis(uncoveredCount) {
+    const hotspotsList = document.getElementById('report-hotspots-list');
+    const actionsList = document.getElementById('report-actions-list');
+    if (!hotspotsList || !actionsList) return;
+
+    // Hotspots: Group uncovered by service
+    const counts = {};
+    state.uncovered.forEach(u => {
+        counts[u.center] = (counts[u.center] || 0) + 1;
+    });
+
+    // Also include high absence locations in hotspots
+    state.absences.forEach(a => {
+        // Optionally include absences in hotspots or keep separate? 
+        // Let's stick to uncovered for now as the main 'hotspot'
+    });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    if (sorted.length === 0) {
+        hotspotsList.innerHTML = '<li style="background:#f0fdf4; color:#166534; border-left-color:#16a34a;">✅ Todo cubierto. Sin puntos calientes.</li>';
+    } else {
+        hotspotsList.innerHTML = sorted.map(([name, count]) =>
+            `<li><strong>${name}</strong>: ${count} puesto(s) descubierto(s)</li>`
+        ).join('');
+    }
+
+    // Actions
+    let actionsHTML = '';
+    if (uncoveredCount > 0) {
+        const plural = uncoveredCount > 1 ? 's' : '';
+        actionsHTML += `<li>Movilizar bolsa de suplencia para cubrir ${uncoveredCount} vacante${plural} urgente${plural}.</li>`;
+        if (sorted[0]) actionsHTML += `<li>Prioridad: Enviar coordinador a <strong>${sorted[0][0]}</strong>.</li>`;
+    }
+
+    // Add incident based actions
+    const highPriorityIncidents = state.incidents.filter(i => i.priority === 'HIGH' && !i.reported).length;
+    if (highPriorityIncidents > 0) {
+        actionsHTML += `<li>Resolver ${highPriorityIncidents} incidencias de ALTA prioridad pendientes.</li>`;
+    }
+
+    if (actionsHTML === '') {
+        actionsHTML = '<li>Realizar auditoría preventiva de calidad en servicios TOP 10.</li><li>Actualizar cuadrantes para el próximo periodo.</li>';
+    }
+
+    actionsList.innerHTML = actionsHTML;
+}
+
+// Deprecated:
+// window.openAIModal = ... 
+// window.closeAIModal = ...
+
+window.downloadReportPDF = async () => {
+    const element = document.querySelector('.report-modal-content');
+    if (!element) return;
+
+    // 1. Apply compact mode styles
+    element.classList.add('pdf-compact');
+
+    // 2. Temporarily hide actions
+    const actions = element.querySelector('.footer-actions');
+    const closeBtn = element.querySelector('.close-modal');
+    const originalActionsDisplay = actions ? actions.style.display : '';
+    const originalCloseDisplay = closeBtn ? closeBtn.style.display : ''; // Fixed variable name
+
+    if (actions) actions.style.display = 'none';
+    if (closeBtn) closeBtn.style.display = 'none';
+
+    // 3. Force Charts to Resize to new compact container sizes
+    // We need to give the browser a moment to apply CSS, then trigger chart resize
+    if (reportChartCoverageInstance) reportChartCoverageInstance.resize();
+    if (reportChartAbsencesInstance) reportChartAbsencesInstance.resize();
+
+    // Small delay to allow canvas redraw execution
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const opt = {
+        margin: 5,
+        filename: `SIFU_Informe_Situacional_${new Date().toISOString().slice(0, 10)}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
+    };
+
+    if (typeof html2pdf === 'undefined') {
+        alert('Librería PDF no cargada. Por favor recarga la página.');
+        cleanupPDFGeneration(element, actions, closeBtn, originalActionsDisplay, originalCloseDisplay);
+        return;
+    }
+
+    try {
+        await html2pdf().set(opt).from(element).save();
+    } catch (err) {
+        console.error('PDF Generation Error:', err);
+        alert('Error generando PDF. Ver consola.');
+    } finally {
+        cleanupPDFGeneration(element, actions, closeBtn, originalActionsDisplay, originalCloseDisplay);
+    }
+};
+
+function cleanupPDFGeneration(element, actions, closeBtn, originalActionsDisplay, originalCloseDisplay) {
+    if (actions) actions.style.display = originalActionsDisplay;
+    if (closeBtn) closeBtn.style.display = originalCloseDisplay; // Fixed variable name
+
+    element.classList.remove('pdf-compact');
+
+    // Restore charts to full size
+    setTimeout(() => {
+        if (reportChartCoverageInstance) reportChartCoverageInstance.resize();
+        if (reportChartAbsencesInstance) reportChartAbsencesInstance.resize();
+    }, 100);
 }
 
 window.generateAIInsights = async () => {
@@ -2083,7 +2318,21 @@ function analyzeMasterData() {
 
     state.masterData.forEach(row => {
         const status = (row[kEstado] || '').toString().toUpperCase();
-        if (status.includes('DESCUBIERTO') || status === 'SIN TITULAR') {
+        const titular = (row[kTitular] || '').toString().toUpperCase();
+        const isSpecial = status.includes('BRIGADA') || titular.includes('RUTA CRISTALES') || status.includes('OBRAS') || status.includes('CERRADO');
+
+        const isDesc = (
+            status.includes('DESCUBIERTO') ||
+            status.includes('VACANTE') ||
+            status.includes('SIN ASIGNAR') ||
+            titular.includes('SIN TITULAR') ||
+            titular.includes('DESCUBIERTO') ||
+            titular.includes('VACANTE') ||
+            (status === '' && (titular === '' || titular === 'SIN TITULAR')) ||
+            (status === 'PENDIENTE' && titular === '')
+        ) && !isSpecial;
+
+        if (isDesc) {
             descubiertos++;
             const srv = row[kServicio] || 'Desconocido';
             serviceCounts[srv] = (serviceCounts[srv] || 0) + 1;
@@ -2122,15 +2371,33 @@ function analyzeIncidents() {
 
 // Tab Switching Logic
 window.switchTab = (tabId) => {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const tabs = document.querySelectorAll('.tab-content');
+    const btns = document.querySelectorAll('.tab-btn');
 
+    // 1. Remove active classes
+    tabs.forEach(c => c.classList.remove('active'));
+    btns.forEach(b => b.classList.remove('active'));
+
+    // 2. Add active to target
     const target = document.getElementById(`tab-${tabId}`);
     if (target) {
         target.classList.add('active');
-        const btn = document.querySelector(`.tab-btn[onclick*="${tabId}"]`);
+
+        // Find button by its switchTab argument
+        const btn = [...btns].find(b => b.getAttribute('onclick')?.includes(`'${tabId}'`));
         if (btn) btn.classList.add('active');
-        if (tabId === 'resumen') setTimeout(updateCharts, 100);
+
+        // 3. Special actions per tab
+        if (tabId === 'resumen') {
+            setTimeout(() => {
+                if (typeof updateCharts === 'function') updateCharts();
+                if (typeof updateOperationalChart === 'function') updateOperationalChart();
+            }, 100);
+        }
+
+        // Smooth entry effect scroll
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log(`🚀 Navegación: Cambiando a pestaña [${tabId.toUpperCase()}]`);
     }
 };
 
@@ -2188,21 +2455,7 @@ function renderAll() {
 let operationalChart = null;
 
 
-function processMasterArray(data) {
-    if (!data || !Array.isArray(data)) {
-        console.error("❌ processMasterArray: Datos inválidos", data);
-        return;
-    }
-
-    state.masterData = data;
-    console.log(`✅ procesMasterArray: Cargados ${data.length} registros.`);
-
-    // Reset filters
-    columnFilters = { servicio: '', titular: '', horario: '', estado: '', suplente: '' };
-
-    // Update UI
-    renderAll();
-}
+// function processMasterArray moved to line 863
 
 function initOperationalChart() {
 
@@ -2796,68 +3049,80 @@ window.exportStatusToPDF = () => {
 
 function setupEventListeners() {
     setupCoreInteractions();
-    // --- INCIDENT FORM ---
-    const incidentForm = document.getElementById('incident-form');
-    if (incidentForm) {
-        incidentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const worker = document.getElementById('worker-name').value;
-            const type = document.getElementById('incident-type').value;
-            const priorityElement = document.querySelector('input[name="priority"]:checked');
-            const priority = priorityElement ? priorityElement.value : 'MID';
-            const desc = document.getElementById('incident-desc').value;
 
-            if (worker && desc) {
-                // Function to add incident must exist
-                if (typeof addIncident === 'function') {
-                    addIncident({ worker, type, priority, desc });
-                } else {
-                    // Fallback if addIncident not found (should be in app.js scope)
-                    state.incidents.unshift({
-                        id: Date.now(),
-                        worker, type, priority, desc,
-                        date: new Date().toLocaleDateString('es-ES'),
-                        time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-                        reported: false
-                    });
-                    saveAndRender();
-                }
+    // --- SMART OPERATIONAL CONTROL ---
+    function updateUrgencyRadar() {
+        const list = document.getElementById('urgency-list');
+        if (!list || !state.masterData) return;
 
-                const modal = document.getElementById('incident-modal');
-                if (modal) modal.classList.remove('active');
-                e.target.reset();
-                if (typeof showToast === 'function') showToast('Incidencia registrada correctamente', 'success');
-            }
-        });
+        const analysis = AIService.analyzeResilience();
+        const hotspots = analysis.summaryList || [];
+
+        if (hotspots.length === 0) {
+            list.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8; font-size:12px;">✅ Sin riesgos detectados</div>';
+            return;
+        }
+
+        list.innerHTML = hotspots.map(h => {
+            const totalIncidents = h.descubiertos + h.bajas;
+            const percent = Math.min(100, (totalIncidents / 5) * 100);
+            const color = h.descubiertos > 0 ? '#ef4444' : '#f59e0b';
+            return `<div class="urgency-item">
+                <div class="urgency-label"><span>${h.centro}</span><span>${totalIncidents} Alertas</span></div>
+                <div class="urgency-bar-bg"><div class="urgency-bar-fill" style="width: ${percent}%; background: ${color}"></div></div>
+            </div>`;
+        }).join('');
     }
 
-    // --- NOTE FORM ---
-    const noteForm = document.getElementById('note-form');
-    if (noteForm) {
-        noteForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const text = document.getElementById('note-text').value;
-            if (text) {
-                if (typeof addNote === 'function') {
-                    addNote(text);
-                } else {
-                    state.notes.unshift({
-                        id: Date.now(),
-                        text: text,
-                        tag: 'INFO',
-                        date: new Date().toLocaleDateString('es-ES'),
-                        completed: false
-                    });
-                    saveAndRender();
-                }
+    window.filterByUrgency = function (type) {
+        if (!state.masterData) return;
+        console.log('Filtrando por urgencia:', type);
 
-                const modal = document.getElementById('note-modal');
-                if (modal) modal.classList.remove('active');
-                e.target.reset();
-                if (typeof showToast === 'function') showToast('Nota añadida a la agenda', 'success');
-            }
-        });
-    }
+        const analysis = AIService.analyzeResilience();
+        const keys = Object.keys(state.masterData[0]);
+        const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || 'ESTADO';
+        const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
+
+        let filtered = [];
+        if (type === 'DESCUBIERTO') {
+            filtered = state.masterData.filter(r => {
+                const e = (r[kEstado] || '').toUpperCase();
+                const t = (r[kTitular] || '').toUpperCase();
+                return e.includes('DESCUBIERTO') || (e === '' && t === '') || (t === 'SIN TITULAR');
+            });
+        } else if (type === 'BAJA') {
+            filtered = state.masterData.filter(r => {
+                const e = (r[kEstado] || '').toUpperCase();
+                const s1 = (r.ESTADO1 || '').toUpperCase();
+                return e.includes('BAJA') || e.includes('IT') || s1.includes('BAJA') || s1.includes('IT');
+            });
+        } else if (type === 'MAÑANA') {
+            filtered = state.masterData.filter(r => {
+                const obs = (r.OBSERVACIONES || '').toLowerCase();
+                return obs.includes('hoy') || obs.includes('fin');
+            });
+        }
+
+        state.filteredData = filtered;
+        renderMasterSummary();
+        showToast(`Filtrados ${filtered.length} casos criticos`, 'info');
+    };
+
+    window.clearTableFilters = function () {
+        console.log('Restaurando vista completa...');
+        state.filteredData = null;
+        renderMasterSummary();
+    };
+
+    // Intervals
+    setInterval(updateUrgencyRadar, 10000);
+    setInterval(updateQuickActionCounters, 5000);
+    setTimeout(() => {
+        updateUrgencyRadar();
+        updateQuickActionCounters();
+        renderMasterSummary();
+    }, 1500);
+
 
     // --- MODAL TRIGGERS (Safe Checks) ---
     const btnAddIncident = document.getElementById('btn-add-incident');
@@ -2909,8 +3174,41 @@ function setupEventListeners() {
         };
     }
 
-    // --- ORDERS MODULE LISTENERS ---
     setupOrdersListeners();
+}
+// --- DYNAMIC COUNTERS FOR QUICK ACTIONS ---
+function updateQuickActionCounters() {
+    if (!state.masterData) return;
+
+    const analysis = AIService.analyzeResilience();
+
+    // 1. Descubiertos
+    const btnDescubiertos = document.querySelector('.smart-btn.danger');
+    const badgeDescubiertos = document.getElementById('count-descubiertos');
+    if (badgeDescubiertos) {
+        badgeDescubiertos.textContent = analysis.metrics.descubiertos;
+        if (analysis.metrics.descubiertos > 0) {
+            btnDescubiertos.classList.add('active-pulse');
+        } else {
+            btnDescubiertos.classList.remove('active-pulse');
+        }
+    }
+
+    // 2. Bajas sin suplente
+    const badgeBajas = document.getElementById('count-bajas');
+    if (badgeBajas) {
+        badgeBajas.textContent = analysis.metrics.bajas - analysis.metrics.suplentes;
+    }
+
+    // 3. Terminan Hoy/Mañana
+    const badgeTerminan = document.getElementById('count-terminan');
+    if (badgeTerminan) {
+        const count = state.masterData.filter(row => {
+            const obs = (row.OBSERVACIONES || '').toLowerCase();
+            return obs.includes('hoy') || obs.includes('fin') || obs.includes('mañ');
+        }).length;
+        badgeTerminan.textContent = count;
+    }
 }
 
 // --- AUTO-FETCH EXCEL FROM SERVER (GITHUB SYNC) ---
@@ -3066,6 +3364,5 @@ function filterOrders(query) {
 
     renderOrdersTable(filtered);
 }
-
 
 

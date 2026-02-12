@@ -161,38 +161,50 @@
 .search-wrapper {
     position: relative;
     flex: 1;
-    min-width: 200px;
+    min-width: 250px;
+    /* Wider for better visibility */
 }
 
 .search-wrapper input {
     width: 100%;
-    padding: 10px 40px 10px 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.15);
+    padding: 12px 20px 12px 45px;
+    /* Left padding for icon */
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.2);
     color: white !important;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .search-wrapper input::placeholder {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    /* High contrast */
+    font-weight: 400;
 }
 
 .search-wrapper input:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.3);
+    border-color: white;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+    /* Focus ring */
+    transform: translateY(-1px);
 }
 
 .search-icon {
     position: absolute;
-    right: 15px;
+    left: 15px;
+    /* Moved to left for standard feel */
     top: 50%;
     transform: translateY(-50%);
-    font-size: 16px;
-    opacity: 0.8;
+    font-size: 18px;
+    opacity: 1;
+    color: white;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .dynamic-filter-container {
