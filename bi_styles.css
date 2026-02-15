@@ -1,0 +1,157 @@
+/**
+ * BI DASHBOARD STYLES - Estilos Premium para Business Intelligence
+ */
+
+.bi-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+}
+
+.bi-metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.bi-metric-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bi-metric-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.metric-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 13px;
+    color: #9aa0a6;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.bi-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+@media (max-width: 1024px) {
+    .bi-charts-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bi-chart-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.bi-chart-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #e8eaed;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bi-area-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bi-area-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 80px;
+    align-items: center;
+    gap: 15px;
+}
+
+.area-name {
+    font-size: 14px;
+    color: #e8eaed;
+    font-weight: 600;
+}
+
+.area-bar-container {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.area-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+}
+
+.area-val {
+    font-size: 13px;
+    color: #ff6b6b;
+    text-align: right;
+    font-weight: 700;
+}
+
+/* Glass effect animations */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bi-chart-card,
+.bi-metric-card {
+    animation: fadeInSlide 0.6s ease-out forwards;
+}
+
+/* Dark mode specific overrides for BI */
+.dark-theme .bi-metric-card {
+    background: rgba(32, 33, 36, 0.6);
+}

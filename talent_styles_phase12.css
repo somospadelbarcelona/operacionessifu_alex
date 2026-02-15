@@ -1,0 +1,223 @@
+/**
+ * TALENT MANAGER STYLES - Fase 12
+ */
+
+.talent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 1100px) {
+    .talent-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.t-section {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.t-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.t-section-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.t-badge-count {
+    background: #e8f0fe;
+    color: #1a73e8;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.course-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 5px solid #1a73e8;
+    transition: transform 0.2s;
+}
+
+.course-card:hover {
+    transform: translateX(5px);
+    background: #f1f3f4;
+}
+
+.course-cat {
+    font-size: 10px;
+    font-weight: 800;
+    background: #dadce0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    color: #5f6368;
+}
+
+.course-name {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #202124;
+    font-weight: 700;
+}
+
+.course-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: #5f6368;
+}
+
+.enroll-btn {
+    background: #e6f4ea;
+    color: #1e8e3e;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.enroll-btn:hover {
+    background: #1e8e3e;
+    color: white;
+}
+
+/* Talent List & Profiles */
+.talent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.talent-card {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 1fr;
+    align-items: center;
+    gap: 15px;
+}
+
+.t-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.t-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #1a73e8 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.t-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.t-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #202124;
+}
+
+.t-goal {
+    font-size: 11px;
+    color: #1a73e8;
+}
+
+.t-level-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.t-level {
+    font-size: 12px;
+    font-weight: 800;
+    color: #5f6368;
+}
+
+.t-xp-bar {
+    height: 6px;
+    background: #e8eaed;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.t-xp-fill {
+    height: 100%;
+    background: #1a73e8;
+    border-radius: 3px;
+}
+
+.t-skills-mini {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.t-skill-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: #f1f3f4;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.t-view-btn {
+    padding: 6px;
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.t-view-btn:hover {
+    background: #f1f3f4;
+}
+
+.t-search-box input {
+    padding: 8px 15px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    width: 180px;
+}

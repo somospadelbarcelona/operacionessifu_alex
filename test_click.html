@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Click Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f0f0f0;
+        }
+
+        .test-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .close-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+
+        .close-btn:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Test de Click y Modal</h1>
+    <p>Haz clic en la tarjeta para probar si el modal funciona:</p>
+
+    <div class="test-card" onclick="testClick()">
+        <h2>🔥 CLICK AQUÍ PARA PROBAR</h2>
+        <p>Si el modal aparece, significa que el sistema funciona correctamente.</p>
+    </div>
+
+    <!-- Modal -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <h2>✅ ¡FUNCIONA!</h2>
+            <p>El sistema de modales está operativo. El problema debe estar en otra parte del código principal.</p>
+            <button class="close-btn" onclick="closeTestModal()">CERRAR</button>
+        </div>
+    </div>
+
+    <script>
+        console.log('🔧 Test script loaded');
+
+        function testClick() {
+            console.log('🖱️ CLICK DETECTADO!');
+            alert('Click detectado! Ahora se abrirá el modal...');
+
+            const modal = document.getElementById('test-modal');
+            console.log('Modal element:', modal);
+
+            if (modal) {
+                modal.classList.add('active');
+                console.log('✅ Modal opened');
+            } else {
+                console.error('❌ Modal not found');
+            }
+        }
+
+        function closeTestModal() {
+            console.log('🔒 Closing modal');
+            const modal = document.getElementById('test-modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Test on load
+        window.addEventListener('DOMContentLoaded', function () {
+            console.log('✅ DOM loaded');
+            console.log('Modal exists:', document.getElementById('test-modal') !== null);
+        });
+    </script>
+</body>
+
+</html>

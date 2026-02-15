@@ -63,18 +63,46 @@
     border-radius: 10px;
 }
 
+/* Sidebar Vertical Layout */
+.sidebar-notes-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+}
+
+.sidebar-notes-vertical .note-card {
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+}
+
 .note-card {
     min-width: 250px;
     max-width: 300px;
     background: white;
     border-radius: 12px;
     padding: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #667eea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #6366f1;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: 1px solid #f1f5f9;
+}
+
+.sidebar-notes-vertical::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-notes-vertical::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-notes-vertical::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
 }
 
 .note-card:hover {

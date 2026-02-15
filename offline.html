@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión - SIFU Informer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            text-align: center;
+            color: white;
+            max-width: 500px;
+        }
+
+        .offline-icon {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .retry-btn {
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .offline-features {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .offline-features h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .offline-features ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .offline-features li {
+            padding: 10px 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .offline-features li::before {
+            content: "✓ ";
+            margin-right: 10px;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        <h1>Sin Conexión</h1>
+        <p>
+            No hay conexión a internet en este momento.<br>
+            Algunas funciones pueden estar limitadas.
+        </p>
+
+        <button class="retry-btn" onclick="window.location.reload()">
+            🔄 Reintentar
+        </button>
+
+        <div class="offline-features">
+            <h2>Funciones Disponibles Offline:</h2>
+            <ul>
+                <li>Ver datos cacheados</li>
+                <li>Consultar historial</li>
+                <li>Revisar notificaciones guardadas</li>
+                <li>Acceder al checklist</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Intentar reconectar automáticamente
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        // Verificar conexión cada 5 segundos
+        setInterval(() => {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }, 5000);
+    </script>
+</body>
+
+</html>

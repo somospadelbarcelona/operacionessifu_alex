@@ -1,0 +1,93 @@
+{
+    "name": "SIFU INFORMER - Panel de Control Inteligente",
+    "short_name": "SIFU Informer",
+    "description": "Sistema inteligente de gestión operativa con IA predictiva",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity",
+        "utilities"
+    ],
+    "screenshots": [
+        {
+            "src": "screenshot-desktop.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "screenshot-mobile.png",
+            "sizes": "750x1334",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Smart Hub",
+            "short_name": "Smart Hub",
+            "description": "Acceso directo al Smart Hub",
+            "url": "/index.html#smarthub",
+            "icons": [
+                {
+                    "src": "icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Notificaciones",
+            "short_name": "Notificaciones",
+            "description": "Ver notificaciones",
+            "url": "/index.html#notifications",
+            "icons": [
+                {
+                    "src": "icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Checklist",
+            "short_name": "Checklist",
+            "description": "Checklist diario",
+            "url": "/index.html#checklist",
+            "icons": [
+                {
+                    "src": "icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+    "share_target": {
+        "action": "/share",
+        "method": "POST",
+        "enctype": "multipart/form-data",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url"
+        }
+    },
+    "prefer_related_applications": false
+}

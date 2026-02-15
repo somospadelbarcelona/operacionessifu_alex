@@ -1,0 +1,536 @@
+/**
+ * INTEGRATIONS & EXPORT STYLES - Estilos para Integraciones y Exportación
+ */
+
+/* ========================================
+   INTEGRATIONS PANEL
+   ======================================== */
+
+.integrations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.integration-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.integration-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.integration-card.configured {
+    border-left-color: #34a853;
+}
+
+.integration-card.not-configured {
+    border-left-color: #ea4335;
+    opacity: 0.8;
+}
+
+.integration-icon {
+    font-size: 48px;
+    text-align: center;
+}
+
+.integration-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.integration-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #5f6368;
+    line-height: 1.5;
+}
+
+.integration-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.integration-card.configured .integration-status {
+    background: #34a853;
+    color: white;
+}
+
+.integration-card.not-configured .integration-status {
+    background: #ea4335;
+    color: white;
+}
+
+.integration-config-btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: auto;
+}
+
+.integration-config-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* ========================================
+   EXPORT PANEL
+   ======================================== */
+
+.export-options {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.export-options h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.export-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.export-btn {
+    padding: 15px 20px;
+    background: white;
+    border: 2px solid #e8eaed;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #202124;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.export-btn:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.export-history {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.export-history h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.export-history-list {
+    display: grid;
+    gap: 10px;
+}
+
+.export-history-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 15px;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.export-history-item:hover {
+    background: #e8eaed;
+}
+
+.export-format {
+    padding: 4px 8px;
+    background: #667eea;
+    color: white;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.export-filename {
+    font-size: 13px;
+    font-weight: 600;
+    color: #202124;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.export-time {
+    font-size: 12px;
+    color: #5f6368;
+}
+
+/* ========================================
+   AUTOMATION PANEL
+   ======================================== */
+
+.automation-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.automation-panel h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.automation-rules {
+    display: grid;
+    gap: 15px;
+}
+
+.automation-rule {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.automation-rule.active {
+    border-left-color: #34a853;
+}
+
+.automation-rule.inactive {
+    border-left-color: #ea4335;
+    opacity: 0.6;
+}
+
+.rule-info {
+    flex: 1;
+}
+
+.rule-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #202124;
+    margin-bottom: 4px;
+}
+
+.rule-description {
+    font-size: 12px;
+    color: #5f6368;
+}
+
+.rule-toggle {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: #ccc;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.rule-toggle.active {
+    background: #34a853;
+}
+
+.rule-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: left 0.3s;
+}
+
+.rule-toggle.active::after {
+    left: 27px;
+}
+
+/* ========================================
+   WEBHOOK LOGS
+   ======================================== */
+
+.webhook-logs {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.webhook-logs h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.webhook-log-list {
+    display: grid;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.webhook-log-item {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.webhook-log-item.success {
+    border-left-color: #34a853;
+}
+
+.webhook-log-item.error {
+    border-left-color: #ea4335;
+}
+
+.webhook-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.webhook-event {
+    font-size: 13px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.webhook-time {
+    font-size: 11px;
+    color: #5f6368;
+}
+
+.webhook-details {
+    font-size: 12px;
+    color: #5f6368;
+}
+
+/* ========================================
+   NOTIFICATION TEMPLATES
+   ======================================== */
+
+.notification-templates {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-templates h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.template-list {
+    display: grid;
+    gap: 15px;
+}
+
+.template-card {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.template-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.template-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.template-type {
+    padding: 4px 8px;
+    background: #667eea;
+    color: white;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.template-preview {
+    font-size: 12px;
+    color: #5f6368;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.template-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.template-action-btn {
+    padding: 6px 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.template-action-btn:hover {
+    background: #764ba2;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .integrations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .export-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .export-history-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .export-format {
+        width: fit-content;
+    }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes pulse-integration {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.integration-card.configured:hover .integration-icon {
+    animation: pulse-integration 1s ease-in-out infinite;
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+.export-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #5f6368;
+}
+
+.export-loading::before {
+    content: '⏳';
+    font-size: 32px;
+    margin-right: 10px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   SUCCESS/ERROR STATES
+   ======================================== */
+
+.integration-success {
+    padding: 15px;
+    background: linear-gradient(to right, rgba(52, 168, 83, 0.1), transparent);
+    border-left: 4px solid #34a853;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.integration-error {
+    padding: 15px;
+    background: linear-gradient(to right, rgba(234, 67, 53, 0.1), transparent);
+    border-left: 4px solid #ea4335;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.integration-success-icon,
+.integration-error-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
