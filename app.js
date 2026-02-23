@@ -86,7 +86,7 @@ window.showUncoveredDetails = () => {
         return;
     }
 
-    const uncovered = window.state.masterData.filter(row => {
+    const _rawUncovered = window.state.masterData.filter(row => {
         const keys = Object.keys(row);
         const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
         const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
@@ -107,6 +107,16 @@ window.showUncoveredDetails = () => {
             (status === '' && (titular === '' || titular === 'SIN TITULAR')) ||
             (status === 'PENDIENTE' && titular === '')
         );
+    });
+    // Deduplicar por nombre de SERVICIO (cada servicio único cuenta solo 1 vez)
+    const seenServices = new Set();
+    const uncovered = _rawUncovered.filter(row => {
+        const keys = Object.keys(row);
+        const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO'));
+        const srvName = (row[kServicio] || '').toString().trim().toUpperCase();
+        if (seenServices.has(srvName)) return false;
+        seenServices.add(srvName);
+        return true;
     });
 
     if (uncovered.length === 0) {
@@ -283,13 +293,27 @@ async function loadGlobalState() {
             }
         }
 
-        // Ensure masterData exists
-        if (!state.masterData || state.masterData.length === 0) {
-            if (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
-                console.log('📦 Backup: Usando datos estáticos integrados.');
-                state.masterData = INITIAL_MASTER_DATA;
-                saveAllState();
+        // SIEMPRE usar INITIAL_MASTER_DATA (datos frescos del Excel sincronizado)
+        // Los datos del master SON la fuente de verdad — el localStorage puede tener datos obsoletos
+        if (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
+            const prevCount = state.masterData ? state.masterData.length : 0;
+            state.masterData = INITIAL_MASTER_DATA;
+            console.log(`📦 MasterData actualizado desde Excel: ${INITIAL_MASTER_DATA.length} filas (anterior: ${prevCount})`);
+
+            // Guardar inmediatamente en localStorage para que quede consistente
+            try {
+                localStorage.setItem(STORAGE_KEYS.MASTER, JSON.stringify(state.masterData));
+                console.log('✅ MasterData fresco guardado en localStorage.');
+            } catch (e) { console.warn('No se pudo guardar masterData en localStorage:', e); }
+
+            // Mostrar timestamp del master_data.js en el header
+            if (typeof MASTER_DATA_TIMESTAMP !== 'undefined') {
+                const syncEl = document.getElementById('last-sync-time');
+                if (syncEl) syncEl.textContent = `ÚSIMA SYNC EXCEL: ${MASTER_DATA_TIMESTAMP}`;
+                localStorage.setItem('sifu_last_sync', MASTER_DATA_TIMESTAMP);
             }
+        } else if (!state.masterData || state.masterData.length === 0) {
+            console.warn('⚠️ INITIAL_MASTER_DATA no disponible y localStorage vacío.');
         }
 
         console.log("📊 Estado Final Cargado -> Incidencias:", state.incidents.length, "Notas:", state.notes.length);
@@ -868,10 +892,16 @@ let lastSaveTimestamp = 0;   // Timestamp del último guardado local
 async function activateMasterLiveWatch(handle) {
     if (!handle) return;
     liveHandle = handle;
+    window.liveHandle = handle; // Ensure global access
     window.liveWatchActive = true;
 
     // Guardar para futuros arranques
     await saveHandle(handle);
+
+    // Actualizar Sincro-Hub si existe
+    if (window.MasterSyncEngine) {
+        window.MasterSyncEngine.activate(handle);
+    }
 
     const btn = document.getElementById('btn-load-master');
     if (btn) {
@@ -1074,6 +1104,11 @@ function handleExcelFile(file) {
         localStorage.setItem('sifu_last_sync', syncMsg);
         const timeEl = document.getElementById('last-sync-time');
         if (timeEl) timeEl.textContent = `ÚLTIMA SYNC: ${syncMsg}`;
+
+        // Notify Sync Hub
+        if (window.MasterSyncEngine) {
+            window.MasterSyncEngine.updateUI('active');
+        }
     };
     reader.readAsArrayBuffer(file);
 }
@@ -1800,10 +1835,18 @@ function renderMasterBodyOnly() {
     // --- INJECT STATS INTO LILA TOOLBAR (God-Mode Integration) ---
     const toolStats = document.getElementById('toolbar-stats-container');
     if (toolStats) {
-        const discCount = filtered.filter(r => {
+        const _discRaw = filtered.filter(r => {
             const e = (r[kEstado] || '').toString().toUpperCase();
             const t = (r[kTitular] || '').toString().toUpperCase();
             return e.includes('DESCUBIERTO') || e.includes('VACANTE') || t.includes('SIN TITULAR') || (e === '' && t === '');
+        });
+        // Deduplicar por SERVICIO
+        const _discSeen = new Set();
+        const discCount = _discRaw.filter(r => {
+            const srvName = (r[kServicio] || '').toString().trim().toUpperCase();
+            if (_discSeen.has(srvName)) return false;
+            _discSeen.add(srvName);
+            return true;
         }).length;
 
         toolStats.innerHTML = `
@@ -2138,7 +2181,8 @@ function refreshMetrics() {
     const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
     const kHorario = keys.find(k => k.toUpperCase().includes('HORARIO')) || 'HORARIO';
 
-    // 1. Sincronizar state.uncovered
+    // 1. Sincronizar state.uncovered — DEDUPLICADO POR SERVICIO
+    const _seenUncov = new Set();
     state.uncovered = state.masterData.filter(row => {
         const valS = (row[kServicio] || '').toString().trim();
         if (!valS) return false;
@@ -2160,7 +2204,13 @@ function refreshMetrics() {
             (valE === 'PENDIENTE' && valT === '')
         );
 
-        return isDesc && !isSpecial;
+        if (!isDesc || isSpecial) return false;
+
+        // Deduplicar: si el mismo nombre de servicio ya fue contado, ignorar
+        const srvKey = valS.toUpperCase();
+        if (_seenUncov.has(srvKey)) return false;
+        _seenUncov.add(srvKey);
+        return true;
     }).map(row => ({
         id: Date.now() + Math.random(),
         center: row[kServicio] || '---',
@@ -2266,7 +2316,7 @@ window.showUncoveredDetails = () => {
     if (!state.masterData) return;
 
     // --- SHARED SMART DISCOVERY LOGIC ---
-    const uncovered = state.masterData.filter(row => {
+    const _rawUncovered2 = state.masterData.filter(row => {
         const keys = Object.keys(row);
         const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
         const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
@@ -2288,6 +2338,16 @@ window.showUncoveredDetails = () => {
             (status === '' && (titular === '' || titular === 'SIN TITULAR')) ||
             (status === 'PENDIENTE' && titular === '')
         );
+    });
+    // Deduplicar por nombre de SERVICIO (cada servicio único cuenta solo 1 vez)
+    const _seenSrv2 = new Set();
+    const uncovered = _rawUncovered2.filter(row => {
+        const keys = Object.keys(row);
+        const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO'));
+        const srvName = (row[kServicio] || '').toString().trim().toUpperCase();
+        if (_seenSrv2.has(srvName)) return false;
+        _seenSrv2.add(srvName);
+        return true;
     });
 
     if (uncovered.length === 0) {

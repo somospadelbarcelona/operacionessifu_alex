@@ -3,10 +3,10 @@
  * Permite que la app funcione sin conexión
  */
 
-const CACHE_NAME = 'sifu-informer-v1';
+const CACHE_NAME = 'sifu-informer-v5'; // Incrementar versión fuerza limpieza de caché antigua
 const OFFLINE_URL = 'offline.html';
 
-// Archivos críticos para cachear
+// Archivos críticos para cachear (NUNCA incluir master_data.js — siempre debe ser fresco)
 const CRITICAL_FILES = [
     '/',
     '/index.html',
@@ -19,7 +19,6 @@ const CRITICAL_FILES = [
     '/smart_modules.css',
     '/advanced_modules.css',
     '/app.js',
-    '/master_data.js',
     '/operational_service.js',
     '/director_module.js',
     '/quadrants_module.js',
@@ -31,6 +30,14 @@ const CRITICAL_FILES = [
     '/ai_predictive_engine.js',
     '/worker_performance.js',
     '/substitute_management.js'
+];
+
+// Archivos que JAMAS se cachean — siempre van a la red
+// master_data.js contiene los datos del Excel y se regenera con cada sync
+const NEVER_CACHE = [
+    'master_data.js',
+    'master_data.js?',  // con query params
+    'temp_master'
 ];
 
 // Instalación del Service Worker
@@ -73,6 +80,24 @@ self.addEventListener('fetch', (event) => {
     // Ignorar requests de Chrome extensions
     if (event.request.url.startsWith('chrome-extension://')) return;
 
+    const url = event.request.url;
+
+    // === NETWORK ONLY para master_data.js ===
+    // Este archivo se regenera con cada sync del Excel — NUNCA cachear
+    const isNeverCache = NEVER_CACHE.some(pattern => url.includes(pattern));
+    if (isNeverCache) {
+        event.respondWith(
+            fetch(event.request, { cache: 'no-store' })
+                .catch(() => {
+                    // Si falla la red Y hay una versión cacheada, usarla como último recurso
+                    // pero nunca GUARDARLA de vuelta
+                    return caches.match(event.request);
+                })
+        );
+        return;
+    }
+
+    // === NETWORK FIRST para el resto ===
     event.respondWith(
         fetch(event.request)
             .then((response) => {

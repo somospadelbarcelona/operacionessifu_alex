@@ -52,7 +52,7 @@ try {
     }
 
     $json = $jsonObjects | ConvertTo-Json -Depth 2 -Compress
-    $finalContent = "const INITIAL_MASTER_DATA = $json;"
+    $finalContent = "var INITIAL_MASTER_DATA = $json;"
     
     [System.IO.File]::WriteAllText($jsPath, $finalContent, [System.Text.Encoding]::UTF8)
 

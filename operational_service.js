@@ -26,9 +26,12 @@ const OperationalService = {
 
         const summaryMap = new Map(); // Centro -> {descubiertos: 0, bajas: 0}
 
+        // Segundo Set para deduplicar descubiertos por nombre de servicio únicamente
+        const seenDescubiertos = new Set();
+
         state.masterData.forEach(row => {
-            // Clave única mejorada para evitar colisiones en servicios multi-turno
-            const serv = (row.SERVICIO || row.PROYECTO || '').toString();
+            // Clave única por servicio+titular+horario para evitar duplicados exactos
+            const serv = (row.SERVICIO || row.PROYECTO || '').toString().trim();
             const tit = (row.TITULAR || '').toString();
             const hor = (row.HORARIO || '').toString();
             const uniqueKey = `${serv}-${tit}-${hor}`;
@@ -65,11 +68,16 @@ const OperationalService = {
             }
 
             if (isDescubierto) {
-                metrics.descubiertos++;
-                integrityScore -= 5;
-                const cData = summaryMap.get(centro) || { centro: centro, descubiertos: 0, bajas: 0 };
-                cData.descubiertos++;
-                summaryMap.set(centro, cData);
+                // Deduplicar: solo contar si el servicio no fue contado antes como descubierto
+                const srvKey = serv.toUpperCase();
+                if (!seenDescubiertos.has(srvKey)) {
+                    seenDescubiertos.add(srvKey);
+                    metrics.descubiertos++;
+                    integrityScore -= 5;
+                    const cData = summaryMap.get(centro) || { centro: centro, descubiertos: 0, bajas: 0 };
+                    cData.descubiertos++;
+                    summaryMap.set(centro, cData);
+                }
             }
 
             // LÓGICA DE BAJAS / IT
