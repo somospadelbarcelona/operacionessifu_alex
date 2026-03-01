@@ -51,11 +51,21 @@ const ExcelSync = {
             const arrayBuffer = await response.arrayBuffer();
             const workbook = XLSX.read(arrayBuffer, { type: 'array' });
 
-            // Leer la primera hoja
-            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const data = XLSX.utils.sheet_to_json(firstSheet);
+            // Robust Sheet Selection (Prefer SEGUIMIENTO, fallback to first)
+            let sheetName = 'SEGUIMIENTO';
+            let firstSheet = workbook.Sheets[sheetName];
+            if (!firstSheet) {
+                firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            }
 
-            console.log(`✅ ${data.length} registros cargados del Excel`);
+            // Fetch processed strings instead of raw integers/dates
+            const data = XLSX.utils.sheet_to_json(firstSheet, {
+                raw: false,
+                dateNF: 'dd/mm/yyyy',
+                defval: ''
+            });
+
+            console.log(`✅ ${data.length} registros cargados del Excel via AutoSync`);
 
             return data;
         } catch (e) {

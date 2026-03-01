@@ -567,8 +567,63 @@ const IntegrationsHub = {
     configureIntegration(key) {
         console.log('⚙️ Configurando integración:', key);
 
+        if (key === 'whatsapp') {
+            const phoneNumber = prompt("📱 Introduce tu número de teléfono de Coordinador (ej: 34600123456) para usar en Web API:", this.settings.whatsapp?.phoneNumber || "");
+            if (phoneNumber !== null) {
+                this.settings.whatsapp = {
+                    enabled: true,
+                    configured: true,
+                    phoneNumber: phoneNumber.replace(/\D/g, '') // Solo números
+                };
+                this.integrations.whatsapp.configured = true;
+                this.saveSettings();
+                this.renderIntegrationsPanel();
+                if (typeof showToast === 'function') showToast(`✅ WhatsApp Web API configurado con: ${this.settings.whatsapp.phoneNumber}`, 'success');
+            }
+        } else {
+            if (typeof showToast === 'function') {
+                showToast(`⚙️ Configuración de ${key} - Próximamente`, 'info');
+            }
+        }
+    },
+
+    // ========================================
+    // AUTO-ASIGNACIÓN WHATSAPP BOTS (Fase 5)
+    // ========================================
+
+    promptWhatsAppAutoAssign(uncoveredService, suggestedWorker) {
+        if (!this.integrations.whatsapp.configured) {
+            console.warn("WhatsApp no está configurado para auto-asignación.");
+            // Pedimos configurarlo la primera vez
+            if (confirm("⚠️ WhatsApp no configurado.\n\nPara auto-contactar a suplentes necesitas habilitarlo en 'Integraciones'. ¿Configurar ahora?")) {
+                this.configureIntegration('whatsapp');
+            }
+            return;
+        }
+
+        // Crear Action Panel visual (o usar Confirm tradicional de forma temporal hasta inyectar UI)
+        const textMessage = `*ALERTA SIFU INFORMER*\n\nHola ${suggestedWorker.TITULAR || 'Compañero/a'},\n\nTenemos un servicio urgente DESCUBIERTO hoy en *${uncoveredService.SERVICIO || uncoveredService.PROYECTO}*.\n\nComo formas parte del retén, ¿puedes confirmar tu asistencia para cubrir este turno?\n\nResponde SI o NO.`;
+
+        const encodedUrl = `https://api.whatsapp.com/send/?phone=&text=${encodeURIComponent(textMessage)}&type=phone_number&app_absent=0`;
+
+        // Mostrar un Custom Modal o Custom Toast de decisión rápida
         if (typeof showToast === 'function') {
-            showToast(`⚙️ Configuración de ${key} - Próximamente`, 'info');
+            // Creamos un popup custom en el navegador
+            const id = 'wa-prompt-' + Date.now();
+            const popupHTML = `
+                <div id="${id}" style="position:fixed; bottom:20px; right:20px; width:350px; background:white; border-left:4px solid #25D366; border-radius:10px; box-shadow:0 10px 25px rgba(0,0,0,0.2); padding:20px; z-index:999999; animation: slideInRight 0.3s ease;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+                        <span style="font-size:24px; color:#25D366;">📱</span>
+                        <h4 style="margin:0; font-size:15px; color:#1e293b;">Sug. Auto-Asignación</h4>
+                    </div>
+                    <p style="font-size:13px; color:#475569; margin-bottom:15px;">¿Abrir WhatsApp Web para contactar a <strong>${suggestedWorker.TITULAR}</strong> por la baja en <strong>${uncoveredService.SERVICIO || 'el centro'}</strong>?</p>
+                    <div style="display:flex; gap:10px;">
+                        <button onclick="window.open('${encodedUrl}', '_blank'); document.getElementById('${id}').remove()" style="flex:1; background:#25D366; color:white; border:none; padding:8px; border-radius:6px; font-weight:700; cursor:pointer;">Enviar WhatsApp</button>
+                        <button onclick="document.getElementById('${id}').remove()" style="background:#f1f5f9; color:#64748b; border:none; padding:8px 15px; border-radius:6px; font-weight:600; cursor:pointer;">Cancelar</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
         }
     }
 };

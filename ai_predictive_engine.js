@@ -55,6 +55,12 @@ const AIPredictiveEngine = {
 
             const profile = this.workerProfiles[titular];
 
+            // Auto-reparar Sets arruinados por JSON.parse de localStorage
+            if (!(profile.serviceTypes instanceof Set)) profile.serviceTypes = new Set();
+            if (!(profile.locations instanceof Set)) profile.locations = new Set();
+            if (!Array.isArray(profile.services)) profile.services = [];
+            if (!Array.isArray(profile.itHistory)) profile.itHistory = [];
+
             // Agregar servicio
             if (!profile.services.find(s => s.proyecto === service.PROYECTO)) {
                 profile.services.push({
@@ -239,6 +245,8 @@ const AIPredictiveEngine = {
         // RECOMENDACIÓN 1: Mejores suplentes para cada descubierto
         const descubiertos = window.state.masterData.filter(s => s.ESTADO === 'DESCUBIERTO');
 
+        let whatsappPrompted = false; // Flag to prevent spamming multiple popups
+
         descubiertos.forEach(service => {
             const bestMatches = this.findBestSuplentes(service);
 
@@ -250,6 +258,17 @@ const AIPredictiveEngine = {
                     suggestions: bestMatches.slice(0, 3), // Top 3
                     data: service
                 });
+
+                // FASE 5: AUTO-ASIGNACIÓN WHATSAPP (Solo lanzamos 1 popup visual para no saturar)
+                if (!whatsappPrompted && window.IntegrationsHub && window.IntegrationsHub.integrations.whatsapp.configured) {
+                    whatsappPrompted = true;
+                    setTimeout(() => {
+                        window.IntegrationsHub.promptWhatsAppAutoAssign(
+                            service,
+                            { TITULAR: bestMatches[0].worker }
+                        );
+                    }, 2000); // 2 segundos después de renderizar
+                }
             }
         });
 
@@ -438,11 +457,14 @@ const AIPredictiveEngine = {
         }
 
         const html = this.predictions.map(pred => {
-            const priorityClass = {
+            let priorityClass = {
                 'alta': 'prediction-high',
                 'media': 'prediction-medium',
                 'baja': 'prediction-low'
             }[pred.probability] || 'prediction-medium';
+
+            if (pred.probability === 'alta') priorityClass += ' ai-pulse-alert';
+            else if (pred.probability === 'media') priorityClass += ' ai-pulse-warning';
 
             const icon = {
                 'contract_ending': '📅',

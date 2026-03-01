@@ -7,7 +7,7 @@
     <title>SIFU | PANEL DE CONTROL v8.2</title>
 
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Sistema inteligente de gestión operativa con IA predictiva">
+    <meta name="description" content="Sistema avanzado de gestión operativa predictiva">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -58,9 +58,80 @@
     <!-- TensorFlow.js para Machine Learning -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
     <script src="master_sync_engine.js" defer></script>
+
+    <!-- GLOBAL ERROR HANDLER (AUDITORIA FASE) -->
+    <script>
+        window.addEventListener('error', function (event) {
+            console.error("Global Error Caught:", event.error || event.message);
+            const msg = event.message || 'Error desconocido';
+            if (typeof updateTicker === 'function') updateTicker("⚠️ SISTEMA: " + msg.toUpperCase());
+            // No bloquear la ejecución si es un error menor
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+            console.error("Unhandled Promise Rejection:", event.reason);
+            if (typeof updateTicker === 'function') updateTicker("⚠️ ALERTA DE RED O EVENTO ASÍNCRONO FALLIDO");
+        });
+    </script>
 </head>
 
 <body class="light-theme">
+    <!-- AUTHENTICATION OVERLAY -->
+    <div id="auth-overlay"
+        style="position: fixed; inset: 0; z-index: 999999; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; transition: opacity 0.4s ease;">
+        <div
+            style="background: rgba(255, 255, 255, 0.03); padding: 50px 40px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; max-width: 400px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            <div style="margin-bottom: 25px;">
+                <span style="font-size: 40px;">🔒</span>
+            </div>
+            <h2 style="color: white; margin-bottom: 12px; font-size: 22px; font-weight: 700; letter-spacing: 1px;">
+                ACCESO RESTRINGIDO</h2>
+            <p style="color: #94a3b8; margin-bottom: 35px; font-size: 14px; line-height: 1.5;">Sistema de alta
+                confidencialidad.<br>Por favor, introduzca su PIN de seguridad.</p>
+
+            <input type="password" id="auth-pin-input" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+                style="width: 100%; padding: 18px; font-size: 32px; text-align: center; letter-spacing: 15px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: white; outline: none; transition: border-color 0.3s; margin-bottom: 15px;"
+                placeholder="••••" onkeyup="if(event.key === 'Enter') SifuAuth.checkPin()">
+
+            <div id="auth-error-msg"
+                style="color: #ef4444; font-size: 13px; font-weight: 500; margin-bottom: 20px; min-height: 20px; opacity: 0; transition: opacity 0.2s;">
+                Código incorrecto</div>
+
+            <button onclick="SifuAuth.checkPin()"
+                style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; width: 100%; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transition: transform 0.1s;">DESBLOQUEAR
+                SESIÓN</button>
+        </div>
+    </div>
+    <script>
+        const SifuAuth = {
+            pin: "2121", // Código numérico actual (Puede cambiarse)
+            checkPin: function () {
+                const input = document.getElementById('auth-pin-input');
+                const error = document.getElementById('auth-error-msg');
+                if (input.value === this.pin) {
+                    sessionStorage.setItem('sifu_auth_granted', 'true');
+                    document.getElementById('auth-overlay').style.opacity = '0';
+                    setTimeout(() => document.getElementById('auth-overlay').style.display = 'none', 400);
+                } else {
+                    error.style.opacity = '1';
+                    input.value = '';
+                    input.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        input.style.borderColor = 'rgba(255,255,255,0.1)';
+                        error.style.opacity = '0';
+                    }, 1500);
+                }
+            },
+            init: function () {
+                if (sessionStorage.getItem('sifu_auth_granted') === 'true') {
+                    document.getElementById('auth-overlay').style.display = 'none';
+                } else {
+                    document.getElementById('auth-pin-input').focus();
+                }
+            }
+        };
+        SifuAuth.init();
+    </script>
+
     <!-- Subtle Google-style background blobs -->
     <div class="bg-blob"></div>
     <div class="bg-blob secondary"></div>
@@ -166,7 +237,12 @@
                         <button class="tab-btn" data-tab="cuadrantes" onclick="switchTab('cuadrantes')">
                             <span>📅</span> CUADRANTES
                         </button>
-                        <button class="tab-btn" data-tab="descubiertos" onclick="switchTab('descubiertos')">
+                        <button class="tab-btn" data-tab="vacaciones" onclick="switchTab('vacaciones')"
+                            style="color: #f59e0b; font-weight: 800; border: 1px solid rgba(245, 158, 11, 0.4); background-color: rgba(245, 158, 11, 0.05);">
+                            <span>🏖️</span> VACACIONES
+                        </button>
+                        <button class="tab-btn" data-tab="descubiertos" onclick="switchTab('descubiertos')"
+                            style="color: #ef4444; font-weight: 800; border: 1px solid rgba(239, 68, 68, 0.4); background-color: rgba(239, 68, 68, 0.05);">
                             <span>🚨</span> DESCUBIERTOS
                         </button>
                         <button class="tab-btn" data-tab="resumen" onclick="switchTab('resumen')">
@@ -174,7 +250,11 @@
                         </button>
                         <button class="tab-btn" data-tab="smarthub" onclick="switchTab('smarthub')"
                             style="color: #667eea; font-weight: 800; border: 1px solid rgba(102, 126, 234, 0.2);">
-                            <span>🧠</span> INTELIGENCIA
+                            <span>📊</span> SMARTHUB
+                        </button>
+                        <button class="tab-btn" data-tab="avanzado" onclick="switchTab('avanzado')"
+                            style="color: #8b5cf6; font-weight: 800; border: 1px solid rgba(139, 92, 246, 0.4); background-color: rgba(139, 92, 246, 0.05);">
+                            <span>🚀</span> AVANZADO
                         </button>
                     </nav>
 
@@ -268,7 +348,7 @@
                                                 <span class="search-icon">🔍</span>
                                                 <input type="text" id="master-search-input"
                                                     aria-label="Buscar en tabla maestra"
-                                                    oninput="if(typeof renderMasterBodyOnly === 'function') renderMasterBodyOnly()"
+                                                    oninput="if(window.debouncedRenderMasterBody) window.debouncedRenderMasterBody(); else if(typeof renderMasterBodyOnly === 'function') renderMasterBodyOnly()"
                                                     placeholder="Buscar servicio, titular, centro...">
                                             </div>
 
@@ -763,7 +843,7 @@
                             </h2>
                             <p
                                 style="color: rgba(255,255,255,0.65); font-size: 15px; max-width: 850px; line-height: 1.7; margin-bottom: 30px;">
-                                Bienvenido al centro de mando inteligente de <strong>SIFU Informer</strong>. Este
+                                Bienvenido al centro de mando táctico de <strong>SIFU Informer</strong>. Este
                                 ecosistema
                                 de ultra-alta eficiencia integra algoritmos
                                 de aprendizaje profundo, automatización táctica y métricas de impacto para una toma de
@@ -806,319 +886,478 @@
                             </div>
                         </div>
 
+                        <!-- FASE ENTERPRISE: LLM ASSISTANT CONVERSACIONAL -->
+                        <div class="module-card"
+                            style="margin-bottom: 30px; border: 2px solid rgba(99, 102, 241, 0.2); background: linear-gradient(to bottom right, #ffffff, #f8fafc);">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h3 style="margin:0; display:flex; align-items:center; gap:10px; color:#1e293b;">
+                                    <span style="font-size:24px;">✨</span> ASISTENTE VIRTUAL
+                                </h3>
+                                <button onclick="LLMAssistant.toggleConfig()"
+                                    style="background:transparent; border:1px solid #cbd5e1; padding:5px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; color:#475569;">⚙️
+                                    CONFIGURAR LLM</button>
+                            </div>
+
+                            <!-- Config Panel (Hidden by default) -->
+                            <div id="llm-config-panel"
+                                style="display:none; background:#f1f5f9; padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid #e2e8f0;">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; align-items: end;">
+                                    <div>
+                                        <label
+                                            style="font-size:11px; font-weight:700; color:#64748b; margin-bottom:5px; display:block;">API
+                                            KEY (OpenAI / Groq)</label>
+                                        <input type="password" id="llm-api-key" placeholder="sk-..."
+                                            style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; font-family:monospace;">
+                                    </div>
+                                    <div>
+                                        <label
+                                            style="font-size:11px; font-weight:700; color:#64748b; margin-bottom:5px; display:block;">PROVEEDOR</label>
+                                        <select id="llm-provider"
+                                            style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                                            <option value="simulated">Modo Simulado (Motor Interno Gratuito)</option>
+                                            <option value="openai">OpenAI (GPT-4o)</option>
+                                            <option value="groq">Groq (Llama 3)</option>
+                                        </select>
+                                    </div>
+                                    <button onclick="LLMAssistant.saveConfig()"
+                                        style="background:#6366f1; color:white; border:none; padding:8px; border-radius:6px; font-weight:600; cursor:pointer; height:35px;">GUARDAR</button>
+                                </div>
+                            </div>
+
+                            <!-- Chat Window -->
+                            <div id="llm-chat-window" class="llm-chat-window">
+                                <div id="llm-messages" class="llm-messages">
+                                    <div class="llm-msg bot">
+                                        <div class="avatar">✨</div>
+                                        <div class="bubble">Hola Director. Soy tu asistente virtual.
+                                            Tengo acceso en tiempo real a tus descubiertos, plantilla e incidencias.
+                                            ¿Qué necesitas saber hoy?</div>
+                                    </div>
+                                </div>
+                                <div class="llm-input-area">
+                                    <input type="text" id="llm-input"
+                                        placeholder="Pregúntame sobre los descubiertos, a quién enviar de suplente, resúmenes..."
+                                        onkeypress="LLMAssistant.handleInputKey(event)">
+                                    <button onclick="LLMAssistant.sendMessage()" id="llm-send-btn">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- FASE 1 MODULES -->
-                        <div class="smart-hub-grid"
-                            style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-                            <!-- LEFT COLUMN -->
-                            <div style="display: flex; flex-direction: column; gap: 20px;">
-                                <!-- CHECKLIST DIARIO -->
-                                <div class="module-card">
-                                    <h3>✅ CHECKLIST DIARIO AUTOMATIZADO</h3>
-                                    <div id="checklist-container">
-                                        <div class="empty-state">Cargando tareas...</div>
-                                    </div>
-                                </div>
-
-                                <!-- CALENDARIO INTELIGENTE -->
-                                <div class="module-card">
-                                    <h3>📅 CALENDARIO INTELIGENTE</h3>
-                                    <div id="calendar-container">
-                                        <div class="empty-state">Cargando calendario...</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- RIGHT COLUMN -->
-                            <div style="display: flex; flex-direction: column; gap: 20px;">
-                                <!-- ANÁLISIS DE TENDENCIAS -->
-                                <div class="module-card">
-                                    <h3>📊 ANÁLISIS DE TENDENCIAS (ÚLTIMOS 30 DÍAS)</h3>
-                                    <div id="trends-chart-container">
-                                        <div class="empty-state">Recopilando datos históricos...</div>
-                                    </div>
-                                </div>
-
-                                <!-- INSIGHTS PREDICTIVOS -->
-                                <div class="module-card">
-                                    <h3>🔮 INSIGHTS PREDICTIVOS</h3>
-                                    <div id="insights-container">
-                                        <div class="empty-state">Analizando patrones...</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FASE 2 MODULES -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
-                            <h2 style="margin-bottom: 25px; color: #667eea;">🤖 MÓDULOS AVANZADOS DE IA</h2>
-
-                            <!-- AI PREDICTIONS & RECOMMENDATIONS -->
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-                                <div class="module-card">
-                                    <h3>🔮 PREDICCIONES DE IA</h3>
-                                    <div id="ai-predictions-container">
-                                        <div class="empty-state">Generando predicciones...</div>
-                                    </div>
-                                </div>
-
-                                <div class="module-card">
-                                    <h3>💡 RECOMENDACIONES INTELIGENTES</h3>
-                                    <div id="ai-recommendations-container">
-                                        <div class="empty-state">Analizando datos...</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- WORKER PERFORMANCE DASHBOARD -->
-                            <div class="module-card" style="margin-bottom: 30px;">
-                                <h3>👥 DASHBOARD DE RENDIMIENTO POR TRABAJADOR</h3>
-                                <div id="worker-list-container">
-                                    <div class="empty-state">Cargando datos de trabajadores...</div>
-                                </div>
-                            </div>
-
-                            <!-- SUBSTITUTE MANAGEMENT -->
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                        <!-- LEFT COLUMN -->
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- CHECKLIST DIARIO -->
                             <div class="module-card">
-                                <h3>🔄 GESTIÓN AVANZADA DE SUPLENCIAS</h3>
-                                <div id="substitute-manager-container">
-                                    <div class="empty-state">Cargando sistema de suplencias...</div>
+                                <h3>✅ CHECKLIST DIARIO AUTOMATIZADO</h3>
+                                <div id="checklist-container">
+                                    <div class="empty-state">Cargando tareas...</div>
+                                </div>
+                            </div>
+
+                            <!-- CALENDARIO INTELIGENTE -->
+                            <div class="module-card">
+                                <h3>📅 CALENDARIO AVANZADO</h3>
+                                <div id="calendar-container">
+                                    <div class="empty-state">Cargando calendario...</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- FASE 4 MODULES - MACHINE LEARNING -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
-                            <h2 style="margin-bottom: 25px; color: #667eea;">🧠 MACHINE LEARNING Y OPTIMIZACIÓN</h2>
+                        <!-- RIGHT COLUMN -->
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- ANÁLISIS DE TENDENCIAS -->
+                            <div class="module-card">
+                                <h3>📊 ANÁLISIS DE TENDENCIAS (ÚLTIMOS 30 DÍAS)</h3>
+                                <div id="trends-chart-container">
+                                    <div class="empty-state">Recopilando datos históricos...</div>
+                                </div>
+                            </div>
 
-                            <!-- ML PREDICTIONS & ANOMALIES -->
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-                                <div class="module-card">
-                                    <h3>🧠 PREDICCIONES ML</h3>
-                                    <div id="ml-predictions-container">
-                                        <div class="empty-state">Entrenando modelo...</div>
+                            <!-- INSIGHTS PREDICTIVOS -->
+                            <div class="module-card">
+                                <h3>🔮 INSIGHTS PREDICTIVOS</h3>
+                                <div id="insights-container">
+                                    <div class="empty-state">Analizando patrones...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- PESTAÑA DE VACACIONES (GLOBAL VIEW) -->
+                    <div class="tab-content" id="tab-vacaciones">
+                        <h2 style="margin-bottom: 25px; color: #f59e0b; display: flex; align-items: center; gap: 10px;">
+                            <span>🏖️</span> GESTIÓN GLOBAL DE VACACIONES
+                            <span
+                                style="font-size: 10px; background: #fbbf24; color: #78350f; padding: 2px 8px; border-radius: 20px;">Live
+                                Tracking</span>
+                        </h2>
+
+                        <!-- KPIs de Vacaciones -->
+                        <div
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+                            <!-- Vacaciones Activas (Hoy) -->
+                            <div class="module-card holographic" style="border-left: 4px solid #f59e0b;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div
+                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
+                                            DE VACACIONES HOY</div>
+                                        <div id="vacation-active-count"
+                                            style="font-size: 32px; font-weight: 800; color: #f59e0b; line-height: 1;">0
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 30px; opacity: 0.8;">🏖️</div>
+                                </div>
+                            </div>
+
+                            <!-- Próximas en 30 Días -->
+                            <div class="module-card holographic" style="border-left: 4px solid #3b82f6;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div
+                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
+                                            PRÓXIMAS SALIDAS</div>
+                                        <div id="vacation-upcoming-count"
+                                            style="font-size: 32px; font-weight: 800; color: #3b82f6; line-height: 1;">0
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 30px; opacity: 0.8;">📅</div>
+                                </div>
+                            </div>
+
+                            <!-- Cobertura de Vacaciones (Métrica Ficticia/Estimada) -->
+                            <div class="module-card holographic" style="border-left: 4px solid #10b981;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div
+                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
+                                            TOTAL AÑO</div>
+                                        <div id="vacation-coverage-ratio"
+                                            style="font-size: 32px; font-weight: 800; color: #10b981; line-height: 1;">
+                                            --</div>
+                                    </div>
+                                    <div style="font-size: 30px; opacity: 0.8;">🛡️</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Visual de Vacaciones -->
+                        <div class="module-card" style="margin-bottom: 20px;">
+                            <h3 style="margin-top: 0; margin-bottom: 15px; color: #334155; font-size: 14px;">📊
+                                Distribución de Vacaciones Activas por Centro</h3>
+                            <div style="height: 250px; width: 100%; position: relative;">
+                                <canvas id="vacationChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Panel Dividido: Trabajadores Actuales | Próximas Salidas -->
+                        <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 20px;">
+
+                            <!-- Izquierda: Vacaciones Activas -->
+                            <div class="module-card">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
+                                    <h3 style="margin: 0;">🏖️ Personal Actualmente de Vacaciones</h3>
+                                    <div class="search-box">
+                                        <input type="text" id="vacation-active-search"
+                                            placeholder="🔍 Buscar trabajador..."
+                                            oninput="VacationModule.filterActive(this.value)"
+                                            style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; width: 220px;">
                                     </div>
                                 </div>
-
-                                <div class="module-card">
-                                    <h3>🔍 DETECCIÓN DE ANOMALÍAS</h3>
-                                    <div id="ml-anomalies-container">
-                                        <div class="empty-state">Analizando...</div>
-                                    </div>
+                                <div id="vacation-active-list" style="max-height: 500px; overflow-y: auto;">
+                                    <div class="empty-state">No hay trabajadores de vacaciones hoy</div>
                                 </div>
                             </div>
 
-                            <!-- ROUTE OPTIMIZATION -->
-                            <div class="module-card" style="margin-bottom: 30px;">
-                                <h3>🗺️ OPTIMIZACIÓN DE RUTAS</h3>
-                                <div id="route-optimization-container">
-                                    <div class="empty-state">Calculando rutas óptimas...</div>
+                            <!-- Derecha: Próximas Salidas -->
+                            <div class="module-card" style="background: #f8fafc;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
+                                    <h3 style="margin: 0;">⏳ Próximas Salidas</h3>
+                                </div>
+                                <div id="vacation-upcoming-list" style="max-height: 500px; overflow-y: auto;">
+                                    <div class="empty-state">No hay salidas programadas a corto plazo</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- SERVICE CLUSTERING -->
+                </div>
+
+                <!-- PESTAÑA AVANZADO -->
+                <div class="tab-content" id="tab-avanzado">
+
+                    <!-- FASE 2 MODULES -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
+                        <h2 style="margin-bottom: 25px; color: #667eea;">📊 MÓDULOS AVANZADOS</h2>
+
+                        <!-- AI PREDICTIONS & RECOMMENDATIONS -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
                             <div class="module-card">
-                                <h3>🎯 CLUSTERING DE SERVICIOS</h3>
-                                <div id="service-clustering-container">
-                                    <div class="empty-state">Agrupando servicios...</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FASE 5 MODULES - INTEGRACIONES Y AUTOMATIZACIÓN -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
-                            <h2 style="margin-bottom: 25px; color: #667eea;">🔌 INTEGRACIONES Y AUTOMATIZACIÓN</h2>
-
-                            <!-- INTEGRATIONS PANEL -->
-                            <div class="module-card" style="margin-bottom: 30px;">
-                                <h3>🔌 PANEL DE INTEGRACIONES</h3>
-                                <div id="integrations-panel-container">
-                                    <div class="empty-state">Cargando integraciones...</div>
+                                <h3>🔮 PREDICCIONES</h3>
+                                <div id="ai-predictions-container">
+                                    <div class="empty-state">Generando predicciones...</div>
                                 </div>
                             </div>
 
-                            <!-- EXPORT PANEL -->
                             <div class="module-card">
-                                <h3>📤 EXPORTACIÓN AVANZADA</h3>
-                                <div id="export-panel-container">
-                                    <div class="empty-state">Cargando opciones de exportación...</div>
+                                <h3>💡 RECOMENDACIONES</h3>
+                                <div id="ai-recommendations-container">
+                                    <div class="empty-state">Analizando datos...</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- FASE 7 MODULES - BUSINESS INTELLIGENCE AVANZADO -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed); background: rgba(0,0,0,0.4); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #a5b4fc; display: flex; align-items: center; gap: 15px;">
-                                <span>📊 BUSINESS INTELLIGENCE AVANZADO</span>
-                                <span
-                                    style="font-size: 10px; background: #6366f1; color: white; padding: 2px 8px; border-radius: 20px;">v7.0
-                                    AI Powered</span>
-                            </h2>
+                        <!-- WORKER PERFORMANCE DASHBOARD -->
+                        <div class="module-card" style="margin-bottom: 30px;">
+                            <h3>👥 DASHBOARD DE RENDIMIENTO POR TRABAJADOR</h3>
+                            <div id="worker-list-container">
+                                <div class="empty-state">Cargando datos de trabajadores...</div>
+                            </div>
+                        </div>
 
-                            <div id="bi-dashboard-container">
-                                <div class="empty-state" style="color: #9aa0a6;">Ejecutando motores de análisis...
+                        <!-- SUBSTITUTE MANAGEMENT -->
+                        <div class="module-card">
+                            <h3>🔄 GESTIÓN AVANZADA DE SUPLENCIAS</h3>
+                            <div id="substitute-manager-container">
+                                <div class="empty-state">Cargando sistema de suplencias...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 4 MODULES - MACHINE LEARNING -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
+                        <h2 style="margin-bottom: 25px; color: #667eea;">🧠 MACHINE LEARNING Y OPTIMIZACIÓN</h2>
+
+                        <!-- ML PREDICTIONS & ANOMALIES -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                            <div class="module-card">
+                                <h3>🧠 PREDICCIONES ML</h3>
+                                <div id="ml-predictions-container">
+                                    <div class="empty-state">Entrenando modelo...</div>
+                                </div>
+                            </div>
+
+                            <div class="module-card">
+                                <h3>🔍 DETECCIÓN DE ANOMALÍAS</h3>
+                                <div id="ml-anomalies-container">
+                                    <div class="empty-state">Analizando...</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- FASE 8 MODULES - SEGURIDAD Y AUDITORÍA AVANZADA -->
-                        <div data-permission="*"
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #ea4335; background: rgba(234, 67, 53, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #ea4335; display: flex; align-items: center; gap: 15px;">
-                                <span>🔒 SEGURIDAD Y AUDITORÍA AVANZADA</span>
-                                <span
-                                    style="font-size: 10px; background: #ea4335; color: white; padding: 2px 8px; border-radius: 20px;">v8.0
-                                    Professional</span>
-                            </h2>
-
-                            <div id="security-dashboard-container">
-                                <div class="empty-state" style="color: #5f6368;">Cargando protocolos de seguridad...
-                                </div>
+                        <!-- ROUTE OPTIMIZATION -->
+                        <div class="module-card" style="margin-bottom: 30px;">
+                            <h3>🗺️ OPTIMIZACIÓN DE RUTAS</h3>
+                            <div id="route-optimization-container">
+                                <div class="empty-state">Calculando rutas óptimas...</div>
                             </div>
                         </div>
 
-                        <!-- FASE 9 MODULES - SISTEMA DE GESTIÓN DE CALIDAD (SGA) -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #34a853; display: flex; align-items: center; gap: 15px;">
-                                <span>🏆 GESTIÓN DE CALIDAD Y COMPLIANCE (SGA)</span>
-                                <span
-                                    style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">ISO
-                                    9001:2015 Ready</span>
-                            </h2>
+                        <!-- SERVICE CLUSTERING -->
+                        <div class="module-card">
+                            <h3>🎯 CLUSTERING DE SERVICIOS</h3>
+                            <div id="service-clustering-container">
+                                <div class="empty-state">Agrupando servicios...</div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div id="quality-management-container">
-                                <div class="empty-state" style="color: #5f6368;">Sincronizando registros de
-                                    auditoría...</div>
+                    <!-- FASE 5 MODULES - INTEGRACIONES Y AUTOMATIZACIÓN -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed);">
+                        <h2 style="margin-bottom: 25px; color: #667eea;">🔌 INTEGRACIONES Y AUTOMATIZACIÓN</h2>
+
+                        <!-- INTEGRATIONS PANEL -->
+                        <div class="module-card" style="margin-bottom: 30px;">
+                            <h3>🔌 PANEL DE INTEGRACIONES</h3>
+                            <div id="integrations-panel-container">
+                                <div class="empty-state">Cargando integraciones...</div>
                             </div>
                         </div>
 
-                        <!-- FASE 10 MODULES - GESTIÓN DOCUMENTAL Y FIRMA DIGITAL -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #4285f4; background: rgba(66, 133, 244, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #4285f4; display: flex; align-items: center; gap: 15px;">
-                                <span>📂 GESTIÓN DOCUMENTAL Y FIRMA DIGITAL</span>
-                                <span
-                                    style="font-size: 10px; background: #4285f4; color: white; padding: 2px 8px; border-radius: 20px;">v10.0
-                                    Secure Storage</span>
-                            </h2>
-
-                            <div id="document-manager-container">
-                                <div class="empty-state" style="color: #5f6368;">Escaneando repositorio de
-                                    documents...</div>
+                        <!-- EXPORT PANEL -->
+                        <div class="module-card">
+                            <h3>📤 EXPORTACIÓN AVANZADA</h3>
+                            <div id="export-panel-container">
+                                <div class="empty-state">Cargando opciones de exportación...</div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- FASE 11 MODULES - CONTROL FINANCIERO Y RENTABILIDAD -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #1e8e3e; display: flex; align-items: center; gap: 15px;">
-                                <span>💰 CONTROL FINANCIERO Y RENTABILIDAD</span>
-                                <span
-                                    style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">v11.0
-                                    Profit Engine</span>
-                            </h2>
+                    <!-- FASE 7 MODULES - BUSINESS INTELLIGENCE AVANZADO -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--border-color, #e8eaed); background: rgba(0,0,0,0.4); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #a5b4fc; display: flex; align-items: center; gap: 15px;">
+                            <span>📊 BUSINESS INTELLIGENCE AVANZADO</span>
+                            <span
+                                style="font-size: 10px; background: #6366f1; color: white; padding: 2px 8px; border-radius: 20px;">v7.0
+                                Optimizado</span>
+                        </h2>
 
-                            <div id="financial-analysis-container">
-                                <div class="empty-state" style="color: #5f6368;">Calculando márgenes operativos...
-                                </div>
+                        <div id="bi-dashboard-container">
+                            <div class="empty-state" style="color: #9aa0a6;">Ejecutando motores de análisis...
                             </div>
                         </div>
+                    </div>
 
-                        <!-- FASE 12 MODULES - GESTIÓN DE FORMACIÓN Y TALENTO -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #764ba2; background: rgba(118, 75, 162, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #764ba2; display: flex; align-items: center; gap: 15px;">
-                                <span>🎓 GESTIÓN DE FORMACIÓN Y TALENTO</span>
-                                <span
-                                    style="font-size: 10px; background: #764ba2; color: white; padding: 2px 8px; border-radius: 20px;">v12.0
-                                    SIFU Academy</span>
-                            </h2>
+                    <!-- FASE 8 MODULES - SEGURIDAD Y AUDITORÍA AVANZADA -->
+                    <div data-permission="*"
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #ea4335; background: rgba(234, 67, 53, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #ea4335; display: flex; align-items: center; gap: 15px;">
+                            <span>🔒 SEGURIDAD Y AUDITORÍA AVANZADA</span>
+                            <span
+                                style="font-size: 10px; background: #ea4335; color: white; padding: 2px 8px; border-radius: 20px;">v8.0
+                                Professional</span>
+                        </h2>
 
-                            <div id="talent-management-container">
-                                <div class="empty-state" style="color: #5f6368;">Cargando perfiles de talento y
-                                    planes de carrera...</div>
+                        <div id="security-dashboard-container">
+                            <div class="empty-state" style="color: #5f6368;">Cargando protocolos de seguridad...
                             </div>
                         </div>
+                    </div>
 
-                        <!-- FASE 13 MODULES - GESTIÓN DE FLOTA Y LOGÍSTICA -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #ff9800; background: rgba(255, 152, 0, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #f57c00; display: flex; align-items: center; gap: 15px;">
-                                <span>🚚 GESTIÓN DE FLOTA Y LOGÍSTICA</span>
-                                <span
-                                    style="font-size: 10px; background: #ff9800; color: white; padding: 2px 8px; border-radius: 20px;">v13.0
-                                    Fleet Connect</span>
-                            </h2>
+                    <!-- FASE 9 MODULES - SISTEMA DE GESTIÓN DE CALIDAD (SGA) -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #34a853; display: flex; align-items: center; gap: 15px;">
+                            <span>🏆 GESTIÓN DE CALIDAD Y COMPLIANCE (SGA)</span>
+                            <span
+                                style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">ISO
+                                9001:2015 Ready</span>
+                        </h2>
 
-                            <div id="fleet-logistics-container">
-                                <div class="empty-state" style="color: #5f6368;">Sincronizando telemetría de flota y
-                                    niveles de stock...</div>
+                        <div id="quality-management-container">
+                            <div class="empty-state" style="color: #5f6368;">Sincronizando registros de
+                                auditoría...</div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 10 MODULES - GESTIÓN DOCUMENTAL Y FIRMA DIGITAL -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #4285f4; background: rgba(66, 133, 244, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #4285f4; display: flex; align-items: center; gap: 15px;">
+                            <span>📂 GESTIÓN DOCUMENTAL Y FIRMA DIGITAL</span>
+                            <span
+                                style="font-size: 10px; background: #4285f4; color: white; padding: 2px 8px; border-radius: 20px;">v10.0
+                                Secure Storage</span>
+                        </h2>
+
+                        <div id="document-manager-container">
+                            <div class="empty-state" style="color: #5f6368;">Escaneando repositorio de
+                                documents...</div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 11 MODULES - CONTROL FINANCIERO Y RENTABILIDAD -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #1e8e3e; display: flex; align-items: center; gap: 15px;">
+                            <span>💰 CONTROL FINANCIERO Y RENTABILIDAD</span>
+                            <span
+                                style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">v11.0
+                                Profit Engine</span>
+                        </h2>
+
+                        <div id="financial-analysis-container">
+                            <div class="empty-state" style="color: #5f6368;">Calculando márgenes operativos...
                             </div>
                         </div>
+                    </div>
 
-                        <!-- FASE 14 MODULES - SOSTENIBILIDAD Y RSC -->
-                        <div
-                            style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
-                            <h2
-                                style="margin-bottom: 25px; color: #34a853; display: flex; align-items: center; gap: 15px;">
-                                <span>🌱 SOSTENIBILIDAD Y RSC (ESG)</span>
-                                <span
-                                    style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">v14.0
-                                    Eco Impact</span>
-                            </h2>
+                    <!-- FASE 12 MODULES - GESTIÓN DE FORMACIÓN Y TALENTO -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #764ba2; background: rgba(118, 75, 162, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #764ba2; display: flex; align-items: center; gap: 15px;">
+                            <span>🎓 GESTIÓN DE FORMACIÓN Y TALENTO</span>
+                            <span
+                                style="font-size: 10px; background: #764ba2; color: white; padding: 2px 8px; border-radius: 20px;">v12.0
+                                SIFU Academy</span>
+                        </h2>
 
-                            <div id="sustainability-csr-container">
-                                <div class="empty-state" style="color: #5f6368;">Calculando impacto social y
-                                    ambiental...</div>
-                            </div>
+                        <div id="talent-management-container">
+                            <div class="empty-state" style="color: #5f6368;">Cargando perfiles de talento y
+                                planes de carrera...</div>
                         </div>
+                    </div>
 
-                        <!-- FASE 15 MODULES - CENTRO DE MANDO DIRECTIVO -->
-                        <div
-                            style="margin-top: 50px; padding-top: 50px; border-top: 5px solid #202124; background: #fafafa; margin-bottom: 30px; border-radius: 20px; padding: 30px;">
-                            <h2
-                                style="margin-bottom: 35px; color: #202124; display: flex; align-items: center; gap: 20px;">
-                                <span
-                                    style="background: #202124; color: white; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px;">🏛️</span>
-                                <span>CENTRO DE MANDO DIRECTIVO (EXECUTIVE)</span>
-                                <span
-                                    style="font-size: 11px; background: #4285f4; color: white; padding: 4px 12px; border-radius: 20px;">v15.0
-                                    Strategic View</span>
-                            </h2>
+                    <!-- FASE 13 MODULES - GESTIÓN DE FLOTA Y LOGÍSTICA -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #ff9800; background: rgba(255, 152, 0, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #f57c00; display: flex; align-items: center; gap: 15px;">
+                            <span>🚚 GESTIÓN DE FLOTA Y LOGÍSTICA</span>
+                            <span
+                                style="font-size: 10px; background: #ff9800; color: white; padding: 2px 8px; border-radius: 20px;">v13.0
+                                Fleet Connect</span>
+                        </h2>
 
-                            <div id="executive-command-container">
-                                <div class="empty-state" style="color: #5f6368;">Iniciando protocolos de mando
-                                    estratégico...</div>
-                            </div>
+                        <div id="fleet-logistics-container">
+                            <div class="empty-state" style="color: #5f6368;">Sincronizando telemetría de flota y
+                                niveles de stock...</div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 14 MODULES - SOSTENIBILIDAD Y RSC -->
+                    <div
+                        style="margin-top: 30px; padding-top: 30px; border-top: 3px solid #34a853; background: rgba(52, 168, 83, 0.05); margin-bottom: 20px; border-radius: 12px; padding: 20px;">
+                        <h2 style="margin-bottom: 25px; color: #34a853; display: flex; align-items: center; gap: 15px;">
+                            <span>🌱 SOSTENIBILIDAD Y RSC (ESG)</span>
+                            <span
+                                style="font-size: 10px; background: #34a853; color: white; padding: 2px 8px; border-radius: 20px;">v14.0
+                                Eco Impact</span>
+                        </h2>
+
+                        <div id="sustainability-csr-container">
+                            <div class="empty-state" style="color: #5f6368;">Calculando impacto social y
+                                ambiental...</div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 15 MODULES - CENTRO DE MANDO DIRECTIVO -->
+                    <div
+                        style="margin-top: 50px; padding-top: 50px; border-top: 5px solid #202124; background: #fafafa; margin-bottom: 30px; border-radius: 20px; padding: 30px;">
+                        <h2 style="margin-bottom: 35px; color: #202124; display: flex; align-items: center; gap: 20px;">
+                            <span
+                                style="background: #202124; color: white; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px;">🏛️</span>
+                            <span>CENTRO DE MANDO DIRECTIVO (EXECUTIVE)</span>
+                            <span
+                                style="font-size: 11px; background: #4285f4; color: white; padding: 4px 12px; border-radius: 20px;">v15.0
+                                Strategic View</span>
+                        </h2>
+
+                        <div id="executive-command-container">
+                            <div class="empty-state" style="color: #5f6368;">Iniciando protocolos de mando
+                                estratégico...</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+    </div>
+    </main>
 
-        <!-- Hud Footer -->
-        <footer class="hud-footer">
-            <div id="current-date"></div>
-            <div class="live-ticker">
-                <span id="live-ticker-text">CARGANDO CEREBRO OPERATIVO...</span>
-            </div>
-            <div class="quick-input">
-                <input type="text" id="quick-input-bar"
-                    placeholder="COMANDO RÁPIDO: ESCRIBE PARA REGISTRAR INCIDENCIA...">
-                <button id="voice-btn" class="voice-btn" title="Comando por Voz">🎙️</button>
-            </div>
-        </footer>
+    <!-- Hud Footer -->
+    <footer class="hud-footer">
+        <div id="current-date"></div>
+        <div class="live-ticker">
+            <span id="live-ticker-text">CARGANDO CEREBRO OPERATIVO...</span>
+        </div>
+        <div class="quick-input">
+            <input type="text" id="quick-input-bar" placeholder="COMANDO RÁPIDO: ESCRIBE PARA REGISTRAR INCIDENCIA...">
+            <button id="voice-btn" class="voice-btn" title="Comando por Voz">🎙️</button>
+        </div>
+    </footer>
 
     </div>
 
@@ -1291,7 +1530,7 @@
 
 
     <!-- Persistent Emergency Hub (Director View) -->
-    <div id="emergency-popup-container" class="emergency-popup-fixed" style="display:none;">
+    <div id="emergency-popup-container" class="emergency-popup-fixed minimized" style="display:none;">
         <div class="popup-header">
             <span>🔥 CENTROS DESCUBIERTOS</span>
             <button onclick="this.parentElement.parentElement.classList.toggle('minimized')">_</button>
@@ -1442,7 +1681,11 @@
     <script src="notifications_engine.js"></script>
     <script src="daily_checklist.js"></script>
     <script src="calendar_module.js"></script>
+    <script src="vacation_module.js"></script>
     <script src="analytics_trends.js"></script>
+
+    <!-- Enterprise LLM & Advanced Context -->
+    <script src="llm_assistant.js"></script>
 
     <!-- Advanced Modules (Fase 2) -->
     <script src="ai_predictive_engine.js"></script>

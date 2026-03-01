@@ -154,9 +154,19 @@ class DataTransformer {
         const currentM = now.getMinutes();
         const currentDay = now.getDay(); // 0(Dom) - 6(Sab)
 
-        // TODO: Añadir lógica de días (L A V, Fines de semana)
-        // Por ahora asumimos L-V para simplificar la demo fase 3
-        if (currentDay === 0 || currentDay === 6) return false;
+        // Parseo intuitivo de días (L A V, L-D, S D)
+        const textUpper = parsedSchedule.texto_detectado ? parsedSchedule.texto_detectado.toUpperCase() : '';
+        const isWeekend = (currentDay === 0 || currentDay === 6);
+
+        let shouldBeActiveToday = true; // Por defecto asumimos activo
+
+        if (textUpper.includes('L A V') || textUpper.includes('L-V')) {
+            if (isWeekend) shouldBeActiveToday = false;
+        } else if (textUpper.includes('S D') || textUpper.includes('FIN DE SEMANA') || textUpper.includes('SAB Y DOM')) {
+            if (!isWeekend) shouldBeActiveToday = false;
+        }
+
+        if (!shouldBeActiveToday) return false;
 
         // Convertir a minutos para comparar fácil
         const minItems = (h, m) => h * 60 + m;

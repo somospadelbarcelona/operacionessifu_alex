@@ -144,7 +144,7 @@ window.renderAbsences = function () {
                         <div class="card-actions">
                             ${!isCovered ? `
                                 <button class="btn-ai-reveal" onclick="window.toggleAiSuggestions('${uniqueId}', '${service}', '${worker}', 'Turno Completo')">
-                                    <span>🧠</span> Buscar Suplente
+                                    <span>🔍</span> Buscar Suplente
                                 </button>
                             ` : `
                                 <button class="mini-action-btn secondary" style="flex:1;" onclick="alert('Contactando con suplente: ${substitute}')">

@@ -11,7 +11,7 @@ const MLEngine = {
     anomalies: [],
 
     async init() {
-        console.log('🧠 Inicializando Motor de Machine Learning...');
+        console.log('📊 Inicializando Motor Predictivo...');
 
         // Cargar TensorFlow.js si no está disponible
         if (typeof tf === 'undefined') {
@@ -478,7 +478,7 @@ const MLEngine = {
 
         const html = `
             <div class="ml-predictions-header">
-                <h4>🧠 Predicciones de Machine Learning</h4>
+                <h4>📊 Predicciones del Sistema</h4>
                 <span class="ml-badge">Modelo Entrenado</span>
             </div>
             <div class="ml-predictions-list">

@@ -410,7 +410,29 @@ const globalSearch = document.getElementById('global-search-input');
 const quickInput = document.getElementById('quick-input-bar');
 
 // Expose these as globals for easy access if needed
-window.openSituationalReport = window.openSituationalReport || function () { console.error('Situational Report engine not yet loaded'); };
+window.openSituationalReport = window.openSituationalReport || function () { console.warn('Situational Report engine loaded delayed.'); };
+
+// -- BUGFIX: Global Search Activation --
+if (globalSearch) {
+    globalSearch.addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase().trim();
+        const mSearch = document.getElementById('master-search-input');
+
+        // Sincronizar con el input interno de master si existe
+        if (mSearch) mSearch.value = val;
+
+        // Auto-navegar a MASTER si empezamos a buscar
+        if (val.length > 0 && typeof switchTab === 'function') {
+            switchTab('master');
+        }
+
+        if (window.debouncedRenderMasterBody) {
+            window.debouncedRenderMasterBody();
+        } else if (typeof renderMasterBodyOnly === 'function') {
+            renderMasterBodyOnly();
+        }
+    });
+}
 
 // Header Stats
 const hIncidents = document.getElementById('h-stat-incidents');
@@ -1093,24 +1115,43 @@ function flashDashboard() {
 }
 
 function handleExcelFile(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        processMasterData(workbook);
+    updateTicker("⏳ PROCESANDO EXCEL LOCAL, POR FAVOR ESPERE...");
+    const timeEl = document.getElementById('last-sync-time');
+    if (timeEl) timeEl.textContent = `⏳ CARGANDO...`;
 
-        const now = new Date();
-        const syncMsg = `AUTO: ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
-        localStorage.setItem('sifu_last_sync', syncMsg);
-        const timeEl = document.getElementById('last-sync-time');
-        if (timeEl) timeEl.textContent = `ÚLTIMA SYNC: ${syncMsg}`;
+    // Usamos setTimeout para permitir que el DOM se actualice antes de congelarse
+    setTimeout(() => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                // XLSX es síncrono y bloqueante, pero al estar diferido ya hemos pintado el "cargando".
+                const workbook = XLSX.read(data, { type: 'array' });
+                processMasterData(workbook);
 
-        // Notify Sync Hub
-        if (window.MasterSyncEngine) {
-            window.MasterSyncEngine.updateUI('active');
-        }
-    };
-    reader.readAsArrayBuffer(file);
+                const now = new Date();
+                const syncMsg = `AUTO: ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
+                localStorage.setItem('sifu_last_sync', syncMsg);
+                if (timeEl) timeEl.textContent = `ÚLTIMA SYNC: ${syncMsg}`;
+
+                // Notify Sync Hub
+                if (window.MasterSyncEngine) {
+                    window.MasterSyncEngine.updateUI('active');
+                }
+
+                showToast("✅ Excel cargado correctamente", "success");
+            } catch (err) {
+                console.error("Error al leer Excel:", err);
+                showToast("❌ Error al procesar el Excel", "error");
+                updateTicker("⚠️ ERROR EN LA LECTURA DEL ARCHIVO");
+                if (timeEl) timeEl.textContent = `ERROR DE LECTURA`;
+            }
+        };
+        reader.onerror = () => {
+            showToast("❌ Error al leer el archivo físico", "error");
+        };
+        reader.readAsArrayBuffer(file);
+    }, 100);
 }
 
 function processMasterData(workbook) {
@@ -1129,7 +1170,14 @@ function processMasterData(workbook) {
         console.log(`Usando hoja: ${firstSheetName}`);
     }
 
-    processMasterArray(XLSX.utils.sheet_to_json(sheet));
+    // 🔥 OPTIMIZACIÓN CLAVE FAR-PARSING: Pedirle a SheetJS que devuelva Strings formateados, no Date Objects ni seriales.
+    const rawJSON = XLSX.utils.sheet_to_json(sheet, {
+        raw: false,
+        dateNF: 'dd/mm/yyyy',
+        defval: '' // Para evitar campos undefined y fallos de .includes() más adelante
+    });
+
+    processMasterArray(rawJSON);
 }
 
 function processMasterArray(rawData) {
@@ -1359,7 +1407,7 @@ window.renderUncovered = function () {
                     </div>
                     <div class="hub-actions">
                         <button class="btn-primary-glow" style="padding: 10px 20px; font-size: 11px; background: #6d28d9;" onclick="window.autoAssignAI()">
-                            <span>⚡</span> AUTO-ASIGNACIÓN IA
+                            <span>⚡</span> AUTO-ASIGNACIÓN
                         </button>
                         <button class="btn-primary-glow" style="padding: 10px 20px; font-size: 11px; margin-left:10px;" onclick="window.exportStatusToPDF(true)">
                             <span>📄</span> REPORTE CRÍTICO
@@ -1445,7 +1493,7 @@ window.renderUncovered = function () {
                             <div class="step ${status === 'CERRADO' ? 'active' : ''}" onclick="window.updateUncoveredStatus('${unc.id}', 'CERRADO')"><span style="font-size:14px;">✅</span><span style="font-size:8px; font-weight:700;">CUBIERTO</span></div>
                         </div>
                         <div class="card-actions" style="border-top: none; padding-top: 0;">
-                            <button class="btn-ai-reveal" style="flex: 2;" onclick="window.toggleAiSuggestions('${unc.id}', '${unc.center}', '${unc.worker}', '${unc.shift}')"><span>🧠</span> RECOMENDACIÓN</button>
+                            <button class="btn-ai-reveal" style="flex: 2;" onclick="window.toggleAiSuggestions('${unc.id}', '${unc.center}', '${unc.worker}', '${unc.shift}')"><span>💡</span> RECOMENDACIÓN</button>
                             <button class="mini-action-btn secondary" style="flex: 1;" onclick="window.openChatWithCoordinador('${unc.center}')"><span>💬</span> AVISO</button>
                         </div>
                         <div id="ai-box-${unc.id}" class="ai-suggestions-box">
@@ -1476,7 +1524,7 @@ window.updateUncoveredStatus = (id, status) => {
 };
 
 window.autoAssignAI = () => {
-    showToast("🧠 Analizando toda la operativa... Buscando huecos óptimos.", "info");
+    showToast("📊 Analizando toda la operativa... Buscando huecos óptimos.", "info");
     setTimeout(() => {
         state.uncovered.forEach(uc => {
             const candidates = findSubstitutes(uc.center, uc.worker, uc.shift);
@@ -1719,9 +1767,19 @@ window.formatExcelDate = (val) => {
     }
 };
 
+let renderMasterTimeout = null;
+window.debouncedRenderMasterBody = function () {
+    if (renderMasterTimeout) clearTimeout(renderMasterTimeout);
+    renderMasterTimeout = setTimeout(() => {
+        if (typeof renderMasterBodyOnly === 'function') {
+            renderMasterBodyOnly();
+        }
+    }, 250);
+};
+
 window.updateColumnFilter = (key, value) => {
     columnFilters[key] = value.toLowerCase();
-    renderMasterBodyOnly();
+    window.debouncedRenderMasterBody();
 };
 
 function renderMasterSummary() {
@@ -1789,11 +1847,13 @@ function renderMasterSummary() {
 function renderMasterBodyOnly() {
     const tbody = document.getElementById('master-table-body');
     const countEl = document.getElementById('master-count');
-    const searchInput = document.getElementById('master-search-input');
+    const masterSearch = document.getElementById('master-search-input');
+    const globalSearchInput = document.getElementById('global-search-input');
 
-    if (!tbody) return;
-
-    const globalQuery = (searchInput ? searchInput.value : '').toLowerCase().trim();
+    // El query global es la combinación del buscador de la tabla y el buscador principal del Header
+    let globalQuery = '';
+    if (masterSearch && masterSearch.value) globalQuery = masterSearch.value.toLowerCase().trim();
+    if (!globalQuery && globalSearchInput && globalSearchInput.value) globalQuery = globalSearchInput.value.toLowerCase().trim();
 
     if (!state.masterData || state.masterData.length === 0) {
         tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No hay datos. Carga un Excel (SYNC MASTER).</td></tr>';
@@ -1900,48 +1960,70 @@ function renderMasterBodyOnly() {
     window.lastFilteredKeys = { kServicio, kTitular, kHorario, kEstado, kSuplente, kFinContrato, kVacaciones };
 
     // --- RE-IMPLEMENT LILA SUBMENU STATS (Optimized Visualization) ---
-    // Mapping and rendering
+    // Mapping and rendering with Non-Blocking Chunks (Big Data Optimization)
+    if (window.masterRenderTicket) cancelAnimationFrame(window.masterRenderTicket);
+
     const displayLimit = 600;
     const dataToShow = filtered.slice(0, displayLimit);
+    tbody.innerHTML = ''; // Clear previous
 
-    tbody.innerHTML = dataToShow.map((row) => {
-        const realIndex = state.masterData.indexOf(row);
+    const CHUNK_SIZE = 50;
+    let currentIndex = 0;
 
-        const s = row[kServicio] || '';
-        const t = row[kTitular] || '';
-        const h = row[kHorario] || '';
-        const e = row[kEstado] || '';
-        const sup = row[kSuplente] || '';
-        const fin = window.formatExcelDate(row[kFinContrato]);
-        const vac = window.formatExcelDate(row[kVacaciones]);
+    function renderChunk() {
+        const chunk = dataToShow.slice(currentIndex, currentIndex + CHUNK_SIZE);
+        if (chunk.length === 0) {
+            if (filtered.length > displayLimit) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="7" style="text-align:center; padding:15px; background:#fff8f8; color:#ef4444; font-weight:700;">⚠️ Mostrando solo ${displayLimit} de ${filtered.length} registros. Usa los filtros superiores para refinar la búsqueda.</td>`;
+                tbody.appendChild(tr);
+            }
+            window.masterRenderTicket = null;
+            return;
+        }
 
-        const eUpper = (e || '').toString().toUpperCase();
-        const tUpper = (t || '').toString().toUpperCase();
+        const html = chunk.map((row) => {
+            const realIndex = state.masterData.indexOf(row);
 
-        const isDisc = (
-            eUpper.includes('DESCUBIERTO') || eUpper.includes('VACANTE') ||
-            tUpper.includes('SIN TITULAR') || (eUpper === '' && tUpper === '')
-        );
+            const s = row[kServicio] || '';
+            const t = row[kTitular] || '';
+            const h = row[kHorario] || '';
+            const e = row[kEstado] || '';
+            const sup = row[kSuplente] || '';
+            const fin = window.formatExcelDate(row[kFinContrato]);
+            const vac = window.formatExcelDate(row[kVacaciones]);
 
-        const rowClass = isDisc ? 'critical-row' : '';
-        const statusBadge = isDisc ? '<span class="badge red">DESCUBIERTO</span>' : '<span class="badge green">CUBIERTO</span>';
+            const eUpper = (e || '').toString().toUpperCase();
+            const tUpper = (t || '').toString().toUpperCase();
 
-        return `
-            <tr class="${rowClass}" data-row-index="${realIndex}">
-                <td><div class="td-content">${statusBadge}</div></td>
-                <td title="${s}"><div class="td-content"><b>${s}</b></div></td>
-                <td title="${t}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kTitular}', this.innerText.trim())">${t}</div></td>
-                <td title="${h}"><div class="td-content" style="color:var(--sifu-blue); font-family:monospace; font-size:11px;">${h}</div></td>
-                <td title="${sup}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kSuplente}', this.innerText.trim())">${sup || '-'}</div></td>
-                <td title="${fin}"><div class="td-content">${fin || '-'}</div></td>
-                <td title="${vac}"><div class="td-content">${vac || '-'}</div></td>
-            </tr>
-        `;
-    }).join('');
+            const isDisc = (
+                eUpper.includes('DESCUBIERTO') || eUpper.includes('VACANTE') ||
+                tUpper.includes('SIN TITULAR') || (eUpper === '' && tUpper === '')
+            );
 
-    if (filtered.length > displayLimit) {
-        tbody.innerHTML += `<tr><td colspan="7" style="text-align:center; padding:15px; background:#fff8f8; color:#ef4444; font-weight:700;">⚠️ Mostrando solo ${displayLimit} de ${filtered.length} registros. Usa los filtros superiores para refinar la búsqueda.</td></tr>`;
+            const rowClass = isDisc ? 'critical-row' : '';
+            const statusBadge = isDisc ? '<span class="badge red ai-pulse-alert" style="animation-duration: 3s;">DESCUBIERTO</span>' : '<span class="badge green">CUBIERTO</span>';
+
+            return `
+                <tr class="${rowClass}" data-row-index="${realIndex}">
+                    <td><div class="td-content">${statusBadge}</div></td>
+                    <td title="${s}"><div class="td-content"><b>${s}</b></div></td>
+                    <td title="${t}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kTitular}', this.innerText.trim())">${t}</div></td>
+                    <td title="${h}"><div class="td-content" style="color:var(--sifu-blue); font-family:monospace; font-size:11px;">${h}</div></td>
+                    <td title="${sup}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kSuplente}', this.innerText.trim())">${sup || '-'}</div></td>
+                    <td title="${fin}"><div class="td-content">${fin || '-'}</div></td>
+                    <td title="${vac}"><div class="td-content">${vac || '-'}</div></td>
+                </tr>
+            `;
+        }).join('');
+
+        tbody.insertAdjacentHTML('beforeend', html);
+        currentIndex += CHUNK_SIZE;
+
+        window.masterRenderTicket = requestAnimationFrame(renderChunk);
     }
+
+    window.masterRenderTicket = requestAnimationFrame(renderChunk);
 }
 
 
@@ -2929,6 +3011,11 @@ window.switchTab = (tabId) => {
             if (typeof window.renderITTable === 'function') setTimeout(window.renderITTable, 50);
         }
 
+        if (tabId === 'vacaciones') {
+            console.log("🏖️ Analizando Vacaciones...");
+            if (typeof window.VacationModule === 'object') setTimeout(() => window.VacationModule.init(), 50);
+        }
+
         if (tabId === 'cuadrantes') {
             console.log("🗓️ Iniciando Cuadrantes...");
             if (typeof window.initQuadrantsModule === 'function') setTimeout(window.initQuadrantsModule, 50);
@@ -2936,7 +3023,7 @@ window.switchTab = (tabId) => {
 
 
         if (tabId === 'smarthub') {
-            console.log("🧠 Inicializando INTELIGENCIA Y GESTIÓN...");
+            console.log("📊 Inicializando GESTIÓN AVANZADA...");
             setTimeout(() => {
                 // FASE 1 MODULES
                 if (typeof DailyChecklist !== 'undefined' && typeof DailyChecklist.render === 'function') {
@@ -2954,6 +3041,15 @@ window.switchTab = (tabId) => {
                     }
                 }
 
+
+
+                showToast("✨ SMART HUB CARGADO", "success");
+            }, 100);
+        }
+
+        if (tabId === 'avanzado') {
+            console.log("🚀 Inicializando MÓDULOS AVANZADOS...");
+            setTimeout(() => {
                 // FASE 2 MODULES
                 if (typeof AIPredictiveEngine !== 'undefined') {
                     if (typeof AIPredictiveEngine.renderPredictions === 'function') {
@@ -2963,11 +3059,11 @@ window.switchTab = (tabId) => {
                         AIPredictiveEngine.renderRecommendations();
                     }
                 }
-                if (typeof WorkerPerformance !== 'undefined' && typeof WorkerPerformance.renderWorkerList === 'function') {
-                    WorkerPerformance.renderWorkerList();
+                if (typeof WorkerPerformance !== 'undefined' && typeof WorkerPerformance.init === 'function') {
+                    WorkerPerformance.init();
                 }
-                if (typeof SubstituteManagement !== 'undefined' && typeof SubstituteManagement.renderSubstituteManager === 'function') {
-                    SubstituteManagement.renderSubstituteManager();
+                if (typeof SubstituteManagement !== 'undefined' && typeof SubstituteManagement.init === 'function') {
+                    SubstituteManagement.init();
                 }
 
                 // FASE 4 MODULES - MACHINE LEARNING
@@ -2980,6 +3076,7 @@ window.switchTab = (tabId) => {
                         });
                     }
                     if (typeof MLEngine.renderAnomalies === 'function') {
+                        if (typeof MLEngine.detectAnomalies === 'function') MLEngine.detectAnomalies();
                         MLEngine.renderAnomalies();
                     }
                 }
@@ -2989,6 +3086,7 @@ window.switchTab = (tabId) => {
                 if (typeof ServiceClustering !== 'undefined' && typeof ServiceClustering.renderClusters === 'function') {
                     ServiceClustering.renderClusters();
                 }
+
 
                 // FASE 5 MODULES - INTEGRATIONS & EXPORT
                 if (typeof IntegrationsHub !== 'undefined' && typeof IntegrationsHub.renderIntegrationsPanel === 'function') {
@@ -3061,8 +3159,7 @@ window.switchTab = (tabId) => {
                         ExecutiveCommand.renderExecutiveDashboard();
                     }
                 }
-
-                showToast("✨ SMART HUB CARGADO", "success");
+                showToast("✨ MÓDULOS AVANZADOS CARGADOS", "success");
             }, 100);
         }
 
@@ -3099,30 +3196,96 @@ function updateCharts() {
 }
 
 
+let isGlobalRendering = false;
+
 function renderAll() {
+    if (isGlobalRendering) return; // Prevenir múltiples renderizados simultáneos que bloquean el hilo
+    isGlobalRendering = true;
+    console.log("🔄 Iniciando Renderizado Asíncrono del Dashboard...");
+
     updateDate();
     updateHeaderStats();
 
-    // Render Modules
-    if (typeof renderIncidents === 'function') renderIncidents();
-    if (typeof renderNotes === 'function') renderNotes();
-    if (typeof renderMasterSummary === 'function') renderMasterSummary();
-    if (typeof renderAbsences === 'function') renderAbsences();
-    if (typeof renderUncovered === 'function') renderUncovered();
-    if (typeof renderOrders === 'function') renderOrders();
-    if (typeof initQuadrantsModule === 'function') initQuadrantsModule();
-    if (typeof renderPriorityPanel === 'function') renderPriorityPanel();
-    if (typeof renderRiskSemaphor === 'function') renderRiskSemaphor();
+    const renderQueue = [
+        () => { if (typeof renderIncidents === 'function') renderIncidents(); },
+        () => { if (typeof renderNotes === 'function') renderNotes(); },
+        () => { if (typeof renderMasterSummary === 'function') renderMasterSummary(); },
+        () => { if (typeof renderAbsences === 'function') renderAbsences(); },
+        () => { if (typeof renderUncovered === 'function') renderUncovered(); },
+        () => { if (typeof renderOrders === 'function') renderOrders(); },
+        () => { if (typeof initQuadrantsModule === 'function') initQuadrantsModule(); },
+        () => { if (typeof renderPriorityPanel === 'function') renderPriorityPanel(); },
+        () => { if (typeof renderRiskSemaphor === 'function') renderRiskSemaphor(); },
+        () => { if (typeof updateCharts === 'function') updateCharts(); },
+        () => { if (typeof updateOperationalChart === 'function') updateOperationalChart(); },
+        () => { if (typeof updateSisPredict === 'function') updateSisPredict(); },
+        () => { if (typeof updateInsights === 'function') updateInsights(); },
+        () => { if (typeof updateAnalytics === 'function') updateAnalytics(); },
+        () => { if (typeof updateEmergencyPopup === 'function') updateEmergencyPopup(); },
 
-    // Charts & Analytics
-    if (typeof updateCharts === 'function') updateCharts();
-    if (typeof updateOperationalChart === 'function') updateOperationalChart();
-    if (typeof updateSisPredict === 'function') updateSisPredict();
-    if (typeof updateInsights === 'function') updateInsights();
-    if (typeof updateAnalytics === 'function') updateAnalytics();
-    if (typeof updateEmergencyPopup === 'function') updateEmergencyPopup();
+        // --- MACHINE LEARNING & AI RE-RENDERING PIPELINE ---
+        () => {
+            if (typeof AIPredictiveEngine !== 'undefined') {
+                AIPredictiveEngine.init(); // Recalcular predicciones con datos frescos
+                if (typeof AIPredictiveEngine.renderPredictions === 'function') AIPredictiveEngine.renderPredictions();
+                if (typeof AIPredictiveEngine.renderRecommendations === 'function') AIPredictiveEngine.renderRecommendations();
+            }
+        },
+        () => {
+            if (typeof WorkerPerformance !== 'undefined' && typeof WorkerPerformance.init === 'function') {
+                WorkerPerformance.init();
+            }
+        },
+        () => {
+            if (typeof SubstituteManagement !== 'undefined' && typeof SubstituteManagement.init === 'function') {
+                SubstituteManagement.init();
+            }
+        },
+        () => {
+            if (typeof MLEngine !== 'undefined') {
+                if (typeof MLEngine.predictUncoveredServices === 'function') {
+                    MLEngine.predictUncoveredServices().then(() => {
+                        if (typeof MLEngine.renderPredictions === 'function') MLEngine.renderPredictions();
+                    });
+                }
+                if (typeof MLEngine.renderAnomalies === 'function') {
+                    if (typeof MLEngine.detectAnomalies === 'function') MLEngine.detectAnomalies();
+                    MLEngine.renderAnomalies();
+                }
+            }
+        },
+        () => {
+            if (typeof RouteOptimizer !== 'undefined' && typeof RouteOptimizer.renderRouteOptimization === 'function') {
+                RouteOptimizer.renderRouteOptimization();
+            }
+        },
+        () => {
+            if (typeof ServiceClustering !== 'undefined' && typeof ServiceClustering.renderClusters === 'function') {
+                ServiceClustering.renderClusters();
+            }
+        }
+    ];
 
-    console.log("🔄 Dashboard renderizado completamente (Pipeline Consolidado).");
+    let currentIdx = 0;
+    function processNextBatch() {
+        if (currentIdx < renderQueue.length) {
+            // Ejecutamos 2 módulos por frame para balancear velocidad y responsividad de UI
+            try { renderQueue[currentIdx](); } catch (e) { console.warn("Error en renderQueue", e); }
+            currentIdx++;
+
+            if (currentIdx < renderQueue.length) {
+                try { renderQueue[currentIdx](); } catch (e) { console.warn("Error en renderQueue", e); }
+                currentIdx++;
+            }
+
+            requestAnimationFrame(processNextBatch);
+        } else {
+            isGlobalRendering = false;
+            console.log("✅ Dashboard renderizado progresivamente sin bloqueos.");
+        }
+    }
+
+    requestAnimationFrame(processNextBatch);
 }
 
 function renderRiskSemaphor() {

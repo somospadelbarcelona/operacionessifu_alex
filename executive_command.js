@@ -57,7 +57,7 @@ const ExecutiveCommand = {
 
                     <div class="exec-card insights-v15">
                         <div class="exec-card-header">
-                            <h3>🧠 Insights Cognitivos IA</h3>
+                            <h3>📊 Análisis Avanzado</h3>
                         </div>
                         <div class="insight-list">
                             <div class="insight-item">

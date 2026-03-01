@@ -33,26 +33,37 @@ function renderHeatmap() {
     });
 
     // Chart.js Configuration
+    const gradGreen = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+    gradGreen.addColorStop(0, 'rgba(34, 197, 94, 0.9)');
+    gradGreen.addColorStop(1, 'rgba(21, 128, 61, 0.9)');
+
+    const gradRed = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+    gradRed.addColorStop(0, 'rgba(239, 68, 68, 0.9)');
+    gradRed.addColorStop(1, 'rgba(185, 28, 28, 0.9)');
+
+    const gradBlue = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+    gradBlue.addColorStop(0, 'rgba(59, 130, 246, 0.9)');
+    gradBlue.addColorStop(1, 'rgba(29, 78, 216, 0.9)');
+
+    const gradAmber = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+    gradAmber.addColorStop(0, 'rgba(245, 158, 11, 0.9)');
+    gradAmber.addColorStop(1, 'rgba(180, 83, 9, 0.9)');
+
     window.heatmapChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: ['Cubiertos', 'Descubiertos', 'Bajas IT', 'Vacaciones'],
             datasets: [{
                 data: [covered, uncovered, medical, vacations],
-                backgroundColor: [
-                    'rgba(34, 197, 94, 0.8)',  // Green
-                    'rgba(239, 68, 68, 0.8)',  // Red
-                    'rgba(59, 130, 246, 0.8)', // Blue
-                    'rgba(245, 158, 11, 0.8)'  // Amber
-                ],
+                backgroundColor: [gradGreen, gradRed, gradBlue, gradAmber],
                 borderColor: [
                     '#22c55e',
                     '#ef4444',
                     '#3b82f6',
                     '#f59e0b'
                 ],
-                borderWidth: 1,
-                hoverOffset: 10
+                borderWidth: 2,
+                hoverOffset: 15
             }]
         },
         options: {
@@ -100,6 +111,10 @@ function renderTopClients() {
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5);
 
+    const gradSky = ctx.getContext('2d').createLinearGradient(0, 0, 500, 0);
+    gradSky.addColorStop(0, 'rgba(14, 165, 233, 0.9)');
+    gradSky.addColorStop(1, 'rgba(2, 132, 199, 0.9)');
+
     window.topClientsChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -107,9 +122,10 @@ function renderTopClients() {
             datasets: [{
                 label: 'Servicios Activos',
                 data: sortedClients.map(x => x[1]),
-                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                backgroundColor: gradSky,
                 borderColor: '#0ea5e9',
-                borderWidth: 1
+                borderWidth: 2,
+                borderRadius: 8
             }]
         },
         options: {
