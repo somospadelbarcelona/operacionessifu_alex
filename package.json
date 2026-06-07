@@ -1,0 +1,14 @@
+{
+  "name": "sifu-informer",
+  "private": true,
+  "version": "8.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "bun build src/main.js --outdir dist",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

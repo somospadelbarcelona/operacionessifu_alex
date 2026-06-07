@@ -246,7 +246,7 @@ const InternalChat = {
         container.innerHTML = html;
     },
 
-    sendMessage() {
+    async sendMessage() {
         const input = document.getElementById('chat-message-input');
         if (!input) return;
 
@@ -267,9 +267,56 @@ const InternalChat = {
         this.renderMessages();
         this.scrollToBottom();
 
+        // 1. DETECCIÓN DE IA (@AI)
+        if (text.toLowerCase().startsWith('@ai')) {
+            const query = text.substring(3).trim();
+            await this.handleAIQuery(query);
+        }
+
         // Notificar a otros usuarios (simulado)
         this.broadcastMessage(message);
     },
+
+    async handleAIQuery(query) {
+        // Mostrar indicador de escritura del bot
+        const botMsg = {
+            id: 'ai-' + Date.now(),
+            user: 'Sifu AI 🤖',
+            text: 'Pensando...',
+            timestamp: new Date().toISOString(),
+            isAI: true
+        };
+        
+        this.messages.push(botMsg);
+        this.renderMessages();
+        this.scrollToBottom();
+
+        let response = "";
+        if (window.LLMAssistant) {
+            const context = window.LLMAssistant.buildContextPrompt();
+            if (window.LLMAssistant.settings.apiKey) {
+                try {
+                    response = await window.LLMAssistant.callOpenAI(query, context);
+                } catch(e) {
+                    response = "⚠️ Error en API: " + e.message;
+                }
+            } else {
+                response = await window.LLMAssistant.simulateResponse(query, context);
+            }
+        } else {
+            response = "El motor de IA no está disponible.";
+        }
+
+        // Actualizar mensaje de IA
+        const index = this.messages.findIndex(m => m.id === botMsg.id);
+        if (index !== -1) {
+            this.messages[index].text = response;
+            this.saveMessages();
+            this.renderMessages();
+            this.scrollToBottom();
+        }
+    },
+
 
     broadcastMessage(message) {
         // En una implementación real, esto enviaría el mensaje a un servidor

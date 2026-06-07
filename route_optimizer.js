@@ -142,22 +142,63 @@ const RouteOptimizer = {
     },
 
     optimizeRoute(services) {
-        if (services.length < 3) return services;
+        if (services.length < 4) return this.optimizeRouteNearestNeighbor(services);
 
-        // Algoritmo del vecino más cercano (Nearest Neighbor)
+        console.log('🧬 Ejecutando Algoritmo Genético para ' + services.length + ' puntos...');
+
+        // Parámetros del AG
+        const POPULATION_SIZE = 50;
+        const GENERATIONS = 100;
+        const MUTATION_RATE = 0.1;
+
+        // 1. Población inicial
+        let population = [];
+        for (let i = 0; i < POPULATION_SIZE; i++) {
+            population.push(this.shuffle([...services]));
+        }
+
+        // 2. Evolución
+        for (let g = 0; g < GENERATIONS; g++) {
+            // Calcular fitness (inversa de la distancia)
+            population.sort((a, b) => this.calculateTotalDistance(a) - this.calculateTotalDistance(b));
+
+            // Elitismo: mantener el mejor
+            let nextGeneration = [population[0]];
+
+            while (nextGeneration.length < POPULATION_SIZE) {
+                // Selección (Torneo)
+                let parent1 = this.tournamentSelection(population);
+                let parent2 = this.tournamentSelection(population);
+
+                // Crossover (Order Crossover - OX)
+                let child = this.orderCrossover(parent1, parent2);
+
+                // Mutación
+                if (Math.random() < MUTATION_RATE) {
+                    this.mutate(child);
+                }
+
+                nextGeneration.push(child);
+            }
+            population = nextGeneration;
+        }
+
+        const bestRoute = population[0];
+        console.log('✅ Optimización Genética completada.');
+        return bestRoute;
+    },
+
+    optimizeRouteNearestNeighbor(services) {
+        if (services.length < 2) return services;
         const optimized = [];
         const remaining = [...services];
-
-        // Empezar con el primer servicio
         let current = remaining.shift();
         optimized.push(current);
 
-        // Mientras queden servicios
         while (remaining.length > 0) {
             let nearestIndex = 0;
             let nearestDistance = Infinity;
 
-            // Encontrar el servicio más cercano
             remaining.forEach((service, index) => {
                 if (current.coords && service.coords) {
                     const distance = this.calculateDistance(current.coords, service.coords);
@@ -167,14 +208,68 @@ const RouteOptimizer = {
                     }
                 }
             });
-
-            // Añadir el más cercano a la ruta optimizada
             current = remaining.splice(nearestIndex, 1)[0];
             optimized.push(current);
         }
-
         return optimized;
     },
+
+    // UTILIDADES AG
+    tournamentSelection(population) {
+        const tournamentSize = 5;
+        let best = population[Math.floor(Math.random() * population.length)];
+        for (let i = 0; i < tournamentSize; i++) {
+            let contender = population[Math.floor(Math.random() * population.length)];
+            if (this.calculateTotalDistance(contender) < this.calculateTotalDistance(best)) {
+                best = contender;
+            }
+        }
+        return best;
+    },
+
+    orderCrossover(parent1, parent2) {
+        const size = parent1.length;
+        const start = Math.floor(Math.random() * size);
+        const end = Math.floor(Math.random() * (size - start)) + start;
+
+        const child = new Array(size).fill(null);
+        for (let i = start; i <= end; i++) {
+            child[i] = parent1[i];
+        }
+
+        let p2Idx = 0;
+        for (let i = 0; i < size; i++) {
+            if (child[i] === null) {
+                while (parent1.some(s => s.name === parent2[p2Idx].name && child.includes(s))) {
+                    p2Idx++;
+                }
+                // Simplificación para el crossover de objetos:
+                let candidate = parent2[p2Idx];
+                while (child.some(s => s && s.name === candidate.name)) {
+                    p2Idx++;
+                    candidate = parent2[p2Idx];
+                }
+                child[i] = candidate;
+                p2Idx++;
+            }
+        }
+        return child;
+    },
+
+    mutate(route) {
+        const i = Math.floor(Math.random() * route.length);
+        const j = Math.floor(Math.random() * route.length);
+        [route[i], route[j]] = [route[j], route[i]];
+    },
+
+    shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    },
+
 
     extractLocation(serviceName) {
         if (!serviceName) return null;

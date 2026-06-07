@@ -94,7 +94,7 @@ try {
     $json = $dataList | ConvertTo-Json -Depth 2 -Compress
     
     # Escribir JS
-    $jsContent = "const INITIAL_ORDERS_DATA = $json;"
+    $jsContent = "window.INITIAL_ORDERS_DATA = $json;"
     [System.IO.File]::WriteAllText($jsPath, $jsContent, [System.Text.Encoding]::UTF8)
 
     Write-Host "ÉXITO: Archivo $jsPath generado."

@@ -1,114 +1,96 @@
-/* --- Elite Engineering: Priority & Insights Layers (Light Theme) --- */
+/* --- Elite Engineering: Premium Light Mode Enterprise System --- */
 
-.priority-selector {
-    display: flex;
-    gap: 15px;
-    background: #f1f3f4;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-glass);
-    margin: 8px 0;
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(226, 232, 240, 0.8);
+    --premium-blue: #1e40af;
+    --premium-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    --accent-glow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    --panel-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 10px -2px rgba(0, 0, 0, 0.03);
+    --text-main: #1e293b;
+    --text-dim: #64748b;
 }
 
-.p-radio {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    color: var(--text-dim);
-    transition: all 0.2s;
-}
-
-.p-radio:hover {
+body {
+    background-color: #f1f5f9 !important;
     color: var(--text-main);
 }
 
-.p-radio input {
-    width: auto !important;
-    margin: 0;
-    accent-color: var(--sifu-blue);
+/* Premium Light Panels */
+.module-card {
+    background: white !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--panel-shadow) !important;
+    border-radius: 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Priority Card Borders */
-.feed-item.priority-high {
-    border-left: 4px solid var(--accent-red) !important;
-    background: linear-gradient(to right, rgba(234, 67, 53, 0.05), transparent) !important;
+.module-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08) !important;
 }
 
-.feed-item.priority-mid {
-    border-left: 4px solid var(--sifu-amber) !important;
+/* Navigation Tabs - Light Edition */
+.tabs-nav {
+    background: white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 
-.feed-item.priority-low {
-    border-left: 4px solid var(--accent-green) !important;
+.tab-btn {
+    color: var(--text-dim) !important;
+    background: transparent !important;
 }
 
-/* Insights Panel Styles */
-.insights-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.tab-btn.active {
+    background: #eff6ff !important;
+    color: var(--premium-blue) !important;
+    box-shadow: none !important;
+    border: 1px solid #dbeafe !important;
 }
 
-.insight-card {
-    background: #ffffff;
-    border: 1px solid var(--border-glass);
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    transition: all 0.3s;
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3);
+/* AI Command Cockpit - Light Version */
+#tab-smarthub .module-card {
+    background: white !important;
+    color: var(--text-main) !important;
 }
 
-.insight-card:hover {
-    background: #f8f9fa;
-    transform: translateX(5px);
+#tab-smarthub h2, #tab-smarthub h3 {
+    color: var(--text-main) !important;
 }
 
-.insight-icon {
-    font-size: 18px;
-    width: 32px;
-    height: 32px;
-    background: rgba(26, 115, 232, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--sifu-blue);
+/* Badges - Refined Light */
+.badge {
+    border: 1px solid transparent;
 }
 
-.insight-info {
-    flex: 1;
+.badge.blue { background: #dbeafe; color: #1e40af; }
+.badge.red { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+.badge.green { background: #dcfce7; color: #15803d; }
+
+/* Buttons - Elite Light */
+.btn-primary-glow {
+    background: var(--premium-blue) !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
 }
 
-.insight-title {
-    display: block;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--sifu-blue);
-    margin-bottom: 2px;
-    text-transform: uppercase;
+.btn-primary-glow:hover {
+    background: #1d4ed8 !important;
+    box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.3);
 }
 
-.insight-text {
-    font-size: 12px;
-    color: var(--text-main);
+/* Summary Metrics - Clean */
+.metric-card-glass {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
 }
 
-/* Scrollbar Refinement */
-.scroll-area::-webkit-scrollbar {
-    width: 4px;
+.h-stat-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
 }
-
-.empty-state {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-dim);
-    text-align: center;
-    padding: 24px;
-}
+

@@ -59,7 +59,7 @@
     flex-direction: column;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; -- REMOVED to allow resize handles to be visible */
 }
 
 .module-card::before {
@@ -144,6 +144,22 @@
 }
 
 /* ... (keep existing styles) ... */
+
+.master-content-wrapper {
+    resize: vertical;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    display: block !important;
+    position: relative;
+}
+
+.master-content-wrapper::-webkit-resizer {
+    background-image: linear-gradient(135deg, transparent 50%, #1a73e8 50%);
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    cursor: nwse-resize;
+}
 
 /* Modal base placeholder - real styles moved to footer for priority */
 .modal {
@@ -612,24 +628,73 @@ body {
 /* Modules Grouping */
 .modules-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    /* 2 parts for table, 1 part for actions */
-    gap: 24px;
+    grid-template-columns: 320px 1fr; /* Columna sidebar ajustada a 320px */
+    gap: 20px;
     align-items: start;
 }
 
 #module-master-summary {
-    grid-column: 1;
-    /* Force to first column */
+    grid-column: 2;
 }
 
 .secondary-modules {
-    grid-column: 2;
-    /* Force to second column */
+    grid-column: 1;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 }
+
+/* Master Toolbar Enforce 1 Line */
+.master-toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 12px 12px 0 0;
+    color: white;
+    scrollbar-width: none; /* Hide scrollbar but keep functionality if overflow */
+}
+
+.master-toolbar::-webkit-scrollbar { display: none; }
+
+.toolbar-left, .toolbar-right {
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0;
+    flex-wrap: nowrap !important;
+}
+
+.lila-badge {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.lila-badge.total { background: #3b82f6; color: white; border: 1px solid rgba(255,255,255,0.2); }
+.lila-badge.visible { background: #f59e0b; color: white; border: 1px solid rgba(255,255,255,0.2); }
+.lila-badge.uncovered { background: #10b981; color: white; border: 1px solid rgba(255,255,255,0.2); }
+
+.lila-badge b {
+    font-size: 13px;
+    margin-left: 2px;
+}
+
+.btn-toolbar-action {
+    white-space: nowrap !important;
+    flex-shrink: 0;
+}
+
 
 .module-card {
     background: var(--bg-card);
@@ -681,7 +746,7 @@ body {
 }
 
 .scroll-feed {
-    max-height: 400px;
+    /* max-height: 400px; -- REMOVED to allow parent resize */
     overflow-y: auto;
     padding-right: 8px;
 }
@@ -4496,6 +4561,50 @@ body {
     text-shadow: 0 0 10px rgba(248, 113, 113, 0.3);
 }
 
+.smart-action-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+
+
+.smart-btn-container {
+    position: relative;
+    width: 100%;
+}
+
+.btn-pdf-mini {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-pdf-mini:hover {
+    background: #3730a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+}
+
+.smart-btn.secondary .icon {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+
 .uncovered-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -4863,3 +4972,74 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+
+/* --- MASTER RESIZE SYSTEM --- */
+.master-content-wrapper {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    display: block !important;
+    position: relative;
+    border-bottom: 2px solid #e2e8f0;
+    transition: none !important; /* Desactivar transiciones para arrastre suave */
+}
+
+.resizer-handle-v {
+    height: 18px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    cursor: ns-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    background-image: radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px);
+    background-size: 8px 8px;
+    background-repeat: repeat-x;
+    background-position: center;
+    transition: background 0.2s;
+    user-select: none;
+    z-index: 100;
+}
+
+.resizer-handle-v:hover {
+    background-color: #1a73e8;
+    background-image: radial-gradient(circle, #ffffff 1.2px, transparent 1.2px);
+}
+
+/* --- ESTILOS PREMIUM CONTROL DE VENCIMIENTOS --- */
+.contract-card-item {
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.contract-card-item:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulseUrgentContract {
+    0% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(234, 67, 53, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0); }
+}
+
+.pulse-urgent {
+    animation: pulseUrgentContract 2s infinite !important;
+    border-color: rgba(234, 67, 53, 0.4) !important;
+}
+
+.btn-mini-filter {
+    outline: none;
+    border: 1px solid transparent !important;
+}
+
+.btn-mini-filter:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.btn-mini-filter:active {
+    transform: translateY(0);
+}

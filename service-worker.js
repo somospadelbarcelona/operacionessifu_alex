@@ -3,13 +3,14 @@
  * Permite que la app funcione sin conexión
  */
 
-const CACHE_NAME = 'sifu-informer-v5'; // Incrementar versión fuerza limpieza de caché antigua
+const CACHE_NAME = 'sifu-informer-v9'; // Incrementar versión fuerza limpieza de caché antigua
 const OFFLINE_URL = 'offline.html';
 
 // Archivos críticos para cachear (NUNCA incluir master_data.js — siempre debe ser fresco)
 const CRITICAL_FILES = [
     '/',
     '/index.html',
+    '/vacation_module.js',
     '/style.css',
     '/operational_styles.css',
     '/filter_bar_sticky.css',

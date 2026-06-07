@@ -1,4 +1,4 @@
-﻿const STORAGE_KEYS = {
+const STORAGE_KEYS = {
     INCIDENTS: 'sifu_incidents_v4',
     ABSENCES: 'sifu_absences_v4',
     UNCOVERED: 'sifu_uncovered_v4',
@@ -47,7 +47,8 @@ const DEFAULT_STATE = {
     audits: [], // New: Quality audits
     dailyOverrides: {}, // New: Persistence for Daily Quadrant Edits
     filterType: null,
-    stickyContent: ''
+    stickyContent: '',
+    filteredData: null
 };
 
 
@@ -250,7 +251,7 @@ window.showIncidentDetails = () => {
 
 async function loadGlobalState() {
     try {
-        console.log('🔍 Sincronizando datos...');
+        console.log('🔍 Cargando estado local...');
         const saved = localStorage.getItem(ATOMIC_STATE_KEY);
         let parsed = null;
 
@@ -272,14 +273,15 @@ async function loadGlobalState() {
         // Merge with Default
         if (parsed) {
             state = { ...DEFAULT_STATE, ...parsed };
+            state.filteredData = null; // Clean active filters on load to ensure full content is visible by default
             window.state = state;
         } else {
             state = { ...DEFAULT_STATE };
+            state.filteredData = null; // Clean active filters on load to ensure full content is visible by default
             window.state = state;
         }
 
         // --- FALLBACK RECOVERY FOR NOTES ---
-        // If notes are empty in the loaded state, try to recover from legacy/individual keys
         if (!state.notes || state.notes.length === 0) {
             const legacyNotes = localStorage.getItem(STORAGE_KEYS.NOTES);
             if (legacyNotes) {
@@ -293,36 +295,91 @@ async function loadGlobalState() {
             }
         }
 
-        // SIEMPRE usar INITIAL_MASTER_DATA (datos frescos del Excel sincronizado)
-        // Los datos del master SON la fuente de verdad — el localStorage puede tener datos obsoletos
+        // Priorizar INITIAL_MASTER_DATA (Excel local de master_data.js) para reflejar cambios del archivo de inmediato al recargar
         if (typeof INITIAL_MASTER_DATA !== 'undefined' && INITIAL_MASTER_DATA.length > 0) {
             const prevCount = state.masterData ? state.masterData.length : 0;
             state.masterData = INITIAL_MASTER_DATA;
-            console.log(`📦 MasterData actualizado desde Excel: ${INITIAL_MASTER_DATA.length} filas (anterior: ${prevCount})`);
-
-            // Guardar inmediatamente en localStorage para que quede consistente
+            console.log(`📦 MasterData actualizado desde Excel local: ${INITIAL_MASTER_DATA.length} filas (anterior: ${prevCount})`);
             try {
                 localStorage.setItem(STORAGE_KEYS.MASTER, JSON.stringify(state.masterData));
-                console.log('✅ MasterData fresco guardado en localStorage.');
-            } catch (e) { console.warn('No se pudo guardar masterData en localStorage:', e); }
-
+            } catch (e) {}
             // Mostrar timestamp del master_data.js en el header
             if (typeof MASTER_DATA_TIMESTAMP !== 'undefined') {
-                const syncEl = document.getElementById('last-sync-time');
-                if (syncEl) syncEl.textContent = `ÚSIMA SYNC EXCEL: ${MASTER_DATA_TIMESTAMP}`;
                 localStorage.setItem('sifu_last_sync', MASTER_DATA_TIMESTAMP);
             }
-        } else if (!state.masterData || state.masterData.length === 0) {
-            console.warn('⚠️ INITIAL_MASTER_DATA no disponible y localStorage vacío.');
+        } else if (state.masterData && state.masterData.length > 0) {
+            console.log(`📦 MasterData restaurado desde caché: ${state.masterData.length} filas.`);
         }
 
-        console.log("📊 Estado Final Cargado -> Incidencias:", state.incidents.length, "Notas:", state.notes.length);
+        // Mostrar timestamp del master_data.js en el header por defecto si está disponible
+        const syncEl = document.getElementById('last-sync-time');
+        if (syncEl) {
+            const lastSync = localStorage.getItem('sifu_last_sync') || (typeof MASTER_DATA_TIMESTAMP !== 'undefined' ? MASTER_DATA_TIMESTAMP : 'HOY --:--');
+            syncEl.textContent = `ÚLTIMA SYNC EXCEL: ${lastSync}`;
+        }
+
+        console.log("📊 Estado Local Inicial Cargado -> Incidencias:", state.incidents.length, "Notas:", state.notes.length);
         return true;
     } catch (e) {
         console.error('❌ Fallo CRÍTICO en loadGlobalState:', e);
         state = { ...DEFAULT_STATE };
         window.state = state;
         return false;
+    }
+}
+
+async function syncDataFromAPI() {
+    if (!window.ApiClient) return;
+    console.log('📡 Iniciando sincronización en segundo plano con MongoDB...');
+    let needsRender = false;
+
+    // 1. Sincronizar Incidencias
+    try {
+        const apiIncidents = await window.ApiClient.getIncidents();
+        if (apiIncidents && JSON.stringify(state.incidents) !== JSON.stringify(apiIncidents)) {
+            state.incidents = apiIncidents;
+            needsRender = true;
+            console.log(`📡 Incidencias sincronizadas desde MongoDB: ${apiIncidents.length}`);
+        }
+    } catch (e) {
+        console.warn('📡 API Fallo cargando incidencias en background:', e.message);
+    }
+
+    // 2. Sincronizar Notas
+    try {
+        const apiNotes = await window.ApiClient.getNotes();
+        if (apiNotes && JSON.stringify(state.notes) !== JSON.stringify(apiNotes)) {
+            state.notes = apiNotes;
+            needsRender = true;
+            console.log(`📡 Notas sincronizadas desde MongoDB: ${apiNotes.length}`);
+        }
+    } catch (e) {
+        console.warn('📡 API Fallo cargando notas en background:', e.message);
+    }
+
+    // 3. Sincronizar Servicios (MasterData)
+    try {
+        if (typeof window.ApiClient.getServices === 'function') {
+            const apiServices = await window.ApiClient.getServices();
+            if (apiServices && apiServices.length > 0 && JSON.stringify(state.masterData) !== JSON.stringify(apiServices)) {
+                state.masterData = apiServices;
+                needsRender = true;
+                console.log(`📡 MasterData sincronizado desde MongoDB: ${apiServices.length} filas.`);
+                try {
+                    localStorage.setItem(STORAGE_KEYS.MASTER, JSON.stringify(state.masterData));
+                } catch (e) {}
+                const syncEl = document.getElementById('last-sync-time');
+                if (syncEl) syncEl.textContent = `ÚLTIMA SYNC: BD MONGO`;
+            }
+        }
+    } catch (apiErr) {
+        console.warn('📡 API Fallo cargando servicios en background:', apiErr.message);
+    }
+
+    // 4. Si ha cambiado algún dato, guardar y renderizar
+    if (needsRender) {
+        saveAllState();
+        renderAll();
     }
 }
 
@@ -453,13 +510,17 @@ function setupNotesListeners() {
                 const text = newTop.value.trim();
                 console.log("📝 Enter en Top Note:", text);
                 if (text) {
-                    state.notes.unshift({
+                    const newNote = {
                         id: Date.now(),
                         text: text,
                         tag: 'INFO',
                         date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
                         completed: false
-                    });
+                    };
+                    state.notes.unshift(newNote);
+                    if (window.ApiClient) {
+                        window.ApiClient.createNote(newNote);
+                    }
                     newTop.value = '';
                     saveAndRender();
                     updateTicker("NOTA AÑADIDA AL BLOC");
@@ -475,7 +536,69 @@ function setupNotesListeners() {
         modalForm.onsubmit = (e) => {
             e.preventDefault();
             window.addNoteFromSistema();
-            document.getElementById('note-modal').style.display = 'none';
+            
+            const modal = document.getElementById('note-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.setProperty('display', 'none', 'important');
+            }
+        };
+    }
+}
+
+function setupIncidentListeners() {
+    console.log("🚨 Inicializando Listeners de Incidencias...");
+    const incidentForm = document.getElementById('incident-form');
+    if (incidentForm) {
+        incidentForm.onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const workerNameInput = document.getElementById('worker-name');
+            const typeInput = document.getElementById('incident-type');
+            const priorityInput = document.querySelector('input[name="priority"]:checked');
+            const descInput = document.getElementById('incident-desc');
+            
+            if (!workerNameInput || !descInput) return;
+            
+            const worker = workerNameInput.value.trim();
+            const type = typeInput ? typeInput.value : 'AUSENCIA';
+            const priority = priorityInput ? priorityInput.value : 'MID';
+            const desc = descInput.value.trim();
+            
+            if (!worker || !desc) return;
+            
+            const newIncident = {
+                id: Date.now(),
+                worker: worker,
+                type: type,
+                priority: priority,
+                desc: desc,
+                time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                date: new Date().toLocaleDateString('es-ES'),
+                reported: false
+            };
+            
+            state.incidents.unshift(newIncident);
+            
+            if (window.ApiClient) {
+                window.ApiClient.createIncident(newIncident);
+            }
+            
+            // Limpiar formulario y cerrar modal
+            workerNameInput.value = '';
+            descInput.value = '';
+            if (typeInput) typeInput.selectedIndex = 0;
+            const defaultRadio = document.querySelector('input[name="priority"][value="MID"]');
+            if (defaultRadio) defaultRadio.checked = true;
+            
+            const modal = document.getElementById('incident-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.setProperty('display', 'none', 'important');
+            }
+            
+            saveAndRender();
+            updateTicker("INCIDENCIA REGISTRADA");
         };
     }
 }
@@ -486,6 +609,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateDate();
         initCharts();
         setupNotesListeners(); // Call it here
+        setupIncidentListeners();
+
 
 
         // 1. CARGA ATÓMICA Y ASÍNCRONA DE DATOS
@@ -534,6 +659,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Auto-fetch Excel from server (GitHub) if available
         checkServerExcel();
+
+        // Sincronización en segundo plano sin bloquear la carga instantánea
+        if (typeof syncDataFromAPI === 'function') {
+            syncDataFromAPI();
+        }
 
         // AUTO-GUARDADO PERIÓDICO (cada 3 segundos)
         setInterval(() => {
@@ -729,7 +859,7 @@ function setupCoreInteractions() {
         noteInput.onkeydown = (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
-                addNoteFromCerebro();
+                window.addNoteFromSistema();
             }
         };
     }
@@ -1722,7 +1852,7 @@ window.toggleSort = (key) => {
         currentSort.dir = 'asc';
     }
     renderMasterBodyOnly();
-    refreshSortIcons(); // NEW: Force icon update
+    refreshSortIcons(); // Force icon update in existing headers
 };
 
 function refreshSortIcons() {
@@ -1745,16 +1875,75 @@ function refreshSortIcons() {
     });
 }
 
+function initResizableTable(table) {
+    if (!table) return;
+    const cols = table.querySelectorAll('th');
+    [].forEach.call(cols, (col) => {
+        const resizer = col.querySelector('.resizer');
+        if (!resizer) return;
+
+        let x = 0;
+        let w = 0;
+
+        const mouseDownHandler = (e) => {
+            x = e.clientX;
+            const styles = window.getComputedStyle(col);
+            w = parseInt(styles.width, 10);
+
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+            resizer.classList.add('resizing');
+        };
+
+        const mouseMoveHandler = (e) => {
+            const dx = e.clientX - x;
+            col.style.width = `${w + dx}px`;
+        };
+
+        const mouseUpHandler = () => {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+            resizer.classList.remove('resizing');
+        };
+
+        resizer.addEventListener('mousedown', mouseDownHandler);
+    });
+}
+
+
 /**
+
  * Convierte números de serie de Excel o textos de fecha a formato DD/MM/YYYY
  */
 window.formatExcelDate = (val) => {
     if (!val) return '-';
-    // Si ya es una fecha formateada (tiene /), devolver tal cual
-    if (val.toString().includes('/')) return val;
+    let rawStr = val.toString().trim();
+
+    if (rawStr.includes('/') || rawStr.includes('-')) {
+        const parts = rawStr.split(/[\/\-]/);
+        if (parts.length === 3) {
+            let p0 = parseInt(parts[0]);
+            let p1 = parseInt(parts[1]);
+            let y = parseInt(parts[2]);
+            if (y < 100) y += 2000;
+            
+            let d, m;
+            if (p1 > 12) { d = p1; m = p0; }
+            else if (p0 > 12) { d = p0; m = p1; }
+            else {
+                const today = new Date();
+                const date1 = new Date(y, p1 - 1, p0);
+                const date2 = new Date(y, p0 - 1, p1);
+                if (date1 < today && date2 > today && y >= 2026) { d = p1; m = p0; }
+                else { d = p0; m = p1; }
+            }
+            return `${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}`;
+        }
+        return rawStr;
+    }
 
     const num = parseFloat(val);
-    if (isNaN(num) || num < 30000) return val; // No parece una fecha de Excel (ej: 46399)
+    if (isNaN(num) || num < 30000) return rawStr;
 
     try {
         const date = new Date((num - 25569) * 86400 * 1000);
@@ -1763,7 +1952,7 @@ window.formatExcelDate = (val) => {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     } catch (e) {
-        return val;
+        return rawStr;
     }
 };
 
@@ -1777,10 +1966,54 @@ window.debouncedRenderMasterBody = function () {
     }, 250);
 };
 
-window.updateColumnFilter = (key, value) => {
-    columnFilters[key] = value.toLowerCase();
-    window.debouncedRenderMasterBody();
+
+window.clearAllMasterFilters = function() {
+    // Limpiar objeto de filtros por columna
+    if (typeof columnFilters !== 'undefined') {
+        for (let key in columnFilters) {
+            columnFilters[key] = '';
+        }
+    }
+    // Limpiar input de búsqueda global master
+    const masterSearch = document.getElementById('master-search-input');
+    if (masterSearch) masterSearch.value = '';
+    
+    // Limpiar input de búsqueda global del header (opcional, pero recomendado)
+    const globalSearch = document.getElementById('global-search-input');
+    if (globalSearch) globalSearch.value = '';
+    
+    // Forzar renderizado completo para limpiar visualmente los inputs de cabecera
+    state.filteredData = null; // IMPORTANTE: Resetear filtro de urgencia
+    renderMasterSummary();
 };
+
+window.toggleSidebar = function() {
+    const container = document.querySelector('.modules-container');
+    const btn = document.getElementById('toggle-sidebar-btn');
+    if (!container) return;
+    
+    container.classList.toggle('sidebar-collapsed');
+    
+    if (container.classList.contains('sidebar-collapsed')) {
+        if (btn) {
+            btn.style.background = 'rgba(255, 255, 255, 0.35)';
+            btn.innerHTML = '<span class="sidebar-icon">⏹️</span> <span class="sidebar-text">VISTA NORMAL</span>';
+        }
+    } else {
+        if (btn) {
+            btn.style.background = 'rgba(255, 255, 255, 0.15)';
+            btn.innerHTML = '<span class="sidebar-icon">🖥️</span> <span class="sidebar-text">VISTA COMPLETA</span>';
+        }
+    }
+};
+
+window.updateColumnFilter = (key, value) => {
+    if (typeof columnFilters !== 'undefined') {
+        columnFilters[key] = value.toLowerCase();
+    }
+    renderMasterBodyOnly(); // Renderizado optimizado
+};
+
 
 function renderMasterSummary() {
     const feed = document.getElementById('master-summary-feed');
@@ -1805,31 +2038,31 @@ function renderMasterSummary() {
     <table class="master-table" id="resizable-master" style="table-layout: fixed; width: 100%;">
         <thead style="position: sticky; top: 0; z-index: 10; background: #f8fafc; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <tr>
-                <th style="width: 100px; min-width: 100px; cursor: pointer;" onclick="toggleSort('estado')">
+                <th style="width: 110px; min-width: 110px; cursor: pointer;" onclick="toggleSort('estado')">
                     <span id="sort-label-estado">🛡️ ESTADO${sortIcon('estado')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="🛒..." onclick="event.stopPropagation()" oninput="updateColumnFilter('estado', this.value)" value="${columnFilters.estado}">
                 </th>
-                <th style="width: 250px; cursor: pointer;" onclick="toggleSort('servicio')">
+                <th style="width: 280px; cursor: pointer;" onclick="toggleSort('servicio')">
                     <span id="sort-label-servicio">📍 SERVICIO${sortIcon('servicio')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('servicio', this.value)" value="${columnFilters.servicio}">
                 </th>
-                <th style="width: 200px; cursor: pointer;" onclick="toggleSort('titular')">
+                <th style="width: 220px; cursor: pointer;" onclick="toggleSort('titular')">
                     <span id="sort-label-titular">👤 TITULAR${sortIcon('titular')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('titular', this.value)" value="${columnFilters.titular}">
                 </th>
-                <th style="width: 150px; cursor: pointer;" onclick="toggleSort('horario')">
+                <th style="width: 165px; cursor: pointer;" onclick="toggleSort('horario')">
                     <span id="sort-label-horario">⏰ HORARIO${sortIcon('horario')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('horario', this.value)" value="${columnFilters.horario}">
                 </th>
-                <th style="width: 180px; cursor: pointer;" onclick="toggleSort('suplente')">
+                <th style="width: 195px; cursor: pointer;" onclick="toggleSort('suplente')">
                     <span id="sort-label-suplente">🔄 SUPLENTE${sortIcon('suplente')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('suplente', this.value)" value="${columnFilters.suplente}">
                 </th>
-                <th style="width: 130px; cursor: pointer;" onclick="toggleSort('finContrato')">
+                <th style="width: 135px; cursor: pointer;" onclick="toggleSort('finContrato')">
                     <span id="sort-label-finContrato">📅 FIN CONTRATO${sortIcon('finContrato')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('finContrato', this.value)" value="${columnFilters.finContrato}">
                 </th>
-                <th style="width: 140px; cursor: pointer;" onclick="toggleSort('vacaciones')">
+                <th style="width: 145px; cursor: pointer;" onclick="toggleSort('vacaciones')">
                     <span id="sort-label-vacaciones">🌴 VACACIONES 26${sortIcon('vacaciones')}</span> <div class="resizer"></div>
                     <input type="text" class="header-filter-input" placeholder="Filtrar..." onclick="event.stopPropagation()" oninput="updateColumnFilter('vacaciones', this.value)" value="${columnFilters.vacaciones}">
                 </th>
@@ -1855,8 +2088,10 @@ function renderMasterBodyOnly() {
     if (masterSearch && masterSearch.value) globalQuery = masterSearch.value.toLowerCase().trim();
     if (!globalQuery && globalSearchInput && globalSearchInput.value) globalQuery = globalSearchInput.value.toLowerCase().trim();
 
+    const statsContainer = document.getElementById('master-stats-summary'); // Legacy, maybe null
+    
     if (!state.masterData || state.masterData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No hay datos. Carga un Excel (SYNC MASTER).</td></tr>';
+        if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No hay datos. Carga un Excel (SYNC MASTER).</td></tr>';
         if (countEl) countEl.textContent = '0';
         if (statsContainer) statsContainer.innerHTML = '';
         return;
@@ -1873,7 +2108,7 @@ function renderMasterBodyOnly() {
     const kFinContrato = findK('FIN CONTRATO');
     const kVacaciones = findK('VACACIONES 2026');
 
-    const baseData = state.filteredData || state.masterData;
+    const baseData = (state.filteredData !== null) ? state.filteredData : (state.masterData || []);
 
     let filtered = baseData.filter(row => {
         if (globalQuery) {
@@ -1910,12 +2145,9 @@ function renderMasterBodyOnly() {
         }).length;
 
         toolStats.innerHTML = `
-            <div class="lila-badge visible">
-                <span>VISIBLE: <b>${filtered.length}</b></span>
-            </div>
-            <div class="lila-badge discovered">
-                <span>DESCUBIERTOS: <b>${discCount}</b></span>
-            </div>
+            <div class="lila-badge total">TOTAL: <b>${(state.masterData || []).length}</b></div>
+            <div class="lila-badge visible">VISIBLE: <b>${filtered.length}</b></div>
+            <div class="lila-badge uncovered">DESCUBIERTOS: <b>${discCount}</b></div>
         `;
     }
 
@@ -1967,7 +2199,16 @@ function renderMasterBodyOnly() {
     const dataToShow = filtered.slice(0, displayLimit);
     tbody.innerHTML = ''; // Clear previous
 
+    if (filtered.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="7" class="empty-state" style="padding: 40px; text-align: center; color: #94a3b8; font-weight: 500;">🚫 No hay servicios que coincidan con los filtros actuales.</td>';
+        tbody.appendChild(tr);
+        window.masterRenderTicket = null;
+        return;
+    }
+
     const CHUNK_SIZE = 50;
+
     let currentIndex = 0;
 
     function renderChunk() {
@@ -2009,7 +2250,7 @@ function renderMasterBodyOnly() {
                     <td><div class="td-content">${statusBadge}</div></td>
                     <td title="${s}"><div class="td-content"><b>${s}</b></div></td>
                     <td title="${t}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kTitular}', this.innerText.trim())">${t}</div></td>
-                    <td title="${h}"><div class="td-content" style="color:var(--sifu-blue); font-family:monospace; font-size:11px;">${h}</div></td>
+                    <td title="${h}"><div class="td-content" style="color:var(--sifu-blue); font-family:monospace; font-size:12.5px;">${h}</div></td>
                     <td title="${sup}"><div class="td-content editable" contenteditable="true" onblur="updateMasterCell(${realIndex}, '${kSuplente}', this.innerText.trim())">${sup || '-'}</div></td>
                     <td title="${fin}"><div class="td-content">${fin || '-'}</div></td>
                     <td title="${vac}"><div class="td-content">${vac || '-'}</div></td>
@@ -2135,12 +2376,21 @@ function renderIncidents(query = '') {
 
 window.toggleReported = (id) => {
     const inc = state.incidents.find(i => i.id === id);
-    if (inc) { inc.reported = !inc.reported; saveAndRender(); }
+    if (inc) {
+        inc.reported = !inc.reported;
+        if (window.ApiClient) {
+            window.ApiClient.updateIncident(id, { reported: inc.reported });
+        }
+        saveAndRender();
+    }
 };
 
 window.deleteIncident = (id) => {
     if (confirm('Eliminar incidencia?')) {
         state.incidents = state.incidents.filter(i => i.id !== id);
+        if (window.ApiClient) {
+            window.ApiClient.deleteIncident(id);
+        }
         saveAndRender();
     }
 };
@@ -2216,18 +2466,34 @@ window.addNoteFromSistema = () => {
 
     state.notes.unshift(newNote);
     input.value = '';
+    
+    if (window.ApiClient) {
+        window.ApiClient.createNote(newNote);
+    }
+    
     saveAndRender();
     updateTicker("SISTEMA: APUNTE GUARDADO");
 };
 
 window.deleteNote = (id) => {
     state.notes = state.notes.filter(n => n.id !== id);
+    if (window.ApiClient) {
+        window.ApiClient.deleteNote(id);
+    }
     saveAndRender();
 };
 
 window.clearAllNotes = () => {
     if (confirm('¿Limpiar todas las notas terminadas?')) {
+        const completedNotes = state.notes.filter(n => n.completed);
         state.notes = state.notes.filter(n => !n.completed);
+        
+        if (window.ApiClient) {
+            completedNotes.forEach(n => {
+                window.ApiClient.deleteNote(n.id);
+            });
+        }
+        
         saveAndRender();
     }
 };
@@ -2243,7 +2509,13 @@ function formatNoteDate(dateVal) {
 
 window.toggleNote = (id) => {
     const note = state.notes.find(n => n.id === id);
-    if (note) { note.completed = !note.completed; saveAndRender(); }
+    if (note) {
+        note.completed = !note.completed;
+        if (window.ApiClient) {
+            window.ApiClient.updateNote(id, { completed: note.completed });
+        }
+        saveAndRender();
+    }
 };
 
 function refreshMetrics() {
@@ -2332,16 +2604,20 @@ function processQuickInput(text) {
 
     if (upper.startsWith('NOTA:')) {
         const noteText = text.substring(5).trim();
-        state.notes.unshift({
+        const newNote = {
             id: Date.now(),
             text: noteText,
             tag: 'INFO',
             date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
             completed: false
-        });
+        };
+        state.notes.unshift(newNote);
+        if (window.ApiClient) {
+            window.ApiClient.createNote(newNote);
+        }
         updateTicker("NOTA GUARDADA EN SISTEMA OPERATIVO");
     } else {
-        state.incidents.unshift({
+        const newIncident = {
             id: Date.now(),
             worker: 'REGISTRO RÁPIDO',
             type: 'OTRO',
@@ -2350,7 +2626,11 @@ function processQuickInput(text) {
             time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
             date: new Date().toLocaleDateString('es-ES'),
             reported: false
-        });
+        };
+        state.incidents.unshift(newIncident);
+        if (window.ApiClient) {
+            window.ApiClient.createIncident(newIncident);
+        }
         updateTicker("INCIDENCIA REGISTRADA");
     }
     saveAndRender();
@@ -3006,6 +3286,13 @@ window.switchTab = (tabId) => {
             }, 100);
         }
 
+        if (tabId === 'aldi-parts') {
+            console.log("📝 Entrando en Partes Aldi...");
+            if (typeof AldiPartsScanner !== 'undefined') {
+                AldiPartsScanner.init();
+            }
+        }
+
         if (tabId === 'abonos') {
             console.log("📉 Analizando Bajas IT...");
             if (typeof window.renderITTable === 'function') setTimeout(window.renderITTable, 50);
@@ -3045,6 +3332,15 @@ window.switchTab = (tabId) => {
 
                 showToast("✨ SMART HUB CARGADO", "success");
             }, 100);
+        }
+
+        if (tabId === 'parkings') {
+            console.log("🚗 Inicializando Panel de PARKING's...");
+            setTimeout(() => {
+                if (typeof ParkingManager !== 'undefined') {
+                    ParkingManager.init();
+                }
+            }, 50);
         }
 
         if (tabId === 'avanzado') {
@@ -4215,66 +4511,237 @@ function setupEventListeners() {
         }).join('');
     }
 
-    window.filterByUrgency = function (type) {
-        if (!state.masterData) return;
-        console.log('Filtrando por urgencia:', type);
+    // --- MASTER QUICK ACTION ENGINE (FILTER + PDF) ---
+    window.clearAllMasterFilters = function () {
+        console.log('🔄 SIFU: Restaurando vista completa...');
+        if (typeof columnFilters !== 'undefined') {
+            Object.keys(columnFilters).forEach(k => columnFilters[k] = '');
+        }
+        const masterSearch = document.getElementById('master-search-input');
+        if (masterSearch) masterSearch.value = '';
+        state.filteredData = null;
+        if (typeof renderMasterSummary === 'function') renderMasterSummary();
+        showToast('Vista completa restaurada', 'success');
+    };
 
-        const analysis = AIService.analyzeResilience();
+    // --- HELPER PARA FILTRADO DE URGENCIA UNIFICADO ---
+    function getUrgencyResults(category) {
+        if (!state.masterData || !state.masterData.length) return [];
+        
         const keys = Object.keys(state.masterData[0]);
-        const kEstado = keys.find(k => k.toUpperCase() === 'ESTADO') || 'ESTADO';
+        const kEstado = keys.find(k => k.toUpperCase().trim() === 'ESTADO') || 'ESTADO';
         const kTitular = keys.find(k => k.toUpperCase().trim() === 'TITULAR') || 'TITULAR';
+        const kSuplente = keys.find(k => k.toUpperCase().trim() === 'SUPLENTE') || 'SUPLENTE';
+        const kServicio = keys.find(k => k.toUpperCase().includes('SERVICIO')) || 'SERVICIO';
+        const kSalud = keys.find(k => k.toUpperCase().trim() === 'ESTADO1') || 
+                       keys.find(k => k.toUpperCase().includes('SALUD')) || 
+                       keys.find(k => k.toUpperCase().trim() === 'IT') || 
+                       kEstado;
 
-        let filtered = [];
-        if (type === 'DESCUBIERTO') {
-            filtered = state.masterData.filter(r => {
-                const e = (r[kEstado] || '').toUpperCase();
-                const t = (r[kTitular] || '').toUpperCase();
-                return e.includes('DESCUBIERTO') || (e === '' && t === '') || (t === 'SIN TITULAR');
+        if (category === 'DESCUBIERTO') {
+            return state.masterData.filter(r => {
+                const sName = (r[kServicio] || '').toString().trim();
+                if (!sName) return false; // IGNORAR FILAS VACIAS DEL EXCEL
+
+                const e = (r[kEstado] || '').toString().toUpperCase();
+                const t = (r[kTitular] || '').toString().toUpperCase();
+                return e.includes('DESCUBIERTO') || e.includes('VACANTE') || t.includes('SIN TITULAR') || (e === '' && t === '');
             });
-        } else if (type === 'BAJA') {
-            filtered = state.masterData.filter(r => {
-                const e = (r[kEstado] || '').toUpperCase();
-                const s1 = (r.ESTADO1 || '').toUpperCase();
-                return e.includes('BAJA') || e.includes('IT') || s1.includes('BAJA') || s1.includes('IT');
+        }
+        
+        if (category === 'BAJA IT') {
+            return state.masterData.filter(r => {
+                const sName = (r[kServicio] || '').toString().trim();
+                if (!sName) return false;
+
+                const s = (r[kSalud] || '').toString().toUpperCase().trim();
+                const e = (r[kEstado] || '').toString().toUpperCase().trim();
+                // Búsqueda estricta para evitar falsos positivos en nombres (RITA, AITOR)
+                const isBaja = s.includes('BAJA') || s === 'IT' || s.startsWith('IT ') || s.endsWith(' IT') || e.includes('BAJA') || e === 'IT';
+                return isBaja;
             });
-        } else if (type === 'MAÑANA') {
-            filtered = state.masterData.filter(r => {
-                const obs = (r.OBSERVACIONES || '').toLowerCase();
-                return obs.includes('hoy') || obs.includes('fin');
+        }
+        
+        if (category === 'IT SIN SUPLENTE') {
+            return state.masterData.filter(r => {
+                const sName = (r[kServicio] || '').toString().trim();
+                if (!sName) return false;
+
+                const s = (r[kSalud] || '').toString().toUpperCase().trim();
+                const e = (r[kEstado] || '').toString().toUpperCase().trim();
+                const sup = (r[kSuplente] || '').toString().toUpperCase().trim();
+                
+                const isIT = s.includes('BAJA') || s === 'IT' || s.startsWith('IT ') || e.includes('BAJA') || e === 'IT';
+                const noSup = (sup === '' || sup === '-' || sup.includes('SIN'));
+                const isUncovered = !e.includes('CUBIERTO'); // SI ESTÁ "CUBIERTO", NO ES UNA URGENCIA SIN SUPLENTE
+
+                return isIT && noSup && isUncovered;
             });
         }
 
+        if (category === 'FIN HOY') {
+            const kObs = keys.find(k => k.toUpperCase().includes('OBSERV')) || 'OBSERVACIONES';
+            const kFin = keys.find(k => k.toUpperCase().includes('FIN') && k.toUpperCase().includes('CONTRATO')) || 'FIN CONTRATO';
+            
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+
+            return state.masterData.filter(r => {
+                const sName = (r[kServicio] || '').toString().trim();
+                if (!sName) return false;
+
+                // 1. Prioridad: Texto en observaciones
+                const obs = (r[kObs] || '').toString().toLowerCase();
+                if (obs.includes('hoy') || obs.includes('fin') || obs.includes('termina')) return true;
+
+                // 2. Análisis de Columna "FIN CONTRATO" (Vencimientos del MES ACTUAL)
+                const rawDate = r[kFin];
+                if (!rawDate) return false;
+
+                let dObj = null;
+                try {
+                    if (typeof rawDate === 'number') {
+                        // Excel serial date to JS Date
+                        const utcDate = new Date((rawDate - 25569) * 86400 * 1000);
+                        dObj = new Date(utcDate.getTime() + (12 * 60 * 60 * 1000));
+                    } else if (typeof rawDate === 'string') {
+                        const cleanStr = rawDate.trim();
+                        if (cleanStr.match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}$/)) {
+                            let parts = cleanStr.split(/[\/\-]/);
+                            let y = parseInt(parts[2]); if (y < 100) y += 2000;
+                            let p0 = parseInt(parts[0]), p1 = parseInt(parts[1]);
+                            // Lógica flexible (DD/MM o MM/DD)
+                            let d, m;
+                            if (p1 > 12) { d = p1; m = p0; } else { d = p0; m = p1; }
+                            dObj = new Date(y, m - 1, d);
+                        } else if (cleanStr.match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
+                            dObj = new Date(cleanStr);
+                        }
+                    }
+                } catch (e) {}
+
+                if (dObj && !isNaN(dObj.getTime())) {
+                    // Si el año es menor a 2026, el usuario dijo que eran indefinidos (saltar)
+                    if (dObj.getFullYear() < 2026) return false;
+                    
+                    // Incluir si es el mes actual y año actual
+                    return dObj.getMonth() === currentMonth && dObj.getFullYear() === currentYear;
+                }
+                return false;
+            });
+        }
+        
+        return [];
+    }
+
+    window.filterByUrgency = function (type) {
+        if (!state.masterData) return;
+        console.log('🚀 Filtrando por urgencia PRO:', type);
+
+        const filtered = getUrgencyResults(type);
         state.filteredData = filtered;
+        
         renderMasterSummary();
-        showToast(`Filtrados ${filtered.length} casos criticos`, 'info');
+        showToast(`Encontrados ${filtered.length} casos de: ${type}`, 'info');
+        
+        const tableNode = document.getElementById('module-master-summary');
+        if (tableNode) tableNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    window.clearTableFilters = function () {
-        console.log('Restaurando vista completa...');
-        state.filteredData = null;
-        renderMasterSummary();
+    window.exportQuickActionPDF = function (category) {
+        if (!state.masterData) return;
+        showToast(`Generando Reporte PDF: ${category}...`, "info");
+
+        // Obtenemos los datos filtrados para esta categoría específica
+        // Reutilizamos la lógica de filtrado para asegurar consistencia
+        const data = getUrgencyResults(category);
+
+        if (data.length === 0) {
+            showToast("No hay registros para este reporte", "warning");
+            return;
+        }
+
+        // Crear contenedor temporal para PDF
+        const container = document.createElement('div');
+        container.style.padding = "40px";
+        container.style.fontFamily = "'Outfit', sans-serif";
+        container.style.background = "#fff";
+        container.innerHTML = `
+            <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #667eea; padding-bottom: 20px; margin-bottom: 30px;">
+                <div>
+                    <h1 style="margin: 0; color: #667eea; font-size: 24px;">REPORTE DE ${category}</h1>
+                    <p style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;">Generado el ${new Date().toLocaleString()}</p>
+                </div>
+                <div style="text-align: right;">
+                    <h2 style="margin: 0; color: #0f172a; font-size: 18px;">SIFU INFORMER PRO</h2>
+                    <p style="margin: 0; color: #64748b; font-size: 12px;">Gestión de Servicios Críticos</p>
+                </div>
+            </div>
+            
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 30px; display: flex; gap: 40px;">
+                <div>
+                    <span style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700;">Categoría</span>
+                    <div style="font-size: 18px; font-weight: 700; color: #ef4444;">${category}</div>
+                </div>
+                <div>
+                    <span style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700;">Total Casos</span>
+                    <div style="font-size: 18px; font-weight: 700; color: #0f172a;">${data.length}</div>
+                </div>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                <thead>
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #667eea;">SERVICIO / CENTRO</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #667eea;">TITULAR</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #667eea;">ESTADO</th>
+                        <th style="padding: 12px; text-align: left; border: 1px solid #667eea;">SUPLENTE ACTUAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(r => `
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #e2e8f0;">${r[kServicio] || '---'}</td>
+                            <td style="padding: 10px; border: 1px solid #e2e8f0;">${r[kTitular] || '---'}</td>
+                            <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: 700; color: #ef4444;">${r[kEstado] || '---'}</td>
+                            <td style="padding: 10px; border: 1px solid #e2e8f0;">${r[kSuplente] || 'SIN SUPLENTE'}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 50px; font-size: 10px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                Este documento es confidencial y para uso exclusivo del sistema de Gestión Operativa SIFU.
+            </div>
+        `;
+
+        const opt = {
+            margin:       0.5,
+            filename:     `Reporte_SIFU_${category.replace(' ', '_')}_${new Date().toISOString().split('T')[0]}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(container).save().then(() => {
+            showToast("PDF Descargado", "success");
+        });
     };
 
     function updateQuickActionCounters() {
-        const cDesc = document.getElementById('count-descubiertos');
-        const cBaja = document.getElementById('count-bajas');
-        const cTerm = document.getElementById('count-terminan');
-
         if (!state.masterData) return;
 
-        const analysis = AIService.analyzeResilience();
-        if (cDesc) cDesc.innerText = analysis.metrics.descubiertos || 0;
-        if (cBaja) cBaja.innerText = analysis.metrics.bajas || 0;
+        const cUncovered = document.getElementById('count-card-uncovered');
+        const cBajaIT = document.getElementById('count-card-bajas-it');
+        const cAbsences = document.getElementById('count-card-absences');
+        const cFinHoy = document.getElementById('count-card-fin-hoy');
 
-        if (cTerm) {
-            const keys = Object.keys(state.masterData[0]);
-            const kFin = keys.find(k => k.toUpperCase().includes('FIN')) || 'FIN CONTRATO';
-            const upcoming = state.masterData.filter(r => {
-                const val = (r[kFin] || '').toString();
-                return val.includes('hoy') || val.includes('mañana');
-            }).length;
-            cTerm.innerText = upcoming;
-        }
+        // Sincronización 100% con la lógica de filtrado de la tabla
+        if (cUncovered) cUncovered.innerText = getUrgencyResults('DESCUBIERTO').length;
+        if (cBajaIT) cBajaIT.innerText = getUrgencyResults('BAJA IT').length;
+        if (cAbsences) cAbsences.innerText = getUrgencyResults('IT SIN SUPLENTE').length;
+        if (cFinHoy) cFinHoy.innerText = getUrgencyResults('FIN HOY').length;
     }
 
     // Intervals
@@ -5157,3 +5624,98 @@ window.initUncoveredCharts = function () {
         });
     }
 };
+
+// --- MASTER DATA CUSTOM RESIZE LOGIC ---
+window.initMasterResize = function (e) {
+    const wrapper = document.querySelector('.master-content-wrapper');
+    if (!wrapper) return;
+    
+    // Prevenir selección de texto durante el arrastre
+    document.body.style.userSelect = 'none';
+    
+    const startY = e.clientY;
+    const startHeight = wrapper.offsetHeight;
+    
+    function doDrag(e) {
+        let newHeight = startHeight + (e.clientY - startY);
+        // Límites de seguridad
+        if (newHeight < 200) newHeight = 200;
+        if (newHeight > 2000) newHeight = 2000;
+        
+        wrapper.style.height = newHeight + 'px';
+        wrapper.style.maxHeight = 'none'; // Desbloquear cualquier restricción previa
+    }
+    
+    function stopDrag() {
+        document.body.style.userSelect = '';
+        document.documentElement.removeEventListener('mousemove', doDrag, false);
+        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    }
+    
+    document.documentElement.addEventListener('mousemove', doDrag, false);
+    document.documentElement.addEventListener('mouseup', stopDrag, false);
+};
+
+// --- SISTEMA DE INTERACTIVIDAD PARA SCROLL DE PESTAÑAS (TABS NAV) ---
+window.scrollTabs = function(direction) {
+    const nav = document.querySelector('.tabs-nav');
+    if (!nav) return;
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        nav.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        nav.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+};
+
+window.updateScrollButtons = function(element) {
+    if (!element) return;
+    const container = element.closest('.tabs-nav-container');
+    if (!container) return;
+    
+    const leftBtn = container.querySelector('.scroll-nav-left');
+    const rightBtn = container.querySelector('.scroll-nav-right');
+    
+    const scrollLeft = Math.ceil(element.scrollLeft);
+    const scrollWidth = element.scrollWidth;
+    const clientWidth = element.clientWidth;
+    const maxScroll = scrollWidth - clientWidth;
+    
+    // Tolerancia para evitar problemas de redondeo decimal
+    const hasScroll = scrollWidth > clientWidth;
+    const atStart = scrollLeft <= 2;
+    const atEnd = scrollLeft >= maxScroll - 2;
+    
+    if (leftBtn) {
+        leftBtn.style.display = (hasScroll && !atStart) ? 'flex' : 'none';
+    }
+    if (rightBtn) {
+        rightBtn.style.display = (hasScroll && !atEnd) ? 'flex' : 'none';
+    }
+    
+    // Activar/desactivar sombras de desvanecimiento dinámicamente
+    if (hasScroll && !atStart) {
+        container.classList.add('show-fade-left');
+    } else {
+        container.classList.remove('show-fade-left');
+    }
+    
+    if (hasScroll && !atEnd) {
+        container.classList.add('show-fade-right');
+    } else {
+        container.classList.remove('show-fade-right');
+    }
+};
+
+// Inicializador del scroll de pestañas en la carga
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const nav = document.querySelector('.tabs-nav');
+        if (nav) {
+            window.updateScrollButtons(nav);
+            // También escuchar cambios de tamaño de ventana
+            window.addEventListener('resize', () => window.updateScrollButtons(nav));
+        }
+    }, 500); // Dar un margen para que renderice los elementos
+});
+

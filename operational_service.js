@@ -100,12 +100,26 @@ const OperationalService = {
 
         integrityScore = Math.max(0, Math.min(100, integrityScore));
 
+        // 3. ANÁLISIS DE FATIGA (PRO)
+        const fatigueMap = new Map();
+        (state.incidents || []).forEach(inc => {
+            const count = (fatigueMap.get(inc.worker) || 0) + 1;
+            fatigueMap.set(inc.worker, count);
+        });
+
+        const burnoutRisks = [];
+        fatigueMap.forEach((count, worker) => {
+            if (count > 2) {
+                burnoutRisks.push({ worker, score: count * 20, reason: `${count} incidencias recientes` });
+            }
+        });
+
         // Convertir el mapa de resumen en una lista ordenada por gravedad
         const summaryList = Array.from(summaryMap.values())
             .sort((a, b) => (b.descubiertos + b.bajas) - (a.descubiertos + a.bajas))
             .slice(0, 8); // TOP 8 áreas con problemas
 
-        return { score: integrityScore, metrics, summaryList };
+        return { score: integrityScore, metrics, summaryList, burnoutRisks };
     }
 };
 

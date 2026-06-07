@@ -59,8 +59,8 @@ try {
     
     $finalContent = @"
 // AUTO-GENERATED SPECIAL COVERING DATA
-const SPECIAL_WORKERS = $jsonW;
-const SPECIAL_UNCOVERED = $jsonU;
+window.SPECIAL_WORKERS = $jsonW;
+window.SPECIAL_UNCOVERED = $jsonU;
 "@
     
     [System.IO.File]::WriteAllText($jsPath, $finalContent, [System.Text.Encoding]::UTF8)

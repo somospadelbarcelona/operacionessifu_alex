@@ -24,23 +24,45 @@ window.checkContractExpirations = function () {
 
         try {
             if (typeof rawDate === 'number') {
-                // Excel serial date to JS Date (Local)
-                // Correct for timezone offsets by treating serial as UTC components then building local
+                // Número serial de Excel → fecha JS
                 const utcDate = new Date((rawDate - 25569) * 86400 * 1000);
-                // Adjust: Excel 44256 is roughly noon-ish in some calcs? 
-                // Best approach: Add ~12h to handle rounding drifts then take components
-                const slightlyAdjusted = new Date(utcDate.getTime() + (12 * 60 * 60 * 1000));
-                dateObj = new Date(slightlyAdjusted.getUTCFullYear(), slightlyAdjusted.getUTCMonth(), slightlyAdjusted.getUTCDate());
+                const adj = new Date(utcDate.getTime() + (12 * 60 * 60 * 1000));
+                dateObj = new Date(adj.getUTCFullYear(), adj.getUTCMonth(), adj.getUTCDate());
+
             } else if (typeof rawDate === 'string') {
                 const cleanStr = rawDate.trim();
-                // DD/MM/YYYY or DD-MM-YYYY
-                if (cleanStr.match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}$/)) {
-                    const parts = cleanStr.split(/[\/\-]/);
-                    dateObj = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+
+                // Ignorar valores de texto como "temporal", "indefinido", etc.
+                if (!cleanStr || /[a-zA-Z]/.test(cleanStr)) {
+                    // skip
                 }
-                // YYYY-MM-DD
+                // Formato M/D/YYYY o DD/MM/YYYY (con / o -)
+                else if (cleanStr.match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4}$/)) {
+                    const parts = cleanStr.split(/[\/\-]/);
+                    let p0 = parseInt(parts[0]); // primer número
+                    let p1 = parseInt(parts[1]); // segundo número
+                    let y  = parseInt(parts[2]);
+                    if (y < 100) y += 2000;
+
+                    let d, m;
+                    // Si el segundo número > 12 → formato M/D/YYYY (americano)
+                    if (p1 > 12) {
+                        m = p0; d = p1;  // p0=mes, p1=día
+                    }
+                    // Si el primer número > 12 → formato D/M/YYYY (europeo)
+                    else if (p0 > 12) {
+                        d = p0; m = p1;
+                    }
+                    // Ambos ≤ 12: asumimos M/D/YYYY (americano, que es el formato del Excel)
+                    else {
+                        m = p0; d = p1;
+                    }
+                    dateObj = new Date(y, m - 1, d);
+                }
+                // Formato YYYY-MM-DD
                 else if (cleanStr.match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
-                    dateObj = new Date(cleanStr);
+                    const parts = cleanStr.split(/[\/\-]/);
+                    dateObj = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
                 }
             }
         } catch (e) {
@@ -57,6 +79,9 @@ window.checkContractExpirations = function () {
         const diffTime = dateObj - today;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+        // Exclude contracts that have already expired or expire today (only show expirations after today)
+        if (diffDays <= 0) return;
+
         // CORRECTION: If day count is huge positive, these are UPCOMING.
         // If day count is small positive, these are URGENT.
         // If day count is negative, they are EXPIRED or INVALID (but we filter invalid < 2026).
@@ -65,11 +90,17 @@ window.checkContractExpirations = function () {
         // 2025 excluded.
         // So this logic holds.
 
+        // Formatear fecha manualmente DD/MM/YYYY (evita fallos de toLocaleDateString)
+        const dd   = String(dateObj.getDate()).padStart(2, '0');
+        const mm   = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const yyyy = dateObj.getFullYear();
+        const dateFormatted = `${dd}/${mm}/${yyyy}`;
+
         const item = {
             worker: row['TITULAR'] || 'Sin Nombre',
             service: row['SERVICIO'] || 'Sin Servicio',
             days: diffDays,
-            dateStr: dateObj.toLocaleDateString(),
+            dateStr: dateFormatted,
             rawDate: dateObj
         };
 
@@ -124,95 +155,219 @@ window.checkContractExpirations = function () {
         // Add a badge or text to header?
         const headerTitle = widget.querySelector('h3');
         if (headerTitle && !headerTitle.innerText.includes('⚠️')) {
-            headerTitle.innerHTML = `🗓️ CONTROL DE VENCIMIENTOS <span style="font-size:12px; background:#ef4444; color:white; padding:2px 6px; border-radius:10px; margin-left:10px; animation: blink 1s infinite;">¡ATENCIÓN!</span>`;
+            headerTitle.innerHTML = `🗓️ CONTROL DE VENCIMIENTOS <span style="font-size:11px; background:#ef4444; color:white; padding:2px 6px; border-radius:10px; margin-left:10px; animation: blink 1s infinite;">¡ATENCIÓN!</span>`;
         }
     } else if (widget) {
         widget.classList.remove('attention-pulse');
+        const headerTitle = widget.querySelector('h3');
+        if (headerTitle) {
+            headerTitle.innerHTML = `🗓️ CONTROL DE VENCIMIENTOS`;
+        }
     }
 
-    // Update Widget (Default to ALL as requested)
-    renderContractWidget('ALL');
+    // Update count labels on chips
+    const countAll = document.getElementById('contract-count-all');
+    const countExpired = document.getElementById('contract-count-expired');
+    const countUrgent = document.getElementById('contract-count-urgent');
+    const countWarning = document.getElementById('contract-count-warning');
 
-    // Update default active button programmatically
-    const btnAll = document.getElementById('btn-filter-all');
-    if (btnAll) {
-        document.querySelectorAll('.btn-mini-filter').forEach(b => b.classList.remove('active'));
-        btnAll.classList.add('active');
-        // Styles for ALL
-        btnAll.style.background = '#e2e8f0';
-        btnAll.style.color = '#1e293b';
-        btnAll.style.opacity = '1';
+    if (countAll) countAll.textContent = `(${all.length})`;
+    if (countExpired) countExpired.textContent = expired.length;
+    if (countUrgent) countUrgent.textContent = urgent.length;
+    if (countWarning) countWarning.textContent = warning.length;
+
+    // Display current date in the header badge
+    const dateBadge = document.getElementById('contract-current-date-badge');
+    if (dateBadge) {
+        const options = { weekday: 'short', day: 'numeric', month: 'short' };
+        dateBadge.textContent = `Hoy: ${today.toLocaleDateString('es-ES', options)}`;
     }
+
+    // Update Widget and keep active filter
+    window.filterContractWidget(window.activeContractFilter || 'ALL');
 };
 
+// Search & Filter State
+window.activeContractFilter = 'ALL';
+window.activeContractSearch = '';
 
-window.renderContractWidget = function (filter) {
-    const tbody = document.getElementById('contract-widget-body');
-    if (!tbody) return;
+window.handleContractSearch = function (val) {
+    window.activeContractSearch = val.toLowerCase().trim();
+    
+    // Toggle clear button
+    const clearBtn = document.getElementById('contract-search-clear-btn');
+    if (clearBtn) {
+        clearBtn.style.display = val ? 'block' : 'none';
+    }
+    
+    window.applyContractFilters();
+};
+
+window.applyContractFilters = function () {
+    const feed = document.getElementById('contract-list-feed');
+    if (!feed) return;
 
     let data = [];
+    const filter = window.activeContractFilter || 'ALL';
+
     if (filter === 'EXPIRED') data = window.cachedContractData.expired;
     else if (filter === 'URGENT') data = window.cachedContractData.urgent;
     else if (filter === 'WARNING') data = window.cachedContractData.warning;
-    else data = window.cachedContractData.all.sort((a, b) => a.days - b.days);
+    else data = window.cachedContractData.all;
 
-    // Update active button state visuals (opacity)
-    document.querySelectorAll('.btn-mini-filter').forEach(b => b.style.opacity = '0.6');
-    const activeBtn = document.querySelector(`.btn-mini-filter[onclick*="${filter}"]`);
-    if (activeBtn) activeBtn.style.opacity = '1';
+    // Search filter
+    const search = window.activeContractSearch || '';
+    if (search) {
+        data = data.filter(item => 
+            (item.worker && item.worker.toLowerCase().includes(search)) || 
+            (item.service && item.service.toLowerCase().includes(search))
+        );
+    }
+
+    // Sort by remaining days
+    data = data.slice().sort((a, b) => a.days - b.days);
 
     if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#94a3b8;">✅ No hay contratos en esta categoría.</td></tr>`;
+        feed.innerHTML = `<div style="text-align:center; padding:30px; color:#94a3b8; font-size:12px;">✅ No hay vencimientos que coincidan.</div>`;
         return;
     }
 
-    tbody.innerHTML = data.map(item => {
-        let badge = '';
-        if (item.days < 0) badge = `<span style="background:#000; color:#fff; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700;">VENCIDO</span>`;
-        else if (item.days <= 7) badge = `<span style="background:#fee2e2; color:#ef4444; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700;">URGENTE</span>`;
-        else if (item.days <= 30) badge = `<span style="background:#fef3c7; color:#d97706; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700;">PRÓXIMO</span>`;
-        else badge = `<span style="background:#f1f5f9; color:#64748b; padding:2px 6px; border-radius:4px; font-size:10px;">OK</span>`;
+    feed.innerHTML = data.map(item => {
+        let statusIcon = '✅';
+        let bgLight = 'rgba(52, 168, 83, 0.12)'; // green
+        let fgColor = '#34a853';
+        let badgeBg = '#d1fae5';
+        let badgeFg = '#065f46';
+        let daysLabel = '';
+        let itemClass = '';
+
+        if (item.days < 0) {
+            statusIcon = '🛑';
+            bgLight = 'rgba(234, 67, 53, 0.12)'; // red
+            fgColor = '#ea4335';
+            badgeBg = '#fee2e2';
+            badgeFg = '#b91c1c';
+            const absDays = Math.abs(item.days);
+            daysLabel = `Vencido hace ${absDays} ${absDays === 1 ? 'día' : 'días'}`;
+            itemClass = 'expired-card';
+        } else if (item.days === 0) {
+            statusIcon = '🔥';
+            bgLight = 'rgba(234, 67, 53, 0.18)'; // bright red
+            fgColor = '#ea4335';
+            badgeBg = '#ea4335';
+            badgeFg = '#ffffff';
+            daysLabel = 'VENCE HOY';
+            itemClass = 'urgent-card pulse-urgent';
+        } else if (item.days === 1) {
+            statusIcon = '⚠️';
+            bgLight = 'rgba(249, 171, 0, 0.15)'; // amber
+            fgColor = '#f9ab00';
+            badgeBg = '#fef3c7';
+            badgeFg = '#d97706';
+            daysLabel = 'Vence mañana';
+            itemClass = 'urgent-card';
+        } else if (item.days <= 7) {
+            statusIcon = '⚠️';
+            bgLight = 'rgba(249, 171, 0, 0.12)';
+            fgColor = '#f9ab00';
+            badgeBg = '#fef3c7';
+            badgeFg = '#b45309';
+            daysLabel = `En ${item.days} días`;
+            itemClass = 'urgent-card';
+        } else if (item.days <= 45) {
+            statusIcon = '📅';
+            bgLight = 'rgba(26, 115, 232, 0.1)'; // blue
+            fgColor = '#1a73e8';
+            badgeBg = '#dbeafe';
+            badgeFg = '#1e40af';
+            daysLabel = `En ${item.days} días`;
+        } else {
+            daysLabel = `En ${item.days} días`;
+        }
+
+        const serviceClean = item.service.length > 45 ? `${item.service.substring(0, 42)}...` : item.service;
 
         return `
-        <tr style="border-bottom:1px solid #f1f5f9;">
-            <td style="padding:10px;">
-                <div style="font-weight:700; color:#334155;">${item.worker}</div>
-                <div style="font-size:10px; color:#cbd5e1;">${item.service.substring(0, 30)}...</div>
-            </td>
-            <td style="text-align:right; padding:10px; font-family:monospace; color:#475569;">${item.dateStr}</td>
-            <td style="text-align:right; padding:10px; font-weight:700; ${item.days < 0 ? 'color:#000;' : (item.days <= 7 ? 'color:#ef4444;' : 'color:#334155;')}">${item.days}</td>
-            <td style="text-align:center; padding:10px;">${badge}</td>
-        </tr>
+        <div class="contract-card-item ${itemClass}" style="
+            display: flex; 
+            flex-direction: column;
+            padding: 14px 16px; 
+            border-radius: 12px; 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid ${fgColor};
+            transition: all 0.2s ease;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        ">
+
+            <!-- Fila 1: Icono + Nombre -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 18px; flex-shrink: 0;">${statusIcon}</span>
+                <span style="font-weight: 800; color: #000000; font-size: 13px;">${item.worker}</span>
+            </div>
+
+            <!-- Fila 2: Servicio -->
+            <div style="font-size: 11px; color: #64748b; padding-left: 26px;">💼 ${serviceClean}</div>
+
+            <!-- Fila 3: FECHA siempre visible, en su propia línea -->
+            <div style="
+                display: flex; align-items: center; gap: 10px;
+                padding: 9px 12px; margin-top: 4px;
+                background: ${badgeBg}; border-radius: 8px;
+                border: 1px solid rgba(0,0,0,0.06);
+            ">
+                <span style="font-size: 15px;">📅</span>
+                <b style="color: #000000; font-size: 16px; font-family: monospace; letter-spacing: 0.8px; font-weight: 900;">${item.dateStr || '—'}</b>
+                <span style="font-size: 11px; color: ${fgColor}; font-weight: 800; margin-left: auto; white-space: nowrap;">${daysLabel}</span>
+            </div>
+        </div>
         `;
     }).join('');
 };
 
+window.renderContractWidget = function (filter) {
+    if (filter) window.activeContractFilter = filter;
+    window.applyContractFilters();
+};
+
 window.filterContractWidget = function (type) {
-    if (!type) type = 'URGENT';
+    const filter = type || 'ALL';
+    window.activeContractFilter = filter;
 
     // Reset Styles
     document.querySelectorAll('.btn-mini-filter').forEach(b => {
         b.classList.remove('active');
-        b.style.background = '#f1f5f9'; // Default gray
+        b.style.background = '#f1f5f9';
         b.style.color = '#475569';
+        b.style.border = 'none';
     });
 
-    const btn = document.querySelector(`.btn-mini-filter[onclick*="${type}"]`);
-    if (btn) btn.classList.add('active');
-
-    // Apply specific active colors
-    if (type === 'EXPIRED') {
-        if (btn) { btn.style.background = '#1e293b'; btn.style.color = '#fff'; }
-    } else if (type === 'URGENT') {
-        if (btn) { btn.style.background = '#fee2e2'; btn.style.color = '#b91c1c'; }
-    } else if (type === 'WARNING') {
-        if (btn) { btn.style.background = '#fef3c7'; btn.style.color = '#b45309'; }
-    } else {
-        if (btn) { btn.style.background = '#e2e8f0'; btn.style.color = '#1e293b'; }
+    const btn = document.getElementById(`btn-filter-${filter.toLowerCase()}`);
+    if (btn) {
+        btn.classList.add('active');
+        
+        // Premium active states corresponding to semantic colors in light theme
+        if (filter === 'EXPIRED') {
+            btn.style.background = '#fee2e2';
+            btn.style.color = '#b91c1c';
+            btn.style.border = '1px solid #fecaca';
+        } else if (filter === 'URGENT') {
+            btn.style.background = '#fef3c7';
+            btn.style.color = '#d97706';
+            btn.style.border = '1px solid #fde047';
+        } else if (filter === 'WARNING') {
+            btn.style.background = '#dbeafe';
+            btn.style.color = '#1d4ed8';
+            btn.style.border = '1px solid #bfdbfe';
+        } else { // ALL
+            btn.style.background = '#0f172a';
+            btn.style.color = '#ffffff';
+        }
     }
 
-    renderContractWidget(type);
-}
+    window.applyContractFilters();
+};
 
 window.showContractAlertModal = function (urgent, warning, expired) {
     if (document.getElementById('contract-alert-modal')) return;

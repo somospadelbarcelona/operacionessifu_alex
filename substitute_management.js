@@ -341,33 +341,32 @@ const SubstituteManagement = {
         const suggestions = this.findBestSubstitutes(service, 3);
 
         return `
-            <div class="service-substitute-card">
-                <div class="service-info">
-                    <div class="service-name">${service.SERVICIO}</div>
-                    <div class="service-meta">
-                        <span class="service-type">${service['TIPO S'] || 'N/A'}</span>
-                        ${service.HORARIO ? `<span class="service-schedule">⏰ ${service.HORARIO}</span>` : ''}
+            <div class="service-substitute-card" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div class="service-info" style="margin-bottom: 12px;">
+                    <div class="service-name" style="font-weight: 800; color: #1e293b; font-size: 15px;">${service.SERVICIO}</div>
+                    <div class="service-meta" style="font-size: 11px; color: #64748b; margin-top: 4px;">
+                        <span class="badge blue">${service['TIPO S'] || 'N/A'}</span>
+                        ${service.HORARIO ? `<span style="margin-left: 10px;">⏰ ${service.HORARIO}</span>` : ''}
                     </div>
-                    ${service.TITULAR ? `<div class="service-titular">Titular: ${service.TITULAR}</div>` : ''}
                 </div>
 
                 <div class="substitute-suggestions">
-                    <div class="suggestions-header">💡 Mejores Candidatos:</div>
+                    <div class="suggestions-header" style="font-size: 10px; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-bottom: 10px;">🤖 IA-MATCH SUGGESTIONS</div>
                     ${suggestions.length > 0 ? suggestions.map((sug, idx) => `
-                        <div class="suggestion-candidate">
-                            <div class="candidate-rank">#${idx + 1}</div>
-                            <div class="candidate-info">
-                                <div class="candidate-name">${sug.worker}</div>
-                                <div class="candidate-score">
-                                    <span class="score-badge">${sug.totalScore}/100</span>
-                                    <span class="score-details">
-                                        ${sug.breakdown.experience > 0 ? '✓ Experiencia ' : ''}
-                                        ${sug.breakdown.proximity > 20 ? '✓ Cerca ' : ''}
-                                        ${sug.breakdown.capacity > 0 ? '✓ Disponible' : ''}
+                        <div class="suggestion-candidate" style="display: flex; align-items: center; gap: 12px; padding: 10px; background: #f8fafc; border-radius: 8px; margin-bottom: 8px; border: 1px solid #f1f5f9;">
+                            <div class="candidate-rank" style="font-size: 12px; font-weight: 800; color: #94a3b8;">#${idx + 1}</div>
+                            <div class="candidate-info" style="flex-grow: 1;">
+                                <div class="candidate-name" style="font-weight: 700; color: #334155; font-size: 13px;">${sug.worker}</div>
+                                <div class="candidate-score" style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+                                    <span class="score-badge" style="font-size: 10px; font-weight: 800; color: #10b981;">${sug.totalScore}% MATCH</span>
+                                    <span class="score-details" style="font-size: 10px; color: #94a3b8;">
+                                        ${sug.breakdown.proximity > 20 ? '📍 Proximidad Alta' : ''}
+                                        ${sug.breakdown.experience > 30 ? ' • 🏢 Experto en área' : ''}
                                     </span>
                                 </div>
                             </div>
-                            <button class="btn-assign-substitute" 
+                            <button class="btn-primary-glow smart-btn" 
+                                    style="padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; border: none; cursor: pointer;"
                                     onclick="SubstituteManagement.promptAssignment('${service.PROYECTO}', '${sug.worker}')">
                                 Asignar
                             </button>
@@ -379,6 +378,7 @@ const SubstituteManagement = {
     },
 
     renderActiveSubstitution(assignment) {
+
         const daysSince = Math.ceil((new Date() - new Date(assignment.assignedDate)) / (1000 * 60 * 60 * 24));
 
         return `

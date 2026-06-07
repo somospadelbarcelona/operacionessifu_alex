@@ -1,0 +1,35 @@
+/* SYSTEM DESIGN CONSOLIDATION - SIFU INFORMER */
+
+/* Core System & Global Variables */
+@import "../../style.css";
+@import "../../layout_styles.css";
+
+/* Core Modules & Layout Fixes */
+@import "../../modal_fix.css";
+@import "../../operational_styles.css";
+@import "../../filter_bar_sticky.css";
+@import "../../notepad.css";
+@import "../../orders_styles.css";
+@import "../../pro_dashboard.css";
+
+/* Phase-specific Styles (Fases 1 a 15) */
+@import "../../smart_modules.css";
+@import "../../advanced_modules.css";
+@import "../../mobile_chat_styles.css";
+@import "../../ml_modules_styles.css";
+@import "../../integrations_export_styles.css";
+@import "../../bi_styles.css";
+@import "../../security_styles.css";
+@import "../../quality_styles_phase9.css";
+@import "../../document_styles_phase10.css";
+@import "../../financial_styles_phase11.css";
+@import "../../talent_styles_phase12.css";
+@import "../../fleet_styles_phase13.css";
+@import "../../sustainability_styles_phase14.css";
+@import "../../executive_styles_phase15.css";
+
+/* Live Integrations & Scanners */
+@import "../../master_sync_v2.css";
+@import "../../parking_styles.css";
+@import "../../parking_styles_matrix.css";
+@import "../../aldi_parts_styles.css";

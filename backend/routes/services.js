@@ -7,6 +7,63 @@ const router = express.Router();
 const Service = require('../models/Service');
 const { protect, authorize } = require('../middleware/auth');
 
+// @route   POST /api/services/sync
+// @desc    Sincronizar servicios desde Excel (Autenticación por API Key)
+// @access  Public (Protegido por x-api-key)
+router.post('/sync', async (req, res) => {
+    try {
+        const apiKey = req.headers['x-api-key'];
+        const expectedApiKey = process.env.JWT_SECRET || 'sifu_secret_api_key_2026';
+        if (!apiKey || apiKey !== expectedApiKey) {
+            return res.status(401).json({
+                success: false,
+                message: 'No autorizado. API Key inválida.'
+            });
+        }
+
+        const { services } = req.body;
+        if (!Array.isArray(services)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Se requiere un array de servicios'
+            });
+        }
+
+        // 1. Borrar todas las filas antiguas de servicios de la base de datos
+        await Service.deleteMany({});
+
+        // 2. Insertar los nuevos datos en bloque
+        const servicesWithMetadata = services.map(service => ({
+            ...service,
+            metadata: {
+                createdBy: 'excel_sync',
+                createdAt: new Date()
+            }
+        }));
+
+        const createdServices = await Service.insertMany(servicesWithMetadata);
+
+        // Emitir evento por socket.io a todos los clientes web conectados
+        const io = req.app.get('io');
+        if (io) {
+            io.emit('services-synchronized', { count: createdServices.length });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: `Sincronización completada. ${createdServices.length} servicios importados.`,
+            count: createdServices.length
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error en la sincronización de servicios',
+            error: error.message
+        });
+    }
+});
+
 // Todas las rutas requieren autenticación
 router.use(protect);
 

@@ -21,6 +21,9 @@ const predictionsRoutes = require('./routes/predictions');
 const notificationsRoutes = require('./routes/notifications');
 const exportsRoutes = require('./routes/exports');
 const integrationsRoutes = require('./routes/integrations');
+const aldiPartsRoutes = require('./routes/aldiParts');
+const incidentsRoutes = require('./routes/incidents');
+const notesRoutes = require('./routes/notes');
 
 // Importar middlewares
 const errorHandler = require('./middleware/errorHandler');
@@ -83,7 +86,8 @@ app.get('/', (req, res) => {
             predictions: '/api/predictions',
             notifications: '/api/notifications',
             exports: '/api/exports',
-            integrations: '/api/integrations'
+            integrations: '/api/integrations',
+            aldiParts: '/api/aldi-parts'
         }
     });
 });
@@ -105,6 +109,9 @@ app.use('/api/predictions', predictionsRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/exports', exportsRoutes);
 app.use('/api/integrations', integrationsRoutes);
+app.use('/api/aldi-parts', aldiPartsRoutes);
+app.use('/api/incidents', incidentsRoutes);
+app.use('/api/notes', notesRoutes);
 
 // Error handler (debe ser el último middleware)
 app.use(errorHandler);
@@ -163,14 +170,39 @@ mongoose.connection.on('disconnected', () => {
     logger.warn('MongoDB desconectado');
 });
 
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
+// SIFU INFORMER - BACKEND SERVER (Optimizado para Bun v1.1+)
+const BunServer = {
+    async start() {
+        console.log('⚡ Iniciando SIFU Backend con Bun Engine...');
+        
+        const PORT = process.env.PORT || 3000;
+        
+        // Iniciar Servidor Nativo de Bun (para máxima velocidad en peticiones estáticas y API básica)
+        // Pero mantenemos Express para compatibilidad con la lógica compleja actual.
+        server.listen(PORT, () => {
+            console.log(`🚀 SIFU Informer corriendo en: http://localhost:${PORT}`);
+            console.log(`📡 Entorno: ${process.env.NODE_ENV}`);
+            console.log(`🛠️ Runtime: Bun ${Bun.version}`);
+        });
 
-server.listen(PORT, () => {
-    logger.info(`🚀 Servidor corriendo en puerto ${PORT}`);
-    logger.info(`🌍 Entorno: ${process.env.NODE_ENV}`);
-    logger.info(`📊 MongoDB: ${process.env.MONGODB_URI}`);
-});
+        // Conexión Inteligente a MongoDB
+        try {
+            await mongoose.connect(process.env.MONGODB_URI);
+            console.log('✅ MongoDB Cloud: Conectado');
+            
+            // Iniciar cron jobs si están habilitados
+            if (process.env.ENABLE_CRON_JOBS === 'true') {
+                cronJobs.init();
+                logger.info('✅ Cron jobs iniciados');
+            }
+        } catch (err) {
+            console.error('❌ Error de Base de Datos:', err.message);
+        }
+    }
+};
+
+BunServer.start();
+
 
 // Manejar shutdown gracefully
 process.on('SIGTERM', () => {

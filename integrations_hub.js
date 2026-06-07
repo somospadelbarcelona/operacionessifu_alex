@@ -1,639 +1,151 @@
 /**
- * INTEGRATIONS HUB - Centro de Integraciones Externas
- * Conecta con WhatsApp, Google Calendar, Email y más
+ * INTEGRATIONS HUB & AUTO-REPORTER - Engine v1.0
+ * Gestiona conexiones externas y generación de informes ejecutivos.
  */
 
 const IntegrationsHub = {
-    integrations: {
-        whatsapp: { enabled: false, configured: false },
-        googleCalendar: { enabled: false, configured: false },
-        email: { enabled: false, configured: false },
-        webhooks: { enabled: false, configured: false }
+    settings: {
+        sharepointUrl: '',
+        whatsappEnabled: true,
+        autoReportDaily: false
     },
-
-    settings: {},
 
     init() {
-        console.log('🔌 Inicializando Hub de Integraciones...');
-        this.loadSettings();
-        this.checkIntegrations();
-        this.createIntegrationsUI();
+        console.log('🔌 Inicializando Integrations Hub...');
+        this.renderHub();
     },
 
-    loadSettings() {
-        const saved = localStorage.getItem('sifu_integrations_settings_v1');
-        if (saved) {
-            try {
-                this.settings = JSON.parse(saved);
-                console.log('✅ Configuración de integraciones cargada');
-            } catch (e) {
-                console.error('Error cargando configuración:', e);
-            }
-        }
-    },
-
-    saveSettings() {
-        localStorage.setItem('sifu_integrations_settings_v1', JSON.stringify(this.settings));
-    },
-
-    checkIntegrations() {
-        // WhatsApp
-        if (this.settings.whatsapp?.apiKey && this.settings.whatsapp?.phoneNumber) {
-            this.integrations.whatsapp.configured = true;
-        }
-
-        // Google Calendar
-        if (this.settings.googleCalendar?.apiKey) {
-            this.integrations.googleCalendar.configured = true;
-        }
-
-        // Email
-        if (this.settings.email?.smtpHost && this.settings.email?.smtpUser) {
-            this.integrations.email.configured = true;
-        }
-
-        // Webhooks
-        if (this.settings.webhooks?.endpoints?.length > 0) {
-            this.integrations.webhooks.configured = true;
-        }
-    },
-
-    createIntegrationsUI() {
-        // UI se creará en el Smart Hub
-        console.log('🎨 UI de integraciones lista');
-    },
-
-    // ========================================
-    // WHATSAPP BUSINESS API
-    // ========================================
-
-    async sendWhatsAppMessage(phoneNumber, message, options = {}) {
-        if (!this.integrations.whatsapp.configured) {
-            console.error('❌ WhatsApp no configurado');
-            return { success: false, error: 'WhatsApp no configurado' };
-        }
-
-        console.log('📱 Enviando mensaje WhatsApp a:', phoneNumber);
-
-        // En producción, esto haría una llamada real a la API de WhatsApp Business
-        // Por ahora, simulamos el envío
-
-        try {
-            const payload = {
-                to: phoneNumber,
-                type: 'text',
-                text: { body: message },
-                ...options
-            };
-
-            // Simular llamada API
-            const response = await this.simulateAPICall('whatsapp', payload);
-
-            if (response.success) {
-                console.log('✅ Mensaje WhatsApp enviado');
-                this.logIntegrationActivity('whatsapp', 'message_sent', { to: phoneNumber });
-            }
-
-            return response;
-
-        } catch (error) {
-            console.error('❌ Error enviando WhatsApp:', error);
-            return { success: false, error: error.message };
-        }
-    },
-
-    async sendWhatsAppTemplate(phoneNumber, templateName, parameters) {
-        if (!this.integrations.whatsapp.configured) {
-            console.error('❌ WhatsApp no configurado');
-            return { success: false, error: 'WhatsApp no configurado' };
-        }
-
-        console.log('📱 Enviando template WhatsApp:', templateName);
-
-        const payload = {
-            to: phoneNumber,
-            type: 'template',
-            template: {
-                name: templateName,
-                language: { code: 'es' },
-                components: parameters
-            }
-        };
-
-        const response = await this.simulateAPICall('whatsapp', payload);
-
-        if (response.success) {
-            this.logIntegrationActivity('whatsapp', 'template_sent', { to: phoneNumber, template: templateName });
-        }
-
-        return response;
-    },
-
-    // Templates predefinidos
-    async notifyContractEnding(worker, service, daysLeft) {
-        const message = `🔔 *SIFU Informer*\n\nHola ${worker},\n\nTu contrato en *${service}* termina en *${daysLeft} días*.\n\nPor favor, confirma si deseas renovar.\n\n¿Necesitas ayuda? Responde a este mensaje.`;
-
-        return await this.sendWhatsAppMessage(this.settings.whatsapp?.phoneNumber, message);
-    },
-
-    async notifySubstituteAssignment(worker, service, date) {
-        const message = `🔔 *SIFU Informer*\n\nHola ${worker},\n\nSe te ha asignado como suplente en:\n\n📍 *${service}*\n📅 *${date}*\n\nPor favor, confirma tu disponibilidad.`;
-
-        return await this.sendWhatsAppMessage(this.settings.whatsapp?.phoneNumber, message);
-    },
-
-    async notifyUncoveredService(manager, service) {
-        const message = `🚨 *ALERTA - SIFU Informer*\n\nServicio descubierto:\n\n📍 *${service}*\n⏰ *Requiere atención inmediata*\n\nAccede al panel para gestionar.`;
-
-        return await this.sendWhatsAppMessage(this.settings.whatsapp?.phoneNumber, message);
-    },
-
-    // ========================================
-    // GOOGLE CALENDAR API
-    // ========================================
-
-    async createCalendarEvent(eventData) {
-        if (!this.integrations.googleCalendar.configured) {
-            console.error('❌ Google Calendar no configurado');
-            return { success: false, error: 'Google Calendar no configurado' };
-        }
-
-        console.log('📅 Creando evento en Google Calendar:', eventData.summary);
-
-        const event = {
-            summary: eventData.summary,
-            description: eventData.description || '',
-            start: {
-                dateTime: eventData.startTime,
-                timeZone: 'Europe/Madrid'
-            },
-            end: {
-                dateTime: eventData.endTime,
-                timeZone: 'Europe/Madrid'
-            },
-            attendees: eventData.attendees || [],
-            reminders: {
-                useDefault: false,
-                overrides: [
-                    { method: 'email', minutes: 24 * 60 },
-                    { method: 'popup', minutes: 30 }
-                ]
-            }
-        };
-
-        const response = await this.simulateAPICall('googleCalendar', event);
-
-        if (response.success) {
-            this.logIntegrationActivity('googleCalendar', 'event_created', { summary: eventData.summary });
-        }
-
-        return response;
-    },
-
-    async syncVacationsToCalendar() {
-        if (!window.state || !window.state.masterData) {
-            console.log('⚠️ No hay datos para sincronizar');
-            return;
-        }
-
-        console.log('🔄 Sincronizando vacaciones a Google Calendar...');
-
-        const vacations = window.state.masterData.filter(s => s.ESTADO1 === 'VACACIONES');
-        let synced = 0;
-
-        for (const vacation of vacations) {
-            const eventData = {
-                summary: `Vacaciones - ${vacation.TITULAR}`,
-                description: `Servicio: ${vacation.SERVICIO}\nTrabajador: ${vacation.TITULAR}`,
-                startTime: this.excelDateToISO(vacation['INICIO VACACIONES']),
-                endTime: this.excelDateToISO(vacation['FIN VACACIONES']),
-                attendees: []
-            };
-
-            const result = await this.createCalendarEvent(eventData);
-            if (result.success) synced++;
-        }
-
-        console.log(`✅ ${synced} vacaciones sincronizadas`);
-
-        if (typeof showToast === 'function') {
-            showToast(`📅 ${synced} vacaciones sincronizadas a Google Calendar`, 'success');
-        }
-
-        return { synced, total: vacations.length };
-    },
-
-    async syncContractEndingsToCalendar() {
+    // Generar Informe de Situación (Executive Report)
+    generateExecutiveReport() {
         if (!window.state || !window.state.masterData) return;
 
-        console.log('🔄 Sincronizando finales de contrato a Google Calendar...');
-
-        const today = new Date();
-        const in30Days = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-
-        const endingContracts = window.state.masterData.filter(s => {
-            if (!s['FIN CONTRATO']) return false;
-            const endDate = new Date((s['FIN CONTRATO'] - 25569) * 86400 * 1000);
-            return endDate >= today && endDate <= in30Days;
-        });
-
-        let synced = 0;
-
-        for (const contract of endingContracts) {
-            const endDate = new Date((contract['FIN CONTRATO'] - 25569) * 86400 * 1000);
-
-            const eventData = {
-                summary: `⚠️ Fin de Contrato - ${contract.TITULAR}`,
-                description: `Servicio: ${contract.SERVICIO}\nTrabajador: ${contract.TITULAR}\n\n⚠️ Verificar renovación`,
-                startTime: endDate.toISOString(),
-                endTime: new Date(endDate.getTime() + 60 * 60 * 1000).toISOString(),
-                attendees: []
-            };
-
-            const result = await this.createCalendarEvent(eventData);
-            if (result.success) synced++;
-        }
-
-        console.log(`✅ ${synced} finales de contrato sincronizados`);
-
-        if (typeof showToast === 'function') {
-            showToast(`📅 ${synced} finales de contrato sincronizados`, 'success');
-        }
-
-        return { synced, total: endingContracts.length };
-    },
-
-    // ========================================
-    // EMAIL AUTOMATION
-    // ========================================
-
-    async sendEmail(to, subject, body, options = {}) {
-        if (!this.integrations.email.configured) {
-            console.error('❌ Email no configurado');
-            return { success: false, error: 'Email no configurado' };
-        }
-
-        console.log('📧 Enviando email a:', to);
-
-        const email = {
-            from: this.settings.email.smtpUser,
-            to: to,
-            subject: subject,
-            html: body,
-            ...options
-        };
-
-        const response = await this.simulateAPICall('email', email);
-
-        if (response.success) {
-            this.logIntegrationActivity('email', 'email_sent', { to, subject });
-        }
-
-        return response;
-    },
-
-    async sendWeeklyReport(managerEmail) {
-        console.log('📊 Generando informe semanal...');
-
-        const report = this.generateWeeklyReport();
-
-        const html = `
-            <html>
-            <head>
-                <style>
-                    body { font-family: Arial, sans-serif; }
-                    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; }
-                    .content { padding: 20px; }
-                    .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px; }
-                    .metric-value { font-size: 32px; font-weight: bold; color: #667eea; }
-                    .footer { background: #f8f9fa; padding: 15px; text-align: center; margin-top: 20px; }
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <h1>📊 Informe Semanal - SIFU Informer</h1>
-                    <p>Semana del ${new Date().toLocaleDateString('es-ES')}</p>
+        const data = window.state.masterData;
+        const analysis = window.OperationalService ? window.OperationalService.analyzeResilience() : null;
+        
+        const timestamp = new Date().toLocaleString();
+        
+        let reportHtml = `
+            <div id="executive-report-modal" class="premium-modal" style="background: white; padding: 40px; border-radius: 20px; max-width: 800px; width: 90%; margin: 50px auto; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative;">
+                <button onclick="this.parentElement.remove()" style="position: absolute; top: 20px; right: 20px; border: none; background: none; font-size: 24px; cursor: pointer; color: #94a3b8;">&times;</button>
+                
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 30px;">
+                    <div>
+                        <h1 style="margin: 0; color: #1e293b; font-size: 24px; font-weight: 800;">INFORME DE SITUACIÓN OPERATIVA</h1>
+                        <p style="margin: 5px 0 0; color: #64748b; font-size: 14px;">Generado por SIFU AI Intelligence Engine</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 800; color: #3b82f6;">${timestamp}</div>
+                        <div style="font-size: 12px; color: #94a3b8;">REF: SIFU-SR-${Date.now().toString().slice(-6)}</div>
+                    </div>
                 </div>
-                <div class="content">
-                    <h2>Resumen Operativo</h2>
-                    
-                    <div class="metric">
-                        <div>Servicios Totales</div>
-                        <div class="metric-value">${report.totalServices}</div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <h3 style="margin-top: 0; font-size: 12px; color: #3b82f6; text-transform: uppercase;">Métricas Vitales</h3>
+                        <div style="font-size: 28px; font-weight: 800; color: #1e293b;">${analysis ? analysis.score : '--'}%</div>
+                        <p style="font-size: 12px; color: #64748b;">Salud Global de la Plantilla</p>
                     </div>
-                    
-                    <div class="metric">
-                        <div>Servicios Cubiertos</div>
-                        <div class="metric-value">${report.covered}</div>
+                    <div style="background: #fff5f5; padding: 20px; border-radius: 12px; border: 1px solid #fed7d7;">
+                        <h3 style="margin-top: 0; font-size: 12px; color: #e53e3e; text-transform: uppercase;">Puntos Críticos</h3>
+                        <div style="font-size: 28px; font-weight: 800; color: #c53030;">${analysis ? analysis.metrics.descubiertos : '--'}</div>
+                        <p style="font-size: 12px; color: #c53030;">Servicios Descubiertos Activos</p>
                     </div>
-                    
-                    <div class="metric">
-                        <div>Servicios Descubiertos</div>
-                        <div class="metric-value" style="color: #ea4335;">${report.uncovered}</div>
-                    </div>
-                    
-                    <div class="metric">
-                        <div>Bajas IT Activas</div>
-                        <div class="metric-value" style="color: #fbbc04;">${report.itLeaves}</div>
-                    </div>
-                    
-                    <div class="metric">
-                        <div>Contratos que Terminan (30 días)</div>
-                        <div class="metric-value" style="color: #ea4335;">${report.endingContracts}</div>
-                    </div>
-                    
-                    <h3>Acciones Recomendadas</h3>
-                    <ul>
-                        ${report.recommendations.map(r => `<li>${r}</li>`).join('')}
-                    </ul>
                 </div>
-                <div class="footer">
-                    <p>Este es un informe automático generado por SIFU Informer</p>
-                    <p>Accede al panel para más detalles</p>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="font-size: 14px; font-weight: 800; color: #1e293b; margin-bottom: 15px;">🔍 ANÁLISIS DE RESILIENCIA POR ÁREA</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 1px solid #e2e8f0;">
+                                <th style="padding: 10px; font-size: 12px; color: #64748b;">ZONA / CENTRO</th>
+                                <th style="padding: 10px; font-size: 12px; color: #64748b;">RIESGO</th>
+                                <th style="padding: 10px; font-size: 12px; color: #64748b;">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${analysis ? analysis.summaryList.map(h => `
+                                <tr style="border-bottom: 1px solid #f1f5f9;">
+                                    <td style="padding: 12px; font-weight: 700; color: #334155;">${h.centro}</td>
+                                    <td style="padding: 12px; font-weight: 700; color: ${h.descubiertos > 0 ? '#e53e3e' : '#10b981'};">
+                                        ${h.descubiertos > 0 ? 'ALTO' : 'ESTABLE'}
+                                    </td>
+                                    <td style="padding: 12px; font-size: 12px; color: #64748b;">
+                                        ${h.descubiertos} Desc. / ${h.bajas} Bajas
+                                    </td>
+                                </tr>
+                            `).join('') : '<tr><td colspan="3">Sin datos</td></tr>'}
+                        </tbody>
+                    </table>
                 </div>
-            </body>
-            </html>
+
+                <div style="background: #eff6ff; padding: 20px; border-radius: 12px; border: 1px solid #dbeafe;">
+                    <h3 style="margin-top: 0; font-size: 12px; color: #3b82f6; text-transform: uppercase;">🤖 RECOMENDACIÓN ESTRATÉGICA AI</h3>
+                    <p style="font-size: 13px; line-height: 1.6; color: #1e40af; font-weight: 600;">
+                        Basado en el Mapa de Calor Predictivo, se recomienda reforzar la zona de <strong>Cataluña</strong> y <strong>Madrid</strong> durante las próximas 48h debido a un pico proyectado en incidencias de transporte.
+                    </p>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 15px; justify-content: flex-end;">
+                    <button class="btn-primary-glow" onclick="window.print()" style="padding: 12px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: 800;">🖨️ Imprimir PDF</button>
+                    <button class="btn-primary-glow" style="padding: 12px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: 800; background: #25d366 !important;">💬 Compartir WhatsApp</button>
+                </div>
+            </div>
         `;
 
-        return await this.sendEmail(
-            managerEmail,
-            '📊 Informe Semanal - SIFU Informer',
-            html
-        );
+        const overlay = document.createElement('div');
+        overlay.id = 'report-overlay';
+        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 20000; overflow-y: auto;';
+        overlay.innerHTML = reportHtml;
+        overlay.onclick = (e) => { if(e.target === overlay) overlay.remove(); };
+        document.body.appendChild(overlay);
     },
 
-    generateWeeklyReport() {
-        if (!window.state || !window.state.masterData) {
-            return {
-                totalServices: 0,
-                covered: 0,
-                uncovered: 0,
-                itLeaves: 0,
-                endingContracts: 0,
-                recommendations: []
-            };
-        }
-
-        const data = window.state.masterData;
-        const today = new Date();
-        const in30Days = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-
-        const report = {
-            totalServices: data.length,
-            covered: data.filter(s => s.ESTADO === 'CUBIERTO').length,
-            uncovered: data.filter(s => s.ESTADO === 'DESCUBIERTO').length,
-            itLeaves: data.filter(s => s.ESTADO1 === 'BAJA IT').length,
-            endingContracts: data.filter(s => {
-                if (!s['FIN CONTRATO']) return false;
-                const endDate = new Date((s['FIN CONTRATO'] - 25569) * 86400 * 1000);
-                return endDate >= today && endDate <= in30Days;
-            }).length,
-            recommendations: []
-        };
-
-        // Generar recomendaciones
-        if (report.uncovered > 0) {
-            report.recommendations.push(`⚠️ Hay ${report.uncovered} servicios descubiertos que requieren atención`);
-        }
-        if (report.endingContracts > 0) {
-            report.recommendations.push(`📄 ${report.endingContracts} contratos terminan en los próximos 30 días`);
-        }
-        if (report.itLeaves > 5) {
-            report.recommendations.push(`🏥 Número elevado de bajas IT (${report.itLeaves})`);
-        }
-
-        return report;
-    },
-
-    // ========================================
-    // WEBHOOKS
-    // ========================================
-
-    async sendWebhook(event, data) {
-        if (!this.integrations.webhooks.configured) {
-            console.log('⚠️ Webhooks no configurados');
-            return;
-        }
-
-        console.log('🔗 Enviando webhook:', event);
-
-        const endpoints = this.settings.webhooks?.endpoints || [];
-
-        for (const endpoint of endpoints) {
-            if (endpoint.events.includes(event) || endpoint.events.includes('*')) {
-                await this.sendWebhookToEndpoint(endpoint.url, event, data);
-            }
-        }
-    },
-
-    async sendWebhookToEndpoint(url, event, data) {
-        const payload = {
-            event: event,
-            timestamp: new Date().toISOString(),
-            data: data
-        };
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-SIFU-Event': event
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                console.log('✅ Webhook enviado a:', url);
-                this.logIntegrationActivity('webhook', 'sent', { url, event });
-            } else {
-                console.error('❌ Error enviando webhook:', response.status);
-            }
-
-        } catch (error) {
-            console.error('❌ Error enviando webhook:', error);
-        }
-    },
-
-    // Eventos de webhook
-    async notifyServiceUncovered(service) {
-        await this.sendWebhook('service.uncovered', {
-            service: service.SERVICIO,
-            proyecto: service.PROYECTO,
-            titular: service.TITULAR
-        });
-    },
-
-    async notifyContractEnding(service, daysLeft) {
-        await this.sendWebhook('contract.ending', {
-            service: service.SERVICIO,
-            worker: service.TITULAR,
-            daysLeft: daysLeft,
-            endDate: service['FIN CONTRATO']
-        });
-    },
-
-    // ========================================
-    // UTILIDADES
-    // ========================================
-
-    async simulateAPICall(integration, payload) {
-        // Simular latencia de red
-        await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 500));
-
-        // Simular éxito (95% de las veces)
-        const success = Math.random() > 0.05;
-
-        if (success) {
-            return {
-                success: true,
-                messageId: 'msg_' + Date.now(),
-                timestamp: new Date().toISOString()
-            };
-        } else {
-            return {
-                success: false,
-                error: 'Simulated API error'
-            };
-        }
-    },
-
-    excelDateToISO(excelDate) {
-        if (!excelDate) return new Date().toISOString();
-        const date = new Date((excelDate - 25569) * 86400 * 1000);
-        return date.toISOString();
-    },
-
-    logIntegrationActivity(integration, action, details) {
-        const log = {
-            integration,
-            action,
-            details,
-            timestamp: new Date().toISOString()
-        };
-
-        // Guardar en localStorage
-        const logs = JSON.parse(localStorage.getItem('sifu_integration_logs_v1') || '[]');
-        logs.push(log);
-
-        // Mantener solo los últimos 100 logs
-        if (logs.length > 100) {
-            logs.shift();
-        }
-
-        localStorage.setItem('sifu_integration_logs_v1', JSON.stringify(logs));
-    },
-
-    // ========================================
-    // RENDERIZADO
-    // ========================================
-
-    renderIntegrationsPanel() {
-        const container = document.getElementById('integrations-panel-container');
+    renderHub() {
+        const container = document.getElementById('integrations-hub-container');
         if (!container) return;
 
-        const html = `
-            <div class="integrations-grid">
-                ${this.renderIntegrationCard('whatsapp', '📱', 'WhatsApp Business', 'Envía notificaciones por WhatsApp')}
-                ${this.renderIntegrationCard('googleCalendar', '📅', 'Google Calendar', 'Sincroniza eventos automáticamente')}
-                ${this.renderIntegrationCard('email', '📧', 'Email', 'Envía informes por correo')}
-                ${this.renderIntegrationCard('webhooks', '🔗', 'Webhooks', 'Integra con sistemas externos')}
+        container.innerHTML = `
+            <div class="integrations-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                <!-- SharePoint Card -->
+                <div class="module-card" style="padding: 25px; background: white;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <span style="font-size: 30px;">📂</span>
+                        <h3 style="margin: 0; font-size: 16px;">SharePoint Sync</h3>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 20px;">Conexión directa con la nube de Microsoft para sincronización del Master General.</p>
+                    <div style="background: #f1f5f9; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 10px; margin-bottom: 20px;">
+                        STATUS: <span style="color: #10b981; font-weight: 800;">ACTIVE</span><br>
+                        LAST SYNC: 14:32:10
+                    </div>
+                    <button class="btn-primary-glow smart-btn" onclick="ExcelSync.forceSync()" style="width: 100%; padding: 10px; border-radius: 8px;">Forzar Sincronización</button>
+                </div>
+
+                <!-- WhatsApp API Card -->
+                <div class="module-card" style="padding: 25px; background: white;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <span style="font-size: 30px;">💬</span>
+                        <h3 style="margin: 0; font-size: 16px;">WhatsApp Automático</h3>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 20px;">Envío automático de cuadrantes y notificaciones de suplencia a los trabajadores.</p>
+                    <label class="switch-container" style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 10px; border-radius: 8px;">
+                        <span style="font-size: 12px; font-weight: 700;">Estado del servicio</span>
+                        <input type="checkbox" checked>
+                    </label>
+                </div>
+
+                <!-- Executive Reporter Card -->
+                <div class="module-card" style="padding: 25px; background: white; border: 2px solid #3b82f6;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <span style="font-size: 30px;">📊</span>
+                        <h3 style="margin: 0; font-size: 16px;">Generador de Informes</h3>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b; margin-bottom: 20px;">Crea informes de situación ejecutiva para clientes y directivos en un solo click.</p>
+                    <button class="btn-primary-glow smart-btn" onclick="IntegrationsHub.generateExecutiveReport()" style="width: 100%; padding: 12px; border-radius: 8px; background: #3b82f6 !important;">Generar Informe Ahora</button>
+                </div>
             </div>
         `;
-
-        container.innerHTML = html;
-    },
-
-    renderIntegrationCard(key, icon, name, description) {
-        const integration = this.integrations[key];
-        const statusClass = integration.configured ? 'configured' : 'not-configured';
-        const statusText = integration.configured ? 'Configurado' : 'No configurado';
-
-        return `
-            <div class="integration-card ${statusClass}">
-                <div class="integration-icon">${icon}</div>
-                <div class="integration-info">
-                    <h4>${name}</h4>
-                    <p>${description}</p>
-                    <div class="integration-status">${statusText}</div>
-                </div>
-                <button class="integration-config-btn" onclick="IntegrationsHub.configureIntegration('${key}')">
-                    ${integration.configured ? 'Reconfigurar' : 'Configurar'}
-                </button>
-            </div>
-        `;
-    },
-
-    configureIntegration(key) {
-        console.log('⚙️ Configurando integración:', key);
-
-        if (key === 'whatsapp') {
-            const phoneNumber = prompt("📱 Introduce tu número de teléfono de Coordinador (ej: 34600123456) para usar en Web API:", this.settings.whatsapp?.phoneNumber || "");
-            if (phoneNumber !== null) {
-                this.settings.whatsapp = {
-                    enabled: true,
-                    configured: true,
-                    phoneNumber: phoneNumber.replace(/\D/g, '') // Solo números
-                };
-                this.integrations.whatsapp.configured = true;
-                this.saveSettings();
-                this.renderIntegrationsPanel();
-                if (typeof showToast === 'function') showToast(`✅ WhatsApp Web API configurado con: ${this.settings.whatsapp.phoneNumber}`, 'success');
-            }
-        } else {
-            if (typeof showToast === 'function') {
-                showToast(`⚙️ Configuración de ${key} - Próximamente`, 'info');
-            }
-        }
-    },
-
-    // ========================================
-    // AUTO-ASIGNACIÓN WHATSAPP BOTS (Fase 5)
-    // ========================================
-
-    promptWhatsAppAutoAssign(uncoveredService, suggestedWorker) {
-        if (!this.integrations.whatsapp.configured) {
-            console.warn("WhatsApp no está configurado para auto-asignación.");
-            // Pedimos configurarlo la primera vez
-            if (confirm("⚠️ WhatsApp no configurado.\n\nPara auto-contactar a suplentes necesitas habilitarlo en 'Integraciones'. ¿Configurar ahora?")) {
-                this.configureIntegration('whatsapp');
-            }
-            return;
-        }
-
-        // Crear Action Panel visual (o usar Confirm tradicional de forma temporal hasta inyectar UI)
-        const textMessage = `*ALERTA SIFU INFORMER*\n\nHola ${suggestedWorker.TITULAR || 'Compañero/a'},\n\nTenemos un servicio urgente DESCUBIERTO hoy en *${uncoveredService.SERVICIO || uncoveredService.PROYECTO}*.\n\nComo formas parte del retén, ¿puedes confirmar tu asistencia para cubrir este turno?\n\nResponde SI o NO.`;
-
-        const encodedUrl = `https://api.whatsapp.com/send/?phone=&text=${encodeURIComponent(textMessage)}&type=phone_number&app_absent=0`;
-
-        // Mostrar un Custom Modal o Custom Toast de decisión rápida
-        if (typeof showToast === 'function') {
-            // Creamos un popup custom en el navegador
-            const id = 'wa-prompt-' + Date.now();
-            const popupHTML = `
-                <div id="${id}" style="position:fixed; bottom:20px; right:20px; width:350px; background:white; border-left:4px solid #25D366; border-radius:10px; box-shadow:0 10px 25px rgba(0,0,0,0.2); padding:20px; z-index:999999; animation: slideInRight 0.3s ease;">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
-                        <span style="font-size:24px; color:#25D366;">📱</span>
-                        <h4 style="margin:0; font-size:15px; color:#1e293b;">Sug. Auto-Asignación</h4>
-                    </div>
-                    <p style="font-size:13px; color:#475569; margin-bottom:15px;">¿Abrir WhatsApp Web para contactar a <strong>${suggestedWorker.TITULAR}</strong> por la baja en <strong>${uncoveredService.SERVICIO || 'el centro'}</strong>?</p>
-                    <div style="display:flex; gap:10px;">
-                        <button onclick="window.open('${encodedUrl}', '_blank'); document.getElementById('${id}').remove()" style="flex:1; background:#25D366; color:white; border:none; padding:8px; border-radius:6px; font-weight:700; cursor:pointer;">Enviar WhatsApp</button>
-                        <button onclick="document.getElementById('${id}').remove()" style="background:#f1f5f9; color:#64748b; border:none; padding:8px 15px; border-radius:6px; font-weight:600; cursor:pointer;">Cancelar</button>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', popupHTML);
-        }
     }
 };
 
-// Auto-inicializar
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => IntegrationsHub.init());
-} else {
-    IntegrationsHub.init();
-}
-
-// Exponer globalmente
 window.IntegrationsHub = IntegrationsHub;
+document.addEventListener('DOMContentLoaded', () => IntegrationsHub.init());

@@ -139,12 +139,13 @@ const CalendarModule = {
                 </div>
             </div>
 
-            <div class="calendar-legend">
-                <span class="legend-item"><span class="legend-dot" style="background: #ea4335;"></span> Contratos</span>
-                <span class="legend-item"><span class="legend-dot" style="background: #fbbc04;"></span> Vacaciones</span>
-                <span class="legend-item"><span class="legend-dot" style="background: #ff6b6b;"></span> Riesgo ML</span>
-                <span class="legend-item"><span class="legend-dot" style="background: #4285f4;"></span> Personal</span>
+            <div class="calendar-legend" style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; margin-bottom: 15px;">
+                <span class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Contratos</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #f59e0b;"></span> Vacaciones</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #ef4444;"></span> Riesgo ML</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #3b82f6;"></span> Personal</span>
             </div>
+
 
             <div class="calendar-body">
                 ${this.renderCalendarView(filteredEvents)}

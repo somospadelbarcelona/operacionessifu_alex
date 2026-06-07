@@ -1,0 +1,284 @@
+/* 
+    ALDI PARTS SCANNER STYLES 
+    High-tech premium aesthetic for monthly work reports
+*/
+
+.aldi-section {
+    padding: 30px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: 80vh;
+}
+
+.scanner-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* LEFT COLUMN: UPLOAD */
+.scanner-upload-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.upload-zone {
+    width: 100%;
+    height: 300px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fdfdfd;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-zone:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.upload-zone.dragging {
+    border-color: #10b981;
+    background: #ecfdf5;
+}
+
+.upload-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.upload-text h4 {
+    margin: 0 0 8px 0;
+    color: #1e293b;
+    font-size: 18px;
+}
+
+.upload-text p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* AI SCANNING OVERLAY */
+.scanning-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.scan-line {
+    width: 100%;
+    height: 3px;
+    background: #3b82f6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 15px #3b82f6, 0 0 30px #3b82f6;
+    animation: scanAnimation 2s infinite ease-in-out;
+}
+
+@keyframes scanAnimation {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: 100%;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+.processing-text {
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* RIGHT COLUMN: RESULTS */
+.scanner-results-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.result-item {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #edf2f7;
+}
+
+.result-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.result-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.result-value.highlight {
+    color: #059669;
+}
+
+.absences-panel {
+    margin-top: 30px;
+    padding: 25px;
+    background: #fef2f2;
+    border-radius: 20px;
+    border: 1px solid #fee2e2;
+}
+
+.absences-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #991b1b;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.absences-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.absence-tag {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* CALENDAR WIDGET */
+.month-calendar-preview {
+    margin-top: 25px;
+}
+
+.calendar-grid-mini {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.cal-day-box {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.cal-day-box.working {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.cal-day-box.weekend {
+    background: #f8fafc;
+    color: #cbd5e1;
+}
+
+.cal-day-box.holiday {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.cal-day-box.absence {
+    background: #ef4444;
+    color: white;
+    border: 2px solid #991b1b;
+}
+
+/* CTAs */
+.scanner-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-confirm {
+    flex: 2;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3);
+}
+
+.btn-discard {
+    flex: 1;
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}

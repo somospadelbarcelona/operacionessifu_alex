@@ -16,12 +16,156 @@
     <link rel="apple-touch-icon" href="/icon-192.png">
 
     <!-- MODAL ENGINE STYLES (God Mode) -->
-    <link rel="stylesheet" href="modal_fix.css?v=4.5">
     <style>
         #metric-uncovered,
         #metric-absences,
         #metric-incidents {
             cursor: pointer !important;
+        }
+
+        /* VISTA GLOBAL EN GRANDE Y PANTALLA COMPLETA (CUSTOM SCALE) */
+        table.master-table {
+            font-size: 13.5px !important;
+        }
+
+        table.master-table thead th {
+            font-size: 12.5px !important;
+            font-weight: 800 !important;
+            padding: 16px 18px !important;
+        }
+
+        table.master-table tbody td {
+            padding: 14px 18px !important;
+            font-size: 13.5px !important;
+        }
+
+        table.master-table tbody td div.td-content {
+            font-size: 13.5px !important;
+        }
+
+        .header-filter-input {
+            font-size: 12.5px !important;
+            padding: 8px 12px !important;
+            margin-top: 10px !important;
+        }
+
+        .master-toolbar h3 {
+            font-size: 18px !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .lila-badge {
+            font-size: 12.5px !important;
+            padding: 6px 16px !important;
+        }
+
+        .lila-badge b {
+            font-size: 15.5px !important;
+        }
+
+        .master-toolbar .search-wrapper input {
+            font-size: 15.5px !important;
+            padding: 12px 20px 12px 45px !important;
+        }
+
+        .master-toolbar .btn-toolbar-action {
+            font-size: 13.5px !important;
+            height: 38px !important;
+            padding: 0 16px !important;
+        }
+
+        /* Transiciones suaves al alternar columnas */
+        .modules-container {
+            transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .modules-container.sidebar-collapsed {
+            grid-template-columns: 1fr !important;
+        }
+
+        .modules-container.sidebar-collapsed .secondary-modules {
+            display: none !important;
+        }
+
+        /* Estilos Premium para Tarjetas de Vacaciones */
+        .vacation-card {
+            background: white !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 14px 16px !important;
+            margin-bottom: 12px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            display: grid !important;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 15px !important;
+            align-items: center !important;
+            color: #000000 !important;
+        }
+        
+        .vacation-card:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+            border-color: #cbd5e1 !important;
+        }
+        
+        .vacation-card::before {
+            content: '' !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            width: 4px !important;
+            border-top-left-radius: 12px !important;
+            border-bottom-left-radius: 12px !important;
+            transition: width 0.2s ease !important;
+        }
+        
+        .vacation-card:hover::before {
+            width: 6px !important;
+        }
+        
+        /* Semáforo de Cobertura */
+        .vacation-card.state-critical::before { background-color: #ef4444 !important; }
+        .vacation-card.state-warning::before { background-color: #f59e0b !important; }
+        .vacation-card.state-covered::before { background-color: #10b981 !important; }
+        .vacation-card.state-future::before { background-color: #3b82f6 !important; }
+        .vacation-card.state-finished::before { background-color: #94a3b8 !important; }
+
+        /* Animación latido para Sin Suplente */
+        @keyframes pulse-red-border {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        .substitute-badge-uncovered {
+            animation: pulse-red-border 2s infinite !important;
+        }
+
+        .vacation-btn-action {
+            transition: all 0.2s ease !important;
+        }
+
+        .vacation-btn-action:hover {
+            transform: translateY(-1px) !important;
+            filter: brightness(0.95) !important;
+        }
+
+        .vacation-btn-action:active {
+            transform: translateY(0) !important;
+        }
+
+        @media (max-width: 900px) {
+            .vacation-card {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            .vacation-card > div:nth-child(3) {
+                align-items: flex-start !important;
+            }
         }
     </style>
 
@@ -30,34 +174,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="operational_styles.css">
-    <link rel="stylesheet" href="filter_bar_sticky.css">
-    <link rel="stylesheet" href="notepad.css">
-    <link rel="stylesheet" href="orders_styles.css">
-    <link rel="stylesheet" href="layout_styles.css">
-    <link rel="stylesheet" href="smart_modules.css">
-    <link rel="stylesheet" href="advanced_modules.css">
-    <link rel="stylesheet" href="mobile_chat_styles.css">
-    <link rel="stylesheet" href="ml_modules_styles.css">
-    <link rel="stylesheet" href="integrations_export_styles.css">
-    <link rel="stylesheet" href="bi_styles.css">
-    <link rel="stylesheet" href="security_styles.css">
-    <link rel="stylesheet" href="quality_styles_phase9.css">
-    <link rel="stylesheet" href="document_styles_phase10.css">
-    <link rel="stylesheet" href="financial_styles_phase11.css">
-    <link rel="stylesheet" href="talent_styles_phase12.css">
-    <link rel="stylesheet" href="fleet_styles_phase13.css">
-    <link rel="stylesheet" href="sustainability_styles_phase14.css">
-    <link rel="stylesheet" href="executive_styles_phase15.css">
-    <link rel="stylesheet" href="master_sync_v2.css">
+    <link rel="stylesheet" href="dist/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- TensorFlow.js para Machine Learning -->
+    <!-- Bibliotecas Externas Adicionales -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
     <script src="master_sync_engine.js" defer></script>
+    <script src="parking_module.js" defer></script>
 
     <!-- GLOBAL ERROR HANDLER (AUDITORIA FASE) -->
     <script>
@@ -65,7 +191,6 @@
             console.error("Global Error Caught:", event.error || event.message);
             const msg = event.message || 'Error desconocido';
             if (typeof updateTicker === 'function') updateTicker("⚠️ SISTEMA: " + msg.toUpperCase());
-            // No bloquear la ejecución si es un error menor
         });
         window.addEventListener('unhandledrejection', function (event) {
             console.error("Unhandled Promise Rejection:", event.reason);
@@ -74,7 +199,7 @@
     </script>
 </head>
 
-<body class="light-theme">
+<body class="light-theme pro-mode">
     <!-- AUTHENTICATION OVERLAY -->
     <div id="auth-overlay"
         style="position: fixed; inset: 0; z-index: 999999; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; transition: opacity 0.4s ease;">
@@ -103,11 +228,19 @@
     </div>
     <script>
         const SifuAuth = {
-            pin: "2121", // Código numérico actual (Puede cambiarse)
-            checkPin: function () {
+            // Hash SHA-256 de "2121"
+            pinHash: "b8dc2c143be8994682b08461f46487e05874e59dd9ab65cf973e3a3c67a763aa",
+            sha256: async function (message) {
+                const msgBuffer = new TextEncoder().encode(message);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            },
+            checkPin: async function () {
                 const input = document.getElementById('auth-pin-input');
                 const error = document.getElementById('auth-error-msg');
-                if (input.value === this.pin) {
+                const hashedInput = await this.sha256(input.value);
+                if (hashedInput === this.pinHash) {
                     sessionStorage.setItem('sifu_auth_granted', 'true');
                     document.getElementById('auth-overlay').style.opacity = '0';
                     setTimeout(() => document.getElementById('auth-overlay').style.display = 'none', 400);
@@ -210,129 +343,193 @@
                         <div class="h-stat-value" style="color:var(--accent-green);">9.8/10</div>
                     </div>
 
-                    <button id="btn-situational-report" class="btn-primary-glow" onclick="openSituationalReport()">
+                    <button id="btn-situational-report" class="btn-primary-glow" onclick="IntegrationsHub.generateExecutiveReport()">
                         <span>📊</span> INFORME SITUACIONAL
                     </button>
                 </div>
             </div>
         </header>
 
-        <main class="content-viewport">
-            <div class="dashboard-grid">
-                <!-- Sidebar Removed: User requested full expansion -->
-
+        <main class="content-viewport" style="overflow-x: clip; max-width: 100vw; box-sizing: border-box;">
+            <div class="dashboard-grid" style="min-width: 0; max-width: 100%; overflow-x: clip;">
                 <!-- Operational Hub (Right) -->
-                <div class="operational-hub">
-                    <nav class="tabs-nav">
-                        <button class="tab-btn active" data-tab="master" onclick="switchTab('master')">
-                            <span>📊</span> MASTER
+                <div class="operational-hub"
+                    style="min-width: 0; max-width: 100%; display: flex; flex-direction: column;">
+                    <div class="tabs-nav-container">
+                        <button class="scroll-nav-btn scroll-nav-left" onclick="window.scrollTabs('left')" style="display: none;">
+                            <span>‹</span>
                         </button>
-                        <button class="tab-btn" data-tab="abonos" onclick="switchTab('abonos')">
-                            <span>🏥</span> GESTIÓN BAJAS
+                        <nav class="tabs-nav" onscroll="window.updateScrollButtons(this)">
+                            <button class="tab-btn active" data-tab="master" onclick="switchTab('master')">
+                                <span>📊</span> MASTER
+                            </button>
+                            <button class="tab-btn" data-tab="abonos" onclick="switchTab('abonos')">
+                                <span>🏥</span> GESTIÓN BAJAS
+                            </button>
+                            <button class="tab-btn" data-tab="pedidos" onclick="
+                                console.log('Switching to PEDIDOS tab...');
+                                switchTab('pedidos');
+                            "><span>📦</span> PEDIDOS</button>
+                            <button class="tab-btn" data-tab="cuadrantes" onclick="switchTab('cuadrantes')">
+                                <span>📅</span> CUADRANTES
+                            </button>
+                            <button class="tab-btn" data-tab="vacaciones" onclick="switchTab('vacaciones')"
+                                style="color: #f59e0b; font-weight: 800; border: 1px solid rgba(245, 158, 11, 0.4); background-color: rgba(245, 158, 11, 0.05);">
+                                <span>🏖️</span> VACACIONES
+                            </button>
+                            <button class="tab-btn" data-tab="descubiertos" onclick="switchTab('descubiertos')"
+                                style="color: #ef4444; font-weight: 800; border: 1px solid rgba(239, 68, 68, 0.4); background-color: rgba(239, 68, 68, 0.05);">
+                                <span>🚨</span> DESCUBIERTOS
+                            </button>
+                            <button class="tab-btn" data-tab="resumen" onclick="switchTab('resumen')">
+                                <span>📈</span> RESUMEN
+                            </button>
+                            <button class="tab-btn" data-tab="smarthub" onclick="switchTab('smarthub')"
+                                style="color: #667eea; font-weight: 800; border: 1px solid rgba(102, 126, 234, 0.2);">
+                                <span>📊</span> SMARTHUB
+                            </button>
+                            <button class="tab-btn" data-tab="avanzado" onclick="switchTab('avanzado')"
+                                style="color: #8b5cf6; font-weight: 800; border: 1px solid rgba(139, 92, 246, 0.4); background-color: rgba(139, 92, 246, 0.05);">
+                                <span>🚀</span> AVANZADO
+                            </button>
+                            <button class="tab-btn" data-tab="parkings" onclick="switchTab('parkings')"
+                                style="color: #0ea5e9; font-weight: 800; border: 1px solid rgba(14, 165, 233, 0.4); background-color: rgba(14, 165, 233, 0.05);">
+                                <span>🅿️</span> PARKING'S
+                            </button>
+                            <button class="tab-btn" data-tab="aldi-parts" onclick="switchTab('aldi-parts')"
+                                style="color: #059669; font-weight: 800; border: 1px solid rgba(5, 150, 105, 0.4); background-color: rgba(5, 150, 105, 0.05);">
+                                <span>📝</span> PARTES ALDI
+                            </button>
+                            <button class="tab-btn" data-tab="integraciones" onclick="switchTab('integraciones')"
+                                style="color: #6366f1; font-weight: 800; border: 1px solid rgba(99, 102, 241, 0.4); background-color: rgba(99, 102, 241, 0.05);">
+                                <span>🔌</span> INTEGRACIONES
+                            </button>
+                        </nav>
+                        <button class="scroll-nav-btn scroll-nav-right" onclick="window.scrollTabs('right')" style="display: none;">
+                            <span>›</span>
                         </button>
-                        <button class="tab-btn" data-tab="pedidos" onclick="
-                            console.log('Switching to PEDIDOS tab...');
-                            switchTab('pedidos');
-                        "><span>📦</span> PEDIDOS</button>
-                        <button class="tab-btn" data-tab="cuadrantes" onclick="switchTab('cuadrantes')">
-                            <span>📅</span> CUADRANTES
-                        </button>
-                        <button class="tab-btn" data-tab="vacaciones" onclick="switchTab('vacaciones')"
-                            style="color: #f59e0b; font-weight: 800; border: 1px solid rgba(245, 158, 11, 0.4); background-color: rgba(245, 158, 11, 0.05);">
-                            <span>🏖️</span> VACACIONES
-                        </button>
-                        <button class="tab-btn" data-tab="descubiertos" onclick="switchTab('descubiertos')"
-                            style="color: #ef4444; font-weight: 800; border: 1px solid rgba(239, 68, 68, 0.4); background-color: rgba(239, 68, 68, 0.05);">
-                            <span>🚨</span> DESCUBIERTOS
-                        </button>
-                        <button class="tab-btn" data-tab="resumen" onclick="switchTab('resumen')">
-                            <span>📈</span> RESUMEN
-                        </button>
-                        <button class="tab-btn" data-tab="smarthub" onclick="switchTab('smarthub')"
-                            style="color: #667eea; font-weight: 800; border: 1px solid rgba(102, 126, 234, 0.2);">
-                            <span>📊</span> SMARTHUB
-                        </button>
-                        <button class="tab-btn" data-tab="avanzado" onclick="switchTab('avanzado')"
-                            style="color: #8b5cf6; font-weight: 800; border: 1px solid rgba(139, 92, 246, 0.4); background-color: rgba(139, 92, 246, 0.05);">
-                            <span>🚀</span> AVANZADO
-                        </button>
-                    </nav>
+                    </div>
 
-                    <!-- GLOBAL METRICS BRIDGE -->
-                    <section class="holographic-bridge" style="margin-top: 20px;">
-                        <!-- DESCUBIERTOS -->
-                        <div class="holographic-card dangerous-click" id="metric-uncovered" style="cursor: pointer;">
-                            <div class="metric-orbit">
-                                <div class="orbit-ring"></div>
-                                <span class="metric-icon">🔥</span>
-                            </div>
-                            <div class="metric-info">
-                                <div class="metric-label">DESCUBIERTOS</div>
-                                <div class="metric-value" id="val-uncovered">0</div>
-                                <div class="metric-trend" id="trend-uncovered">
-                                    <span class="trend-icon">--</span>
-                                    <span class="trend-text">Sin cambios</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- BAJAS / IT -->
-                        <div class="holographic-card info-click" id="metric-absences" style="cursor: pointer;">
-                            <div class="metric-orbit">
-                                <div class="orbit-ring"></div>
-                                <span class="metric-icon">🏥</span>
-                            </div>
-                            <div class="metric-info">
-                                <div class="metric-label">GESTIÓN BAJAS</div>
-                                <div class="metric-value" id="val-absences">0</div>
-                                <div class="metric-trend neutral" id="trend-absences">
-                                    <span class="trend-icon">●</span>
-                                    <span class="trend-text">Activas hoy</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- INCIDENCIAS -->
-                        <div class="holographic-card warning-click" id="metric-incidents" style="cursor: pointer;">
-                            <div class="metric-orbit">
-                                <div class="orbit-ring"></div>
-                                <span class="metric-icon">⚠️</span>
-                            </div>
-                            <div class="metric-info">
-                                <div class="metric-label">INCIDENCIAS</div>
-                                <div class="metric-value" id="val-incidents">0</div>
-                                <div class="metric-trend" id="trend-incidents">
-                                    <span class="trend-icon">--</span>
-                                    <span class="trend-text">En proceso</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COBERTURA -->
-                        <div class="holographic-card" id="metric-active" onclick="refreshMetrics()"
-                            style="cursor: pointer;">
-                            <div class="metric-orbit">
-                                <div class="orbit-ring"></div>
-                                <span class="metric-icon">👥</span>
-                            </div>
-                            <div class="metric-info">
-                                <div class="metric-label">COBERTURA</div>
-                                <div class="metric-value" id="val-active">100%</div>
-                                <div class="metric-trend down" id="trend-active">
-                                    <span class="trend-icon">▼</span>
-                                    <span class="trend-text">Tiempo real</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
 
                     <div class="tab-content active" id="tab-master">
 
                         <!-- MASTER TABLE VIEW -->
-                        <div class="modules-container"
-                            style="display: grid; grid-template-columns: 4fr 1fr; gap: 20px;">
-                            <!-- LEFT COLUMN: Master Table + SharePoint Widget -->
-                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <!-- MASTER TABLE VIEW (GRID CONTROLADO POR CSS) -->
+                        <div class="modules-container">
+
+                            <!-- LEFT COLUMN: Secondary Modules (Prioritized) -->
+                            <div class="secondary-modules">
+                                <!-- CENTRO DE ACCIÓN RÁPIDA (FIRST FROM LEFT) -->
+                                <div class="module-card" id="module-quick-actions">
+                                    <h3>⚡ CENTRO DE ACCIÓN RÁPIDA</h3>
+                                    <div class="smart-action-grid">
+                                        <!-- DESCUBIERTOS -->
+                                        <div class="smart-btn-container">
+                                            <button class="smart-btn danger" onclick="filterByUrgency('DESCUBIERTO')">
+                                                <span class="icon">🚨</span>
+                                                <div class="text">
+                                                    <strong>DESCUBIERTOS</strong>
+                                                    <span>Sin cobertura</span>
+                                                </div>
+                                                <span class="count" id="count-card-uncovered">0</span>
+                                            </button>
+                                            <button class="btn-pdf-mini" title="Descargar PDF"
+                                                onclick="event.stopPropagation(); exportQuickActionPDF('DESCUBIERTO')">
+                                                📥 PDF
+                                            </button>
+                                        </div>
+
+                                        <!-- BAJA IT (NEW) -->
+                                        <div class="smart-btn-container">
+                                            <button class="smart-btn secondary" onclick="filterByUrgency('BAJA IT')">
+                                                <span class="icon">🩺</span>
+                                                <div class="text">
+                                                    <strong>BAJA IT</strong>
+                                                    <span>Enfermedad/Accid.</span>
+                                                </div>
+                                                <span class="count" id="count-card-bajas-it">0</span>
+                                            </button>
+                                            <button class="btn-pdf-mini" title="Descargar PDF"
+                                                onclick="event.stopPropagation(); exportQuickActionPDF('BAJA IT')">
+                                                📥 PDF
+                                            </button>
+                                        </div>
+
+                                        <!-- IT SIN SUPLENTE -->
+                                        <div class="smart-btn-container">
+                                            <button class="smart-btn warning"
+                                                onclick="filterByUrgency('IT SIN SUPLENTE')">
+                                                <span class="icon">🏥</span>
+                                                <div class="text">
+                                                    <strong>IT SIN SUPLENTE</strong>
+                                                    <span>Revisar urgencia</span>
+                                                </div>
+                                                <span class="count" id="count-card-absences">0</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- FIN HOY -->
+                                        <div class="smart-btn-container">
+                                            <button class="smart-btn info" onclick="filterByUrgency('FIN HOY')">
+                                                <span class="icon">📅</span>
+                                                <div class="text">
+                                                    <strong>FIN HOY/MAÑ.</strong>
+                                                    <span>Renovar/Cierre</span>
+                                                </div>
+                                                <span class="count" id="count-card-fin-hoy">0</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- VISTA TOTAL -->
+                                        <button class="smart-btn success" onclick="window.clearAllMasterFilters()">
+                                            <span class="icon">🔄</span>
+                                            <div class="text">
+                                                <strong>VISTA TOTAL (MAESTRA)</strong>
+                                                <span>Limpiar todos los filtros y búsquedas</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- SEMÁFORO DE RIESGO DE CLIENTES -->
+                                <div class="module-card risk-module" id="module-client-risk">
+                                    <div class="card-header-flex"
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                                        <h3>🚦 SEMÁFORO DE RIESGO</h3>
+                                        <span class="badge blue">SISTEMA</span>
+                                    </div>
+                                    <div id="risk-list" class="risk-feed">
+                                        <div class="empty-state">Analizando estabilidad operativa...</div>
+                                    </div>
+                                </div>
+
+                                <!-- BLOC DE NOTAS (Sidebar) -->
+                                <div class="module-card" id="module-notepad-right">
+                                    <div class="card-header-flex"
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                                        <h3>📝 BLOC DE NOTAS <span class="badge blue" id="top-notes-count">0</span></h3>
+                                    </div>
+                                    <div class="quick-note-box" style="margin-bottom: 15px;">
+                                        <input type="text" id="quick-note-top" placeholder="Añadir tarea rápida..."
+                                            style="width: 100%; padding: 8px 15px; border-radius: 20px; border: 1px solid #e2e8f0;">
+                                    </div>
+                                    <div id="top-notes-feed" class="sidebar-notes-vertical"
+                                        style="display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto;">
+                                        <!-- JS Inject: Note Cards -->
+                                    </div>
+                                </div>
+
+                                <!-- RADAR DE URGENCIA -->
+                                <div class="module-card" id="module-urgency-radar">
+                                    <h3>📍 RADAR DE URGENCIA <span class="badge red">ACTIVO</span></h3>
+                                    <div id="urgency-list" class="urgency-feed">
+                                        <!-- Centros críticos inyectados aquí -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT COLUMN: Master Table + Widgets -->
+                            <div class="master-main-column" style="display: flex; flex-direction: column; gap: 20px;">
                                 <div class="module-card" id="module-master-summary">
                                     <div class="master-toolbar">
                                         <div class="toolbar-left"
@@ -362,6 +559,18 @@
                                                 <span>📄</span> PDF
                                             </button>
 
+                                            <button class="btn-toolbar-action toggle-sidebar" id="toggle-sidebar-btn"
+                                                 style="background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); font-weight: 800; padding: 0 15px; border-radius: 99px; cursor: pointer; height: 36px; display: flex; align-items: center; gap: 8px; transition: all 0.2s; white-space: nowrap;"
+                                                 onclick="window.toggleSidebar()">
+                                                 <span class="sidebar-icon">🖥️</span> <span class="sidebar-text">VISTA COMPLETA</span>
+                                             </button>
+
+                                            <button class="btn-toolbar-action clear"
+                                                style="background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; padding: 0 15px; border-radius: 99px; cursor: pointer; height: 36px; display: flex; align-items: center; gap: 8px;"
+                                                onclick="window.clearAllMasterFilters()">
+                                                <span>🗑️</span> QUITAR TODOS LOS FILTROS
+                                            </button>
+
                                             <!-- Dynamic Filters Area -->
                                             <div class="dynamic-filter-container">
                                                 <div id="active-filters-row" class="active-filters-row">
@@ -383,9 +592,13 @@
 
                                     <!-- Scrollable Content Wrapper -->
                                     <div class="master-content-wrapper"
-                                        style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
+                                        style="height: 75vh; min-height: 400px; max-height: 2500px; overflow-y: auto; overflow-x: hidden;">
                                         <div id="master-summary-feed" class="scroll-feed">
                                             <!-- Table JS Inject -->
+                                        </div>
+                                        <!-- Tirador Manual de Redimensionado -->
+                                        <div class="resizer-handle-v" onmousedown="window.initMasterResize(event)">
+                                            <span>•••</span>
                                         </div>
                                     </div>
                                 </div>
@@ -410,138 +623,152 @@
                                     </div>
                                 </div>
 
-                                <!-- CONTROL DE VENCIMIENTOS (NEW WIDGET) -->
-                                <div class="module-card" id="module-contract-tracker" style="margin-top: 20px;">
-                                    <div class="card-header-flex"
-                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                                        <h3>🗓️ CONTROL DE VENCIMIENTOS</h3>
-                                        <div style="display:flex; gap:5px;">
-                                            <button onclick="filterContractWidget('ALL')" class="btn-mini-filter active"
-                                                id="btn-filter-all"
-                                                style="background:#e2e8f0; color:#1e293b; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">TODOS</button>
-                                            <button onclick="filterContractWidget('URGENT')" class="btn-mini-filter"
-                                                id="btn-filter-urgent"
-                                                style="background:#f1f5f9; color:#475569; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">URGENTES</button>
-                                            <button onclick="filterContractWidget('WARNING')" class="btn-mini-filter"
-                                                id="btn-filter-warning"
-                                                style="background:#f1f5f9; color:#475569; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">PRÓXIMOS</button>
-                                            <button onclick="filterContractWidget('EXPIRED')" class="btn-mini-filter"
-                                                id="btn-filter-expired"
-                                                style="background:#1e293b; color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer;">VENCIDOS</button>
+                                 <!-- CONTROL DE VENCIMIENTOS (NEW WIDGET) -->
+                                 <div class="module-card" id="module-contract-tracker" style="margin-top: 20px; background: #ffffff !important; color: #1e293b !important; border: 1px solid #cbd5e1 !important; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08) !important;">
+                                     <div class="card-header-flex"
+                                         style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 12px;">
+                                         <h3 style="margin:0; font-size:15px; font-weight:800; color:#0f172a !important; display:flex; align-items:center; gap:8px;">
+                                             🗓️ CONTROL DE VENCIMIENTOS
+                                         </h3>
+                                         <div id="contract-current-date-badge" style="font-size:11px; color:#334155; font-weight:800; background:#f1f5f9; padding:5px 12px; border-radius:12px; border: 1px solid #cbd5e1;">
+                                             Cargando fecha...
+                                         </div>
+                                     </div>
+ 
+                                     <!-- Search & Quick Filters Toolbar -->
+                                     <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px;">
+                                         <!-- Search Input -->
+                                         <div style="position: relative; width: 100%;">
+                                             <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: #475569; pointer-events: none;">🔍</span>
+                                             <input type="text" id="contract-search-input" placeholder="Buscar trabajador o servicio..." 
+                                                    style="width: 100%; padding: 10px 32px 10px 38px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #f8fafc; color: #0f172a; font-size: 13px; font-weight: 500; outline: none; transition: all 0.2s;"
+                                                    oninput="window.handleContractSearch(this.value)">
+                                             <button id="contract-search-clear-btn" onclick="document.getElementById('contract-search-input').value = ''; window.handleContractSearch(''); this.style.display = 'none';"
+                                                     style="display: none; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #475569; cursor: pointer; font-size: 13px; padding: 2px;">✕</button>
+                                         </div>
+ 
+                                         <!-- Filter Buttons Chips -->
+                                         <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width: none;">
+                                             <button onclick="filterContractWidget('ALL')" class="btn-mini-filter active" id="btn-filter-all"
+                                                 style="background:#0f172a; color:#ffffff; border:none; padding:7px 14px; border-radius:24px; font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all 0.2s;">
+                                                 TODOS <span id="contract-count-all" style="opacity: 0.8; font-size: 10px; margin-left: 2px;">(0)</span>
+                                             </button>
+                                             <button onclick="filterContractWidget('URGENT')" class="btn-mini-filter" id="btn-filter-urgent"
+                                                 style="background:#f1f5f9; color:#475569; border:none; padding:7px 14px; border-radius:24px; font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all 0.2s;">
+                                                 URGENTES <span id="contract-count-urgent" style="background:#f59e0b; color:#000000; padding:2px 6px; border-radius:10px; font-size: 9px; margin-left: 2px;">0</span>
+                                             </button>
+                                             <button onclick="filterContractWidget('WARNING')" class="btn-mini-filter" id="btn-filter-warning"
+                                                 style="background:#f1f5f9; color:#475569; border:none; padding:7px 14px; border-radius:24px; font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all 0.2s;">
+                                                 PRÓXIMOS <span id="contract-count-warning" style="background:#3b82f6; color:#ffffff; padding:2px 6px; border-radius:10px; font-size: 9px; margin-left: 2px;">0</span>
+                                             </button>
+                                         </div>
+                                     </div>
+ 
+                                     <!-- Scrollable Cards Feed -->
+                                     <div class="contract-list-container" id="contract-list-feed" style="max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px;">
+                                         <div style="text-align:center; padding:20px; color:#475569; font-size: 13px;">Cargando vencimientos...</div>
+                                     </div>
+                                 </div>
+                            </div>
+
+                        </div> <!-- End modules-container -->
+                    </div> <!-- End tab-master -->
+
+                    <!-- PARKING'S TAB -->
+                    <div class="tab-content" id="tab-parkings"
+                        style="flex: 1; height: 100%; max-width: 100%; min-width: 0; overflow-x: hidden;">
+                        <!-- Content dynamically generated by parking_module.js -->
+                    </div>
+
+                    <!-- ALDI PARTS TAB -->
+                    <div class="tab-content" id="tab-aldi-parts">
+                        <div class="aldi-section">
+                            <div class="scanner-container">
+                                <!-- Columna Izquierda: Carga e Historial -->
+                                <div class="scanner-upload-card">
+                                    <div class="results-header" style="width: 100%; border: none;">
+                                        <h3 style="margin: 0; font-size: 16px;">EXTRACCIÓN COGNITIVA DE PARTES</h3>
+                                    </div>
+                                    <p style="color: #64748b; font-size: 13px; margin: 15px 0 25px 0; text-align: left;">
+                                        Sube la foto del parte mensual del centro Aldi para validación automática de horas y ausencias.
+                                    </p>
+
+                                    <div class="upload-zone" id="aldi-upload-zone">
+                                        <div class="scanning-overlay" id="aldi-scanning-overlay">
+                                            <div class="scan-line"></div>
+                                            <div class="processing-text">ANALIZANDO DATA...</div>
+                                        </div>
+                                        <div class="upload-icon">📄</div>
+                                        <div class="upload-text">
+                                            <h4>Arrastra el parte aquí</h4>
+                                            <p>O haz clic para seleccionar archivo</p>
                                         </div>
                                     </div>
 
-                                    <div class="contract-list-container" style="max-height: 300px; overflow-y: auto;">
-                                        <table class="simple-table"
-                                            style="width:100%; border-collapse:collapse; font-size:12px;">
-                                            <thead
-                                                style="position:sticky; top:0; background:white; z-index:10; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
-                                                <tr>
-                                                    <th
-                                                        style="text-align:left; padding:10px; color:#64748b; font-weight:700;">
-                                                        TRABAJADOR / SERVICIO</th>
-                                                    <th
-                                                        style="text-align:right; padding:10px; color:#64748b; font-weight:700;">
-                                                        FECHA FIN</th>
-                                                    <th
-                                                        style="text-align:right; padding:10px; color:#64748b; font-weight:700;">
-                                                        DÍAS</th>
-                                                    <th
-                                                        style="text-align:center; padding:10px; color:#64748b; font-weight:700;">
-                                                        ESTADO</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="contract-widget-body">
-                                                <tr>
-                                                    <td colspan="4"
-                                                        style="text-align:center; padding:20px; color:#94a3b8;">
-                                                        Cargando
-                                                        datos...</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div id="image-adjust-controls" style="margin-top: 15px; width:100%; background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; display: none;">
+                                        <div style="font-size: 10px; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase;">Ajuste de Pre-procesado (Beta)</div>
+                                        <div style="display: flex; gap: 15px; align-items: center;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 9px; color: #94a3b8;">Contraste: <span id="val-contrast">1.8</span></label>
+                                                <input type="range" id="adj-contrast" min="1" max="3" step="0.1" value="1.8" style="width: 100%;" oninput="document.getElementById('val-contrast').innerText = this.value">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 9px; color: #94a3b8;">Umbral: <span id="val-threshold">140</span></label>
+                                                <input type="range" id="adj-threshold" min="50" max="200" step="5" value="140" style="width: 100%;" oninput="document.getElementById('val-threshold').innerText = this.value">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-top: 30px; text-align: left; width: 100%;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px;">
+                                            <h5 style="font-size: 11px; color: #94a3b8; text-transform: uppercase; margin: 0;">HISTORIAL RECIENTE</h5>
+                                            <div style="display: flex; gap: 8px; align-items: center;">
+                                                <select id="aldi-filter-month" onchange="AldiPartsScanner.setFilter(this.value)" style="font-size: 10px; padding: 4px; border-radius: 4px; border: 1px solid #e2e8f0;">
+                                                    <option value="-1">FILTRAR MES...</option>
+                                                    <option value="0">ENERO</option><option value="1">FEBRERO</option>
+                                                    <option value="2">MARZO</option><option value="3">ABRIL</option>
+                                                    <option value="4">MAYO</option><option value="5">JUNIO</option>
+                                                    <option value="6">JULIO</option><option value="7">AGOSTO</option>
+                                                    <option value="8">SEPTIEMBRE</option><option value="9">OCTUBRE</option>
+                                                    <option value="10">NOVIEMBRE</option><option value="11">DICIEMBRE</option>
+                                                </select>
+                                                <button onclick="AldiPartsScanner.exportToExcel()" style="background: #e2e8f0; border: none; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; color: #475569;">📂 EXPORTAR</button>
+                                            </div>
+                                        </div>
+                                        <div id="aldi-history-list" style="display: flex; flex-direction: column; gap: 8px;">
+                                            <div class="empty-state" style="font-size: 11px;">No hay registros previos.</div>
+                                        </div>
+                                        <div style="margin-top: 15px; border-top: 1px dashed #e2e8f0; padding-top: 10px;">
+                                            <button onclick="AldiPartsScanner.init()" style="background:none; border:none; color:#94a3b8; font-size:9px; cursor:pointer; text-decoration:underline;">🔧 Re-inicializar motor de carga</button>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <!-- Columna Derecha: Resultados del Análisis -->
+                                <div class="scanner-results-card" id="aldi-results-view">
+                                    <div class="empty-state" style="padding: 100px 0; text-align: center; color: #94a3b8;">
+                                        <span style="font-size: 40px; display: block; margin-bottom: 20px;">🤖</span>
+                                        <p>Esperando carga de imagen para análisis automático...</p>
+                                    </div>
+                                </div>
+                            </div> <!-- Cierre scanner-container -->
+                        </div> <!-- Cierre aldi-section -->
+                    </div> <!-- Cierre tab-aldi-parts -->
+
+                    <!-- INTEGRACIONES TAB -->
+                    <div class="tab-content" id="tab-integraciones">
+                        <div class="module-card" style="padding: 30px; background: white; margin-bottom: 30px;">
+                            <h2 style="font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                <span style="background: #f1f5f9; padding: 10px; border-radius: 12px; font-size: 20px;">🔌</span>
+                                INTEGRATIONS HUB
+                            </h2>
+                            <p style="color: #64748b; margin-bottom: 30px; font-size: 14px;">Conecta SIFU Informer con ecosistemas externos y automatiza la generación de inteligencia corporativa.</p>
+                            
+                            <div id="integrations-hub-container">
+                                <!-- Inyectado dinámicamente por integrations_hub.js -->
                             </div>
-
-                            <!-- RIGHT COLUMN: Secondary Modules -->
-                            <div class="secondary-modules">
-                                <!-- SEMÁFORO DE RIESGO DE CLIENTES -->
-                                <div class="module-card risk-module" id="module-client-risk">
-                                    <div class="card-header-flex"
-                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                                        <h3>🚦 SEMÁFORO DE RIESGO</h3>
-                                        <span class="badge blue">SISTEMA</span>
-                                    </div>
-                                    <div id="risk-list" class="risk-feed">
-                                        <div class="empty-state">Analizando estabilidad operativa...</div>
-                                    </div>
-                                </div>
-
-                                <!-- BLOC DE NOTAS (Relocated) -->
-                                <div class="module-card" id="module-notepad-right">
-                                    <div class="card-header-flex"
-                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                                        <h3>📝 BLOC DE NOTAS <span class="badge blue" id="top-notes-count">0</span></h3>
-                                    </div>
-                                    <div class="quick-note-box" style="margin-bottom: 15px;">
-                                        <input type="text" id="quick-note-top" placeholder="Añadir tarea rápida..."
-                                            style="width: 100%; padding: 8px 15px; border-radius: 20px; border: 1px solid #e2e8f0;">
-                                    </div>
-                                    <div id="top-notes-feed" class="sidebar-notes-vertical"
-                                        style="display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto;">
-                                        <!-- JS Inject: Note Cards -->
-                                    </div>
-                                </div>
-
-                                <!-- RADAR DE URGENCIA -->
-                                <div class="module-card" id="module-urgency-radar">
-                                    <h3>📍 RADAR DE URGENCIA <span class="badge red">ACTIVO</span></h3>
-                                    <div id="urgency-list" class="urgency-feed">
-                                        <!-- Centros críticos inyectados aquí -->
-                                    </div>
-                                </div>
-
-                                <!-- CENTRO DE ACCIÓN RÁPIDA -->
-                                <div class="module-card" id="module-quick-actions">
-                                    <h3>⚡ CENTRO DE ACCIÓN RÁPIDA</h3>
-                                    <div class="smart-action-grid">
-                                        <button class="smart-btn danger" onclick="filterByUrgency('DESCUBIERTO')">
-                                            <span class="icon">🚨</span>
-                                            <div class="text">
-                                                <strong>DESCUBIERTOS</strong>
-                                                <span>Acción Inmediata</span>
-                                            </div>
-                                            <span id="count-descubiertos" class="smart-badge">0</span>
-                                        </button>
-                                        <button class="smart-btn warning" onclick="filterByUrgency('BAJA')">
-                                            <span class="icon">🏥</span>
-                                            <div class="text">
-                                                <strong>IT SIN SUPLENTE</strong>
-                                                <span>Revisar Cobertura</span>
-                                            </div>
-                                            <span id="count-bajas" class="smart-badge">0</span>
-                                        </button>
-                                        <button class="smart-btn info" onclick="filterByUrgency('MAÑANA')">
-                                            <span class="icon">📅</span>
-                                            <div class="text">
-                                                <strong>TERMINAN HOY/MAÑ.</strong>
-                                                <span>Renovar / Buscar</span>
-                                            </div>
-                                            <span id="count-terminan" class="smart-badge">0</span>
-                                        </button>
-                                        <button class="smart-btn success" onclick="clearTableFilters()">
-                                            <span class="icon">🔄</span>
-                                            <div class="text">
-                                                <strong>VISTA TOTAL</strong>
-                                                <span>Limpiar Filtros</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- End modules-container -->
-                    </div> <!-- End tab-master -->
+                        </div>
+                    </div>
 
                     <div class="tab-content" id="tab-pedidos" style="flex: 1; height: 100%;">
                         <section class="orders-section">
@@ -823,26 +1050,23 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div> <!-- Cierre de module-summary -->
+                    </div> <!-- Cierre de tab-resumen -->
 
                     <!-- SMART HUB TAB (AI OPERATIONS COCKPIT) -->
                     <div class="tab-content" id="tab-smarthub">
                         <!-- INTEL HEADER: COCKPIT VIEW -->
                         <div class="module-card"
-                            style="margin-bottom: 30px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(255,255,255,0.1); position: relative; overflow: hidden; padding: 30px; border-radius: 20px;">
-                            <div
-                                style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; filter: blur(50px);">
-                            </div>
-
+                            style="margin-bottom: 30px; background: #ffffff; border: 1px solid #e2e8f0; position: relative; overflow: hidden; padding: 30px; border-radius: 20px; box-shadow: var(--panel-shadow);">
+                            
                             <h2
-                                style="color: #ffffff; font-size: 26px; margin-bottom: 12px; display: flex; align-items: center; gap: 18px; font-weight: 800; letter-spacing: -0.5px;">
+                                style="color: #1e293b; font-size: 26px; margin-bottom: 12px; display: flex; align-items: center; gap: 18px; font-weight: 800; letter-spacing: -0.5px;">
                                 <span
-                                    style="background: rgba(59, 130, 246, 0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 24px;">🧠</span>
+                                    style="background: #eff6ff; color: #3b82f6; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 24px;">🧠</span>
                                 AI OPERATIONS COCKPIT
                             </h2>
                             <p
-                                style="color: rgba(255,255,255,0.65); font-size: 15px; max-width: 850px; line-height: 1.7; margin-bottom: 30px;">
+                                style="color: #64748b; font-size: 15px; max-width: 850px; line-height: 1.7; margin-bottom: 30px;">
                                 Bienvenido al centro de mando táctico de <strong>SIFU Informer</strong>. Este
                                 ecosistema
                                 de ultra-alta eficiencia integra algoritmos
@@ -852,36 +1076,36 @@
 
                             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
                                 <div
-                                    style="background: rgba(255,255,255,0.03); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: center; backdrop-filter: blur(5px);">
+                                    style="background: #f8fafc; padding: 18px; border-radius: 14px; border: 1px solid #e2e8f0; text-align: center;">
                                     <div style="font-size: 22px; margin-bottom: 10px;">🤖</div>
                                     <div
-                                        style="font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
+                                        style="font-size: 9px; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
                                         Algoritmos</div>
-                                    <div style="font-size: 14px; color: #60a5fa; font-weight: 700;">OPT-SYNC</div>
+                                    <div style="font-size: 14px; color: #3b82f6; font-weight: 700;">OPT-SYNC</div>
                                 </div>
                                 <div
-                                    style="background: rgba(255,255,255,0.03); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: center; backdrop-filter: blur(5px);">
+                                    style="background: #f8fafc; padding: 18px; border-radius: 14px; border: 1px solid #e2e8f0; text-align: center;">
                                     <div style="font-size: 22px; margin-bottom: 10px;">🔮</div>
                                     <div
-                                        style="font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
+                                        style="font-size: 9px; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
                                         Predictivo</div>
-                                    <div style="font-size: 14px; color: #34d399; font-weight: 700;">ESTABLE</div>
+                                    <div style="font-size: 14px; color: #10b981; font-weight: 700;">ESTABLE</div>
                                 </div>
                                 <div
-                                    style="background: rgba(255,255,255,0.03); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: center; backdrop-filter: blur(5px);">
+                                    style="background: #f8fafc; padding: 18px; border-radius: 14px; border: 1px solid #e2e8f0; text-align: center;">
                                     <div style="font-size: 22px; margin-bottom: 10px;">🔥</div>
                                     <div
-                                        style="font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
+                                        style="font-size: 9px; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
                                         Riesgo Ops</div>
-                                    <div style="font-size: 14px; color: #f87171; font-weight: 700;">BAJO</div>
+                                    <div style="font-size: 14px; color: #ef4444; font-weight: 700;">BAJO</div>
                                 </div>
                                 <div
-                                    style="background: rgba(255,255,255,0.03); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: center; backdrop-filter: blur(5px);">
+                                    style="background: #f8fafc; padding: 18px; border-radius: 14px; border: 1px solid #e2e8f0; text-align: center;">
                                     <div style="font-size: 22px; margin-bottom: 10px;">🌟</div>
                                     <div
-                                        style="font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
+                                        style="font-size: 9px; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">
                                         Impacto ESG</div>
-                                    <div style="font-size: 14px; color: #fbbf24; font-weight: 700;">ÓPTIMO</div>
+                                    <div style="font-size: 14px; color: #8b5cf6; font-weight: 700;">ÓPTIMO</div>
                                 </div>
                             </div>
                         </div>
@@ -951,7 +1175,7 @@
                         </div>
 
                         <!-- FASE 1 MODULES -->
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
                         <!-- LEFT COLUMN -->
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <!-- CHECKLIST DIARIO -->
@@ -989,110 +1213,213 @@
                                 </div>
                             </div>
                         </div>
+                    </div> <!-- Cierre de la cuadrícula de la línea 1102 -->
+
+                        <!-- LOGÍSTICA INTELIGENTE & SOSTENIBILIDAD -->
+                        <div class="module-card" style="margin-top: 30px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                                <h3 style="margin:0; display:flex; align-items:center; gap:12px; color:#1e293b;">
+                                    <span style="background:#f0fdf4; color:#10b981; width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:10px;">🚚</span>
+                                    LOGÍSTICA & SOSTENIBILIDAD
+                                </h3>
+                                <div style="font-size: 11px; color:#64748b; font-weight:700;">PROYECCIÓN DE AHORRO ECO</div>
+                            </div>
+                            
+                            <div id="transport-optimizer-container">
+                                <!-- Inyectado dinámicamente por transport_optimizer.js -->
+                            </div>
+                        </div>
                     </div>
 
 
                     <!-- PESTAÑA DE VACACIONES (GLOBAL VIEW) -->
-                    <div class="tab-content" id="tab-vacaciones">
-                        <h2 style="margin-bottom: 25px; color: #f59e0b; display: flex; align-items: center; gap: 10px;">
-                            <span>🏖️</span> GESTIÓN GLOBAL DE VACACIONES
-                            <span
-                                style="font-size: 10px; background: #fbbf24; color: #78350f; padding: 2px 8px; border-radius: 20px;">Live
-                                Tracking</span>
-                        </h2>
-
-                        <!-- KPIs de Vacaciones -->
-                        <div
-                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
-                            <!-- Vacaciones Activas (Hoy) -->
-                            <div class="module-card holographic" style="border-left: 4px solid #f59e0b;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div
-                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
-                                            DE VACACIONES HOY</div>
-                                        <div id="vacation-active-count"
-                                            style="font-size: 32px; font-weight: 800; color: #f59e0b; line-height: 1;">0
-                                        </div>
-                                    </div>
-                                    <div style="font-size: 30px; opacity: 0.8;">🏖️</div>
-                                </div>
-                            </div>
-
-                            <!-- Próximas en 30 Días -->
-                            <div class="module-card holographic" style="border-left: 4px solid #3b82f6;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div
-                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
-                                            PRÓXIMAS SALIDAS</div>
-                                        <div id="vacation-upcoming-count"
-                                            style="font-size: 32px; font-weight: 800; color: #3b82f6; line-height: 1;">0
-                                        </div>
-                                    </div>
-                                    <div style="font-size: 30px; opacity: 0.8;">📅</div>
-                                </div>
-                            </div>
-
-                            <!-- Cobertura de Vacaciones (Métrica Ficticia/Estimada) -->
-                            <div class="module-card holographic" style="border-left: 4px solid #10b981;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div
-                                            style="font-size: 11px; color: #64748b; font-weight: 700; letter-spacing: 1px;">
-                                            TOTAL AÑO</div>
-                                        <div id="vacation-coverage-ratio"
-                                            style="font-size: 32px; font-weight: 800; color: #10b981; line-height: 1;">
-                                            --</div>
-                                    </div>
-                                    <div style="font-size: 30px; opacity: 0.8;">🛡️</div>
-                                </div>
+                    <div class="tab-content" id="tab-vacaciones" style="background: #ffffff !important; color: #1e293b !important; padding: 35px !important; border-radius: 24px !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important; border: 1px solid #e2e8f0 !important; margin-bottom: 30px !important;">
+                        
+                        <!-- Cabecera de la pestaña -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px;">
+                            <h2 style="margin: 0; color: #0f172a; display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 800;">
+                                <span>🏖️</span> PLANIFICADOR GLOBAL DE VACACIONES
+                                <span style="font-size: 11px; background: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 20px; font-weight: 700;">MÓDULO ACTIVO</span>
+                            </h2>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="VacationModule.exportExcel()" class="btn-toolbar-action excel" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif;">
+                                    <span>📊</span> EXPORTAR EXCEL
+                                </button>
+                                <button onclick="VacationModule.exportPDF()" class="btn-toolbar-action pdf" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif;">
+                                    <span>📄</span> INFORME PDF
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Gráfico Visual de Vacaciones -->
-                        <div class="module-card" style="margin-bottom: 20px;">
-                            <h3 style="margin-top: 0; margin-bottom: 15px; color: #334155; font-size: 14px;">📊
-                                Distribución de Vacaciones Activas por Centro</h3>
-                            <div style="height: 250px; width: 100%; position: relative;">
-                                <canvas id="vacationChart"></canvas>
+                        <!-- KPIs de Vacaciones (Estilizados sobre fondo blanco) -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+                            <!-- Vacaciones Activas (Hoy) -->
+                            <div class="vacation-kpi-card" style="background: #fffbeb; border-left: 5px solid #f59e0b; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #fef3c7; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 11px; color: #b45309; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">DE VACACIONES HOY</div>
+                                    <div id="vacation-active-count" style="font-size: 36px; font-weight: 800; color: #d97706; line-height: 1.2; margin-top: 5px;">0</div>
+                                </div>
+                                <div style="font-size: 36px; opacity: 0.9;">🏖️</div>
+                            </div>
+
+                            <!-- Próximas en 30 Días -->
+                            <div class="vacation-kpi-card" style="background: #eff6ff; border-left: 5px solid #3b82f6; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #dbeafe; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 11px; color: #1d4ed8; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">PRÓXIMAS SALIDAS</div>
+                                    <div id="vacation-upcoming-count" style="font-size: 36px; font-weight: 800; color: #2563eb; line-height: 1.2; margin-top: 5px;">0</div>
+                                </div>
+                                <div style="font-size: 36px; opacity: 0.9;">📅</div>
+                            </div>
+
+                            <!-- Cobertura de Vacaciones -->
+                            <div class="vacation-kpi-card" style="background: #ecfdf5; border-left: 5px solid #10b981; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #d1fae5; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 11px; color: #047857; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">TASA COBERTURA SUPLENTES</div>
+                                    <div id="vacation-coverage-ratio" style="font-size: 36px; font-weight: 800; color: #059669; line-height: 1.2; margin-top: 5px;">--</div>
+                                </div>
+                                <div style="font-size: 36px; opacity: 0.9;">🛡️</div>
+                            </div>
+                        </div>
+
+                        <!-- Fila Media: Gráfico + Formulario Planificador -->
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 30px;">
+                            
+                            <!-- Gráfico de distribución -->
+                            <div class="module-card" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 18px; padding: 20px;">
+                                <h3 style="margin-top: 0; margin-bottom: 20px; color: #0f172a !important; font-size: 15px; font-weight: 800; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">📊 DISTRIBUCIÓN DE VACACIONES DISFRUTADAS VS PENDIENTES</h3>
+                                <div style="height: 280px; width: 100%; position: relative;">
+                                    <canvas id="vacationChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Formulario de planificación -->
+                            <div class="module-card" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 18px; padding: 20px;">
+                                <h3 style="margin-top: 0; margin-bottom: 15px; color: #0f172a !important; font-size: 15px; font-weight: 800; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">✍️ PLANIFICADOR DE VACACIONES</h3>
+                                <form id="vacation-form" onsubmit="event.preventDefault(); VacationModule.handleFormSubmit();" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div>
+                                        <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 5px;">SELECCIONAR TRABAJADORA / TITULAR</label>
+                                        <div style="display: flex; gap: 8px; width: 100%;">
+                                            <input type="text" id="vacation-form-worker" list="vacation-workers-datalist" placeholder="Escribe o selecciona..." required style="flex-grow: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; color: #1e293b; background: white; font-family: 'Outfit', sans-serif;">
+                                            <button type="button" onclick="VacationModule.promptAddNewWorker()" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 0 14px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; font-family: 'Outfit', sans-serif; height: 38px;" title="Añadir nuevo trabajador al sistema">
+                                                <span>➕</span> Nuevo
+                                            </button>
+                                        </div>
+                                        <datalist id="vacation-workers-datalist"></datalist>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div>
+                                            <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 5px;">FECHA INICIO</label>
+                                            <input type="date" id="vacation-form-start" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; color: #1e293b; background: white;">
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 5px;">FECHA FIN</label>
+                                            <input type="date" id="vacation-form-end" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; color: #1e293b; background: white;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 5px;">ESTADO PLANIFICACIÓN</label>
+                                        <select id="vacation-form-status" required style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; color: #1e293b; background: white;">
+                                            <option value="VACACIONES">APROBADA Y ACTIVA</option>
+                                            <option value="PENDIENTE">PENDIENTE DE VALIDACIÓN</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: transform 0.1s; margin-top: 5px; font-family: 'Outfit', sans-serif;">
+                                        💾 REGISTRAR VACACIONES
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Fila de Alertas de Conflictos Tácticos (IA) -->
+                        <div id="vacation-conflict-card" class="module-card" style="background: #fffbeb !important; border: 1px solid #fef3c7 !important; border-radius: 18px; padding: 20px; margin-bottom: 30px; display: none;">
+                            <h3 style="margin-top: 0; margin-bottom: 10px; color: #9a3412 !important; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                                <span>⚠️</span> DETECTOR DE CONFLICTOS OPERATIVOS (IA TÁCTICA)
+                            </h3>
+                            <div id="vacation-conflict-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: #7c2d12;">
+                                <!-- Inyectado dinámicamente -->
                             </div>
                         </div>
 
                         <!-- Panel Dividido: Trabajadores Actuales | Próximas Salidas -->
-                        <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 20px;">
-
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <!-- Izquierda: Vacaciones Activas -->
-                            <div class="module-card">
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
-                                    <h3 style="margin: 0;">🏖️ Personal Actualmente de Vacaciones</h3>
+                            <div class="module-card" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 18px; padding: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <h3 style="margin: 0; color: #0f172a !important; font-weight: 800; font-size: 15px;">🏖️ DE VACACIONES AHORA</h3>
                                     <div class="search-box">
-                                        <input type="text" id="vacation-active-search"
-                                            placeholder="🔍 Buscar trabajador..."
-                                            oninput="VacationModule.filterActive(this.value)"
-                                            style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; width: 220px;">
+                                        <input type="text" id="vacation-active-search" placeholder="🔍 Buscar trabajador..." oninput="VacationModule.filterActive(this.value)" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; width: 180px; color: #1e293b; background: white;">
                                     </div>
                                 </div>
-                                <div id="vacation-active-list" style="max-height: 500px; overflow-y: auto;">
+                                
+                                <!-- Filtros Activas -->
+                                <div class="vacation-filters-bar" style="display: flex; gap: 8px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap;">
+                                    <select id="vacation-active-sort" onchange="VacationModule.applyActiveFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="worker-asc">👤 Trabajador (A-Z)</option>
+                                        <option value="center-asc">🗂️ Servicio (A-Z)</option>
+                                    </select>
+                                    <select id="vacation-active-coverage" onchange="VacationModule.applyActiveFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="all">🛡️ Cobertura: Todas</option>
+                                        <option value="uncovered">⚠️ Sin Suplente</option>
+                                        <option value="covered">🛡️ Cubiertas</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="vacation-active-list" style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
                                     <div class="empty-state">No hay trabajadores de vacaciones hoy</div>
                                 </div>
                             </div>
 
                             <!-- Derecha: Próximas Salidas -->
-                            <div class="module-card" style="background: #f8fafc;">
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
-                                    <h3 style="margin: 0;">⏳ Próximas Salidas</h3>
+                            <div class="module-card" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 18px; padding: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <h3 style="margin: 0; color: #0f172a !important; font-weight: 800; font-size: 15px;">⏳ PRÓXIMAS SALIDAS PROGRAMADAS</h3>
+                                    <div class="search-box">
+                                        <input type="text" id="vacation-upcoming-search" placeholder="🔍 Buscar próximas..." oninput="VacationModule.filterUpcoming(this.value)" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; width: 180px; color: #1e293b; background: white;">
+                                    </div>
                                 </div>
-                                <div id="vacation-upcoming-list" style="max-height: 500px; overflow-y: auto;">
+                                
+                                <!-- Filtros Próximas -->
+                                <div class="vacation-filters-bar" style="display: flex; gap: 8px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap;">
+                                    <select id="vacation-upcoming-sort" onchange="VacationModule.applyUpcomingFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="date-asc">📅 Fecha (Más cercanas)</option>
+                                        <option value="date-desc">📅 Fecha (Más lejanas)</option>
+                                        <option value="worker-asc">👤 Trabajador (A-Z)</option>
+                                        <option value="center-asc">🗂️ Servicio (A-Z)</option>
+                                    </select>
+                                    <select id="vacation-upcoming-coverage" onchange="VacationModule.applyUpcomingFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="all">🛡️ Cobertura: Todas</option>
+                                        <option value="uncovered">⚠️ Sin Suplente</option>
+                                        <option value="covered">🛡️ Cubiertas</option>
+                                    </select>
+                                    <select id="vacation-upcoming-timeframe" onchange="VacationModule.applyUpcomingFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="all">⏱️ Rango: Todos</option>
+                                        <option value="15days">⏱️ Próximos 15 días</option>
+                                        <option value="30days">⏱️ Próximos 30 días</option>
+                                        <option value="90days">⏱️ Próximos 90 días</option>
+                                    </select>
+                                    <select id="vacation-upcoming-month" onchange="VacationModule.applyUpcomingFilters()" style="padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 700; color: #475569; background: white; cursor: pointer; font-family: 'Outfit';">
+                                        <option value="all">📅 Mes: Todos</option>
+                                        <option value="0">Enero</option>
+                                        <option value="1">Febrero</option>
+                                        <option value="2">Marzo</option>
+                                        <option value="3">Abril</option>
+                                        <option value="4">Mayo</option>
+                                        <option value="5">Junio</option>
+                                        <option value="6">Julio</option>
+                                        <option value="7">Agosto</option>
+                                        <option value="8">Septiembre</option>
+                                        <option value="9">Octubre</option>
+                                        <option value="10">Noviembre</option>
+                                        <option value="11">Diciembre</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="vacation-upcoming-list" style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
                                     <div class="empty-state">No hay salidas programadas a corto plazo</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
+                    </div> <!-- Cierre de tab-vacaciones -->
 
                 <!-- PESTAÑA AVANZADO -->
                 <div class="tab-content" id="tab-avanzado">
@@ -1341,10 +1668,8 @@
                             <div class="empty-state" style="color: #5f6368;">Iniciando protocolos de mando
                                 estratégico...</div>
                         </div>
-                    </div>
-                </div>
-            </div>
-    </div>
+                    </div> <!-- Cierre de div de la línea 1264 -->
+                </div> <!-- Cierre de tab-avanzado -->
     </main>
 
     <!-- Hud Footer -->
@@ -1661,81 +1986,170 @@
     <!-- PDF Export Lib -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- Main Application Core -->
-    <script src="indexeddb-persist.js"></script>
+    <!-- Machine Learning & Vision External Libs -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <!-- Local Data Files -->
     <script src="master_data.js"></script>
     <script src="special_covering_data.js"></script>
     <script src="orders_data.js"></script>
 
-    <!-- Engine Modules -->
-    <script src="operational_service.js"></script>
-    <script src="analytics_engine.js"></script>
-    <script src="quality_module.js"></script>
-    <script src="orders_module.js"></script>
-    <script src="it_module.js"></script>
-    <script src="director_module.js"></script>
-    <script src="quadrants_module.js"></script>
-    <script src="notepad.js"></script>
+    <!-- Main Entry Point Module -->
+    <script src="dist/main.js" defer></script>
+    <script src="vacation_module.js" defer></script>
 
-    <!-- Smart Modules -->
-    <script src="notifications_engine.js"></script>
-    <script src="daily_checklist.js"></script>
-    <script src="calendar_module.js"></script>
-    <script src="vacation_module.js"></script>
-    <script src="analytics_trends.js"></script>
+    <!-- UI Interactions Inline Script -->
+    <script>
+        window.toggleSidebar = function() {
+            const container = document.querySelector('.modules-container');
+            const btn = document.getElementById('toggle-sidebar-btn');
+            if (!container) return;
+            
+            container.classList.toggle('sidebar-collapsed');
+            
+            if (container.classList.contains('sidebar-collapsed')) {
+                if (btn) {
+                    btn.style.background = 'rgba(255, 255, 255, 0.35)';
+                    btn.innerHTML = '<span class="sidebar-icon">⏹️</span> <span class="sidebar-text">VISTA NORMAL</span>';
+                }
+            } else {
+                if (btn) {
+                    btn.style.background = 'rgba(255, 255, 255, 0.15)';
+                    btn.innerHTML = '<span class="sidebar-icon">🖥️</span> <span class="sidebar-text">VISTA COMPLETA</span>';
+                }
+            }
+        };
+    </script>
 
-    <!-- Enterprise LLM & Advanced Context -->
-    <script src="llm_assistant.js"></script>
+    <!-- ====================================================
+         STICKY DUAL MENU ENGINE
+         Hace sticky ambas barras (header + tabs-nav) de forma
+         robusta, sin depender de overflow de los padres.
+         ==================================================== -->
+    <script>
+        (function() {
+            'use strict';
 
-    <!-- Advanced Modules (Fase 2) -->
-    <script src="ai_predictive_engine.js"></script>
-    <script src="worker_performance.js"></script>
-    <script src="substitute_management.js"></script>
+            function initStickyNavs() {
+                const globalHeader  = document.querySelector('.global-header');
+                const tabsContainer = document.querySelector('.tabs-nav-container');
 
-    <!-- Mobile & Chat (Fase 3) -->
-    <script src="pwa_installer.js"></script>
-    <script src="internal_chat.js"></script>
+                if (!globalHeader || !tabsContainer) return;
 
-    <!-- Machine Learning (Fase 4) -->
-    <script src="ml_engine.js"></script>
-    <script src="route_optimizer.js"></script>
-    <script src="service_clustering.js"></script>
+                // --------------------------------------------------
+                // 1. HEADER: ya es sticky por CSS (top:0, z-index:1000)
+                //    Solo nos aseguramos de que tenga las propiedades
+                // --------------------------------------------------
+                globalHeader.style.position = 'sticky';
+                globalHeader.style.top      = '0';
+                globalHeader.style.zIndex   = '1000';
 
-    <!-- Integrations & Export (Fase 5) -->
-    <script src="integrations_hub.js"></script>
-    <script src="advanced_export.js"></script>
+                // --------------------------------------------------
+                // 2. TABS NAV: sticky con JS como respaldo fiable
+                // --------------------------------------------------
+                const HEADER_H = globalHeader.offsetHeight || 70;
 
-    <!-- Business Intelligence (Fase 7) -->
-    <script src="bi_engine.js"></script>
+                // Spacer invisible que ocupa el lugar cuando el nav
+                // pasa a fixed (evita el salto de contenido)
+                const spacer = document.createElement('div');
+                spacer.id = 'tabs-nav-spacer';
+                spacer.style.cssText = 'display:none; height:0; width:100%; flex-shrink:0;';
+                tabsContainer.parentNode.insertBefore(spacer, tabsContainer.nextSibling);
 
-    <!-- Security & RBAC (Fase 8) -->
-    <script src="security_manager.js"></script>
+                // Guardamos la posición original relativa al documento
+                function getOriginalTop() {
+                    // Forzamos posición relativa para medir correctamente
+                    tabsContainer.style.position = '';
+                    tabsContainer.style.top      = '';
+                    tabsContainer.style.left     = '';
+                    tabsContainer.style.right    = '';
+                    tabsContainer.style.width    = '';
+                    tabsContainer.style.zIndex   = '';
+                    spacer.style.display = 'none';
+                    spacer.style.height  = '0';
+                    const rect = tabsContainer.getBoundingClientRect();
+                    return rect.top + window.scrollY;
+                }
 
-    <!-- Quality & Compliance (Fase 9) -->
-    <script src="quality_compliance.js"></script>
+                let originalTop = null;
+                let isFixed     = false;
+                let ticking     = false;
 
-    <!-- Document Management & Signature (Fase 10) -->
-    <script src="document_manager.js"></script>
+                function onScroll() {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(function() {
+                        if (originalTop === null) {
+                            originalTop = getOriginalTop();
+                        }
 
-    <!-- Financial Management (Fase 11) -->
-    <script src="financial_manager.js"></script>
+                        const shouldFix = window.scrollY > (originalTop - HEADER_H);
 
-    <!-- Talent & Training (Fase 12) -->
-    <script src="talent_manager.js"></script>
+                        if (shouldFix && !isFixed) {
+                            // Guardamos dimensiones antes de fijar
+                            const h = tabsContainer.offsetHeight;
+                            const w = tabsContainer.offsetWidth;
 
-    <!-- Fleet & Logistics (Fase 13) -->
-    <script src="fleet_logistics_manager.js"></script>
+                            tabsContainer.style.position = 'fixed';
+                            tabsContainer.style.top      = HEADER_H + 'px';
+                            tabsContainer.style.left     = '0';
+                            tabsContainer.style.right    = '0';
+                            tabsContainer.style.width    = '100%';
+                            tabsContainer.style.zIndex   = '990';
+                            tabsContainer.style.boxShadow = '0 4px 16px rgba(0,0,0,0.10)';
+                            tabsContainer.style.background = '#f8f9fa';
+                            tabsContainer.style.padding    = '8px 30px 4px';
 
-    <!-- Sustainability & CSR (Fase 14) -->
-    <script src="sustainability_manager.js"></script>
+                            spacer.style.display = 'block';
+                            spacer.style.height  = h + 'px';
+                            isFixed = true;
 
-    <!-- Executive Command (Fase 15) -->
-    <script src="executive_command.js"></script>
-    <script src="contract_guardian.js?v=1.0"></script>
+                        } else if (!shouldFix && isFixed) {
+                            tabsContainer.style.position = '';
+                            tabsContainer.style.top      = '';
+                            tabsContainer.style.left     = '';
+                            tabsContainer.style.right    = '';
+                            tabsContainer.style.width    = '';
+                            tabsContainer.style.zIndex   = '';
+                            tabsContainer.style.boxShadow = '';
+                            tabsContainer.style.background = '';
+                            tabsContainer.style.padding    = '';
 
-    <!-- App Logic (Centralized Failsafe) -->
-    <script src="app.js?v=6.5"></script>
+                            spacer.style.display = 'none';
+                            spacer.style.height  = '0';
+                            isFixed = false;
+                        }
 
+                        ticking = false;
+                    });
+                }
+
+                // Recalcular la posición original si la pantalla cambia
+                window.addEventListener('resize', function() {
+                    originalTop = null;
+                    isFixed     = false;
+                    tabsContainer.style.position = '';
+                    tabsContainer.style.top      = '';
+                    spacer.style.display = 'none';
+                    spacer.style.height  = '0';
+                }, { passive: true });
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+
+                // Disparo inicial por si ya hay scroll
+                onScroll();
+            }
+
+            // Esperar a que el DOM esté listo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initStickyNavs);
+            } else {
+                // Pequeño delay para dejar que otros scripts
+                // inicialicen el layout primero
+                setTimeout(initStickyNavs, 150);
+            }
+        })();
+    </script>
 </body>
 
 </html>

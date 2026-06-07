@@ -281,7 +281,49 @@ const AIPredictiveEngine = {
         this.recommendations.push(...overloaded);
 
         console.log('💡 Recomendaciones generadas:', this.recommendations.length);
+
+        // FASE PRO: Orquestación Predictiva + Optimización de Rutas
+        this.orchestratePredictiveLogistics();
     },
+
+    orchestratePredictiveLogistics() {
+        console.log('🛰️ Orquestando Logística Predictiva...');
+        
+        this.predictions.forEach(pred => {
+            if (pred.probability === 'alta' && (pred.type === 'contract_ending' || pred.type === 'it_extension')) {
+                // Si hay un riesgo alto, buscar el mejor suplente y calcular su ruta optimizada proactivamente
+                const bestSuplentes = this.findBestSuplentes(pred.data);
+                if (bestSuplentes.length > 0) {
+                    const candidate = bestSuplentes[0];
+                    
+                    // Simular cálculo de ruta optimizada incluyendo este nuevo servicio
+                    if (window.RouteOptimizer) {
+                        const workerRoute = window.RouteOptimizer.routes.find(r => r.name === candidate.worker);
+                        if (workerRoute) {
+                            const projectedServices = [...workerRoute.services, {
+                                name: pred.service,
+                                location: this.extractLocation(pred.service),
+                                coords: window.RouteOptimizer.locations.get(this.extractLocation(pred.service))
+                            }];
+                            
+                            const optimized = window.RouteOptimizer.optimizeRoute(projectedServices);
+                            
+                            this.recommendations.push({
+                                type: 'predictive_logistics',
+                                priority: 'high',
+                                service: pred.service,
+                                worker: candidate.worker,
+                                message: `Logística Proactiva: ${candidate.worker} es el mejor candidato para cubrir el riesgo en ${pred.service}.`,
+                                recommendation: `Ruta optimizada pre-calculada: ahorro del ${workerRoute.savingsPercent}% incluso con el nuevo servicio.`,
+                                data: { candidate, optimized }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    },
+
 
     // MATCHING INTELIGENTE DE SUPLENTES
     findBestSuplentes(service) {
