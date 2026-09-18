@@ -1,0 +1,140 @@
+/* ==========================================================================
+   DASHBOARD VISUAL PARA JEFE DE BRIGADAS CON FILTROS EN COLUMNAS
+   ========================================================================== */
+
+:root {
+  --sifu-blue: #005da4;
+  --sifu-dark: #002d54;
+  --sifu-red: #dc2626;
+  --sifu-green: #16a34a;
+}
+
+body {
+  background-color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a;
+}
+
+button, .btn-touch, input, select {
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.btn-touch:active {
+  transform: scale(0.97);
+}
+
+/* Selectores de cabecera de columna estilo Excel */
+.header-filter-select {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+}
+.header-filter-select:hover, .header-filter-select:focus {
+  border-color: #38bdf8;
+  background-color: #0f172a;
+}
+.header-filter-select.activo {
+  border-color: #f59e0b !important;
+  background-color: #451a03 !important;
+  color: #fef3c7 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 1px #f59e0b;
+}
+.header-filter-select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Fila de cuadrante para jefe de brigadas */
+.row-cuadrante {
+  transition: all 0.1s ease-in-out;
+  border-bottom: 1px solid #e2e8f0;
+}
+.row-cuadrante:hover {
+  background-color: #f8fafc;
+}
+.row-cuadrante.descubierto {
+  background-color: #fef2f2;
+}
+.row-cuadrante.descubierto:hover {
+  background-color: #fee2e2;
+}
+.row-cuadrante.cubierto {
+  background-color: #f0fdf4;
+}
+.row-cuadrante.cubierto:hover {
+  background-color: #dcfce7;
+}
+
+/* Días de la semana en la parrilla (Píldoras L M X J V S D) */
+.dia-pill {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  margin: 0 1px;
+}
+.dia-pill.activo-descubierto {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: 0 1px 2px rgba(239, 68, 68, 0.3);
+}
+.dia-pill.activo-cubierto {
+  background-color: #10b981;
+  color: white;
+}
+.dia-pill.inactivo {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  opacity: 0.4;
+}
+
+/* Tarjeta compacta para modo pizarra sin scroll */
+.mini-strip-card {
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 11px;
+  border-left: 4px solid;
+  transition: all 0.1s ease;
+  background: white;
+}
+.mini-strip-card.descubierto {
+  border-left-color: #ef4444;
+  border-top: 1px solid #fee2e2;
+  border-right: 1px solid #fee2e2;
+  border-bottom: 1px solid #fee2e2;
+}
+.mini-strip-card.cubierto {
+  border-left-color: #10b981;
+  background: #f0fdf4;
+  border-top: 1px solid #dcfce7;
+  border-right: 1px solid #dcfce7;
+  border-bottom: 1px solid #dcfce7;
+}
+
+/* Impresión */
+@media print {
+  header, #barraControles, .no-print, .header-filter-select {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    font-size: 9pt !important;
+  }
+  table {
+    width: 100% !important;
+  }
+}
