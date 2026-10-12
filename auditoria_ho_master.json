@@ -1,0 +1,480 @@
+{
+  "timestamp": "2026-10-12 03:55:08",
+  "total_excel": 59,
+  "desglose_tipologia": {
+    "ALBERGUES": 13,
+    "AUXILIARES": 15,
+    "LIMPIEZA": 30
+  },
+  "coincidencias": 19,
+  "discrepancias": [
+    {
+      "row": 5,
+      "proyecto": "SVO04296-P1-C018",
+      "servicio_excel": "AGENCIA CATALANA DE LA JOVENTUT",
+      "titular_excel": "MONICA LOPEZ CEBALLOS",
+      "diferencias": [
+        "Direccion: Excel 'Sant Joan de les Abadesses...' -> SAP HO 'S/N Parc de l'estació  17860  ...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "S/N Parc de l'estació  17860  Sant Joan de les Abadesses"
+      }
+    },
+    {
+      "row": 6,
+      "proyecto": "SVO04300-P1-C018",
+      "servicio_excel": "LA MOLINA",
+      "titular_excel": "JOSE MONTERO RODRIGUEZ",
+      "diferencias": [
+        "Cliente: Excel 'LA MOLINA' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 7,
+      "proyecto": "SVO04300-P1-C018",
+      "servicio_excel": "LA MOLINA",
+      "titular_excel": "JUAN BONADA GONZALEZ",
+      "diferencias": [
+        "Cliente: Excel 'LA MOLINA' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 8,
+      "proyecto": "SVO01227-P2-C001",
+      "servicio_excel": "NURIA",
+      "titular_excel": "JORGE LUIS",
+      "diferencias": [
+        "Titular: Excel tiene 'JORGE LUIS' -> En SAP HO figura: [SAHIL SINGH ARORA]",
+        "Cliente: Excel 'NURIA' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "titular_sugerido": "SAHIL SINGH ARORA",
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 9,
+      "proyecto": "SVO01227-P1-C018",
+      "servicio_excel": "NURIA",
+      "titular_excel": "JORGE LUIS RAMIREZ SALAS",
+      "diferencias": [
+        "Cliente: Excel 'NURIA' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 10,
+      "proyecto": "SVO01227-P1-C018",
+      "servicio_excel": "NURIA",
+      "titular_excel": "JUAN BONADA GONZALEZ",
+      "diferencias": [
+        "Cliente: Excel 'NURIA' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 11,
+      "proyecto": "SVO04298-P2-C001",
+      "servicio_excel": "OLOT",
+      "titular_excel": "FIDEL CASTILLO CANAL",
+      "diferencias": [
+        "Cliente: Excel 'OLOT' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 12,
+      "proyecto": "SVO04295-P2-C001",
+      "servicio_excel": "PLANOLES",
+      "titular_excel": "SAHID",
+      "diferencias": [
+        "Titular: Excel tiene 'SAHID' -> En SAP HO figura: [SAHIL SINGH ARORA, TANIA JACILINA FRATUCELLO BARGIERI]",
+        "Cliente: Excel 'PLANOLES' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "titular_sugerido": "SAHIL SINGH ARORA",
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 13,
+      "proyecto": "SVO01232-P2-C001",
+      "servicio_excel": "VALL D'EN BAS",
+      "titular_excel": "SAHIL SINGH ARORA",
+      "diferencias": [
+        "Cliente: Excel 'VALL D'EN BAS' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 14,
+      "proyecto": "SVO01232-P1-C018",
+      "servicio_excel": "VALL D'EN BAS",
+      "titular_excel": "PEDRO CARRASCO BELMONTE",
+      "diferencias": [
+        "Cliente: Excel 'VALL D'EN BAS' -> SAP HO 'AGENCIA CATALANA DE LA JOVENTUT'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "AGENCIA CATALANA DE LA JOVENTUT"
+      }
+    },
+    {
+      "row": 15,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "ASMA EL OUAHABI",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 16,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "CARLOS MARTINEZ VILANOVA",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 17,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "CRISTIAN BRUNET MENDEZ",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 18,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "DAVID CONTRERA VIDAL",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 19,
+      "proyecto": "SVO12611-P2-C001",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "ELIA MOGIO MEDINA",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 20,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "JOSE MANUEL CARRERA MATEOS",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 21,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "MANUEL QUESADA AGUDO",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 22,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "MARIANO SEQUERA VACAS",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 23,
+      "proyecto": "SVO12611-P2-C018",
+      "servicio_excel": "CASTILLO FIGUERES",
+      "titular_excel": "RAUL GONZALEZ EXPOSITO",
+      "diferencias": [
+        "Cliente: Excel 'CASTILLO FIGUERES' -> SAP HO 'Dirección de Asuntos Económicos del'"
+      ],
+      "propuesta": {
+        "cliente_oficial": "Dirección de Asuntos Económicos del"
+      }
+    },
+    {
+      "row": 25,
+      "proyecto": "SVO12611-P1-C017",
+      "servicio_excel": "Dirección de Asuntos Económicos de",
+      "titular_excel": "RAUL GONZALEZ EXPOSITO",
+      "diferencias": [
+        "Titular: En SAP HO no hay operarios asignados en la bitácora activa."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 26,
+      "proyecto": "SVO09390-P1-C017",
+      "servicio_excel": "ENDESA, S.A.",
+      "titular_excel": "MARIA PILAR MOLINA",
+      "diferencias": [
+        "Proyecto 'SVO09390-P1-C017' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 27,
+      "proyecto": "SVO09390-P2-C018",
+      "servicio_excel": "ENDESA, S.A.",
+      "titular_excel": "",
+      "diferencias": [
+        "Proyecto 'SVO09390-P2-C018' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 33,
+      "proyecto": "SVO08600-P2-C001",
+      "servicio_excel": "ACSA Obras e Infraestructuras SAU",
+      "titular_excel": "MONICA GALA SEGURA",
+      "diferencias": [
+        "Titular: Excel tiene 'MONICA GALA SEGURA' -> En SAP HO figura: [ANWAR EL KHABBAZI RIFI]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "ANWAR EL KHABBAZI RIFI"
+      }
+    },
+    {
+      "row": 34,
+      "proyecto": "SVO14670-P1-C018",
+      "servicio_excel": "ASCENSORS GIRONA. SAU",
+      "titular_excel": "MOHAMMED ETTMALAH",
+      "diferencias": [
+        "Proyecto 'SVO14670-P1-C018' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 35,
+      "proyecto": "SVO13762-P1-C018",
+      "servicio_excel": "ASCENSORS GIRONA. SAU",
+      "titular_excel": "MOHAMMED ETTMALAH",
+      "diferencias": [
+        "Titular: Excel tiene 'MOHAMMED ETTMALAH' -> En SAP HO figura: [LAURA PARDILLO LOPEZ]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "LAURA PARDILLO LOPEZ"
+      }
+    },
+    {
+      "row": 36,
+      "proyecto": "PROY017304-P2-C001",
+      "servicio_excel": "ASCENSORS GIRONA. SAU",
+      "titular_excel": "MONICA GALA SEGURA",
+      "diferencias": [
+        "Titular: Excel tiene 'MONICA GALA SEGURA' -> En SAP HO figura: [REDA JAIT, ANWAR EL KHABBAZI RIFI]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "REDA JAIT"
+      }
+    },
+    {
+      "row": 37,
+      "proyecto": "PROY017209-P1",
+      "servicio_excel": "DIPSALUT",
+      "titular_excel": "LIDIA JORDA I MARQUEZ",
+      "diferencias": [
+        "Direccion: Excel 'Pic de Peguera, 15     17003 G...' -> SAP HO 'Pic de Peguera,15 (Parc Cientí...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "Pic de Peguera,15 (Parc Científic i Tecnològic de  17003  GIRONA"
+      }
+    },
+    {
+      "row": 38,
+      "proyecto": "PROY017209-P1",
+      "servicio_excel": "DIPSALUT",
+      "titular_excel": "MERCÈ PLANAS HERAS",
+      "diferencias": [
+        "Direccion: Excel 'Pic de Peguera, 15     17003 G...' -> SAP HO 'Pic de Peguera,15 (Parc Cientí...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "Pic de Peguera,15 (Parc Científic i Tecnològic de  17003  GIRONA"
+      }
+    },
+    {
+      "row": 39,
+      "proyecto": "PROY008324-P1",
+      "servicio_excel": "FCC AQUALIA S.A.",
+      "titular_excel": "MOHAMED ABDELHAK DJOUMADI",
+      "diferencias": [
+        "Direccion: Excel 'Sant Feliu de Guixols GIR...' -> SAP HO 'FEDERICO SALMON 13  28016  MAD...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "FEDERICO SALMON 13  28016  MADRID"
+      }
+    },
+    {
+      "row": 40,
+      "proyecto": "PROY008324-P1",
+      "servicio_excel": "FCC AQUALIA, S.A.",
+      "titular_excel": "CARMEN ALSINA MENA",
+      "diferencias": [
+        "Titular: Excel tiene 'CARMEN ALSINA MENA' -> En SAP HO figura: [MOHAMED BELLAHCEN, MOHAMED ABDELHAK DJOUMADI, MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI, LAURA PARDILLO LOPEZ, MOHAMMED ETTMALAH]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "MOHAMED BELLAHCEN"
+      }
+    },
+    {
+      "row": 41,
+      "proyecto": "SVO06316-P2-C001",
+      "servicio_excel": "GENERALITAT DE CATALUNYA",
+      "titular_excel": "MALIKA CHRIF",
+      "diferencias": [
+        "Titular: Excel tiene 'MALIKA CHRIF' -> En SAP HO figura: [REDA JAIT, SERGIO REDONDO VELAZQUEZ]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "REDA JAIT"
+      }
+    },
+    {
+      "row": 46,
+      "proyecto": "SVO02309-P1-C018",
+      "servicio_excel": "GRUPO ELECTRO STOCKS, S.L.",
+      "titular_excel": "MOHAMED BELLAHCEN",
+      "diferencias": [
+        "Direccion: Excel 'CLOS DE LES FIRES. PLAÇA EUROP...' -> SAP HO 'P.I. CLOS DE LES FIRES. PLAÇA ...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "P.I. CLOS DE LES FIRES. PLAÇA EUROPA 6  17600  FIGUERES"
+      }
+    },
+    {
+      "row": 47,
+      "proyecto": "PROY010147-P1",
+      "servicio_excel": "INGENIEROS EMETRES SL",
+      "titular_excel": "MALIKA CHRIF",
+      "diferencias": [
+        "Direccion: Excel 'C/Pic de Peguera,1   17003 GIR...' -> SAP HO 'C/ Pic de Peguera 11  17003  G...'"
+      ],
+      "propuesta": {
+        "direccion_oficial": "C/ Pic de Peguera 11  17003  GIRONA"
+      }
+    },
+    {
+      "row": 48,
+      "proyecto": "SVO03143-P1-C018",
+      "servicio_excel": "MAQUINARIA ENPROM SOLUTIONS, SOCIED",
+      "titular_excel": "ANWAR EL KHABBAZI RIFI",
+      "diferencias": [
+        "Titular: Excel tiene 'ANWAR EL KHABBAZI RIFI' -> En SAP HO figura: [MOHAMED BELLAHCEN, JOSE MANUEL MORALES ROSALES, MOHAMMED ETTMALAH, MONICA GALA SEGURA]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "MOHAMED BELLAHCEN"
+      }
+    },
+    {
+      "row": 49,
+      "proyecto": "PROY018708-P1",
+      "servicio_excel": "OCA Inspección,Control y Prevención",
+      "titular_excel": "MALIKA CHRIF",
+      "diferencias": [
+        "Proyecto 'PROY018708-P1' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 53,
+      "proyecto": "PROY018171L",
+      "servicio_excel": "SIFU S.L.",
+      "titular_excel": "",
+      "diferencias": [
+        "Proyecto 'PROY018171L' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 54,
+      "proyecto": "PROY01817J",
+      "servicio_excel": "SIFU S.L.",
+      "titular_excel": "",
+      "diferencias": [
+        "Proyecto 'PROY01817J' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    },
+    {
+      "row": 55,
+      "proyecto": "SVO06910-P2-C001",
+      "servicio_excel": "SOCIEDAD GENERAL DE AGUAS DE BARCELONA",
+      "titular_excel": "MOHAMED  . MOHA",
+      "diferencias": [
+        "Titular: Excel tiene 'MOHAMED  . MOHA' -> En SAP HO figura: [CONCEPCION ROCHE SERRANO, REDA JAIT]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "CONCEPCION ROCHE SERRANO"
+      }
+    },
+    {
+      "row": 57,
+      "proyecto": "SVO08572-P1-C018",
+      "servicio_excel": "Veolia Serveis Catalunya",
+      "titular_excel": "MOHAMED  . MOHA",
+      "diferencias": [
+        "Titular: Excel tiene 'MOHAMED  . MOHA' -> En SAP HO figura: [MOHAMED BELLAHCEN, LAURA PARDILLO LOPEZ, MOHAMMED ETTMALAH]"
+      ],
+      "propuesta": {
+        "titular_sugerido": "MOHAMED BELLAHCEN"
+      }
+    },
+    {
+      "row": 755,
+      "proyecto": "",
+      "servicio_excel": "u",
+      "titular_excel": "",
+      "diferencias": [
+        "Proyecto '' no existe en SAP HO asignado a este responsable."
+      ],
+      "propuesta": {}
+    }
+  ]
+}

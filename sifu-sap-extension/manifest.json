@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "SIFU SAP HO - Navegador Automático Cuadrantes",
+  "version": "1.0.1",
+  "description": "Abre automáticamente la pestaña CUADRANTES y posiciona en Empleados Asignados en SAP HO.",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://qgssrvs4pro.gruposifu.com:*/*",
+        "*://qgssrvs4pro.gruposifu.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

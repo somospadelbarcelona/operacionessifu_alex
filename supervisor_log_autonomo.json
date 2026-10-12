@@ -1,0 +1,56 @@
+[
+  {
+    "timestamp": "2026-10-11 17:00:55",
+    "proyecto": "SVO04296-P1-C018",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "titular_baja": "MONICA LOPEZ CEBALLOS",
+    "suplente_asignado": "BLAS",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  },
+  {
+    "timestamp": "2026-10-11 17:00:55",
+    "proyecto": "SVO01227-P1-C018",
+    "servicio": "NURIA",
+    "titular_baja": "JORGE LUIS RAMIREZ SALAS",
+    "suplente_asignado": "GERARD SANCHEZ",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  },
+  {
+    "timestamp": "2026-10-11 17:00:55",
+    "proyecto": "SVO02267-P1-C018",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "titular_baja": "JULIAN CANO GALLEGO",
+    "suplente_asignado": "BLAS",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  },
+  {
+    "timestamp": "2026-10-11 17:04:52",
+    "proyecto": "SVO04296-P1-C018",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "titular_baja": "MONICA LOPEZ CEBALLOS",
+    "suplente_asignado": "BLAS",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  },
+  {
+    "timestamp": "2026-10-11 17:04:52",
+    "proyecto": "SVO01227-P1-C018",
+    "servicio": "NURIA",
+    "titular_baja": "JORGE LUIS RAMIREZ SALAS",
+    "suplente_asignado": "GERARD SANCHEZ",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  },
+  {
+    "timestamp": "2026-10-11 17:04:52",
+    "proyecto": "SVO02267-P1-C018",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "titular_baja": "JULIAN CANO GALLEGO",
+    "suplente_asignado": "BLAS",
+    "accion_sap_ho": "Bitácora Registrada",
+    "estado": "RESUELTO AUTÓNOMAMENTE"
+  }
+]

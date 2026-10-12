@@ -1,0 +1,928 @@
+/* ==========================================================================
+   CMH - CONTROL MENSUAL DE HORAS (GIRONA SIFU)
+   Estilos dedicados para la auditoría y corrección en SAP S/4HANA
+   ========================================================================== */
+
+:root {
+  --cmh-bg: #f8fafc;
+  --cmh-card-bg: #ffffff;
+  --cmh-border: #e2e8f0;
+  --cmh-text-main: #0f172a;
+  --cmh-text-muted: #64748b;
+  --cmh-danger: #ef4444;
+  --cmh-danger-bg: #fef2f2;
+  --cmh-danger-border: #fecaca;
+  --cmh-warning: #f59e0b;
+  --cmh-warning-bg: #fffbeb;
+  --cmh-warning-border: #fde68a;
+  --cmh-success: #10b981;
+  --cmh-success-bg: #ecfdf5;
+  --cmh-success-border: #a7f3d0;
+  --cmh-info: #3b82f6;
+  --cmh-info-bg: #eff6ff;
+  --cmh-purple: #8b5cf6;
+  --cmh-purple-bg: #f5f3ff;
+}
+
+.cmh-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: cmhFadeIn 0.3s ease-in-out;
+}
+
+@keyframes cmhFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cabecera y Resumen Ejecutivo */
+.cmh-banner-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 14px;
+  padding: 24px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cmh-header-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cmh-header-title .cmh-icon-badge {
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cmh-header-title h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.cmh-header-title p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 4px 0 0 0;
+}
+
+.cmh-header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cmh-btn-action {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.cmh-btn-action:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.cmh-btn-action.primary {
+  background: #3b82f6;
+  border-color: #2563eb;
+}
+
+.cmh-btn-action.primary:hover {
+  background: #2563eb;
+}
+
+.cmh-btn-action.cmh-btn-syc-ho {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.cmh-btn-action.cmh-btn-syc-ho:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  box-shadow: 0 0 14px rgba(2, 132, 199, 0.55), 0 2px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.cmh-btn-action.cmh-btn-syc-ho .sync-ho-icon {
+  display: inline-block;
+  font-size: 13px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+  transition: transform 0.3s ease;
+}
+
+.cmh-btn-action.cmh-btn-syc-ho.syncing .sync-ho-icon {
+  animation: cmhSpinSync 0.9s infinite linear;
+}
+
+@keyframes cmhSpinSync {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* KPIs de Auditoría CMH */
+.cmh-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.cmh-kpi-card {
+  background: var(--cmh-card-bg);
+  border: 1px solid var(--cmh-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cmh-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.08);
+}
+
+.cmh-kpi-card.active {
+  border-width: 2px;
+}
+
+.cmh-kpi-card.kpi-rojo {
+  border-left: 5px solid var(--cmh-danger);
+}
+.cmh-kpi-card.kpi-rojo.active {
+  border-color: var(--cmh-danger);
+  background: var(--cmh-danger-bg);
+}
+
+.cmh-kpi-card.kpi-amarillo {
+  border-left: 5px solid var(--cmh-warning);
+}
+.cmh-kpi-card.kpi-amarillo.active {
+  border-color: var(--cmh-warning);
+  background: var(--cmh-warning-bg);
+}
+
+.cmh-kpi-card.kpi-nan {
+  border-left: 5px solid #64748b;
+}
+.cmh-kpi-card.kpi-nan.active {
+  border-color: #64748b;
+  background: #f1f5f9;
+}
+
+.cmh-kpi-card.kpi-verde {
+  border-left: 5px solid var(--cmh-success);
+}
+.cmh-kpi-card.kpi-verde.active {
+  border-color: var(--cmh-success);
+  background: var(--cmh-success-bg);
+}
+
+.cmh-kpi-card.kpi-huerfanos {
+  border-left: 5px solid var(--cmh-purple);
+}
+.cmh-kpi-card.kpi-huerfanos.active {
+  border-color: var(--cmh-purple);
+  background: var(--cmh-purple-bg);
+}
+
+.cmh-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cmh-kpi-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cmh-text-muted);
+}
+
+.cmh-kpi-val {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--cmh-text-main);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cmh-kpi-sub {
+  font-size: 11.5px;
+  color: var(--cmh-text-muted);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Barra de Filtros y Búsqueda */
+.cmh-filter-toolbar {
+  background: #ffffff;
+  border: 1px solid var(--cmh-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cmh-filter-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cmh-chip {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.cmh-chip:hover {
+  background: #e2e8f0;
+}
+
+.cmh-chip.active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+}
+
+.cmh-chip.active.chip-rojo {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.cmh-chip.active.chip-amarillo {
+  background: #d97706;
+  border-color: #d97706;
+}
+
+.cmh-chip.active.chip-nan {
+  background: #475569;
+  border-color: #475569;
+}
+
+.cmh-chip.active.chip-verde {
+  background: #059669;
+  border-color: #059669;
+}
+
+.cmh-search-box {
+  position: relative;
+  min-width: 260px;
+}
+
+.cmh-search-box input {
+  width: 100%;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.cmh-search-box input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Tabla de Auditoría CMH */
+.cmh-table-container {
+  background: #ffffff;
+  border: 1px solid var(--cmh-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.cmh-table-scroll {
+  overflow-x: auto;
+  max-height: 720px;
+}
+
+.cmh-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12.5px;
+}
+
+.cmh-table thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 12px 14px;
+  border-bottom: 2px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.cmh-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+.cmh-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Fila con alerta roja */
+.cmh-table tbody tr.row-cmh-rojo {
+  background-color: #fffaf9;
+}
+.cmh-table tbody tr.row-cmh-rojo:hover {
+  background-color: #fee2e2;
+}
+
+/* Fila con alerta amarilla */
+.cmh-table tbody tr.row-cmh-amarillo {
+  background-color: #fffef5;
+}
+.cmh-table tbody tr.row-cmh-amarillo:hover {
+  background-color: #fef3c7;
+}
+
+/* Fila con alerta NaN */
+.cmh-table tbody tr.row-cmh-nan {
+  background-color: #f8fafc;
+}
+.cmh-table tbody tr.row-cmh-nan:hover {
+  background-color: #e2e8f0;
+}
+
+.cmh-table td {
+  padding: 10px 14px;
+  vertical-align: middle;
+}
+
+/* Badges de Diferencia */
+.cmh-diff-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.cmh-diff-badge.badge-rojo {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.cmh-diff-badge.badge-amarillo {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+
+.cmh-diff-badge.badge-amarillo-critico {
+  background: #ffedd5;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  font-weight: 900;
+  animation: pulseWarning 2s infinite;
+}
+
+@keyframes pulseWarning {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.cmh-diff-badge.badge-nan {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+}
+
+.cmh-diff-badge.badge-verde {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+/* Celdas especiales */
+.cmh-emp-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: #0284c7;
+  font-size: 11.5px;
+}
+
+.cmh-emp-name {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.cmh-emp-sociedad {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.cmh-emp-sociedad.epid {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.cmh-hours-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+/* Diagnóstico en línea */
+.cmh-diag-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 380px;
+}
+
+.cmh-diag-text {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #334155;
+}
+
+.cmh-diag-text.critico {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.cmh-diag-text.advertencia {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.cmh-action-btns-cell {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.cmh-btn-tool {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.cmh-btn-tool:hover {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+}
+
+.cmh-btn-tool.btn-sap {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
+.cmh-btn-tool.btn-sap:hover {
+  background: #0369a1;
+}
+
+.cmh-btn-tool.btn-fix {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.cmh-btn-tool.btn-fix:hover {
+  background: #059669;
+}
+
+/* Modal de Regularización SAP */
+.cmh-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.cmh-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cmh-modal-panel {
+  background: #ffffff;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.cmh-modal-header {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 16px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cmh-modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmh-modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.cmh-modal-close:hover {
+  color: #ffffff;
+}
+
+.cmh-modal-body {
+  padding: 22px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.cmh-modal-footer {
+  padding: 14px 22px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Panel de IDs Huérfanos */
+.cmh-huerfanos-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.cmh-huerfanos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cmh-huerfano-chip {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cmh-huerfano-chip b {
+  font-family: 'JetBrains Mono', monospace;
+  color: #6366f1;
+}
+
+/* ==========================================================================
+   ESTILOS DEDICADOS: ALBERGUES & DEMANDA VARIABLE XANASCAT
+   ========================================================================== */
+.cmh-kpi-card.kpi-albergue {
+  border-left: 5px solid #6366f1;
+}
+.cmh-kpi-card.kpi-albergue.active {
+  border-color: #6366f1;
+  background: #f5f3ff;
+}
+
+.cmh-chip.chip-albergue.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #ffffff;
+}
+
+.cmh-diff-badge.badge-albergue {
+  background: #e0e7ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-weight: 800;
+}
+
+.cmh-table tbody tr.row-cmh-albergue {
+  background-color: #fafaff;
+}
+.cmh-table tbody tr.row-cmh-albergue:hover {
+  background-color: #eef2ff;
+}
+
+/* Banner de Balance Global de Bolsa Albergues */
+.cmh-bolsa-summary-bar {
+  background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: 0 4px 12px rgba(49, 46, 129, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cmh-bolsa-metrics {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.cmh-bolsa-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.cmh-bolsa-stat-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #a5b4fc;
+}
+
+.cmh-bolsa-stat-val {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+}
+
+.cmh-tag-albergue {
+  background: #e0e7ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cmh-tag-auxiliares {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cmh-tag-limpieza {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* ==========================================================================
+   KPIs Y CHIPS PARA AUXILIARES Y LIMPIEZA
+   ========================================================================== */
+.cmh-kpi-card.kpi-auxiliares {
+  border-left: 5px solid #0284c7;
+}
+.cmh-kpi-card.kpi-auxiliares.active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.cmh-kpi-card.kpi-limpieza {
+  border-left: 5px solid #10b981;
+}
+.cmh-kpi-card.kpi-limpieza.active {
+  border-color: #10b981;
+  background: #ecfdf5;
+}
+
+.cmh-chip.chip-auxiliares.active {
+  background: #0284c7;
+  border-color: #0284c7;
+  color: #ffffff;
+}
+
+.cmh-chip.chip-limpieza.active {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+}
+
+.cmh-chip.chip-huerfanos.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #ffffff;
+}
+
+.cmh-btn-tool.btn-albergue {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4338ca;
+}
+
+.cmh-btn-tool.btn-albergue:hover {
+  background: #4338ca;
+}
+
+/* Nuevos estilos para Estado Operativo de HO y Conciliación */
+.cmh-resumen-ho-box {
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.cmh-resumen-ho-box.box-mal {
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  color: #991b1b;
+}
+
+.cmh-resumen-ho-box.box-bien {
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  color: #166534;
+}
+
+.cmh-resumen-ho-box.box-exceso {
+  background: #fffbeb;
+  border: 1.5px solid #fcd34d;
+  color: #92400e;
+}
+
+.cmh-progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.cmh-progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.cmh-badge-estado-ho {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+
+.cmh-badge-estado-ho.bien {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.cmh-badge-estado-ho.mal {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.cmh-badge-estado-ho.exceso {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+
+.cmh-badge-estado-ho.nan {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+}
+
+.cmh-btn-resolver-rapido {
+  background: #0284c7;
+  color: #ffffff;
+  border: 1px solid #0369a1;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.cmh-btn-resolver-rapido:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+
+

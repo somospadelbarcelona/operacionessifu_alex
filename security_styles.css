@@ -1,0 +1,230 @@
+/**
+ * SECURITY & RBAC STYLES - Estilos para Seguridad y Control de Acceso
+ */
+
+/* ========================================
+   USER SECURITY BADGE
+   ======================================== */
+
+.user-info-pill {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 150px;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: #202124;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.user-role-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================
+   AUDIT LOGS & DASHBOARD
+   ======================================== */
+
+.security-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 1024px) {
+    .security-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.security-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #ea4335;
+}
+
+.security-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.audit-list {
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audit-item {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: 80px 100px 150px 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.audit-time {
+    color: #5f6368;
+    font-weight: 600;
+}
+
+.audit-user {
+    color: #1a73e8;
+}
+
+.audit-action {
+    font-weight: 800;
+    color: #202124;
+}
+
+.audit-details {
+    color: #5f6368;
+}
+
+/* ========================================
+   PERMISSIONS TABLE
+   ======================================== */
+
+.permissions-matrix table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.permissions-matrix th,
+.permissions-matrix td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e8eaed;
+    font-size: 13px;
+}
+
+.permissions-matrix th {
+    font-weight: 700;
+    color: #5f6368;
+}
+
+/* ========================================
+   SECURITY STATES
+   ======================================== */
+
+.security-hidden {
+    /* Usamos esto por si queremos animar la desaparición */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.blur-content {
+    filter: blur(8px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.access-denied {
+    background: rgba(234, 67, 53, 0.1);
+    border: 2px dashed #ea4335;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    color: #ea4335;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+/* ========================================
+   LOGIN MODAL / OVERLAY (SIMULADO)
+   ======================================== */
+
+.security-login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.login-form-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.login-form-card h2 {
+    margin-bottom: 10px;
+    color: #202124;
+}
+
+.login-form-card p {
+    color: #5f6368;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.login-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

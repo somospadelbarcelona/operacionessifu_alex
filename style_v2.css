@@ -1,0 +1,209 @@
+/* --- ESTILOS V2 PARA DASHBOARD NORMALIZADO --- */
+
+/* Master Card Item (Nueva Tarjeta Estandarizada) */
+.master-card-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.master-card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--sifu-blue);
+}
+
+.mc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+.mc-service {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.mc-service-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.live-dot {
+    background: var(--accent-red);
+    color: white;
+    font-size: 8px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    animation: live-pulse 1.5s infinite;
+    white-space: nowrap;
+}
+
+@keyframes live-pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.mc-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mc-worker-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mc-row {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.mc-row .label {
+    font-weight: 600;
+    margin-right: 6px;
+    opacity: 0.7;
+    font-size: 0.75rem;
+}
+
+.mc-row .value {
+    color: var(--text-primary);
+}
+
+.mc-row .value.text-danger {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+.mc-status-box {
+    text-align: right;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass effect */
+}
+
+.mc-status-box.status-ok {
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+}
+
+.mc-status-box.status-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--accent-red);
+    color: var(--accent-red);
+    animation: pulse-red 2s infinite;
+}
+
+.mc-status-box.status-warning {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid var(--sifu-amber);
+    color: var(--sifu-amber);
+}
+
+.status-icon {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.status-text {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.mc-footer {
+    background: rgba(59, 130, 246, 0.1);
+    /* Blue tint */
+    color: var(--sifu-blue);
+    font-size: 0.8rem;
+    padding: 6px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 4px;
+}
+
+/* Absence Card Refina (Usada en tab Abonos) */
+.absence-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.abs-header {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.abs-header.covered {
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.1), transparent);
+    border-left: 4px solid var(--accent-green);
+}
+
+.abs-header.uncovered {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.1), transparent);
+    border-left: 4px solid var(--accent-red);
+}
+
+.abs-body {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+}
+
+.suplente-status {
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}

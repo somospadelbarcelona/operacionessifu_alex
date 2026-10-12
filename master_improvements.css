@@ -1,0 +1,297 @@
+/* ============================================================
+   MASTER IMPROVEMENTS STYLES — INFORMER SIFU
+   Experto: Telecomunicaciones · IA · Big Data
+   Versión: 2.0 · Julio 2026
+   ============================================================ */
+
+/* ─────────────────────────────────────────────────────────────
+   BLOQUE 1 — KPI BAR
+   ───────────────────────────────────────────────────────────── */
+.master-kpi-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #090d16 0%, #171d33 50%, #1e2640 100%);
+    border-radius: 16px;
+    margin-bottom: 0;
+    scrollbar-width: none;
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    justify-content: center !important;
+}
+.master-kpi-bar::-webkit-scrollbar { display: none; }
+
+.kpi-empty {
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 12px;
+    font-weight: 700;
+}
+
+.kpi-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-radius: 14px;
+    padding: 14px 20px;
+    min-width: 140px;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Colores Base y Degradados Vibrantes por Tarjeta de KPI */
+.kpi-total {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(29, 78, 216, 0.25) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.45) !important;
+}
+.kpi-clients {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(4, 120, 87, 0.25) 100%) !important;
+    border: 1px solid rgba(16, 185, 129, 0.45) !important;
+}
+.kpi-cobertura {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(67, 56, 202, 0.25) 100%) !important;
+    border: 1px solid rgba(99, 102, 241, 0.45) !important;
+}
+.kpi-desc {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(185, 28, 28, 0.28) 100%) !important;
+    border: 1px solid rgba(239, 68, 68, 0.55) !important;
+}
+.kpi-bajas {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.25) 100%) !important;
+    border: 1px solid rgba(245, 158, 11, 0.45) !important;
+}
+.kpi-contratos {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(2, 132, 199, 0.25) 100%) !important;
+    border: 1px solid rgba(14, 165, 233, 0.4) !important;
+}
+.kpi-vac {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(109, 40, 217, 0.25) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.45) !important;
+}
+.kpi-sin-tit {
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(225, 29, 72, 0.25) 100%) !important;
+    border: 1px solid rgba(244, 63, 94, 0.45) !important;
+}
+
+/* Hover glow effects de las tarjetas por categoría */
+.kpi-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.kpi-total:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(29, 78, 216, 0.35) 100%) !important;
+    border-color: rgba(59, 130, 246, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4) !important;
+}
+
+.kpi-clients:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(4, 120, 87, 0.35) 100%) !important;
+    border-color: rgba(16, 185, 129, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4) !important;
+}
+
+.kpi-cobertura:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(67, 56, 202, 0.35) 100%) !important;
+    border-color: rgba(99, 102, 241, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4) !important;
+}
+
+.kpi-desc:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(185, 28, 28, 0.4) 100%) !important;
+    border-color: rgba(239, 68, 68, 0.8) !important;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.5) !important;
+}
+
+.kpi-bajas:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(180, 83, 9, 0.35) 100%) !important;
+    border-color: rgba(245, 158, 11, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4) !important;
+}
+
+.kpi-contratos:hover {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.25) 0%, rgba(2, 132, 199, 0.35) 100%) !important;
+    border-color: rgba(14, 165, 233, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4) !important;
+}
+
+.kpi-vac:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(109, 40, 217, 0.35) 100%) !important;
+    border-color: rgba(139, 92, 246, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4) !important;
+}
+
+.kpi-sin-tit:hover {
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.25) 0%, rgba(225, 29, 72, 0.35) 100%) !important;
+    border-color: rgba(244, 63, 94, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(244, 63, 94, 0.4) !important;
+}
+
+/* Wrappers para Iconos (Fondo circular elegante) */
+.kpi-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kpi-card:hover .kpi-icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.kpi-total .kpi-icon-wrapper { background: rgba(59, 130, 246, 0.25) !important; border: 1px solid rgba(59, 130, 246, 0.5) !important; }
+.kpi-clients .kpi-icon-wrapper { background: rgba(16, 185, 129, 0.25) !important; border: 1px solid rgba(16, 185, 129, 0.5) !important; }
+.kpi-cobertura .kpi-icon-wrapper { background: rgba(99, 102, 241, 0.25) !important; border: 1px solid rgba(99, 102, 241, 0.5) !important; }
+.kpi-desc .kpi-icon-wrapper { background: rgba(239, 68, 68, 0.3) !important; border: 1px solid rgba(239, 68, 68, 0.6) !important; }
+.kpi-bajas .kpi-icon-wrapper { background: rgba(245, 158, 11, 0.25) !important; border: 1px solid rgba(245, 158, 11, 0.5) !important; }
+.kpi-contratos .kpi-icon-wrapper { background: rgba(14, 165, 233, 0.25) !important; border: 1px solid rgba(14, 165, 233, 0.5) !important; }
+.kpi-vac .kpi-icon-wrapper { background: rgba(139, 92, 246, 0.25) !important; border: 1px solid rgba(139, 92, 246, 0.5) !important; }
+.kpi-sin-tit .kpi-icon-wrapper { background: rgba(244, 63, 94, 0.25) !important; border: 1px solid rgba(244, 63, 94, 0.5) !important; }
+
+
+.kpi-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    opacity: 0.95;
+    line-height: 1;
+}
+
+.kpi-data {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.kpi-value {
+    font-size: 26px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.kpi-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+/* Barra de progreso dentro de KPI cobertura */
+.kpi-bar-wrap {
+    width: 80px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.kpi-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 6px currentColor;
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Pulso de alerta en KPI descubiertos */
+@keyframes kpiAlertBreath {
+    0%, 100% { 
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.06) 100%); 
+        border-color: rgba(255, 255, 255, 0.08); 
+    }
+    50% { 
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%); 
+        border-color: rgba(239, 68, 68, 0.35); 
+    }
+}
+
+.kpi-alert {
+    animation: kpiShake 6s ease infinite, kpiAlertBreath 2s infinite ease-in-out !important;
+}
+
+.kpi-pulse {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 9px; height: 9px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: kpiPulse 1.5s ease-in-out infinite;
+}
+@keyframes kpiPulse {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+    50%       { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 0 5px rgba(239,68,68,0); }
+}
+@keyframes kpiShake {
+    0%, 90%, 100% { transform: translateX(0); }
+    92%            { transform: translateX(-2px); }
+    94%            { transform: translateX(2px); }
+    96%            { transform: translateX(-1px); }
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   BLOQUE 2 — SEMÁFORO DE RIESGO MEJORADO
+   ───────────────────────────────────────────────────────────── */
+.risk-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+.risk-item:hover { transform: translateX(2px); }
+.risk-item:last-child { margin-bottom: 0; }
+.risk-red    { background: #fff1f2; border-color: #fecdd3; }
+.risk-yellow { background: #fffbeb; border-color: #fde68a; }
+.risk-green  { background: #f0fdf4; border-color: #bbf7d0; }
+
+
+/* ─────────────────────────────────────────────────────────────
+   BLOQUE 3 — VISTA AGRUPADA
+   ───────────────────────────────────────────────────────────── */
+.grupo-cliente-card {
+    transition: box-shadow 0.2s ease;
+}
+.grupo-cliente-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.grouped-row:hover {
+    background: rgba(99,102,241,0.03) !important;
+}
+.grouped-row:last-child {
+    border-bottom: none !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   BLOQUE 6 — CHIPS DE CLIENTE (toolbar)
+   ───────────────────────────────────────────────────────────── */
+#master-client-chips::-webkit-scrollbar { display: none; }
+#master-client-chips button {
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+#master-client-chips button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   MÓDULO VACACIONES (sidebar)
+   ───────────────────────────────────────────────────────────── */
+#module-vacaciones-panel .module-card {
+    max-height: 380px;
+    overflow-y: auto;
+}

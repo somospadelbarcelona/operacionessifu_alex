@@ -1,0 +1,157 @@
+/**
+ * FINANCIAL MANAGER STYLES - Fase 11
+ */
+
+.financial-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.f-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.f-metric-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.f-metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.f-metric-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.f-metric-label {
+    font-size: 13px;
+    color: #5f6368;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.f-metric-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #202124;
+    margin-top: 5px;
+}
+
+.f-metric-icon {
+    font-size: 32px;
+    opacity: 0.8;
+}
+
+.f-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 1024px) {
+    .f-charts-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.f-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.f-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.f-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.f-mini-card {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.f-mini-card.risk {
+    background: #fff5f5;
+}
+
+.f-mini-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.f-mini-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #202124;
+}
+
+.f-mini-type {
+    font-size: 11px;
+    color: #5f6368;
+    background: #e8eaed;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.f-mini-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.f-mini-margin {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.f-mini-margin.high {
+    color: #34a853;
+}
+
+.f-mini-margin.low {
+    color: #ea4335;
+}
+
+.f-mini-amount {
+    font-size: 13px;
+    color: #5f6368;
+}
+
+.f-progress-bg {
+    height: 6px;
+    background: #e8eaed;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.f-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease-out;
+}

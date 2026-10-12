@@ -1,0 +1,184 @@
+/**
+ * SUSTAINABILITY STYLES - Fase 14
+ */
+
+.sus-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sus-metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.sus-card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 15px;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.sus-card.planet {
+    border-bottom: 4px solid #34a853;
+}
+
+.sus-card.people {
+    border-bottom: 4px solid #4285f4;
+}
+
+.sus-card.green {
+    border-bottom: 4px solid #fbbc04;
+}
+
+.sus-icon {
+    font-size: 32px;
+}
+
+.sus-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sus-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: #202124;
+}
+
+.sus-label {
+    font-size: 12px;
+    color: #5f6368;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.sus-progress {
+    grid-column: 1 / span 2;
+    height: 4px;
+    background: #f1f3f4;
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.sus-bar {
+    height: 100%;
+    border-radius: 2px;
+}
+
+.planet .sus-bar {
+    background: #34a853;
+}
+
+.people .sus-bar {
+    background: #4285f4;
+}
+
+.green .sus-bar {
+    background: #fbbc04;
+}
+
+.sus-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 900px) {
+    .sus-bottom-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ods-section,
+.impact-summary {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.ods-section h3,
+.impact-summary h3 {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #202124;
+}
+
+.ods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ods-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: white;
+    font-weight: 600;
+}
+
+.ods-8 {
+    background: #a21942;
+}
+
+.ods-10 {
+    background: #dd1367;
+}
+
+.ods-13 {
+    background: #3f7e44;
+}
+
+.ods-num {
+    font-size: 20px;
+    font-weight: 900;
+    opacity: 0.8;
+}
+
+.ods-text {
+    flex: 1;
+}
+
+.ods-status {
+    font-size: 9px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.impact-summary p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5f6368;
+    margin-bottom: 20px;
+}
+
+.btn-report-csr {
+    background: #34a853;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.btn-report-csr:hover {
+    background: #2d8e47;
+}
