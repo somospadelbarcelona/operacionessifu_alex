@@ -30,3 +30,15 @@
 /* Live Master & Mejoras Visuales */
 @import "../../master_sync_v2.css";
 @import "../../master_improvements.css";
+
+/* Eliminación de widgets y banners no deseados */
+#master-sync-hud,
+.sync-hub-hud,
+#offline-network-banner,
+.offline-banner-alert,
+#chat-float-button,
+.chat-float-button {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}

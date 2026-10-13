@@ -1724,5 +1724,18 @@ select.pro-table-col-filter {
   color: #ffffff;
 }
 
+/* Ocultamiento definitivo de HUDs y banners invasivos solicitados */
+#master-sync-hud,
+.sync-hub-hud,
+#offline-network-banner,
+.offline-banner-alert,
+#chat-float-button,
+.chat-float-button,
+#btn-sync-hud-toggle {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 
 

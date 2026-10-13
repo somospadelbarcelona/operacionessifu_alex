@@ -18,7 +18,7 @@ import urllib.parse
 from datetime import datetime
 import logging
 
-from ho_service import HOService, RESPONSABLE_ID, RESPONSABLE_NAME
+from ho_service import HOService, RESPONSABLE_ID, RESPONSABLE_NAME, SAP_PROJECT_ID_MAP, resolve_sap_project_id
 from supervisor_engine import SupervisorVirtual
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -32,7 +32,8 @@ HO_BASE_URL = "http://qgssrvs4pro.gruposifu.com:8000/sap/bc/ui5_ui5/sap/zso/inde
 def build_ho_project_url(proy_id):
     if not proy_id:
         return f"{HO_BASE_URL}#/Projects"
-    param = urllib.parse.quote(json.dumps({"value": str(proy_id).strip(), "type": "Edm.String"}, separators=(',', ':')))
+    resolved_id = resolve_sap_project_id(proy_id)
+    param = urllib.parse.quote(json.dumps({"value": str(resolved_id).strip(), "type": "Edm.String"}, separators=(',', ':')))
     return f"{HO_BASE_URL}#/projectDetail/{param}"
 
 STOP_WORDS = {
@@ -571,7 +572,8 @@ class SupervisorCommander:
         """Ejecuta y graba formalmente la acción operativa validada por el usuario directamente en el Cuadrante de SAP HO."""
         accion = datos.get("accion", "OPERACION").upper()
         trabajador = datos.get("trabajador") or datos.get("empleado_ausente") or "Sin especificar"
-        proyecto = datos.get("proyecto") or datos.get("id_proyecto") or "PROY017209-P1"
+        proyecto_raw = datos.get("proyecto") or datos.get("id_proyecto") or "PROY017209-P1"
+        proyecto = resolve_sap_project_id(proyecto_raw)
         servicio = datos.get("servicio", "Servicio Girona")
         fecha_ini = datos.get("fecha_inicio") or datos.get("fecha_ini") or datetime.now().strftime("%Y-%m-%d")
         fecha_fin = datos.get("fecha_fin") or datos.get("fecha_final") or "Indefinida"

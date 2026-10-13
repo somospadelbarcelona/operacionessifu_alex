@@ -171,6 +171,15 @@ class SupervisorVirtual:
 
         ho_proyectos = self.ho.get_girona_projects() if self.ho_connected else []
 
+        cuadrantes_ho = {}
+        cuad_cache_file = os.path.join(BASE_DIR, "ho_cuadrantes_cache.json")
+        if os.path.exists(cuad_cache_file):
+            try:
+                with open(cuad_cache_file, "r", encoding="utf-8") as cf:
+                    cuadrantes_ho = json.load(cf).get("projects", {})
+            except Exception as e:
+                logger.warning(f"No se pudo leer ho_cuadrantes_cache.json: {e}")
+
         self.snapshot = {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "autonomy_level": self.autonomy_level,
@@ -198,7 +207,8 @@ class SupervisorVirtual:
             "alertas_bajas": alertas_bajas,
             "alertas_vacaciones": alertas_vacaciones,
             "alertas_contratos": alertas_contratos,
-            "acciones_cola": acciones_cola
+            "acciones_cola": acciones_cola,
+            "cuadrantes_ho": cuadrantes_ho
         }
 
         self.save_supervisor_data()

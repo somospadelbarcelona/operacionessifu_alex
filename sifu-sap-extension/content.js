@@ -178,11 +178,30 @@
         }, 4000);
     }
 
+    const SAP_PROJECT_ID_MAP = {
+        'SVO09390-P1-C017': 'SVO10033-P1-C017',
+        'SVO09390-P2-C018': 'SVO10033-P2-C018',
+        'SVO14670-P1-C018': 'PROY017304-P1',
+        'PROY018708-P1': 'PROY018780-P1',
+        'PROY018171L': 'PGOC018171L',
+        'PROY01817J': 'PGOC018171J'
+    };
+
     function comprobarRuta() {
-        const hash = window.location.hash || '';
-        if (hash.includes('projectDetail') && hash !== ultimaRutaProcesada) {
-            ultimaRutaProcesada = hash;
-            ejecutarNavegacionCuadrantes();
+        let hash = window.location.hash || '';
+        if (hash.includes('projectDetail')) {
+            for (const [oldId, newId] of Object.entries(SAP_PROJECT_ID_MAP)) {
+                if (hash.includes(oldId)) {
+                    const correctedHash = hash.split(oldId).join(newId);
+                    console.log(`[SIFU SAP HO] Corrigiendo código antiguo ${oldId} -> ${newId}`);
+                    window.location.hash = correctedHash;
+                    return;
+                }
+            }
+            if (hash !== ultimaRutaProcesada) {
+                ultimaRutaProcesada = hash;
+                ejecutarNavegacionCuadrantes();
+            }
         }
     }
 

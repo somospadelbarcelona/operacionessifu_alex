@@ -20,19 +20,8 @@ const InternalChat = {
     },
 
     setupCurrentUser() {
-        // Intentar obtener usuario guardado
-        let user = localStorage.getItem('sifu_chat_user');
-
-        if (!user) {
-            // Solicitar nombre de usuario
-            user = prompt('Introduce tu nombre para el chat:', 'Usuario');
-            if (user) {
-                localStorage.setItem('sifu_chat_user', user);
-            } else {
-                user = 'Usuario' + Math.floor(Math.random() * 1000);
-            }
-        }
-
+        // Obtener usuario guardado o valor por defecto sin prompt invasivo
+        let user = localStorage.getItem('sifu_chat_user') || 'Usuario';
         this.currentUser = user;
         this.users.add(user);
         this.saveUsers();
@@ -95,70 +84,8 @@ const InternalChat = {
     },
 
     createChatUI() {
-        // Crear botón flotante de chat
-        const chatButton = document.createElement('button');
-        chatButton.id = 'chat-float-button';
-        chatButton.className = 'chat-float-button';
-        chatButton.innerHTML = `
-            💬
-            <span id="chat-unread-badge" class="chat-unread-badge" style="display: none;">0</span>
-        `;
-        chatButton.onclick = () => this.toggleChat();
-        document.body.appendChild(chatButton);
-
-        // Crear panel de chat
-        const chatPanel = document.createElement('div');
-        chatPanel.id = 'chat-panel';
-        chatPanel.className = 'chat-panel';
-        chatPanel.innerHTML = `
-            <div class="chat-header">
-                <div class="chat-title">
-                    <span class="chat-icon">💬</span>
-                    <span>Chat Interno</span>
-                    <span class="chat-online-count" id="chat-online-count">
-                        <span class="online-dot"></span> ${this.users.size}
-                    </span>
-                </div>
-                <button class="chat-close-btn" onclick="InternalChat.toggleChat()">×</button>
-            </div>
-            
-            <div class="chat-users-bar" id="chat-users-bar">
-                <!-- Users will be rendered here -->
-            </div>
-
-            <div class="chat-messages" id="chat-messages-container">
-                <!-- Messages will be rendered here -->
-            </div>
-
-            <div class="chat-input-container">
-                <input 
-                    type="text" 
-                    id="chat-message-input" 
-                    class="chat-input" 
-                    placeholder="Escribe un mensaje..."
-                    maxlength="500"
-                />
-                <button class="chat-send-btn" onclick="InternalChat.sendMessage()">
-                    Enviar
-                </button>
-            </div>
-        `;
-        document.body.appendChild(chatPanel);
-
-        // Setup input listener
-        const input = document.getElementById('chat-message-input');
-        if (input) {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    this.sendMessage();
-                }
-            });
-        }
-
-        this.updateBadge();
-        this.renderUsers();
-        this.renderMessages();
+        // Interfaz flotante de chat desactivada por solicitud del usuario
+        return;
     },
 
     toggleChat() {

@@ -33,10 +33,10 @@
                 });
             }
             
-            // Forzar recarga si no se ha aplicado la versión 26 del bust
+            // Forzar recarga si no se ha aplicado la versión 2.6 del bust
             setTimeout(() => {
-                if (cleared || !localStorage.getItem('cache_bust_v26')) {
-                    localStorage.setItem('cache_bust_v26', 'true');
+                if (cleared || !localStorage.getItem('cache_bust_v26_dia')) {
+                    localStorage.setItem('cache_bust_v26_dia', 'true');
                     console.log('🔄 Forzando recarga de página limpia...');
                     window.location.reload(true);
                 }
@@ -53,7 +53,8 @@
     <meta name="apple-mobile-web-app-title" content="SIFU Informer">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icon-192.png">
-    <link rel="stylesheet" href="cmh_styles.css?v=2.0">
+    <link rel="stylesheet" href="cmh_styles.css?v=3.2">
+    <link rel="stylesheet" href="fichajes_styles.css?v=2.7">
 
     <!-- MODAL ENGINE STYLES (God Mode) -->
     <style>
@@ -253,7 +254,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="master_sync_engine.js" defer></script>
 
     <!-- GLOBAL ERROR HANDLER (AUDITORIA FASE) -->
     <script>
@@ -1727,7 +1727,11 @@
     <script src="dist/main.js?v=sifu-sync-force-11" defer></script>
     <script src="vacation_module.js" defer></script>
     <!-- SIFU GIRONA CMH & AUDITORÍA SAP S/4HANA -->
-    <script src="cmh_module.js?v=2.0" defer></script>
+    <script src="cmh_module.js?v=3.2" defer></script>
+    <!-- SIFU GIRONA FICHAJES & CONTROL DE PRESENCIA EN TIEMPO REAL -->
+    <script src="fichajes_data.js?v=1.0"></script>
+    <script src="fichajes_contraste_data.js?v=2.0"></script>
+    <script src="fichajes_module.js?v=2.7" defer></script>
     <!-- SIFU GIRONA OPERACIONES PRO SUITE v9.7 (PC & MOBILE) -->
     <script src="girona_pro_app.js?v=9.7" defer></script>
 
@@ -1886,12 +1890,6 @@
             }
         })();
     </script>
-    <!-- BANNER DE RESILIENCIA OFFLINE -->
-    <div id="offline-network-banner" class="offline-banner-alert">
-        <span>📡</span>
-        <span>Conexión perdida. Operando de forma resiliente en modo local.</span>
-        <button class="offline-banner-btn" onclick="if(window.checkNetworkStatus) window.checkNetworkStatus(true)">REINTENTAR</button>
-    </div>
 </body>
 
 </html>

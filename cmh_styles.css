@@ -1,6 +1,6 @@
 /* ==========================================================================
-   CMH - CONTROL MENSUAL DE HORAS (GIRONA SIFU)
-   Estilos dedicados para la auditoría y corrección en SAP S/4HANA
+   CMH - CONTROL MENSUAL DE HORAS (GIRONA SIFU) v3.0
+   Estilos Ejecutivos para Auditoría, Verificación de Excel y Conciliación SAP S/4HANA
    ========================================================================== */
 
 :root {
@@ -27,8 +27,29 @@
 .cmh-dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   animation: cmhFadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+.cmh-dashboard-container.drag-over-active::after {
+  content: '📥 SUELTA TU ARCHIVO EXCEL (.XLSX / .XLS / .CSV) AQUÍ PARA AUDITARLO Y VERIFICARLO AL INSTANTE';
+  position: fixed;
+  inset: 16px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(6px);
+  border: 3px dashed #10b981;
+  border-radius: 20px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes cmhFadeIn {
@@ -36,85 +57,282 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Cabecera y Resumen Ejecutivo */
+/* ==========================================================================
+   CABECERA EJECUTIVA PREMIUM (.cmh-banner-header) - DISEÑO 2 FILAS
+   ========================================================================== */
 .cmh-banner-header {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border-radius: 14px;
-  padding: 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+  border-radius: 16px;
+  padding: 22px 26px;
   color: #ffffff;
   display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.cmh-banner-header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cmh-banner-top-row {
+  display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cmh-header-title {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 1 520px;
+  min-width: 280px;
 }
 
 .cmh-header-title .cmh-icon-badge {
-  font-size: 32px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px 14px;
-  border-radius: 12px;
+  font-size: 30px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(16, 185, 129, 0.2) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 12px 14px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cmh-title-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cmh-title-badges-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cmh-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  white-space: nowrap;
+}
+
+.cmh-live-badge.badge-girona {
+  background: rgba(59, 130, 246, 0.22);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.cmh-live-badge.badge-salud {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.cmh-live-badge.badge-excel-verified {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.35) 100%);
+  color: #a7f3d0;
+  border-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+}
+
+.cmh-live-badge.badge-official-base {
+  background: rgba(139, 92, 246, 0.22);
+  color: #ddd6fe;
+  border-color: rgba(139, 92, 246, 0.4);
 }
 
 .cmh-header-title h2 {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 900;
   margin: 0;
   letter-spacing: -0.02em;
   color: #ffffff;
+  line-height: 1.25;
 }
 
 .cmh-header-title p {
   font-size: 13px;
-  color: #94a3b8;
-  margin: 4px 0 0 0;
+  color: #cbd5e1;
+  margin: 0;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  line-height: 1.45;
+  max-width: 100%;
 }
 
-.cmh-header-actions {
+/* Bloque Derecha: Mini-Cards de Métricas Globales de Horas CMH */
+.cmh-banner-global-metrics {
   display: flex;
   gap: 10px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.cmh-global-metric-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 10px 15px;
+  min-width: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.cmh-global-metric-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 3px;
+}
+
+.cmh-global-metric-val {
+  font-size: 17px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.cmh-global-metric-sub {
+  font-size: 10px;
+  color: #cbd5e1;
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+/* Fila Inferior del Banner: Barra de Acciones y Subida de Excel */
+.cmh-banner-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cmh-header-actions-left,
+.cmh-header-actions-right {
+  display: flex;
+  gap: 8px;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .cmh-btn-action {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 9px 14px;
+  border-radius: 9px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .cmh-btn-action:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
+}
+
+/* Botón Principal Destacado: Subir y Verificar Excel CMH */
+.cmh-btn-action.cmh-btn-upload-excel {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 1px solid #34d399;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 12.5px;
+  padding: 9px 16px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+.cmh-btn-action.cmh-btn-upload-excel:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Botón Centro de Verificación Excel */
+.cmh-btn-action.cmh-btn-verify-center {
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #a7f3d0;
+  font-weight: 800;
+}
+
+.cmh-btn-action.cmh-btn-verify-center:hover {
+  background: rgba(16, 185, 129, 0.28);
+  color: #ffffff;
 }
 
 .cmh-btn-action.primary {
   background: #3b82f6;
-  border-color: #2563eb;
+  border-color: #60a5fa;
 }
 
 .cmh-btn-action.primary:hover {
   background: #2563eb;
+}
+
+.cmh-btn-action.cmh-btn-conciliar-todo {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border-color: #818cf8;
+  font-weight: 800;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35);
+}
+
+.cmh-btn-action.cmh-btn-conciliar-todo:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+}
+
+.cmh-btn-action.cmh-btn-restore-base {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(251, 191, 36, 0.45);
+  color: #fde68a;
+}
+
+.cmh-btn-action.cmh-btn-restore-base:hover {
+  background: rgba(245, 158, 11, 0.3);
+  color: #ffffff;
 }
 
 .cmh-btn-action.cmh-btn-syc-ho {
@@ -143,18 +361,80 @@
 }
 
 @keyframes cmhSpinSync {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* KPIs de Auditoría CMH */
+/* ==========================================================================
+   ZONA RÁPIDA DE DRAG & DROP / ESTADO DE VERIFICACIÓN EXCEL EN DASHBOARD
+   ========================================================================== */
+.cmh-excel-dropbar {
+  background: linear-gradient(90deg, #f0fdf4 0%, #eff6ff 50%, #f8fafc 100%);
+  border: 1.5px dashed #10b981;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.cmh-excel-dropbar:hover,
+.cmh-excel-dropbar.dragover {
+  background: #ecfdf5;
+  border-color: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+}
+
+.cmh-excel-dropbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.cmh-excel-dropbar-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #dcfce7;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.cmh-excel-dropbar-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.cmh-excel-dropbar-sub {
+  font-size: 11.5px;
+  color: #475569;
+  margin-top: 2px;
+}
+
+.cmh-excel-dropbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   KPIs DE AUDITORÍA CMH
+   ========================================================================== */
 .cmh-kpis-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 14px;
 }
 
@@ -495,7 +775,7 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  max-width: 380px;
+  max-width: 420px;
 }
 
 .cmh-diag-text {
@@ -562,12 +842,14 @@
   background: #059669;
 }
 
-/* Modal de Regularización SAP */
+/* ==========================================================================
+   MODAL DE REGULARIZACIÓN SAP Y CENTRO DE VERIFICACIÓN EXCEL
+   ========================================================================== */
 .cmh-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -586,20 +868,26 @@
 .cmh-modal-panel {
   background: #ffffff;
   width: 100%;
-  max-width: 650px;
+  max-width: 680px;
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   border: 1px solid #e2e8f0;
+  transition: max-width 0.25s ease;
+}
+
+.cmh-modal-panel.modal-xl {
+  max-width: 1080px;
 }
 
 .cmh-modal-header {
-  background: #0f172a;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   color: #ffffff;
   padding: 16px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .cmh-modal-header h3 {
@@ -612,20 +900,29 @@
 }
 
 .cmh-modal-close {
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  font-size: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  color: #cbd5e1;
+  font-size: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
 }
 
 .cmh-modal-close:hover {
+  background: rgba(239, 68, 68, 0.8);
   color: #ffffff;
+  border-color: #ef4444;
 }
 
 .cmh-modal-body {
   padding: 22px;
-  max-height: 75vh;
+  max-height: 78vh;
   overflow-y: auto;
 }
 
@@ -634,8 +931,107 @@
   background: #f8fafc;
   border-top: 1px solid #e2e8f0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
+}
+
+/* Estilos internos del Centro de Verificación de Excel */
+.cmh-verify-upload-zone {
+  border: 2px dashed #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  transition: all 0.2s ease;
+}
+
+.cmh-verify-upload-zone:hover {
+  border-color: #059669;
+  background: #ecfdf5;
+}
+
+.cmh-sheet-select {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+.cmh-verify-kpis-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.cmh-verify-kpi-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.cmh-verify-kpi-box .vkpi-val {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.1;
+}
+
+.cmh-verify-kpi-box .vkpi-lbl {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.cmh-findings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.cmh-finding-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #1e293b;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cmh-finding-item.finding-danger {
+  border-left-color: #ef4444;
+  background: #fffaf9;
+}
+
+.cmh-finding-item.finding-warning {
+  border-left-color: #f59e0b;
+  background: #fffef5;
+}
+
+.cmh-finding-item.finding-success {
+  border-left-color: #10b981;
+  background: #f0fdf4;
 }
 
 /* Panel de IDs Huérfanos */
@@ -644,25 +1040,25 @@
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 18px;
-  margin-top: 20px;
+  margin-top: 4px;
 }
 
 .cmh-huerfanos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
   margin-top: 12px;
 }
 
 .cmh-huerfano-chip {
   background: #ffffff;
   border: 1px solid #cbd5e1;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: 8px;
   font-size: 12px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .cmh-huerfano-chip b {
@@ -720,6 +1116,7 @@
   display: flex;
   gap: 24px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .cmh-bolsa-stat {
@@ -886,7 +1283,20 @@
   border: 1px solid #86efac;
 }
 
-.cmh-badge-estado-ho.mal {
+.cmh-badge-estado-ho.albergue {
+  background: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+
+.cmh-badge-estado-ho.bajait {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.cmh-badge-estado-ho.mal,
+.cmh-badge-estado-ho.deficit {
   background: #fee2e2;
   color: #b91c1c;
   border: 1px solid #fca5a5;
@@ -924,5 +1334,25 @@
   transform: translateY(-1px);
 }
 
-
-
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .cmh-banner-header {
+    padding: 16px;
+  }
+  .cmh-banner-global-metrics {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cmh-global-metric-card {
+    flex: 1 1 110px;
+  }
+  .cmh-banner-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cmh-header-actions-left,
+  .cmh-header-actions-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

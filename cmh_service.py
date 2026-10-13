@@ -692,5 +692,305 @@ def auditar_cmh():
     return resultado
 
 
+def _to_float_or_none(val):
+    """Convierte un valor a float o devuelve None si es vacío/NaN."""
+    if val is None or val == "" or str(val).strip().upper() in ("NAN", "NONE", "NULL", "-"):
+        return None
+    try:
+        if isinstance(val, str):
+            val = val.replace(",", ".").strip()
+        num = float(val)
+        if num != num:  # NaN check
+            return None
+        return round(num, 2)
+    except (ValueError, TypeError):
+        return None
+
+
+def _inferir_tipo_servicio(texto_centro="", texto_tipo=""):
+    """Infiere la tipología oficial (ALBERGUES, AUXILIARES, LIMPIEZA) a partir de centro/servicio."""
+    t_up = str(texto_tipo or "").strip().upper()
+    if t_up in ("ALBERGUES", "AUXILIARES", "LIMPIEZA"):
+        return t_up
+    c_low = f"{texto_tipo or ''} {texto_centro or ''}".lower()
+    if any(k in c_low for k in ("alberg", "xanascat", "gestboes")):
+        return "ALBERGUES"
+    if any(k in c_low for k in ("auxiliar", "conserj", "museo", "castillo", "control")):
+        if "limpieza" not in c_low:
+            return "AUXILIARES"
+    return "LIMPIEZA"
+
+
+def verificar_registros_excel_cmh(registros_entrantes, nombre_archivo="Excel Subido", huerfanos_entrantes=None):
+    """
+    Verifica, normaliza, cruza con el maestro CMH y diagnostica una lista de registros
+    procedentes de un archivo Excel subido en el módulo CMH Girona (o una ruta local).
+    """
+    logger.info(f"Verificando registros de Excel CMH: {nombre_archivo}...")
+
+    # Si se pasa una ruta de archivo Excel local en lugar de una lista
+    if isinstance(registros_entrantes, str) and os.path.exists(registros_entrantes):
+        nombre_archivo = os.path.basename(registros_entrantes)
+        try:
+            import openpyxl
+            wb = openpyxl.load_workbook(registros_entrantes, data_only=True)
+            ws = wb.active
+            rows = list(ws.iter_rows(values_only=True))
+            registros_leidos = []
+            if rows:
+                headers = [str(h or "").strip().lower() for h in rows[0]]
+                for row in rows[1:]:
+                    if not any(row):
+                        continue
+                    row_dict = {}
+                    for idx, val in enumerate(row):
+                        col_name = headers[idx] if idx < len(headers) else f"col_{idx}"
+                        row_dict[col_name] = val
+                    registros_leidos.append({
+                        "id": str(row_dict.get("id") or row_dict.get("id empleado") or row_dict.get("codigo") or row_dict.get("col_0") or "").strip(),
+                        "empleado": str(row_dict.get("empleado") or row_dict.get("nombre") or row_dict.get("trabajador") or row_dict.get("col_1") or "").strip(),
+                        "consumidas": row_dict.get("consumidas", row_dict.get("horas ho", row_dict.get("imputadas", row_dict.get("col_2")))),
+                        "contrato": row_dict.get("contrato", row_dict.get("horas contrato", row_dict.get("col_3"))),
+                        "dif": row_dict.get("dif", row_dict.get("diferencia", row_dict.get("desvio", row_dict.get("col_4")))),
+                        "extComp": row_dict.get("extcomp", row_dict.get("complementarias", row_dict.get("col_5"))),
+                        "sociedad": row_dict.get("sociedad", row_dict.get("empresa", "")),
+                        "tipo_servicio": row_dict.get("tipo_servicio", row_dict.get("tipologia", row_dict.get("servicio", ""))),
+                        "centro_servicio": row_dict.get("centro_servicio", row_dict.get("centro", ""))
+                    })
+            registros_entrantes = registros_leidos
+        except Exception as e:
+            logger.error(f"Error leyendo Excel local {registros_entrantes}: {e}")
+            registros_entrantes = []
+
+    if not isinstance(registros_entrantes, list) or len(registros_entrantes) == 0:
+        registros_entrantes = list(CMH_RECORDS)
+
+    # Índices de búsqueda rápida en CMH_RECORDS para enriquecimiento
+    idx_por_id = {str(r["id"]).strip().lstrip("0"): r for r in CMH_RECORDS if r.get("id")}
+    idx_por_nombre = {str(r["empleado"]).strip().upper(): r for r in CMH_RECORDS if r.get("empleado")}
+
+    registros_auditados = []
+    discrepancias_matematicas = []
+    horas_totales_contrato = 0.0
+    horas_totales_ho = 0.0
+
+    for raw in registros_entrantes:
+        if not isinstance(raw, dict):
+            continue
+        emp_id = str(raw.get("id") or raw.get("id_empleado") or "").strip()
+        emp_nombre = str(raw.get("empleado") or raw.get("nombre") or "").strip()
+        if not emp_id and not emp_nombre:
+            continue
+
+        # Buscar coincidencia en maestro CMH_RECORDS
+        base_match = idx_por_id.get(emp_id.lstrip("0")) or idx_por_nombre.get(emp_nombre.upper())
+
+        consumidas = _to_float_or_none(raw.get("consumidas"))
+        contrato = _to_float_or_none(raw.get("contrato"))
+        if contrato is None and base_match:
+            contrato = _to_float_or_none(base_match.get("contrato"))
+        if contrato is None:
+            contrato = 0.0
+
+        dif_original = _to_float_or_none(raw.get("dif"))
+        ext_comp = _to_float_or_none(raw.get("extComp"))
+
+        # Sanidad semántica: Las horas trabajadas/asignadas NUNCA pueden ser negativas
+        if consumidas is not None and consumidas < 0:
+            if dif_original is None:
+                dif_original = consumidas
+            if base_match and base_match.get("consumidas") is not None:
+                consumidas = _to_float_or_none(base_match.get("consumidas"))
+            else:
+                consumidas = max(0.0, round(contrato + consumidas, 2))
+
+        # Verificar y recalcular diferencia matemática
+        discrepancia_dif = False
+        if consumidas is not None and contrato is not None:
+            dif_calculada = round(consumidas - contrato, 2)
+            if dif_original is not None and abs(dif_original - dif_calculada) > 0.05:
+                discrepancia_dif = True
+                discrepancias_matematicas.append({
+                    "id": emp_id,
+                    "empleado": emp_nombre,
+                    "dif_excel": dif_original,
+                    "dif_real": dif_calculada
+                })
+            dif = dif_calculada
+        elif dif_original is not None:
+            dif = dif_original
+            if consumidas is None and contrato is not None:
+                consumidas = max(0.0, round(contrato + dif, 2))
+        else:
+            dif = None
+
+        sociedad = str(raw.get("sociedad") or (base_match.get("sociedad") if base_match else "") or "SIFU, S.L.").strip()
+        centro_raw = str(raw.get("centro_servicio") or raw.get("centroServicio") or (base_match.get("centro_servicio") if base_match else "") or "").strip()
+        tipo_raw = str(raw.get("tipo_servicio") or raw.get("tipoServicio") or (base_match.get("tipo_servicio") if base_match else "") or "").strip()
+
+        tipo_servicio = _inferir_tipo_servicio(centro_raw, tipo_raw)
+        if not centro_raw:
+            if tipo_servicio == "ALBERGUES":
+                centro_raw = "Albergues Girona (Xanascat / GestBoes)"
+            elif tipo_servicio == "AUXILIARES":
+                centro_raw = "Servicios Auxiliares Girona"
+            else:
+                centro_raw = "Limpieza Girona"
+
+        reg_normalizado = {
+            "id": emp_id or (base_match["id"] if base_match else "S/I"),
+            "empleado": emp_nombre or (base_match["empleado"] if base_match else "SIN NOMBRE"),
+            "consumidas": consumidas,
+            "contrato": contrato,
+            "dif": dif,
+            "extComp": ext_comp,
+            "sociedad": sociedad,
+            "tipo_servicio": tipo_servicio,
+            "tipoServicio": tipo_servicio,
+            "centro_servicio": centro_raw,
+            "discrepancia_dif_excel": discrepancia_dif
+        }
+
+        diag = diagnosticar_registro_individual(reg_normalizado)
+        reg_normalizado.update({
+            "estado_ho": diag["estado_ho"],
+            "horas_asignadas_ho": diag["horas_asignadas_ho"],
+            "lo_que_falta": diag["lo_que_falta"],
+            "faltan": diag["faltan"],
+            "sobran": diag["sobran"],
+            "categoria_diagnostico": diag["categoria"],
+            "severidad": diag["severidad"],
+            "diagnostico": diag["diagnostico"],
+            "accion_sap": diag["accion_sap"]
+        })
+
+        horas_totales_contrato += float(contrato or 0.0)
+        horas_totales_ho += float(consumidas or 0.0)
+        registros_auditados.append(reg_normalizado)
+
+    huerfanos_lista = huerfanos_entrantes if isinstance(huerfanos_entrantes, list) and len(huerfanos_entrantes) > 0 else list(HUERFANOS)
+
+    total_reg = len(registros_auditados)
+    bien_list = [r for r in registros_auditados if r["estado_ho"] == "BIEN"]
+    mal_list = [r for r in registros_auditados if r["estado_ho"] == "MAL"]
+    rojos = [r for r in registros_auditados if r.get("dif") is not None and r["dif"] < -0.05]
+    amarillos = [r for r in registros_auditados if r.get("dif") is not None and r["dif"] > 0.05]
+    duplicidades_270h = [r for r in registros_auditados if r.get("consumidas") == 270.0]
+    festivos_786 = [r for r in registros_auditados if r.get("dif") is not None and abs(r["dif"] - (-7.86)) < 0.05]
+    sin_cuadrante_nan = [r for r in registros_auditados if r.get("consumidas") is None]
+    deficit_severo = [r for r in registros_auditados if r.get("dif") is not None and r["dif"] <= -40.0]
+    cuadrados = [r for r in registros_auditados if r.get("dif") is not None and abs(r["dif"]) <= 0.05]
+
+    salud_ho_pct = round((len(bien_list) / total_reg) * 100.0, 1) if total_reg > 0 else 0.0
+    horas_totales_contrato = round(horas_totales_contrato, 2)
+    horas_totales_ho = round(horas_totales_ho, 2)
+    balance_global_horas = round(horas_totales_ho - horas_totales_contrato, 2)
+
+    anomalias_criticas = []
+    if duplicidades_270h:
+        anomalias_criticas.append({
+            "tipo": "EXCESO_DUPLICIDAD_270H",
+            "severidad": "ALTA",
+            "titulo": f"{len(duplicidades_270h)} operarios con 270.00h imputadas (Duplicidad de cuadrante)",
+            "detalle": "Exceso crítico por solapamiento o duplicación de cuadrantes en Albergues.",
+            "afectados": [r["empleado"] for r in duplicidades_270h]
+        })
+    if sin_cuadrante_nan:
+        anomalias_criticas.append({
+            "tipo": "SIN_CUADRANTE_NAN",
+            "severidad": "CRITICA",
+            "titulo": f"{len(sin_cuadrante_nan)} operarios con contrato activo pero 0h / NaN en SAP HO",
+            "detalle": "Riesgo de bloqueo en cierre de nómina y facturación por falta de cuadrante base ZSO.",
+            "afectados": [r["empleado"] for r in sin_cuadrante_nan]
+        })
+    if deficit_severo:
+        anomalias_criticas.append({
+            "tipo": "DEFICIT_SEVERO_HO",
+            "severidad": "CRITICA",
+            "titulo": f"{len(deficit_severo)} operarios con déficit severo (≥ 40h pendientes en HO)",
+            "detalle": "Faltan turnos, partes de trabajo o ausencias justificadas por volcar en SAP HO.",
+            "afectados": [r["empleado"] for r in deficit_severo]
+        })
+    if festivos_786:
+        anomalias_criticas.append({
+            "tipo": "FESTIVO_CONVENIO",
+            "severidad": "MEDIA",
+            "titulo": f"{len(festivos_786)} operarios con descuadre exacto de -7.86h (Festivo Convenio Girona)",
+            "detalle": "Falta imputar 1 jornada estándar de festivo de convenio de Limpieza Girona.",
+            "afectados": [r["empleado"] for r in festivos_786]
+        })
+    if discrepancias_matematicas:
+        anomalias_criticas.append({
+            "tipo": "DISCREPANCIA_FORMULA_EXCEL",
+            "severidad": "MEDIA",
+            "titulo": f"{len(discrepancias_matematicas)} filas con error de fórmula en columna Diferencia del Excel",
+            "detalle": "Se ha recalculado automáticamente (Consumidas - Contrato) para garantizar precisión.",
+            "afectados": [d["empleado"] for d in discrepancias_matematicas]
+        })
+
+    albergues_records = [r for r in registros_auditados if r.get("tipo_servicio") == "ALBERGUES"]
+    auxiliares_records = [r for r in registros_auditados if r.get("tipo_servicio") == "AUXILIARES"]
+    limpieza_records = [r for r in registros_auditados if r.get("tipo_servicio") == "LIMPIEZA"]
+
+    def stats_tipologia(recs):
+        return {
+            "total_trabajadores": len(recs),
+            "rojos_deficit": len([r for r in recs if r.get("dif") is not None and r.get("dif") < -0.05]),
+            "amarillos_exceso": len([r for r in recs if r.get("dif") is not None and r.get("dif") > 0.05]),
+            "amarillos_270h": len([r for r in recs if r.get("consumidas") == 270.0]),
+            "cuadrados": len([r for r in recs if r.get("dif") is not None and abs(r.get("dif")) <= 0.05]),
+            "sin_imputar_nans": len([r for r in recs if r.get("consumidas") is None]),
+            "empleados": [r["empleado"] for r in recs]
+        }
+
+    informe = {
+        "status": "ok",
+        "fecha_verificacion": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "fecha_auditoria": datetime.now().isoformat(),
+        "nombre_archivo": nombre_archivo,
+        "delegacion": "GIRONA",
+        "total_registros": total_reg,
+        "salud_ho_pct": salud_ho_pct,
+        "horas_totales_contrato": horas_totales_contrato,
+        "horas_totales_ho": horas_totales_ho,
+        "balance_global_horas": balance_global_horas,
+        "resumen_estados": {
+            "bien": len(bien_list),
+            "mal": len(mal_list),
+            "rojos_deficit": len(rojos),
+            "amarillos_exceso": len(amarillos),
+            "duplicidades_270h": len(duplicidades_270h),
+            "festivos_786": len(festivos_786),
+            "sin_cuadrante_nan": len(sin_cuadrante_nan),
+            "huerfanos": len(huerfanos_lista)
+        },
+        "resumen_global": {
+            "rojos_deficit_count": len(rojos),
+            "amarillos_exceso_count": len(amarillos),
+            "amarillos_criticos_270h_count": len(duplicidades_270h),
+            "nans_sin_imputar_count": len(sin_cuadrante_nan),
+            "cuadrados_count": len(cuadrados),
+            "huerfanos_count": len(huerfanos_lista)
+        },
+        "desglose_por_tipo_servicio": {
+            "ALBERGUES": stats_tipologia(albergues_records),
+            "AUXILIARES": stats_tipologia(auxiliares_records),
+            "LIMPIEZA": stats_tipologia(limpieza_records)
+        },
+        "anomalias_criticas": anomalias_criticas,
+        "huerfanos_a_auditar": huerfanos_lista,
+        "registros_auditados": registros_auditados
+    }
+
+    try:
+        with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+            json.dump(informe, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        logger.warning(f"No se pudo escribir {OUTPUT_JSON}: {e}")
+
+    return informe
+
+
 if __name__ == "__main__":
     auditar_cmh()
+

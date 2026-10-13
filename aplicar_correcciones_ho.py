@@ -117,8 +117,14 @@ def aplicar_correcciones():
 
     # Corrección de códigos de proyecto con erratas en Excel
     CORRECCION_PROYECTOS = {
-        "PROY0187080-P1": "PROY018708-P1",
+        "PROY0187080-P1": "PROY018780-P1",
+        "PROY018708-P1": "PROY018780-P1",
         "PROY08324-P2-C001": "PROY008324-P1",
+        "SVO09390-P1-C017": "SVO10033-P1-C017",
+        "SVO09390-P2-C018": "SVO10033-P2-C018",
+        "SVO14670-P1-C018": "PROY017304-P1",
+        "PROY018171L": "PGOC018171L",
+        "PROY01817J": "PGOC018171J",
     }
 
     for r in range(2, ws.max_row + 1):

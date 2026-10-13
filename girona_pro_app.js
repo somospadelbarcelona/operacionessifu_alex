@@ -74,6 +74,22 @@
     return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9\s]/g, ' ').toUpperCase().replace(/\s+/g, ' ').trim();
   }
 
+  const SAP_PROJECT_ID_MAP = {
+    'SVO09390-P1-C017': 'SVO10033-P1-C017',
+    'SVO09390-P2-C018': 'SVO10033-P2-C018',
+    'SVO14670-P1-C018': 'PROY017304-P1',
+    'PROY018708-P1': 'PROY018780-P1',
+    'PROY018171L': 'PGOC018171L',
+    'PROY01817J': 'PGOC018171J'
+  };
+
+  function resolveSAPProjectId(proyId) {
+    if (!proyId) return '';
+    const clean = String(proyId).trim().toUpperCase();
+    return SAP_PROJECT_ID_MAP[clean] || String(proyId).trim();
+  }
+  window.resolveSAPProjectId = window.resolveSAPProjectId || resolveSAPProjectId;
+
   // Normalización y preparación del dataset con enriquecimiento HO en tiempo real
   function getNormalizedData() {
     const raw = window.INITIAL_MASTER_DATA || [];
@@ -89,7 +105,7 @@
       const suplenteRaw = (item['SUPL'] || '').trim();
       const horarioRaw = (item['HORARIO'] || '').trim();
       const direccionRaw = (item['S DIRECCION'] || '').trim();
-      const proyectoRaw = (item['PROYECTO'] || '').trim();
+      const proyectoRaw = resolveSAPProjectId(item['PROYECTO'] || '');
       const finContratoRaw = (item['FIN CONTRATO'] || '').trim();
       const vacacionesRaw = (item['VACACIONES 2026'] || item['VAC 26'] || '').trim();
       const numVacRaw = (item['NUM VAC'] || '').trim();
@@ -549,6 +565,10 @@
             <span>📊 CMH</span>
             <span class="pro-tab-count alert" style="background:#dc2626; color:#ffffff;">55</span>
           </button>
+          <button class="pro-tab-item ${AppState.activeTab === 'fichajes' ? 'active' : ''}" id="pro-btn-fichajes-tab" data-tab="fichajes" title="Control de Presencia y Fichajes a Tiempo Real Girona (gcalidad)">
+            <span>⏱️ FICHAJES</span>
+            <span class="pro-tab-count" style="background:#10b981; color:#ffffff;">507</span>
+          </button>
           <button class="pro-tab-item pro-tab-sync-ho" id="pro-btn-syc-ho" title="Sincronizar y actualizar a tiempo real todos los servicios de ALEJANDRO COSCOLIN PEREGRIN">
             <span class="sync-ho-icon">⚡</span>
             <span>SYC HO</span>
@@ -558,7 +578,7 @@
       </nav>
 
       <!-- BARRA DE CONTROLES Y FILTROS -->
-      <section class="pro-controls-bar" style="${AppState.activeTab === 'cmh' || AppState.activeTab === 'ho_sync' ? 'display:none;' : ''}">
+      <section class="pro-controls-bar" style="${AppState.activeTab === 'cmh' || AppState.activeTab === 'ho_sync' || AppState.activeTab === 'fichajes' ? 'display:none;' : ''}">
         <div class="pro-filter-group" style="flex:1;">
           <!-- Buscador Predictivo Visible y Destacado -->
           <div class="pro-filter-search-box">
@@ -722,6 +742,10 @@
 
   // Renderizado del Contenido Central según la vista
   function renderContentBody(data) {
+    if (AppState.activeTab === 'fichajes') {
+      return window.renderFichajesDashboardView ? window.renderFichajesDashboardView() : '<div style="padding:40px; text-align:center;">Cargando Módulo de Fichajes...</div>';
+    }
+
     if (AppState.activeTab === 'cmh') {
       return window.renderCMHDashboardView ? window.renderCMHDashboardView() : '<div style="padding:40px; text-align:center;">Cargando Módulo CMH...</div>';
     }
@@ -1618,7 +1642,7 @@
 
     abrirEnHO(proyId) {
       if (!proyId) proyId = 'SVO04295-P1-C018';
-      const cleanId = String(proyId).trim();
+      const cleanId = resolveSAPProjectId(proyId);
       const encodedParam = encodeURIComponent(JSON.stringify({ value: cleanId, type: "Edm.String" }));
       const directUrl = `http://qgssrvs4pro.gruposifu.com:8000/sap/bc/ui5_ui5/sap/zso/index.html?sap-client=100&sap-language=ES&tab=CUADR#/projectDetail/${encodedParam}`;
 
@@ -1720,7 +1744,7 @@
           console.warn('Bridge offline o no disponible:', fetchErr.message);
         }
 
-        // Recargar dinámicamente master_data.js
+        // Recargar dinámicamente master_data.js y supervisor_data.js
         await new Promise((resolve) => {
           const oldScript = document.getElementById('dynamic-master-data-script');
           if (oldScript) oldScript.remove();
@@ -1733,8 +1757,20 @@
           setTimeout(() => resolve(false), 2500);
         });
 
+        await new Promise((resolve) => {
+          const oldSupScript = document.getElementById('dynamic-supervisor-data-script');
+          if (oldSupScript) oldSupScript.remove();
+          const supScript = document.createElement('script');
+          supScript.id = 'dynamic-supervisor-data-script';
+          supScript.src = `supervisor_data.js?t=${Date.now()}`;
+          supScript.onload = () => resolve(true);
+          supScript.onerror = () => resolve(false);
+          document.body.appendChild(supScript);
+          setTimeout(() => resolve(false), 2500);
+        });
+
         AppState.lastSyncTime = new Date().toLocaleTimeString();
-        addLog(`[${AppState.lastSyncTime}] ⚡ SYC HO: Servicios de ALEJANDRO COSCOLIN PEREGRIN actualizados.`);
+        addLog(`[${AppState.lastSyncTime}] ⚡ SYC HO: Servicios y cuadrantes SAP HO de ALEJANDRO COSCOLIN PEREGRIN actualizados (100% cubiertos).`);
         renderAppShell();
 
         // Si el módulo CMH está cargado, refrescar su interfaz

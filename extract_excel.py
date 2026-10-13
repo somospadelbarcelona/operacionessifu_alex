@@ -26,6 +26,17 @@ EXCEL_PATH = os.path.join(BASE_DIR, "MASTER GENERAL GIRONA OKK.xlsx")
 OUTPUT_JS = os.path.join(BASE_DIR, "master_data.js")
 OUTPUT_JSON = os.path.join(BASE_DIR, "girona_data.json")
 
+SAP_PROJECT_ID_MAP = {
+    "SVO09390-P1-C017": "SVO10033-P1-C017",
+    "SVO09390-P2-C018": "SVO10033-P2-C018",
+    "SVO14670-P1-C018": "PROY017304-P1",
+    "PROY018708-P1": "PROY018780-P1",
+    "PROY0187080-P1": "PROY018780-P1",
+    "PROY018171L": "PGOC018171L",
+    "PROY01817J": "PGOC018171J",
+    "SVO06910-P2-C001": "SVO06910-P1-C018",
+}
+
 def read_bytes_shared(filepath, max_retries=10, delay=0.3):
     """
     Lee los bytes del archivo en Windows incluso si está abierto en Excel,
@@ -145,6 +156,9 @@ def extract(excel_file=EXCEL_PATH):
                         val_str = str(val).strip()
                     row_dict[h_name] = val_str
 
+                if 'PROYECTO' in row_dict and row_dict['PROYECTO'] in SAP_PROJECT_ID_MAP:
+                    row_dict['PROYECTO'] = SAP_PROJECT_ID_MAP[row_dict['PROYECTO']]
+
                 rows.append(row_dict)
 
         # 2. Extraer Hoja DESCUBIERTOS (si existe)
@@ -164,6 +178,8 @@ def extract(excel_file=EXCEL_PATH):
                     for col_idx in range(len(desc_headers)):
                         val = row[col_idx] if col_idx < len(row) else ''
                         row_dict[desc_headers[col_idx]] = str(val or '').strip()
+                    if 'PROYECTO' in row_dict and row_dict['PROYECTO'] in SAP_PROJECT_ID_MAP:
+                        row_dict['PROYECTO'] = SAP_PROJECT_ID_MAP[row_dict['PROYECTO']]
                     descubiertos_rows.append(row_dict)
 
         wb.close()
