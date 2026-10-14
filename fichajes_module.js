@@ -1466,9 +1466,10 @@
             <button class="fich-sector-btn ${sectorFilter === 'ALBERGUES' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('ALBERGUES')">
               🏕️ Albergues (${countAlbergues})
             </button>
+            ${countJardineria > 0 ? `
             <button class="fich-sector-btn ${sectorFilter === 'JARDINERIA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('JARDINERIA')">
               🌿 Jardinería (${countJardineria})
-            </button>
+            </button>` : ''}
             <button class="fich-sector-btn ${sectorFilter === 'LIMPIEZA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('LIMPIEZA')">
               🧹 Limpieza / Dipsalut (${countLimpieza})
             </button>

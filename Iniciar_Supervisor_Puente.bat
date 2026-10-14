@@ -1,11 +1,11 @@
 @echo off
 chcp 65001 >nul
-title PUENTE DE SINCRONIZACIÓN EN VIVO - SIFU GIRONA (PUERTO 5005)
+title PUENTE DE SINCRONIZACION EN VIVO - SIFU GIRONA (PUERTO 5005)
 color 0B
 cd /d "%~dp0"
 
 echo ========================================================
-echo   PUENTE DE SINCRONIZACIÓN EN TIEMPO REAL - SIFU GIRONA
+echo   PUENTE DE SINCRONIZACION EN TIEMPO REAL - SIFU GIRONA
 echo   Permite sincronizar Fichajes y ERP desde el Dashboard
 echo ========================================================
 echo.
@@ -26,7 +26,7 @@ if %errorlevel% neq 0 (
 
 netstat -ano | findstr :5005 >nul 2>nul
 if %errorlevel% equ 0 (
-    echo [INFO] El servidor puente ya está activo en el puerto 5005.
+    echo [INFO] El servidor puente ya esta activo en el puerto 5005.
     echo Puedes hacer clic en "Sincronizar en Vivo" en el Dashboard.
     echo.
     timeout /t 5 >nul
@@ -35,7 +35,7 @@ if %errorlevel% equ 0 (
 
 echo [OK] Iniciando Servidor Puente en http://127.0.0.1:5005...
 echo Puedes dejar esta ventana minimizada mientras trabajas.
-echo Mientras esté abierta, el botón de sincronización funcionará en directo.
+echo Mientras este abierta, el boton de sincronizacion funcionara en directo.
 echo.
 "%PYCMD%" "supervisor_bridge.py"
 

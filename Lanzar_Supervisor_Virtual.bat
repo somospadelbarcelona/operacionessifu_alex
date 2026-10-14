@@ -5,7 +5,7 @@ color 0A
 cd /d "%~dp0"
 
 echo ========================================================
-echo   🤖 SUPERVISOR VIRTUAL AUTONOMO - SIFU GIRONA
+echo    SUPERVISOR VIRTUAL AUTONOMO - SIFU GIRONA
 echo   Integracion en Tiempo Real con ERP HO (SAP) & Excel
 echo ========================================================
 echo.

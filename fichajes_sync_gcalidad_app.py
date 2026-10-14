@@ -69,11 +69,35 @@ def load_previous_data():
             log_msg(f"Aviso leyendo datos anteriores: {e}")
     return {}
 
+DNIS_JARDINERIA_EXCLUIDOS = {
+    'X1368710A', '40437050Z', '40345869M', '40437178G', '40441302B',
+    '41559902Y', '23274238D', '41551869T', '40433702R', '40443871G',
+    '77606815P', '40441589C', '42389334Z', '41538356Z', '40336214C',
+    '46798028Z', '40325492J', '40348705C', '30588235H', '40321262F'
+}
+APELLIDOS_JARDINERIA_EXCLUIDOS = [
+    'BEN MOUSSA', 'SANCHEZ PEREZ', 'OSORIO VACA', 'CIFUENTES BOSCH',
+    'SALVADOR VILANOVA', 'ESPINAS DEL FRESNO', 'FELIU LOPEZ',
+    'MARTI BARTIS', 'BELLAPART', 'ALDAMIZ', 'SIMO CASTELLS'
+]
+
 def load_census():
     if os.path.exists(CENSUS_FILE):
         try:
             with open(CENSUS_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                census = json.load(f)
+                filtered = []
+                for w in census:
+                    sec_serv = (str(w.get('sector', '')) + ' ' + str(w.get('servicio', ''))).upper()
+                    if 'JARDIN' in sec_serv:
+                        continue
+                    if w.get('dni', '').upper() in DNIS_JARDINERIA_EXCLUIDOS:
+                        continue
+                    name = (w.get('name') or w.get('nombre') or '').upper()
+                    if any(ap in name for ap in APELLIDOS_JARDINERIA_EXCLUIDOS):
+                        continue
+                    filtered.append(w)
+                return filtered
         except Exception as e:
             log_msg(f"Error leyendo {CENSUS_FILE}: {e}")
     # Fallback

@@ -167,13 +167,38 @@ def build_census():
         except Exception as e:
             print("Error cargando manual overrides:", e)
 
+    # Excluir explícitamente al personal de Jardinería (solicitud expresa de Operaciones)
+    DNIS_JARDINERIA = {
+        'X1368710A', '40437050Z', '40345869M', '40437178G', '40441302B',
+        '41559902Y', '23274238D', '41551869T', '40433702R', '40443871G',
+        '77606815P', '40441589C', '42389334Z', '41538356Z', '40336214C',
+        '46798028Z', '40325492J', '40348705C', '30588235H', '40321262F'
+    }
+    APELLIDOS_JARDINERIA = [
+        'BEN MOUSSA', 'SANCHEZ PEREZ', 'OSORIO VACA', 'CIFUENTES BOSCH',
+        'SALVADOR VILANOVA', 'ESPINAS DEL FRESNO', 'FELIU LOPEZ',
+        'MARTI BARTIS', 'BELLAPART', 'ALDAMIZ', 'SIMO CASTELLS'
+    ]
+
+    census_list = []
+    for w in census_by_dni.values():
+        sec_serv = (str(w.get('sector', '')) + ' ' + str(w.get('servicio', ''))).upper()
+        if 'JARDIN' in sec_serv:
+            continue
+        if w.get('dni', '').upper() in DNIS_JARDINERIA:
+            continue
+        w_name = w.get('name', '').upper()
+        if any(ap in w_name for ap in APELLIDOS_JARDINERIA):
+            continue
+        census_list.append(w)
+
     # Ordenar por nombre
-    census_list = sorted(list(census_by_dni.values()), key=lambda x: x.get("name", ""))
+    census_list = sorted(census_list, key=lambda x: x.get("name", ""))
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(census_list, f, ensure_ascii=False, indent=2)
 
-    print(f"Censo Maestro generado con exito: {len(census_list)} trabajadores en {OUTPUT_FILE}")
+    print(f"Censo Maestro generado con exito (excluida Jardineria): {len(census_list)} trabajadores en {OUTPUT_FILE}")
     return census_list
 
 if __name__ == "__main__":
