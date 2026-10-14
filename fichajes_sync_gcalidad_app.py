@@ -125,12 +125,12 @@ async def audit_worker(context, w, semaphore, idx, total):
             await page.click("#btnBuscar")
 
             try:
-                await page.wait_for_url(lambda u: "wfFichajeGPS" in u or "index" in u, timeout=4000)
+                await page.wait_for_selector("a[href*='wfFichajesConsultar'], #btnEntrada, #btnSalida, .btn-primary", timeout=6000)
             except Exception:
-                await page.wait_for_timeout(800)
+                await page.wait_for_timeout(1000)
 
             curr_url = page.url
-            if "wfFichajeGPS" not in curr_url and "index" in curr_url:
+            if "index" in curr_url and "wfFichajeGPS" not in curr_url:
                 w_data["diagnostico"] = "DNI no registrado o acceso denegado en la app"
                 w_data["estado_semaforo"] = "noficha"
                 print(f"[{idx+1}/{total}] {name} ({dni}) -> Acceso denegado / No registrado")
@@ -139,11 +139,11 @@ async def audit_worker(context, w, semaphore, idx, total):
             w_data["login_ok"] = True
 
             # 2. Consultar Fichajes
-            await page.goto("https://gruposifuapp.gcalidad.com/pages/Fichajes/wfFichajesConsultar.aspx", wait_until="domcontentloaded", timeout=12000)
+            await page.goto("https://gruposifuapp.gcalidad.com/pages/Fichajes/wfFichajesConsultar.aspx", wait_until="networkidle", timeout=15000)
             try:
-                await page.wait_for_selector("td.day, #form1", timeout=3500)
+                await page.wait_for_function("() => (window.Fichajes !== undefined && Array.isArray(window.Fichajes)) || document.querySelectorAll('td.day').length > 0", timeout=6000)
             except Exception:
-                await page.wait_for_timeout(800)
+                await page.wait_for_timeout(1200)
 
             # 3. Extraer Fichajes y Dias
             extracted = await page.evaluate("""() => {

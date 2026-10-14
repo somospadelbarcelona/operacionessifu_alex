@@ -1921,6 +1921,10 @@
           hour: '2-digit', minute: '2-digit', second: '2-digit'
         }).replace(',', '');
 
+        const fileSyncDate = window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.fecha_sincronizacion 
+          ? window.FICHAJES_CONTRASTE_PAYLOAD.fecha_sincronizacion 
+          : nowFormatted;
+
         if (bridgeOk) {
           localStorage.setItem('sifu_fichajes_last_sync_contraste', nowFormatted);
           if (window.FICHAJES_CONTRASTE_PAYLOAD) {
@@ -1929,15 +1933,15 @@
           this.refreshUI();
           const updatedLabel = document.getElementById('fich-last-sync-label');
           if (updatedLabel) updatedLabel.textContent = nowFormatted;
-          this.mostrarNotificacion(`⚡ Fichajes sincronizados con éxito en ${elapsedSec}s desde gruposifuapp.gcalidad.com.`);
+          this.mostrarNotificacion(`⚡ Fichajes sincronizados en tiempo real (${elapsedSec}s) desde gruposifuapp.gcalidad.com.`);
         } else if (isRemoteHost) {
-          // Estamos en GitHub Pages sin el bridge local corriendo
           this.refreshUI();
           this.mostrarModalInfoGitHubPages();
         } else {
-          // Local pero el bridge no estaba corriendo
           this.refreshUI();
-          this.mostrarNotificacion(`ℹ️ Datos recargados. Para auditar en tiempo real ejecuta "python supervisor_bridge.py".`);
+          const updatedLabel = document.getElementById('fich-last-sync-label');
+          if (updatedLabel && fileSyncDate) updatedLabel.textContent = fileSyncDate;
+          this.mostrarNotificacion(`ℹ️ Mostrando datos locales (${fileSyncDate}). Para sincronizar en directo desde el botón: abre "Iniciar_Supervisor_Puente.bat", o ejecuta "Sincronizar_Fichajes_Ahora.bat".`);
         }
       } catch (err) {
         console.error('Error en sync:', err);

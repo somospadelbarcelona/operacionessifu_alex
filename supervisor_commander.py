@@ -235,7 +235,7 @@ class SupervisorCommander:
             registrar_evento("ALERTA", msg)
             return {"status": "ok", "tipo": "TITULAR", "titulo": "Sin coincidencias", "resumen": msg, "resultados": [], "total": 0}
 
-        proy_id = servicios[0].get("PROYECTO") or "PROY017209-P1"
+        proy_id = servicios[0].get("PROYECTO") if servicios else ""
         lineas = []
         resultados_cards = []
 
@@ -277,7 +277,7 @@ class SupervisorCommander:
             servicios = self._buscar_en_servicios(entidades)
             bajas = [s for s in servicios if "BAJA" in str(s.get("ESTADO", "")).upper() or "BAJA" in str(s.get("ESTADO1", "")).upper()]
             nombre_cliente = servicios[0].get("SERVICIO") if servicios else " ".join(entidades).upper()
-            proy_id = servicios[0].get("PROYECTO") if servicios else "PROY017209-P1"
+            proy_id = servicios[0].get("PROYECTO") if servicios else ""
 
             if not bajas:
                 resumen = f"Actualmente NO hay bajas IT en {nombre_cliente}. Los servicios están CUBIERTOS al 100%."
@@ -313,7 +313,7 @@ class SupervisorCommander:
             resumen = f"Hay {len(bajas)} bajas IT activas en Girona SIFU:\n" + "\n".join([f"• {b.get('TITULAR')} ({b.get('SERVICIO')}) — Suplente: {b.get('SUPL') or 'PENDIENTE'}" for b in bajas[:6]])
             cards = [{"id": b.get("PROYECTO"), "denominacion": f"{b.get('TITULAR')} ({b.get('SERVICIO')})", "oficina": "1701", "centro": f"Suplente: {b.get('SUPL') or 'PENDIENTE'}"} for b in bajas]
             registrar_evento("EXITO", f"Listadas {len(bajas)} bajas IT activas.")
-            target_p = bajas[0].get("PROYECTO") if bajas else "PROY017209-P1"
+            target_p = bajas[0].get("PROYECTO") if bajas else ""
             return {
                 "status": "ok",
                 "tipo": "BAJAS",
@@ -331,7 +331,7 @@ class SupervisorCommander:
         if entidades:
             descubiertos = [d for d in descubiertos if any(e in str(d).lower() for e in entidades)]
 
-        proy_id = descubiertos[0].get("PROYECTO") if descubiertos else "PROY017209-P1"
+        proy_id = descubiertos[0].get("PROYECTO") if descubiertos else ""
         resumen = f"Se registran {len(descubiertos)} servicios con descubiertos o falta de titular:\n" + "\n".join([f"• {d.get('SERVICIO') or d.get('TIPO S')} ({d.get('PROYECTO')}) — Horario: {d.get('HORARIO') or 'Pendiente'}" for d in descubiertos[:5]])
         cards = [{"id": d.get("PROYECTO"), "denominacion": f"{d.get('SERVICIO') or d.get('TIPO S')} [DESCUBIERTO]", "oficina": "1701", "centro": d.get("HORARIO") or "Sin Horario"} for d in descubiertos]
         registrar_evento("ALERTA", f"{len(descubiertos)} descubiertos listados.")
@@ -350,7 +350,7 @@ class SupervisorCommander:
         """Consulta planificación de vacaciones."""
         servicios = self._buscar_en_servicios(entidades)
         con_vac = [s for s in servicios if s.get("VACACIONES 2026") or s.get("VAC 26")]
-        proy_id = con_vac[0].get("PROYECTO") if con_vac else "PROY017209-P1"
+        proy_id = con_vac[0].get("PROYECTO") if con_vac else ""
         resumen = f"Planificación de vacaciones ({len(con_vac)} asignaciones encontradas):\n" + "\n".join([f"• {v.get('TITULAR')}: {v.get('VACACIONES 2026') or v.get('VAC 26')} ({v.get('SERVICIO')})" for v in con_vac[:5]])
         cards = [{"id": v.get("PROYECTO"), "denominacion": f"{v.get('TITULAR')} — {v.get('VACACIONES 2026') or v.get('VAC 26')}", "oficina": "1701", "centro": v.get("SERVICIO")} for v in con_vac]
         registrar_evento("EXITO", f"Consultadas {len(con_vac)} vacaciones.")
@@ -368,7 +368,7 @@ class SupervisorCommander:
     def cmd_consultar_horarios(self, entidades, cmd_original):
         """Consulta turnos y horarios de servicios."""
         servicios = self._buscar_en_servicios(entidades)
-        proy_id = servicios[0].get("PROYECTO") if servicios else "PROY017209-P1"
+        proy_id = servicios[0].get("PROYECTO") if servicios else ""
         resumen = "Horarios y turnos encontrados:\n" + "\n".join([f"• {s.get('TITULAR')} ({s.get('SERVICIO')}): {s.get('HORARIO') or 'No especificado'}" for s in servicios[:5]])
         cards = [{"id": s.get("PROYECTO"), "denominacion": f"{s.get('TITULAR')} — {s.get('HORARIO') or 'Sin Horario'}", "oficina": "1701", "centro": s.get("SERVICIO")} for s in servicios]
         registrar_evento("EXITO", f"Horarios consultados para {len(servicios)} servicios.")
@@ -409,7 +409,7 @@ class SupervisorCommander:
                     "centro": p.get("CentroBeneficio") or "SAP HO"
                 })
 
-        proy_id = coincidencias[0]["id"] if coincidencias else "PROY017209-P1"
+        proy_id = coincidencias[0]["id"] if coincidencias else ""
         termino = " ".join(entidades) if entidades else cmd_original
         resumen = f"Encontradas {len(coincidencias)} coincidencias para '{termino}' entre Excel Maestro y SAP HO."
 
@@ -439,7 +439,7 @@ class SupervisorCommander:
             suplente = "SUPLENTE ASIGNADO"
 
         if not proy_id:
-            proy_id = self.supervisor.master_services[0].get("PROYECTO") if self.supervisor.master_services else "PROY017209-P1"
+            proy_id = self.supervisor.master_services[0].get("PROYECTO") if self.supervisor.master_services else ""
 
         registrar_evento("ACCION", f"Registrando cobertura en SAP HO: {proy_id} -> Suplente: {suplente}")
         resumen = f"Cobertura asignada con éxito para {proy_id} con suplente {suplente}."
@@ -480,7 +480,7 @@ class SupervisorCommander:
             "titulo": "🔄 Sincronización Completada",
             "resumen": resumen,
             "kpis": snap["kpis"],
-            "proyecto": "PROY017209-P1",
+            "proyecto": "",
             "direct_ho_url": f"{HO_BASE_URL}#/Projects",
             "resultados": [],
             "total": snap['kpis']['total_servicios']
@@ -502,7 +502,7 @@ class SupervisorCommander:
         if not titular_detectado:
             titular_detectado = srv_match.get("TITULAR", "") or ""
 
-        proy_id = srv_match.get("PROYECTO") or "PROY017209-P1"
+        proy_id = srv_match.get("PROYECTO") if srv_match else ""
         servicio_nombre = srv_match.get("SERVICIO") or srv_match.get("TIPO S") or "Servicio Girona"
 
         # Listado completo de trabajadores de Girona (Plantilla SAP HO S171 + Excel Maestro + Descubiertos)
@@ -572,7 +572,7 @@ class SupervisorCommander:
         """Ejecuta y graba formalmente la acción operativa validada por el usuario directamente en el Cuadrante de SAP HO."""
         accion = datos.get("accion", "OPERACION").upper()
         trabajador = datos.get("trabajador") or datos.get("empleado_ausente") or "Sin especificar"
-        proyecto_raw = datos.get("proyecto") or datos.get("id_proyecto") or "PROY017209-P1"
+        proyecto_raw = datos.get("proyecto") or datos.get("id_proyecto") or ""
         proyecto = resolve_sap_project_id(proyecto_raw)
         servicio = datos.get("servicio", "Servicio Girona")
         fecha_ini = datos.get("fecha_inicio") or datos.get("fecha_ini") or datetime.now().strftime("%Y-%m-%d")
