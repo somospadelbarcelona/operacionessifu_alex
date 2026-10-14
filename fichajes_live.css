@@ -1,0 +1,286 @@
+/* ==========================================================================
+   ESTILOS DE ÉLITE: FICHAJES LIVE Y TABLERO EN VIVO SIFU GIRONA v2.0
+   ========================================================================== */
+
+/* Barra LIVE Superior */
+.fich-live-bar {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  margin-bottom: 18px;
+}
+
+.fich-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fich-live-pill.live {
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+}
+
+.fich-live-pill.polling {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.fich-live-pill.local {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.fich-live-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: fichPulse 2s infinite ease-in-out;
+}
+
+@keyframes fichPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* KPIs Vivos */
+.fich-live-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.fich-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fich-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.fich-kpi-val {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.fich-kpi-card.green .fich-kpi-val { color: #16a34a; }
+.fich-kpi-card.blue .fich-kpi-val { color: #0284c7; }
+.fich-kpi-card.red .fich-kpi-val { color: #dc2626; }
+.fich-kpi-card.amber .fich-kpi-val { color: #d97706; }
+.fich-kpi-card.purple .fich-kpi-val { color: #7c3aed; }
+
+.fich-kpi-lbl {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Toast flotante en vivo */
+.fich-live-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+
+.fich-live-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Colores de días en el calendario */
+.fich-cal-cell.fich-status-completo {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  border-color: #86efac !important;
+  font-weight: 800 !important;
+}
+
+.fich-cal-cell.fich-status-encurso {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+  border-color: #fde68a !important;
+  font-weight: 800 !important;
+  position: relative;
+}
+
+.fich-cal-cell.fich-status-encurso::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d97706;
+}
+
+.fich-cal-cell.fich-status-incompleto {
+  background: #ffedd5 !important;
+  color: #c2410c !important;
+  border-color: #fed7aa !important;
+  font-weight: 800 !important;
+}
+
+.fich-cal-cell.fich-status-baja {
+  background: #f3e8ff !important;
+  color: #6b21a8 !important;
+  border-color: #d8b4fe !important;
+  font-weight: 800 !important;
+}
+
+.fich-cal-cell.fich-status-hoy-vacio {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border: 2px solid #ef4444 !important;
+  font-weight: 900 !important;
+}
+
+.fich-cal-cell.fich-status-sinfichar {
+  background: #f8fafc !important;
+  color: #94a3b8 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Tablero HOY Kanban */
+.fich-today-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.fich-board-col {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fich-board-col-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.fich-board-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.fich-board-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.07);
+}
+
+/* Matriz Heatmap */
+.fich-heatmap-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  margin-top: 14px;
+}
+
+.fich-heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+
+.fich-heatmap-table th, .fich-heatmap-table td {
+  padding: 6px 8px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fich-heatmap-table th {
+  background: #f1f5f9;
+  font-weight: 800;
+  color: #334155;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.fich-heatmap-table td.worker-name {
+  text-align: left;
+  font-weight: 700;
+  color: #0f172a;
+  position: sticky;
+  left: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.fich-heatmap-cell-ok {
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+}
+
+.fich-heatmap-cell-partial {
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 800;
+}
+
+.fich-heatmap-cell-none {
+  background: #ffffff;
+  color: #cbd5e1;
+}

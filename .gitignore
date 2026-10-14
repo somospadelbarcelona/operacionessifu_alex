@@ -1,0 +1,18 @@
+# Logs y temporales
+logs/
+*.log
+*.tmp
+*.bak*
+.fichajes_sync.lock
+__pycache__/
+
+# Node
+node_modules/
+
+# Entornos virtuales
+venv/
+.env
+
+# Playwright
+.playwright/
+test-results/

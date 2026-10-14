@@ -1030,8 +1030,8 @@
       diasProximosAsc = diasMes.slice();
     }
 
-    // Render del mini-calendario mensual dinámico
-    function renderMiniCalendarHTML(calendarDays, fichajes) {
+    // Render del mini-calendario mensual dinámico con cálculo matemático de turnos y horas reales
+    function renderMiniCalendarHTML(calendarDays, fichajes, workerObj) {
       const dayNames = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB', 'DO'];
       let html = '<div class="fich-mini-cal"><div class="fich-mini-cal-header">';
       dayNames.forEach(d => {
@@ -1046,41 +1046,74 @@
       }
 
       const mesPad = String(mesActual).padStart(2, '0');
+      const mesKey = `${anioActual}-${mesPad}`;
+
+      // Comprobar si el trabajador tiene datos v2 precalculados
+      const v2Month = (workerObj && workerObj.meses && workerObj.meses[mesKey]) ? workerObj.meses[mesKey] : null;
 
       for (let day = 1; day <= totalDiasEnMes; day++) {
         const dStr = String(day).padStart(2, '0');
         const dayInfo = (calendarDays && calendarDays[dStr]) || {};
-        
-        // Comprobar si hay fichajes este día en este mes y año
+        const v2Day = (v2Month && v2Month.dias) ? v2Month.dias[dStr] : null;
+
+        // Fichajes de este día
         const dFichs = (fichajes || []).filter(f => {
           if (!f.fecha) return false;
           const p = f.fecha.split('/');
           return p[0] === dStr && p[1] === mesPad && (!p[2] || p[2] === String(anioActual));
         });
 
-        const hasFichaje = (dFichs.length > 0) || (mesActual === 10 && anioActual === 2026 && (dayInfo.isOrange || dayInfo.status === 'FICHO'));
         const isHoy = isCurrentMonthYear && (day === todayDay);
+        const dayDate = new Date(anioActual, mesActual - 1, day);
+        const isFuturo = dayDate > now;
 
-        let cellClass = 'fich-cal-cell cyan';
-        let tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Sin fichaje en la app`;
+        let cellClass = 'fich-cal-cell fich-status-sinfichar';
+        let tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Sin fichaje registrado`;
+        let horasBadge = '';
 
-        if (hasFichaje) {
-          cellClass = 'fich-cal-cell orange';
-          if (dFichs.length > 0) {
-            tooltip = `Día ${dStr}/${mesPad} (Fichado): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+        if (v2Day && v2Day.marcajes && v2Day.marcajes.length > 0) {
+          const st = v2Day.estado;
+          const hrs = v2Day.horas_trabajadas || 0;
+          if (st === 'COMPLETO') {
+            cellClass = 'fich-cal-cell fich-status-completo';
+            tooltip = `Día ${dStr}/${mesPad} (${hrs}h trabajadas): ` + v2Day.marcajes.map(m => `${m.tipo} ${m.hora}`).join(' · ');
+          } else if (st === 'EN_CURSO') {
+            cellClass = 'fich-cal-cell fich-status-encurso';
+            tooltip = `Día ${dStr}/${mesPad} (EN TURNO AHORA): Entrada ` + v2Day.marcajes.map(m => m.hora).join(' · ');
           } else {
-            tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Marcaje registrado`;
+            cellClass = 'fich-cal-cell fich-status-incompleto';
+            tooltip = `Día ${dStr}/${mesPad} (Marcaje Parcial / Sin Salida): ` + v2Day.marcajes.map(m => `${m.tipo} ${m.hora}`).join(' · ');
           }
-        } else if (isHoy || dayInfo.isRed || dayInfo.status === 'HOY_INCIDENCIA') {
-          cellClass = 'fich-cal-cell red';
-          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Hoy / Marcaje en curso`;
+        } else if (dFichs.length > 0) {
+          // Fallback inteligente para Schema v1
+          const ent = dFichs.find(f => f.isEntrada || (f.tipo || '').toLowerCase().includes('entrada'));
+          const sal = dFichs.find(f => !f.isEntrada || (f.tipo || '').toLowerCase().includes('salida'));
+          if (ent && sal) {
+            cellClass = 'fich-cal-cell fich-status-completo';
+            tooltip = `Día ${dStr}/${mesPad} (Jornada Completa): ${ent.hora} ➔ ${sal.hora}`;
+          } else if (isHoy) {
+            cellClass = 'fich-cal-cell fich-status-encurso';
+            tooltip = `Día ${dStr}/${mesPad} (Turno de hoy en curso): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+          } else {
+            cellClass = 'fich-cal-cell fich-status-incompleto';
+            tooltip = `Día ${dStr}/${mesPad} (Marcaje registrado): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+          }
+        } else if (workerObj && (workerObj.estado_semaforo === 'baja' || (workerObj.servicio || '').includes('BAJA'))) {
+          cellClass = 'fich-cal-cell fich-status-baja';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Baja Médica IT Justificada`;
+        } else if (isHoy) {
+          cellClass = 'fich-cal-cell fich-status-hoy-vacio';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: HOY (Sin marcaje de entrada aún)`;
+        } else if (isFuturo) {
+          cellClass = 'fich-cal-cell empty';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Día futuro`;
         }
 
         if (FichState.contrasteDia && FichState.contrasteDia === dStr) {
           cellClass += ' selected-day';
         }
 
-        html += `<div class="${cellClass}" title="${tooltip} - Clic para ver marcajes del día ${dStr}" onclick="window.FichajesModule.setContrasteDia('${dStr}')" style="cursor:pointer;"><span>${dStr}</span></div>`;
+        html += `<div class="${cellClass}" title="${tooltip} - Clic para filtrar este día" onclick="window.FichajesModule.setContrasteDia('${dStr}')" style="cursor:pointer;"><span>${dStr}</span></div>`;
       }
 
       html += '</div></div>';
@@ -1136,6 +1169,116 @@
       `;
     }
 
+    // VISTA 3: TABLERO HOY EN VIVO (KANBAN OPERATIVO)
+    function renderHoyBoardHTML() {
+      const trabajando = filtered.filter(w => w.estado_hoy === 'TRABAJANDO');
+      const finalizados = filtered.filter(w => w.estado_hoy === 'FINALIZADO');
+      const sinFichar = filtered.filter(w => w.estado_hoy === 'NO_FICHADO' || w.estado_hoy === 'SIN_MARCAJE');
+
+      return `
+        <div class="fich-today-board">
+          <!-- Columna 1: En Turno Ahora -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#16a34a;">
+              <span>🟢 EN TURNO AHORA (${trabajando.length})</span>
+              <span style="font-size:11px; background:#dcfce7; padding:2px 8px; border-radius:12px;">Activos</span>
+            </div>
+            ${trabajando.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Ningún trabajador en turno actualmente.</div>' : ''}
+            ${trabajando.map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #16a34a;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#16a34a; display:flex; justify-content:space-between;">
+                  <span>Entrada: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                  <span>📍 ${w.ultimo_fichaje ? (w.ultimo_fichaje.punto || '').substring(0, 18) : ''}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Columna 2: Jornada Finalizada Hoy -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#0284c7;">
+              <span>🏁 TURNO COMPLETADO (${finalizados.length})</span>
+              <span style="font-size:11px; background:#e0f2fe; padding:2px 8px; border-radius:12px;">Salida OK</span>
+            </div>
+            ${finalizados.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Aún no hay turnos finalizados hoy.</div>' : ''}
+            ${finalizados.map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #0284c7;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#0284c7; display:flex; justify-content:space-between;">
+                  <span>Última Salida: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                  <span>✅ Fin</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Columna 3: Pendiente / Sin Marcaje Hoy -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#dc2626;">
+              <span>🔴 PENDIENTE / SIN MARCAJE (${sinFichar.length})</span>
+              <span style="font-size:11px; background:#fee2e2; padding:2px 8px; border-radius:12px;">Alerta</span>
+            </div>
+            ${sinFichar.slice(0, 60).map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #ef4444;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11px; color:#dc2626; font-weight:700;">
+                  Sin fichajes registrados en el día de hoy
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // VISTA 4: MATRIZ MENSUAL HEATMAP (EXPORTABLE)
+    function renderHeatmapHTML() {
+      return `
+        <div class="fich-heatmap-wrapper">
+          <div style="padding:12px 16px; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:800; font-size:13px; color:#0f172a;">📊 Matriz de Control de Presencia (${nombreMes} ${anioActual})</span>
+            <button class="fich-btn-action" onclick="window.FichajesModule.exportarExcel()" style="padding:5px 12px; font-size:11px; font-weight:700;">
+              📥 Descargar Matriz Excel / CSV
+            </button>
+          </div>
+          <table class="fich-heatmap-table">
+            <thead>
+              <tr>
+                <th style="min-width:200px; text-align:left;">Trabajador</th>
+                <th style="min-width:130px;">Servicio</th>
+                ${diasMes.map(d => `<th style="min-width:32px;">${d.pad}</th>`).join('')}
+                <th style="min-width:60px;">Total Días</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.map(w => {
+                const diasFichados = w.dias_fichados || [];
+                return `
+                  <tr>
+                    <td class="worker-name" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="cursor:pointer;" title="Ver detalle de ${w.nombre}">
+                      ${w.nombre}
+                    </td>
+                    <td style="font-size:11px; color:#64748b;">${w.servicio}</td>
+                    ${diasMes.map(d => {
+                      const has = diasFichados.includes(d.pad);
+                      const isHoy = d.isHoy;
+                      let cls = has ? 'fich-heatmap-cell-ok' : (isHoy ? 'fich-heatmap-cell-partial' : 'fich-heatmap-cell-none');
+                      return `<td class="${cls}" title="${w.nombre} - Día ${d.pad}">${has ? '✓' : (isHoy ? '•' : '-')}</td>`;
+                    }).join('')}
+                    <td style="font-weight:900; color:#0f172a;">${diasFichados.length}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
     return `
       <div style="display:flex; flex-direction:column; gap:16px;">
         <!-- CABECERA DE CONTRASTE -->
@@ -1152,16 +1295,27 @@
               </div>
             </div>
             <div class="fich-sync-banner-actions">
-              <!-- Botón Evolucionado de Sincronización en Vivo -->
-              <button class="fich-btn-sync-pro" id="fich-btn-sync" onclick="window.FichajesModule.sincronizarContrasteEnVivo()">
+              <!-- Botón Evolucionado de Sincronización en Vivo conectado a FichajesLiveEngine -->
+              <button class="fich-btn-sync-pro" id="fich-btn-sync" onclick="window.FichajesLiveEngine ? window.FichajesLiveEngine.triggerManualSync() : window.FichajesModule.sincronizarContrasteEnVivo()">
                 <span class="sync-spin-icon">🔄</span>
                 <span id="fich-btn-sync-text">Sincronizar en Vivo (gruposifuapp)</span>
               </button>
 
-              <!-- Hora de la última actualización al lado del botón -->
+              <!-- Indicador de conexión SSE / Polling en tiempo real -->
+              <span id="fich-live-status-pill" class="fich-live-pill live" title="Conexión en tiempo real activa">
+                <span class="fich-live-indicator"></span> EN VIVO
+              </span>
+
+              <!-- Contador de próxima sincronización automática -->
+              <div class="fich-last-sync-badge" title="Auto-sincronización cada 15 min en jornada laboral">
+                <span>⏱️ Próxima comprobación:</span>
+                <strong id="fich-live-countdown" style="font-family:monospace; color:#0284c7;">14:45</strong>
+              </div>
+
+              <!-- Hora de la última actualización -->
               <div class="fich-last-sync-badge" id="fich-last-sync-badge" title="Fichajes contrastados en tiempo real desde gruposifuapp.gcalidad.com">
                 <span class="fich-sync-pulse-dot"></span>
-                <span>Última actualización:</span>
+                <span>Última:</span>
                 <strong id="fich-last-sync-label">${getLastSyncContrasteTime()}</strong>
               </div>
 
@@ -1174,7 +1328,7 @@
         </div>
 
         <!-- KPIS DEL CONTRASTE MÓVIL (FILTRABLES CON CLIC) -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:12px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
           <div class="fich-check-kpi-card check-ok ${semaforoFilter === 'ok' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSemaforo('ok')">
             <div>
               <div class="fich-check-title"><span>🟢</span> FICHAN 100%</div>
@@ -1216,16 +1370,22 @@
           </div>
         </div>
 
-        <!-- BARRA DE HERRAMIENTAS: SELECTOR DE 2 VISTAS, SELECTOR DE DÍA, FILTROS DE SECTOR Y BUSCADOR -->
+        <!-- BARRA DE HERRAMIENTAS: SELECTOR DE 4 VISTAS, SELECTOR DE DÍA, FILTROS DE SECTOR Y BUSCADOR -->
         <div style="background:#ffffff; border:1px solid var(--fich-border); border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
           
-          <!-- Selector de las 2 Vistas (Tarjetas vs Listado Rápido) -->
+          <!-- Selector de las 4 Vistas -->
           <div class="fich-view-mode-toggle">
             <button class="fich-view-mode-btn ${subView === 'tarjetas' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('tarjetas')">
               <span>🗂️ 1. Tarjetas & Calendario</span>
             </button>
             <button class="fich-view-mode-btn ${subView === 'listado' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('listado')">
-              <span>📋 2. Listado Compacto (Rápido)</span>
+              <span>📋 2. Listado Compacto</span>
+            </button>
+            <button class="fich-view-mode-btn ${subView === 'hoy' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('hoy')">
+              <span>⚡ 3. En Vivo Hoy</span>
+            </button>
+            <button class="fich-view-mode-btn ${subView === 'heatmap' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('heatmap')">
+              <span>📊 4. Matriz Heatmap</span>
             </button>
           </div>
 
@@ -1414,7 +1574,7 @@
               </table>
             </div>
           </div>
-        ` : `
+        ` : (subView === 'hoy' ? renderHoyBoardHTML() : (subView === 'heatmap' ? renderHeatmapHTML() : `
           <!-- VISTA 1: TARJETAS CON MINI-CALENDARIO INTERACTIVO (LA ACTUAL) -->
           <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:14px;">
             ${filtered.map(w => {
@@ -1483,18 +1643,27 @@
 
                   <!-- Mini Calendario de Fichajes Realizados (${nombreMes} ${anioActual}) -->
                   <div>
-                    <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:#000000; margin-bottom:4px; display:flex; justify-content:space-between;">
+                    <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:#000000; margin-bottom:4px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px;">
                       <span>📅 Calendario de la App (${nombreMes} ${anioActual}):</span>
-                      <span style="color:#d97706; font-weight:800;">🟠 ${w.dias_fichados_activos ? w.dias_fichados_activos.length : (mesActual === 10 && anioActual === 2026 ? (w.dias_naranja_count || 0) : 0)} días con marcaje</span>
+                      <span style="color:#059669; font-weight:800;">
+                        🟢 ${(() => {
+                          const mKey = `${anioActual}-${String(mesActual).padStart(2, '0')}`;
+                          if (w.meses && w.meses[mKey] && w.meses[mKey].resumen) {
+                            return `${w.meses[mKey].resumen.dias_fichados} días (${w.meses[mKey].resumen.horas_totales}h)`;
+                          }
+                          const cnt = (w.dias_fichados || []).length;
+                          return `${cnt} días con marcaje`;
+                        })()}
+                      </span>
                     </div>
-                    ${renderMiniCalendarHTML(w.calendar_days, w.fichajes)}
+                    ${renderMiniCalendarHTML(w.calendar_days, w.fichajes, w)}
                   </div>
 
-                  <!-- Leyenda del mini calendario -->
-                  <div style="display:flex; gap:8px; font-size:10.5px; color:#334155; font-weight:700;">
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#ff851b;"></span> Naranja: Ha Fichado</span>
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#2ca8c2;"></span> Azul: Sin Marcaje</span>
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#dd4b39;"></span> Rojo: Hoy</span>
+                  <!-- Leyenda interactiva de alta visibilidad -->
+                  <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:10px; color:#334155; font-weight:700;">
+                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#86efac; border:1px solid #16a34a;"></span> Verde: Jornada Completa</span>
+                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#fde68a; border:1px solid #d97706;"></span> Ámbar: Turno en curso / Incompleto</span>
+                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#fee2e2; border:1px solid #ef4444;"></span> Rojo: Hoy sin fichar</span>
                   </div>
 
                   <!-- Detalle de los fichajes -->
@@ -1522,7 +1691,7 @@
               `;
             }).join('')}
           </div>
-        `}
+        `))}
 
         <!-- Modal flotante si hay trabajador seleccionado -->
         ${renderModalDetalleHTML()}
