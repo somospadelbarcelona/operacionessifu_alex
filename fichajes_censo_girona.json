@@ -1,882 +1,362 @@
 [
   {
-    "dni": "46539949R",
-    "name": "ADELINA IBAÑEZ PEREZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00054802",
-    "telefono": "603607768",
-    "email": "LINA_IBANYEZ@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "45539213H",
-    "name": "ADORACION ODA CARA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055129",
-    "telefono": "691355261",
-    "email": "DORIODACARA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41676741M",
-    "name": "AHMED ALOU TAIBOUCH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00009741",
-    "telefono": "640293051",
-    "email": "ALOUTAIBOUCH@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
     "dni": "36530075A",
     "name": "ALEXIA DOMINGUEZ MARSIÑACH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(LIM) CASINO LLORET",
+    "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
+    "sector": "LIMPIEZA",
     "id_empleado": "00051151",
     "telefono": "634731571",
     "email": "ALEXIYJOSE@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z0914407R",
-    "name": "ALICIA BOLIVAR BOLIVAR",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00054384",
-    "telefono": "622322572",
-    "email": "BOLIVARALICIA67@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "48103994T",
-    "name": "ANDREU IGLESIAS CUASANTE",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00042765",
-    "telefono": "620071226",
-    "email": "ANDREU.IGLESIAS@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40329823J",
-    "name": "ANTONI COLOMER RODRIGUEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00040479",
-    "telefono": "616754461",
-    "email": "ANTONIOCR353@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "X1607463Q",
     "name": "ASMA EL OUAHABI",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060733",
     "telefono": "655673695",
     "email": "ASMAEK1991@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z3075138C",
-    "name": "BELKIS ZULAY CASTILLO SUAREZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064015",
-    "telefono": "677313029",
-    "email": "KISSBEL271@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41699262D",
-    "name": "BELKY YOHANA FLORES ORTIZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00004822",
-    "telefono": "",
-    "email": "BEL.JOHA@HOTMAIL.ES",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Y7370767V",
-    "name": "BLAS RAMON CARVAJAL AVENDAÑO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066939",
-    "telefono": "643.961.913",
-    "email": "HAWKBLAS@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "X1354842G",
-    "name": "BOUSELHAM BELJAH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00065042",
-    "telefono": "651.358.628",
-    "email": "BOUSEBELHAJ157@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41547833N",
     "name": "CARLA MASSANELLAS SAURA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(LIM) CASINO LLORET",
+    "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
+    "sector": "LIMPIEZA",
     "id_empleado": "00066114",
     "telefono": "633.033.652",
     "email": "CARRLAA93@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40429576S",
     "name": "CARLOS MARTINEZ VILANOVA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060931",
     "telefono": "636738614",
     "email": "INFO@VIMAC-EMPORDA.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40526778L",
     "name": "CARMEN ALSINA MENA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "FCC AQUALIA SANT FELIU DE GUÍXOLS",
+    "servicio": "FCC AQUALIA, S.A.",
+    "sector": "LIMPIEZA",
     "id_empleado": "00063395",
     "telefono": "686331430",
     "email": "MARICARMEN-ALSINA@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z0239717Q",
-    "name": "CINTHIA JESIEL ALVAREZ GIRON",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064752",
-    "telefono": "616482356",
-    "email": "JESIEL.ALVAREZ@ICLOUD.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41555814N",
     "name": "CRISTIAN BRUNET MENDEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060949",
     "telefono": "692083924",
     "email": "CRISTIANBRUNET27@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "44183650Y",
-    "name": "DARIO EDUA LOPEZ VIOTTI",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00033050",
-    "telefono": "",
-    "email": "DARIOLP57@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40463481H",
     "name": "DAVID CONTRERA VIDAL",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060719",
     "telefono": "606873705",
     "email": "CONTRY78@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "53072899P",
-    "name": "DIONISIO ANTUNEZ GRANJA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00029695",
-    "telefono": "638917217",
-    "email": "ANIITAA2907@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41559878M",
     "name": "ELIA MOGIO MEDINA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00057045",
     "telefono": "644.515.499",
     "email": "MOGIOMEDINA1995@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41687838Q",
-    "name": "ELISA DELGADO FUERTES",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055123",
-    "telefono": "647166825",
-    "email": "",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "46601633E",
     "name": "ERNESTO MALO HERRERO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 12 - PLANOLES",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "sector": "AUXILIARES",
     "id_empleado": "00059393",
     "telefono": "644516741",
     "email": "HERREROLIFES@ICLOUD.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "77923989N",
-    "name": "EVA MARTOS SALAMAÑA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055127",
-    "telefono": "633037754",
-    "email": "EVAMARTOS9@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "61348294A",
-    "name": "FAVIOLA ISABEL MONTOYA CARVAJAL",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00039264",
-    "telefono": "658 16 83 25",
-    "email": "",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "37381865B",
-    "name": "FIDEL CASTILLO CANAL",
-    "servicio": "OK",
-    "sector": "GestBoes - 2436484 LOT 11 - OLOT",
-    "id_empleado": "00050904",
-    "telefono": "602006811",
-    "email": "GESTORAGLOBAL@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z4977678T",
-    "name": "FLOR DAISY MORENO MORENO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00065976",
-    "telefono": "",
-    "email": "MDEISY192@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40436179V",
-    "name": "FRANCESC BADOSA CULUBRET",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00065058",
-    "telefono": "602.584.796",
-    "email": "BADOSAKIKU@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41649411E",
-    "name": "GERARD SANCHEZ MORALES",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064424",
-    "telefono": "623.027.395",
-    "email": "GERARDSANCHEZM@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "46414205K",
-    "name": "GUILLEM FERRER TORRUELLA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00035103",
-    "telefono": "615616120",
-    "email": "GFT1990@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z0550836Z",
-    "name": "HADIA EL CHATTIOUI",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064794",
-    "telefono": "632400768",
-    "email": "SIMANAMACHRAA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40561222D",
-    "name": "HECTOR GOMEZ CARRERA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064388",
-    "telefono": "673.451.308",
-    "email": "HECTORFNT@YAHOO.ES",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40339963X",
     "name": "IRENE MASSANET MASPOCH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "sector": "AUXILIARES",
     "id_empleado": "00063291",
     "telefono": "634.003.680",
     "email": "CATALAN.IMM@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Z3170509X",
-    "name": "IRMA HELENA VIANA MERCADO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00062296",
-    "telefono": "674893797",
-    "email": "IRMAHELENAV@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40516231Y",
-    "name": "ISIDRA DIAZ GONZALEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055121",
-    "telefono": "676797040",
-    "email": "MORENODIAZM25@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40529718S",
-    "name": "JAVIER RAUL SANCHEZ CHILLON",
-    "servicio": "OK",
-    "sector": "OLOT",
-    "id_empleado": "00001547",
-    "telefono": "687538503",
-    "email": "CRIC_211@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "90002382R",
-    "name": "JOAN PERARNAU GARCIA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00060524",
-    "telefono": "622920481",
-    "email": "J.PERARNAU21@YAHOO.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "53866302A",
-    "name": "JOEL RUIZ DOBLADO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066050",
-    "telefono": "681657557",
-    "email": "JOELRUIZDOBLADO@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "45173415N",
     "name": "JORGE LUIS RAMIREZ SALAS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Albergue - Lote 2 - Queralbs",
+    "servicio": "NURIA",
+    "sector": "AUXILIARES",
     "id_empleado": "00040710",
     "telefono": "634874601",
     "email": "JORGELUISRAMIREZSALAS@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40526372G",
-    "name": "JOSE ANTONIO LOPEZ SANCHEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00059575",
-    "telefono": "722835203",
-    "email": "JOSEANTONIOLOPEZSANCHEZ69@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41552135J",
     "name": "JOSE ANTONIO SOLA EXPOSITO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00064541",
     "telefono": "649717752",
     "email": "JOSELITOSOLA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "43633809A",
-    "name": "JOSE LUIS HERNANDEZ TORRES",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066993",
-    "telefono": "650.225.346",
-    "email": "PEPEHT84@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40445148Q",
     "name": "JOSE MANUEL CARRERA MATEOS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060933",
     "telefono": "620039380",
     "email": "JOSEMANUELCARRERAMATEOS@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40434075Y",
-    "name": "JOSE MANUEL GUTIERREZ PACHECO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 11 - OLOT",
-    "id_empleado": "00054220",
-    "telefono": "611.565.837",
-    "email": "JMGUTIPA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41552467T",
-    "name": "JOSE MARIA PEREZ GARCIA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00038336",
-    "telefono": "",
-    "email": "CHEMA23PEREZ@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41077968Z",
     "name": "JOSE MONTERO RODRIGUEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 9- LA MOLINA",
+    "servicio": "LA MOLINA",
+    "sector": "AUXILIARES",
     "id_empleado": "00050972",
     "telefono": "669.870.840",
     "email": "JOSEMONTERO1402@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "33926562K",
-    "name": "JOSEFA MORENO AGUILERA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055125",
-    "telefono": "678883040",
-    "email": "PEPIMORENO67@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41630393W",
     "name": "JOSEP MADI ARIZA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "sector": "AUXILIARES",
     "id_empleado": "00066485",
     "telefono": "610.810.153",
     "email": "IGNICHAN@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "60439306K",
     "name": "JOSUE RAMON CASTILLO MOLINA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(AUX) Conserjeria Dipsalut 2025 mañanas",
+    "servicio": "DIPSALUT",
+    "sector": "AUXILIARES",
     "id_empleado": "00062828",
     "telefono": "636407591",
     "email": "RCM1401@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "78022561Y",
     "name": "JUAN BONADA GONZALEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 12 - PLANOLES",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "sector": "AUXILIARES",
     "id_empleado": "00047211",
     "telefono": "672.091.704",
     "email": "JOANBONADAGONZALEZ@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41652517T",
     "name": "JUAN JOSE GARCIA MANZANEQUE",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "LOTE 3 STA. COLOMA FARNERS",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "sector": "AUXILIARES",
     "id_empleado": "00061213",
     "telefono": "657603434",
     "email": "JUANJOSEGM05@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "77731473Y",
     "name": "JULIAN CANO GALLEGO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "LOTE 3 STA. COLOMA FARNERS",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "sector": "AUXILIARES",
     "id_empleado": "00000823",
     "telefono": "674940013",
     "email": "LOULOUFFI@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Y1673434Z",
-    "name": "LAMYAA RAJEB",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "AM-JU-2024-7 LOT 24",
-    "id_empleado": "00062365",
-    "telefono": "612599116",
-    "email": "LAMYAARAJEB14@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40352745G",
     "name": "LAURA PARDILLO LOPEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "PGO AUXILIARES GIRONA",
+    "servicio": "ASCENSORS GIRONA. SAU",
+    "sector": "LIMPIEZA",
     "id_empleado": "00062782",
     "telefono": "623311285",
     "email": "LPL5LAURA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41666221L",
     "name": "LIDIA JORDA I MARQUEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "DIPSALUT",
+    "servicio": "DIPSALUT",
+    "sector": "LIMPIEZA",
     "id_empleado": "00060974",
     "telefono": "660088643",
     "email": "LJORDAMARQUEZ@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "Y6050514X",
     "name": "MALIKA CHRIF",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "ITF",
+    "servicio": "GENERALITAT DE CATALUNYA",
+    "sector": "LIMPIEZA",
     "id_empleado": "00064242",
     "telefono": "624968949",
     "email": "MALIKACHRIF669@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "41531049H",
-    "name": "MANOUEL OUSSAMA LEON BOUAA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064522",
-    "telefono": "617.174.118",
-    "email": "ML5728353@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "33893922H",
     "name": "MANUEL QUESADA AGUDO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060930",
     "telefono": "693970547",
     "email": "MANUELQUAG@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40526220J",
-    "name": "MANUEL TITOS LOZANO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00001604",
-    "telefono": "972325390",
-    "email": "TITOSKARLA@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40305647X",
-    "name": "MARIA JESUS REINA VELASCO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00012568",
-    "telefono": "697381965",
-    "email": "MARIJESUREINA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40305698S",
     "name": "MARIA MOLINA PEREZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "SALT-MONTNEGRE",
+    "servicio": "ENDESA, S.A.",
+    "sector": "AUXILIARES",
     "id_empleado": "00019144",
     "telefono": "608151519",
     "email": "MARIAMOLINAMP@HOTMAIL.ES",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40440897C",
     "name": "MARIANO SEQUERA VACAS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060932",
     "telefono": "635484368",
     "email": "",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "76709162E",
-    "name": "MARISA PARDO PARDO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00061886",
-    "telefono": "696276367",
-    "email": "PARDOPARDOMARISA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40370819T",
     "name": "MERCE PLANAS HERAS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
+    "servicio": "DIPSALUT",
+    "sector": "LIMPIEZA",
     "id_empleado": "00029243",
     "telefono": "",
     "email": "MERCE.PLANASSALT@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "X6314699A",
     "name": "MOHAMED BELLAHCEN",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(LIM) ASC. SANT FELIU PUNTUAL",
+    "servicio": "VALL D'EN BAS",
+    "sector": "AUXILIARES",
     "id_empleado": "00010908",
     "telefono": "613870375",
     "email": "MOHAMEDBELLAHCEN19@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "X2911961T",
     "name": "MOHAMED UAHLET",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Albergue - Lote 7 - Vall den Bas",
+    "servicio": "VALL D'EN BAS",
+    "sector": "AUXILIARES",
     "id_empleado": "00066736",
     "telefono": "672.762.212",
     "email": "UAHLETMHA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "Y0238800M",
     "name": "MOHAMMED ETTMALAH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(LIM) ASCENSOR MIMOSA S'AGARO",
+    "servicio": "ASCENSORS GIRONA. SAU",
+    "sector": "LIMPIEZA",
     "id_empleado": "00063866",
     "telefono": "672.718.160",
     "email": "ETTMALAH@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "45540124D",
     "name": "MONICA GALA SEGURA",
-    "servicio": "ok",
-    "sector": "(LIM) DEPURADORA SANTA COLOMA FARNERS",
+    "servicio": "ACSA Obras e Infraestructuras SAU",
+    "sector": "LIMPIEZA",
     "id_empleado": "00065951",
     "telefono": "666398106",
     "email": "MONIJANDER@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "90002499A",
     "name": "MONICA LOPEZ CEBALLOS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 22 - St JOAN ABAD",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "sector": "AUXILIARES",
     "id_empleado": "00061994",
     "telefono": "609382265",
     "email": "MONASLA7171@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "77910726C",
-    "name": "MONTSERRAT FONTANILS ASAMAR",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066360",
-    "telefono": "606548595",
-    "email": "MONTSEFONTANILS@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "42364240B",
-    "name": "NADIA IULIANA GOAGA SUCEVEANU",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "LIMPIEZA WURT PALAMÓS",
-    "id_empleado": "00054935",
-    "telefono": "666.619.862",
-    "email": "NADIAIULIANA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "Y1218755E",
-    "name": "NAIMA TALHAOUI",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00061301",
-    "telefono": "641564719",
-    "email": "AYAABENALI09@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "Z1320496W",
     "name": "NATALIA HRABAN",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "(LIM) Playa de Aro So Food SLU - GIRONA",
+    "servicio": "Playa de Aro So Food SLU",
+    "sector": "LIMPIEZA",
     "id_empleado": "00065437",
     "telefono": "600.003.996",
     "email": "NATALIAHRABAN14@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41557346A",
     "name": "NIL BAZAN SERES",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00063897",
     "telefono": "652608173",
     "email": "BAZANSERESNIL@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40350482H",
-    "name": "OLGA PEREZ PASCUAL",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055128",
-    "telefono": "696017689",
-    "email": "OLGAGIRONA78@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "46672564K",
-    "name": "PEDRO FERNANDEZ RIBAS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066019",
-    "telefono": "645565531",
-    "email": "PFERNANDEZRIBAS@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "40448650E",
     "name": "RAUL GONZALEZ EXPOSITO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "Museo Histórico de Figueres - Castillo S",
+    "servicio": "CASTILLO FIGUERES",
+    "sector": "AUXILIARES",
     "id_empleado": "00060952",
     "telefono": "629182705",
     "email": "VIDEOJJETTT@HOTMAIL.ES",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "32696155E",
-    "name": "ROSA MARIA QUEIJO CAAMAÑO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00004823",
-    "telefono": "",
-    "email": "ROSAMARQC@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "08838089V",
-    "name": "ROSA MARIA SILVA VARGAS",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00022944",
-    "telefono": "",
-    "email": "SILVAROSANDA54@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "41645077N",
     "name": "SAHIL SINGH ARORA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "GestBoes - 2436484 LOT 12 - PLANOLES",
+    "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
+    "sector": "AUXILIARES",
     "id_empleado": "00062813",
     "telefono": "632407370",
     "email": "SAHILXD200@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "26843374M",
-    "name": "SAMIRA CORTES JIMENEZ",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00065637",
-    "telefono": "631956933",
-    "email": "SAMIRACORTESJIMENEZ337@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "79303851N",
-    "name": "SANDRA MORAGAS ROTLLANT",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00053286",
-    "telefono": "638356431",
-    "email": "SANDRAMORAGAS@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   },
   {
     "dni": "47795423C",
     "name": "SARAI PONCE MORENO",
-    "servicio": "OK",
-    "sector": "(ITF)Estación de autobuses de Palamós",
+    "servicio": "Centrals i Infraestructures per a l",
+    "sector": "LIMPIEZA",
     "id_empleado": "00062808",
     "telefono": "656283130",
     "email": "SARAIPONCE@HOTMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40450939B",
-    "name": "SUSANNA DE CASTRO ESTARLICH",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055126",
-    "telefono": "697393305",
-    "email": "SUSSIDECASTRO@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40439515H",
-    "name": "TERESA ANGEL BATLLE",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00055122",
-    "telefono": "686734248",
-    "email": "TERESAANGELBATLLE@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "61637223Y",
-    "name": "WENDY XIOMARA JIMENEZ CERRATO",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066811",
-    "telefono": "633053661",
-    "email": "WENDYJIMENEZ@HOTMAIL.ES",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "40462160P",
-    "name": "YOLANDA COMAS GARCIA",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00064499",
-    "telefono": "605405287",
-    "email": "COMASGARCIAYOLANDA@GMAIL.COM",
-    "fuente": "sap_ho_cache"
-  },
-  {
-    "dni": "46173041N",
-    "name": "ZAKARIAE ALAMI-MERROUNI EL BAKKARI",
-    "servicio": "CENTRO GIRONA S171",
-    "sector": "OPERACIONES",
-    "id_empleado": "00066232",
-    "telefono": "604.330.720",
-    "email": "ZAKARIAGST17310@GMAIL.COM",
-    "fuente": "sap_ho_cache"
+    "fuente": "cartera_coscolin"
   }
 ]

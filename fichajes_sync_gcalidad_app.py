@@ -89,7 +89,7 @@ def load_census():
                 filtered = []
                 for w in census:
                     sec_serv = (str(w.get('sector', '')) + ' ' + str(w.get('servicio', ''))).upper()
-                    if 'JARDIN' in sec_serv:
+                    if 'JARDIN' in sec_serv or 'BCL' in sec_serv or 'BARCELONA' in sec_serv:
                         continue
                     if w.get('dni', '').upper() in DNIS_JARDINERIA_EXCLUIDOS:
                         continue
