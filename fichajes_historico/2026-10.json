@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "fecha_sincronizacion": "22/10/2026 15:45:17",
-  "generado_iso": "2026-10-22T15:45:17.298066",
-  "duracion_seg": 71.5,
+  "fecha_sincronizacion": "22/10/2026 19:39:26",
+  "generado_iso": "2026-10-22T19:39:26.819655",
+  "duracion_seg": 66.22,
   "mes_actual": "2026-10",
   "meses_disponibles": [
     "2026-10"
@@ -13,18 +13,18 @@
     "fallidos": 0,
     "sin_acceso": 0,
     "obsoletos": 0,
-    "proxima_sync_iso": "2026-10-22T16:00:17.298066",
+    "proxima_sync_iso": "2026-10-22T19:54:26.819655",
     "intervalo_min": 15,
     "en_curso": false
   },
   "kpis": {
-    "trabajando_ahora": 5,
-    "finalizados_hoy": 14,
-    "no_fichados_hoy_previstos": 29,
+    "trabajando_ahora": 3,
+    "finalizados_hoy": 17,
+    "no_fichados_hoy_previstos": 28,
     "bajas": 0,
     "vacaciones": 0,
     "incidencias_hoy": 0,
-    "horas_mes_total": 1589.19
+    "horas_mes_total": 1758.63
   },
   "total_trabajadores": 48,
   "trabajadores": [
@@ -38,7 +38,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:21.458156",
+      "ultima_consulta_ok": "2026-10-22T19:39:30.834478",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -480,7 +480,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:21.839723",
+      "ultima_consulta_ok": "2026-10-22T19:39:30.907783",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -1501,16 +1501,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:21.599999",
+      "ultima_consulta_ok": "2026-10-22T19:39:31.339033",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (8 días, 12 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (8 días, 13 marcajes)",
       "ultimo_fichaje": {
         "fecha": "22/10/2026",
-        "hora": "02:00:09",
-        "tipo": "Salida",
-        "isEntrada": false,
+        "hora": "18:27:27",
+        "tipo": "Entrada",
+        "isEntrada": true,
         "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
         "descanso": false
       },
@@ -1744,10 +1744,16 @@
                   "tipo": "Salida",
                   "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
                   "descanso": false
+                },
+                {
+                  "hora": "18:27:27",
+                  "tipo": "Entrada",
+                  "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
+                  "descanso": false
                 }
               ],
               "horas_trabajadas": 0.0,
-              "estado": "SOLO_SALIDA",
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -1817,8 +1823,8 @@
           },
           "resumen": {
             "dias_fichados": 8,
-            "dias_completos": 4,
-            "dias_incompletos": 4,
+            "dias_completos": 5,
+            "dias_incompletos": 3,
             "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
@@ -1826,7 +1832,7 @@
           }
         }
       },
-      "total_fichajes": 12,
+      "total_fichajes": 13,
       "dias_fichados": [
         "14",
         "15",
@@ -1840,6 +1846,14 @@
       "dias_naranja_count": 8,
       "dias_sin_fichar_count": 23,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "18:27:27",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
+          "descanso": false
+        },
         {
           "fecha": "22/10/2026",
           "hora": "02:00:09",
@@ -2065,10 +2079,10 @@
           "status": "FICHO"
         },
         "22": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "23": {
           "isOrange": false,
@@ -2136,7 +2150,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:23.914415",
+      "ultima_consulta_ok": "2026-10-22T19:39:34.654472",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -2578,7 +2592,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:25.135995",
+      "ultima_consulta_ok": "2026-10-22T19:39:34.725784",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -3465,7 +3479,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:25.340674",
+      "ultima_consulta_ok": "2026-10-22T19:39:34.696902",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -4156,16 +4170,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:27.949637",
+      "ultima_consulta_ok": "2026-10-22T19:39:37.534840",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (16 días, 31 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (16 días, 32 marcajes)",
       "ultimo_fichaje": {
         "fecha": "22/10/2026",
-        "hora": "10:22:02",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "18:31:27",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
         "descanso": false
       },
@@ -4521,10 +4535,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
                   "descanso": false
+                },
+                {
+                  "hora": "18:31:27",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 8.16,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -4594,16 +4614,16 @@
           },
           "resumen": {
             "dias_fichados": 16,
-            "dias_completos": 15,
+            "dias_completos": 16,
             "dias_incompletos": 0,
-            "horas_totales": 122.72,
+            "horas_totales": 130.88,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 72.7
           }
         }
       },
-      "total_fichajes": 31,
+      "total_fichajes": 32,
       "dias_fichados": [
         "01",
         "02",
@@ -4625,6 +4645,14 @@
       "dias_naranja_count": 16,
       "dias_sin_fichar_count": 15,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "18:31:27",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
         {
           "fecha": "22/10/2026",
           "hora": "10:22:02",
@@ -5073,7 +5101,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:28.497509",
+      "ultima_consulta_ok": "2026-10-22T19:39:38.613154",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
@@ -5540,7 +5568,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:28.732805",
+      "ultima_consulta_ok": "2026-10-22T19:39:38.147218",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -5982,7 +6010,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:30.469497",
+      "ultima_consulta_ok": "2026-10-22T19:39:40.779481",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -6424,7 +6452,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:40.494167",
+      "ultima_consulta_ok": "2026-10-22T19:39:49.650334",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -6866,7 +6894,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:32.159698",
+      "ultima_consulta_ok": "2026-10-22T19:39:42.396506",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -7617,7 +7645,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:33.872781",
+      "ultima_consulta_ok": "2026-10-22T19:39:43.909567",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -8059,7 +8087,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:35.909158",
+      "ultima_consulta_ok": "2026-10-22T19:39:45.660174",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -8501,7 +8529,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:37.077693",
+      "ultima_consulta_ok": "2026-10-22T19:39:47.145282",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -9402,12 +9430,19 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:38.409702",
+      "ultima_consulta_ok": "2026-10-22T19:39:48.927330",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en October 2026",
-      "ultimo_fichaje": null,
+      "estado_semaforo": "ok",
+      "diagnostico": "🟢 Ficha con regularidad (12 días, 26 marcajes)",
+      "ultimo_fichaje": {
+        "fecha": "20/10/2026",
+        "hora": "22:03:29",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+        "descanso": false
+      },
       "meses": {
         "2026-10": {
           "dias": {
@@ -9468,86 +9503,254 @@
               "retraso_min": null
             },
             "09": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "14:09:22",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:01:52",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 7.88,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "10": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:59:28",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:02:33",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.05,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "11": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:58:13",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:01:42",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.06,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "12": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:51:46",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "13:51:52",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "13:52:46",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:00:33",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.13,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "13": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:57:31",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:17:04",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.33,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "14": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:57:59",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:05:26",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.12,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "15": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:57:09",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:00:31",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.06,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "16": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:59:33",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:03:14",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.06,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "17": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "14:08:17",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:00:39",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 7.87,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "18": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "14:00:44",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:03:19",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.04,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "19": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "14:00:08",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:02:38",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.04,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "20": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "13:58:00",
+                  "tipo": "Entrada",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "22:03:29",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 8.09,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -9630,21 +9833,243 @@
             }
           },
           "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
+            "dias_fichados": 12,
+            "dias_completos": 12,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 96.73,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
+            "cumplimiento_pct": 54.5
           }
         }
       },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
+      "total_fichajes": 26,
+      "dias_fichados": [
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ],
+      "dias_naranja_count": 12,
+      "dias_sin_fichar_count": 19,
+      "fichajes": [
+        {
+          "fecha": "20/10/2026",
+          "hora": "22:03:29",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "20/10/2026",
+          "hora": "13:58:00",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "19/10/2026",
+          "hora": "22:02:38",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "19/10/2026",
+          "hora": "14:00:08",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "18/10/2026",
+          "hora": "22:03:19",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "18/10/2026",
+          "hora": "14:00:44",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "17/10/2026",
+          "hora": "22:00:39",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "17/10/2026",
+          "hora": "14:08:17",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "16/10/2026",
+          "hora": "22:03:14",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "16/10/2026",
+          "hora": "13:59:33",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "15/10/2026",
+          "hora": "22:00:31",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "15/10/2026",
+          "hora": "13:57:09",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "14/10/2026",
+          "hora": "22:05:26",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "14/10/2026",
+          "hora": "13:57:59",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "13/10/2026",
+          "hora": "22:17:04",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "13/10/2026",
+          "hora": "13:57:31",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "12/10/2026",
+          "hora": "22:00:33",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "12/10/2026",
+          "hora": "13:52:46",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "12/10/2026",
+          "hora": "13:51:52",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "12/10/2026",
+          "hora": "13:51:46",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "11/10/2026",
+          "hora": "22:01:42",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "11/10/2026",
+          "hora": "13:58:13",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "10/10/2026",
+          "hora": "22:02:33",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "10/10/2026",
+          "hora": "13:59:28",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "09/10/2026",
+          "hora": "22:01:52",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
+        {
+          "fecha": "09/10/2026",
+          "hora": "14:09:22",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        }
+      ],
       "calendar_days": {
         "1": {
           "isOrange": false,
@@ -9695,76 +10120,76 @@
           "status": "NO_FICHO"
         },
         "9": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "10": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "11": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "12": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "13": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "14": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "15": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "16": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "17": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "18": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "19": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "20": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "21": {
           "isOrange": false,
@@ -9844,7 +10269,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:40.523043",
+      "ultima_consulta_ok": "2026-10-22T19:39:50.272070",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
@@ -10401,7 +10826,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:41.996604",
+      "ultima_consulta_ok": "2026-10-22T19:39:51.118369",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -11628,7 +12053,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:44.283173",
+      "ultima_consulta_ok": "2026-10-22T19:39:52.970750",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -12070,7 +12495,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:44.577642",
+      "ultima_consulta_ok": "2026-10-22T19:39:52.495211",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -12512,7 +12937,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:45.577097",
+      "ultima_consulta_ok": "2026-10-22T19:39:54.492111",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -13623,7 +14048,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:48.187816",
+      "ultima_consulta_ok": "2026-10-22T19:39:55.749526",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -14524,7 +14949,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:47.076468",
+      "ultima_consulta_ok": "2026-10-22T19:39:56.212839",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -15315,7 +15740,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:47.902253",
+      "ultima_consulta_ok": "2026-10-22T19:39:57.737679",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -15757,7 +16182,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:49.965567",
+      "ultima_consulta_ok": "2026-10-22T19:39:58.957642",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -16199,26 +16624,59 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:50.462649",
+      "ultima_consulta_ok": "2026-10-22T19:39:59.437904",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en October 2026",
-      "ultimo_fichaje": null,
+      "estado_semaforo": "ok",
+      "diagnostico": "🟢 Ficha con regularidad (11 días, 22 marcajes)",
+      "ultimo_fichaje": {
+        "fecha": "21/10/2026",
+        "hora": "16:51:43",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+        "descanso": false
+      },
       "meses": {
         "2026-10": {
           "dias": {
             "01": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:52:09",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "17:11:11",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.32,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "02": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:54:28",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "17:06:45",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.2,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -16237,37 +16695,102 @@
               "retraso_min": null
             },
             "05": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:53:30",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:53:11",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 3.99,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "06": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:46:28",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "17:05:15",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.31,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "07": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "09:41:12",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:45:28",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 7.07,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "08": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "09:43:32",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:48:04",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 7.08,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "09": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "09:40:40",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:59:16",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 7.31,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -16314,9 +16837,22 @@
               "retraso_min": null
             },
             "16": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:34:27",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:59:58",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.43,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -16335,23 +16871,62 @@
               "retraso_min": null
             },
             "19": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:36:23",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:27:27",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 3.85,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "20": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:55:34",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:57:54",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.04,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "21": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "12:51:54",
+                  "tipo": "Entrada",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                },
+                {
+                  "hora": "16:51:43",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 4.0,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -16427,33 +17002,222 @@
             }
           },
           "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
+            "dias_fichados": 11,
+            "dias_completos": 11,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 54.6,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
+            "cumplimiento_pct": 50.0
           }
         }
       },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
+      "total_fichajes": 22,
+      "dias_fichados": [
+        "01",
+        "02",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "16",
+        "19",
+        "20",
+        "21"
+      ],
+      "dias_naranja_count": 11,
+      "dias_sin_fichar_count": 20,
+      "fichajes": [
+        {
+          "fecha": "21/10/2026",
+          "hora": "16:51:43",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "21/10/2026",
+          "hora": "12:51:54",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "20/10/2026",
+          "hora": "16:57:54",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "20/10/2026",
+          "hora": "12:55:34",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "19/10/2026",
+          "hora": "16:27:27",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "19/10/2026",
+          "hora": "12:36:23",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "16/10/2026",
+          "hora": "16:59:58",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "16/10/2026",
+          "hora": "12:34:27",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "09/10/2026",
+          "hora": "16:59:16",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "09/10/2026",
+          "hora": "09:40:40",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "08/10/2026",
+          "hora": "16:48:04",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "08/10/2026",
+          "hora": "09:43:32",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "07/10/2026",
+          "hora": "16:45:28",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "07/10/2026",
+          "hora": "09:41:12",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "06/10/2026",
+          "hora": "17:05:15",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "06/10/2026",
+          "hora": "12:46:28",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "05/10/2026",
+          "hora": "16:53:11",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "05/10/2026",
+          "hora": "12:53:30",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "02/10/2026",
+          "hora": "17:06:45",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "02/10/2026",
+          "hora": "12:54:28",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "01/10/2026",
+          "hora": "17:11:11",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
+        {
+          "fecha": "01/10/2026",
+          "hora": "12:52:09",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        }
+      ],
       "calendar_days": {
         "1": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "2": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "3": {
           "isOrange": false,
@@ -16468,34 +17232,34 @@
           "status": "NO_FICHO"
         },
         "5": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "6": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "7": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "8": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "9": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "10": {
           "isOrange": false,
@@ -16534,10 +17298,10 @@
           "status": "NO_FICHO"
         },
         "16": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "17": {
           "isOrange": false,
@@ -16552,22 +17316,22 @@
           "status": "NO_FICHO"
         },
         "19": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "20": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "21": {
-          "isOrange": false,
-          "isCyan": true,
+          "isOrange": true,
+          "isCyan": false,
           "isRed": false,
-          "status": "NO_FICHO"
+          "status": "FICHO"
         },
         "22": {
           "isOrange": false,
@@ -16641,7 +17405,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:52.339143",
+      "ultima_consulta_ok": "2026-10-22T19:40:01.035612",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -17083,7 +17847,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:53.747790",
+      "ultima_consulta_ok": "2026-10-22T19:40:02.293770",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -17924,16 +18688,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:53.794144",
+      "ultima_consulta_ok": "2026-10-22T19:40:02.663202",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 53 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (15 días, 54 marcajes)",
       "ultimo_fichaje": {
         "fecha": "22/10/2026",
-        "hora": "15:39:54",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "17:59:05",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY012209-P1 - Conservació i manteniment vies publiques",
         "descanso": false
       },
@@ -18420,9 +19184,15 @@
                   "tipo": "Entrada",
                   "punto": "PROY012209-P1 - Conservació i manteniment vies publiques",
                   "descanso": false
+                },
+                {
+                  "hora": "17:59:05",
+                  "tipo": "Salida",
+                  "punto": "PROY012209-P1 - Conservació i manteniment vies publiques",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 2.76,
+              "horas_trabajadas": 5.08,
               "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
@@ -18495,14 +19265,14 @@
             "dias_fichados": 15,
             "dias_completos": 15,
             "dias_incompletos": 0,
-            "horas_totales": 59.82,
+            "horas_totales": 62.14,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 68.2
           }
         }
       },
-      "total_fichajes": 53,
+      "total_fichajes": 54,
       "dias_fichados": [
         "01",
         "02",
@@ -18523,6 +19293,14 @@
       "dias_naranja_count": 15,
       "dias_sin_fichar_count": 16,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "17:59:05",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY012209-P1 - Conservació i manteniment vies publiques",
+          "descanso": false
+        },
         {
           "fecha": "22/10/2026",
           "hora": "15:39:54",
@@ -19147,7 +19925,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:55.573094",
+      "ultima_consulta_ok": "2026-10-22T19:40:04.286924",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -20048,7 +20826,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:58.405423",
+      "ultima_consulta_ok": "2026-10-22T19:40:05.977509",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -20755,7 +21533,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:57.302754",
+      "ultima_consulta_ok": "2026-10-22T19:40:05.865531",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -21197,7 +21975,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:45:59.312242",
+      "ultima_consulta_ok": "2026-10-22T19:40:07.570066",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -21724,7 +22502,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:00.513168",
+      "ultima_consulta_ok": "2026-10-22T19:40:09.024152",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -22687,16 +23465,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:01.374144",
+      "ultima_consulta_ok": "2026-10-22T19:40:09.260474",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 27 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (15 días, 28 marcajes)",
       "ultimo_fichaje": {
         "fecha": "22/10/2026",
-        "hora": "16:30:49",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "18:56:31",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY017209-P1 - DIPSALUT",
         "descanso": false
       },
@@ -23027,10 +23805,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY017209-P1 - DIPSALUT",
                   "descanso": false
+                },
+                {
+                  "hora": "18:56:31",
+                  "tipo": "Salida",
+                  "punto": "PROY017209-P1 - DIPSALUT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 2.43,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -23100,16 +23884,16 @@
           },
           "resumen": {
             "dias_fichados": 15,
-            "dias_completos": 12,
+            "dias_completos": 13,
             "dias_incompletos": 2,
-            "horas_totales": 22.31,
+            "horas_totales": 24.74,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 68.2
           }
         }
       },
-      "total_fichajes": 27,
+      "total_fichajes": 28,
       "dias_fichados": [
         "01",
         "02",
@@ -23130,6 +23914,14 @@
       "dias_naranja_count": 15,
       "dias_sin_fichar_count": 16,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "18:56:31",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY017209-P1 - DIPSALUT",
+          "descanso": false
+        },
         {
           "fecha": "22/10/2026",
           "hora": "16:30:49",
@@ -23546,7 +24338,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:02.809130",
+      "ultima_consulta_ok": "2026-10-22T19:40:10.714109",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -24259,16 +25051,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:03.859115",
+      "ultima_consulta_ok": "2026-10-22T19:40:12.133934",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 29 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (15 días, 31 marcajes)",
       "ultimo_fichaje": {
         "fecha": "22/10/2026",
-        "hora": "15:56:28",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "21:08:39",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
         "descanso": false
       },
@@ -24611,10 +25403,22 @@
                   "tipo": "Entrada",
                   "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
                   "descanso": false
+                },
+                {
+                  "hora": "21:08:22",
+                  "tipo": "Salida",
+                  "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+                  "descanso": false
+                },
+                {
+                  "hora": "21:08:39",
+                  "tipo": "Salida",
+                  "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 5.2,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -24684,16 +25488,16 @@
           },
           "resumen": {
             "dias_fichados": 15,
-            "dias_completos": 10,
+            "dias_completos": 11,
             "dias_incompletos": 4,
-            "horas_totales": 31.79,
+            "horas_totales": 36.99,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 68.2
           }
         }
       },
-      "total_fichajes": 29,
+      "total_fichajes": 31,
       "dias_fichados": [
         "06",
         "07",
@@ -24714,6 +25518,22 @@
       "dias_naranja_count": 15,
       "dias_sin_fichar_count": 16,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "21:08:39",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+          "descanso": false
+        },
+        {
+          "fecha": "22/10/2026",
+          "hora": "21:08:22",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+          "descanso": false
+        },
         {
           "fecha": "22/10/2026",
           "hora": "15:56:28",
@@ -25146,7 +25966,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:04.836245",
+      "ultima_consulta_ok": "2026-10-22T19:40:12.023172",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -26141,7 +26961,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:05.650740",
+      "ultima_consulta_ok": "2026-10-22T19:40:13.826289",
       "datos_obsoletos": false,
       "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "ok",
@@ -27616,7 +28436,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:08.309785",
+      "ultima_consulta_ok": "2026-10-22T19:40:15.102478",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -28463,7 +29283,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:08.268527",
+      "ultima_consulta_ok": "2026-10-22T19:40:15.348007",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -29364,7 +30184,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:17.564697",
+      "ultima_consulta_ok": "2026-10-22T19:40:25.385283",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -29806,7 +30626,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:12.717555",
+      "ultima_consulta_ok": "2026-10-22T19:40:18.354034",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -30457,7 +31277,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:12.622162",
+      "ultima_consulta_ok": "2026-10-22T19:40:17.651687",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -30899,7 +31719,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:17.171794",
+      "ultima_consulta_ok": "2026-10-22T19:40:20.491084",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -31516,14 +32336,14 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:15.147420",
+      "ultima_consulta_ok": "2026-10-22T19:40:21.562674",
       "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
+      "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 20 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (16 días, 21 marcajes)",
       "ultimo_fichaje": {
-        "fecha": "21/10/2026",
-        "hora": "22:01:29",
+        "fecha": "22/10/2026",
+        "hora": "21:35:33",
         "tipo": "Entrada",
         "isEntrada": true,
         "punto": "SVO04295-P1-C018, GestBoes - 2436484 LOT 12",
@@ -31815,9 +32635,16 @@
               "retraso_min": null
             },
             "22": {
-              "marcajes": [],
+              "marcajes": [
+                {
+                  "hora": "21:35:33",
+                  "tipo": "Entrada",
+                  "punto": "SVO04295-P1-C018, GestBoes - 2436484 LOT 12",
+                  "descanso": false
+                }
+              ],
               "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "estado": "EN_CURSO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -31886,17 +32713,17 @@
             }
           },
           "resumen": {
-            "dias_fichados": 15,
+            "dias_fichados": 16,
             "dias_completos": 4,
             "dias_incompletos": 11,
             "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 68.2
+            "cumplimiento_pct": 72.7
           }
         }
       },
-      "total_fichajes": 20,
+      "total_fichajes": 21,
       "dias_fichados": [
         "02",
         "03",
@@ -31912,11 +32739,20 @@
         "16",
         "17",
         "18",
-        "21"
+        "21",
+        "22"
       ],
-      "dias_naranja_count": 15,
-      "dias_sin_fichar_count": 16,
+      "dias_naranja_count": 16,
+      "dias_sin_fichar_count": 15,
       "fichajes": [
+        {
+          "fecha": "22/10/2026",
+          "hora": "21:35:33",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO04295-P1-C018, GestBoes - 2436484 LOT 12",
+          "descanso": false
+        },
         {
           "fecha": "21/10/2026",
           "hora": "22:01:29",
@@ -32206,10 +33042,10 @@
           "status": "FICHO"
         },
         "22": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "23": {
           "isOrange": false,
@@ -32277,7 +33113,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:18.823320",
+      "ultima_consulta_ok": "2026-10-22T19:40:23.722758",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
@@ -33178,7 +34014,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-10-22T15:46:28.738650",
+      "ultima_consulta_ok": "2026-10-22T19:40:32.983631",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
