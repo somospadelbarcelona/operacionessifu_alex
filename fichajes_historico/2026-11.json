@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "fecha_sincronizacion": "02/11/2026 14:17:28",
-  "generado_iso": "2026-11-02T14:17:28.773639",
-  "duracion_seg": 93.1,
+  "fecha_sincronizacion": "02/11/2026 22:50:10",
+  "generado_iso": "2026-11-02T22:50:10.203324",
+  "duracion_seg": 88.72,
   "mes_actual": "2026-11",
   "meses_disponibles": [
     "2026-11"
@@ -13,18 +13,18 @@
     "fallidos": 0,
     "sin_acceso": 0,
     "obsoletos": 0,
-    "proxima_sync_iso": "2026-11-02T14:32:28.773639",
+    "proxima_sync_iso": "2026-11-02T23:05:10.203324",
     "intervalo_min": 15,
     "en_curso": false
   },
   "kpis": {
-    "trabajando_ahora": 4,
-    "finalizados_hoy": 10,
-    "no_fichados_hoy_previstos": 34,
+    "trabajando_ahora": 6,
+    "finalizados_hoy": 13,
+    "no_fichados_hoy_previstos": 29,
     "bajas": 0,
     "vacaciones": 0,
     "incidencias_hoy": 0,
-    "horas_mes_total": 100.1
+    "horas_mes_total": 121.11
   },
   "total_trabajadores": 48,
   "trabajadores": [
@@ -38,7 +38,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:33.733886",
+      "ultima_consulta_ok": "2026-11-02T22:50:15.571841",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -467,7 +467,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:41.837971",
+      "ultima_consulta_ok": "2026-11-02T22:50:23.278447",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -896,16 +896,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:33.859556",
+      "ultima_consulta_ok": "2026-11-02T22:50:15.569006",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (2 días con marcaje)",
       "ultimo_fichaje": {
         "fecha": "02/11/2026",
-        "hora": "02:00:32",
-        "tipo": "Salida",
-        "isEntrada": false,
+        "hora": "18:20:39",
+        "tipo": "Entrada",
+        "isEntrada": true,
         "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
         "descanso": false
       },
@@ -933,10 +933,16 @@
                   "tipo": "Salida",
                   "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
                   "descanso": false
+                },
+                {
+                  "hora": "18:20:39",
+                  "tipo": "Entrada",
+                  "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
+                  "descanso": false
                 }
               ],
               "horas_trabajadas": 0.0,
-              "estado": "SOLO_SALIDA",
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -1139,8 +1145,8 @@
           },
           "resumen": {
             "dias_fichados": 2,
-            "dias_completos": 0,
-            "dias_incompletos": 2,
+            "dias_completos": 1,
+            "dias_incompletos": 1,
             "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
@@ -1148,7 +1154,7 @@
           }
         }
       },
-      "total_fichajes": 2,
+      "total_fichajes": 3,
       "dias_fichados": [
         "01",
         "02"
@@ -1156,6 +1162,14 @@
       "dias_naranja_count": 2,
       "dias_sin_fichar_count": 29,
       "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "18:20:39",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO06834-P1-C018 - (LIM) CASINO LLORET",
+          "descanso": false
+        },
         {
           "fecha": "02/11/2026",
           "hora": "02:00:32",
@@ -1181,10 +1195,10 @@
           "status": "FICHO"
         },
         "2": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "3": {
           "isOrange": false,
@@ -1366,7 +1380,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:36.911756",
+      "ultima_consulta_ok": "2026-11-02T22:50:19.321424",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -1795,7 +1809,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:37.884408",
+      "ultima_consulta_ok": "2026-11-02T22:50:19.867198",
       "datos_obsoletos": false,
       "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "nook",
@@ -2249,7 +2263,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:42.113405",
+      "ultima_consulta_ok": "2026-11-02T22:50:23.543223",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -2747,7 +2761,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:41.581309",
+      "ultima_consulta_ok": "2026-11-02T22:50:24.058644",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -3176,7 +3190,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:45.641737",
+      "ultima_consulta_ok": "2026-11-02T22:50:27.512058",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -3605,7 +3619,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:47.127189",
+      "ultima_consulta_ok": "2026-11-02T22:50:27.857130",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -4034,7 +4048,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:47.506460",
+      "ultima_consulta_ok": "2026-11-02T22:50:28.492567",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -4463,7 +4477,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:57.575898",
+      "ultima_consulta_ok": "2026-11-02T22:50:40.266662",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -4892,12 +4906,19 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:51.368620",
+      "ultima_consulta_ok": "2026-11-02T22:50:31.823921",
       "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en November 2026",
-      "ultimo_fichaje": null,
+      "estado_hoy": "FINALIZADO",
+      "estado_semaforo": "nook",
+      "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
+      "ultimo_fichaje": {
+        "fecha": "02/11/2026",
+        "hora": "21:02:23",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+        "descanso": false
+      },
       "meses": {
         "2026-11": {
           "dias": {
@@ -4909,9 +4930,22 @@
               "retraso_min": null
             },
             "02": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "16:00:29",
+                  "tipo": "Entrada",
+                  "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+                  "descanso": false
+                },
+                {
+                  "hora": "21:02:23",
+                  "tipo": "Salida",
+                  "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 5.03,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -5113,21 +5147,40 @@
             }
           },
           "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
+            "dias_fichados": 1,
+            "dias_completos": 1,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 5.03,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
+            "cumplimiento_pct": 4.5
           }
         }
       },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
+      "total_fichajes": 2,
+      "dias_fichados": [
+        "02"
+      ],
+      "dias_naranja_count": 1,
+      "dias_sin_fichar_count": 30,
+      "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "21:02:23",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+          "descanso": false
+        },
+        {
+          "fecha": "02/11/2026",
+          "hora": "16:00:29",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+          "descanso": false
+        }
+      ],
       "calendar_days": {
         "1": {
           "isOrange": false,
@@ -5136,10 +5189,10 @@
           "status": "NO_FICHO"
         },
         "2": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "3": {
           "isOrange": false,
@@ -5321,7 +5374,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:52.378211",
+      "ultima_consulta_ok": "2026-11-02T22:50:32.877361",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -5750,7 +5803,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:55.980625",
+      "ultima_consulta_ok": "2026-11-02T22:50:35.521580",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -6179,7 +6232,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:17:56.490897",
+      "ultima_consulta_ok": "2026-11-02T22:50:36.603603",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -6647,7 +6700,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:00.183538",
+      "ultima_consulta_ok": "2026-11-02T22:50:39.711025",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -7076,7 +7129,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:01.240677",
+      "ultima_consulta_ok": "2026-11-02T22:50:40.239829",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
@@ -7530,7 +7583,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:01.190469",
+      "ultima_consulta_ok": "2026-11-02T22:50:44.219841",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -7959,7 +8012,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:04.439490",
+      "ultima_consulta_ok": "2026-11-02T22:50:44.937151",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -8388,16 +8441,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:05.631751",
+      "ultima_consulta_ok": "2026-11-02T22:50:44.702412",
       "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
+      "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "nook",
-      "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
+      "diagnostico": "🟡 Fichaje parcial (2 días con marcaje)",
       "ultimo_fichaje": {
-        "fecha": "01/11/2026",
-        "hora": "08:00:45",
-        "tipo": "Salida",
-        "isEntrada": false,
+        "fecha": "02/11/2026",
+        "hora": "21:49:33",
+        "tipo": "Entrada",
+        "isEntrada": true,
         "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
         "descanso": false
       },
@@ -8425,9 +8478,487 @@
               "retraso_min": null
             },
             "02": {
+              "marcajes": [
+                {
+                  "hora": "21:49:33",
+                  "tipo": "Entrada",
+                  "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 0.0,
+              "estado": "EN_CURSO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "03": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "04": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "05": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "06": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "07": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "08": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "09": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "10": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "11": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "12": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "13": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "14": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "15": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "16": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "17": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "18": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "19": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "20": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "21": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "22": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "23": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "24": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "25": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "26": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "27": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "28": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "29": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "30": {
+              "marcajes": [],
+              "horas_trabajadas": 0.0,
+              "estado": "FUTURO",
+              "turno_previsto": null,
+              "retraso_min": null
+            }
+          },
+          "resumen": {
+            "dias_fichados": 2,
+            "dias_completos": 1,
+            "dias_incompletos": 0,
+            "horas_totales": 8.0,
+            "dias_previstos": 22,
+            "dias_previstos_sin_fichar": 0,
+            "cumplimiento_pct": 9.1
+          }
+        }
+      },
+      "total_fichajes": 3,
+      "dias_fichados": [
+        "01",
+        "02"
+      ],
+      "dias_naranja_count": 2,
+      "dias_sin_fichar_count": 29,
+      "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "21:49:33",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
+          "descanso": false
+        },
+        {
+          "fecha": "01/11/2026",
+          "hora": "08:00:45",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
+          "descanso": false
+        },
+        {
+          "fecha": "01/11/2026",
+          "hora": "00:00:37",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
+          "descanso": false
+        }
+      ],
+      "calendar_days": {
+        "1": {
+          "isOrange": true,
+          "isCyan": false,
+          "isRed": false,
+          "status": "FICHO"
+        },
+        "2": {
+          "isOrange": true,
+          "isCyan": false,
+          "isRed": true,
+          "status": "FICHO"
+        },
+        "3": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "4": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "5": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "6": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "7": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "8": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "9": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "10": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "11": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "12": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "13": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "14": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "15": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "16": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "17": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "18": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "19": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "20": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "21": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "22": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "23": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "24": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "25": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "26": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "27": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "28": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "29": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "30": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        }
+      }
+    },
+    {
+      "nombre": "JOSEP MADI ARIZA",
+      "dni": "41630393W",
+      "servicio": "GENERALITAT DE CATALUNYA",
+      "sector": "AUXILIARES",
+      "fuente_censo": "master_SEGUIMIENTO",
+      "login_ok": true,
+      "sync_ok": true,
+      "sync_error": null,
+      "intentos": 1,
+      "ultima_consulta_ok": "2026-11-02T22:50:48.455759",
+      "datos_obsoletos": false,
+      "estado_hoy": "TRABAJANDO",
+      "estado_semaforo": "nook",
+      "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
+      "ultimo_fichaje": {
+        "fecha": "02/11/2026",
+        "hora": "21:44:34",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+        "descanso": false
+      },
+      "meses": {
+        "2026-11": {
+          "dias": {
+            "01": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
               "estado": "SIN_MARCAJE",
+              "turno_previsto": null,
+              "retraso_min": null
+            },
+            "02": {
+              "marcajes": [
+                {
+                  "hora": "21:44:34",
+                  "tipo": "Entrada",
+                  "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 0.0,
+              "estado": "EN_CURSO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -8630,480 +9161,43 @@
           },
           "resumen": {
             "dias_fichados": 1,
-            "dias_completos": 1,
+            "dias_completos": 0,
             "dias_incompletos": 0,
-            "horas_totales": 8.0,
+            "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 4.5
           }
         }
       },
-      "total_fichajes": 2,
+      "total_fichajes": 1,
       "dias_fichados": [
-        "01"
+        "02"
       ],
       "dias_naranja_count": 1,
       "dias_sin_fichar_count": 30,
       "fichajes": [
         {
-          "fecha": "01/11/2026",
-          "hora": "08:00:45",
-          "tipo": "Salida",
-          "isEntrada": false,
-          "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
-          "descanso": false
-        },
-        {
-          "fecha": "01/11/2026",
-          "hora": "00:00:37",
+          "fecha": "02/11/2026",
+          "hora": "21:44:34",
           "tipo": "Entrada",
           "isEntrada": true,
-          "punto": "SVO04300-P1-C018, GestBoes - 2436484 LOT 9",
+          "punto": "SVO02267-P1-C018 - LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
           "descanso": false
         }
       ],
       "calendar_days": {
         "1": {
+          "isOrange": false,
+          "isCyan": true,
+          "isRed": false,
+          "status": "NO_FICHO"
+        },
+        "2": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": false,
+          "isRed": true,
           "status": "FICHO"
-        },
-        "2": {
-          "isOrange": false,
-          "isCyan": false,
-          "isRed": true,
-          "status": "HOY"
-        },
-        "3": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "4": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "5": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "6": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "7": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "8": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "9": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "10": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "11": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "12": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "13": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "14": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "15": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "16": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "17": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "18": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "19": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "20": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "21": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "22": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "23": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "24": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "25": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "26": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "27": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "28": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "29": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "30": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        }
-      }
-    },
-    {
-      "nombre": "JOSEP MADI ARIZA",
-      "dni": "41630393W",
-      "servicio": "GENERALITAT DE CATALUNYA",
-      "sector": "AUXILIARES",
-      "fuente_censo": "master_SEGUIMIENTO",
-      "login_ok": true,
-      "sync_ok": true,
-      "sync_error": null,
-      "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:05.708314",
-      "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en November 2026",
-      "ultimo_fichaje": null,
-      "meses": {
-        "2026-11": {
-          "dias": {
-            "01": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "02": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "03": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "04": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "05": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "06": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "07": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "08": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "09": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "10": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "11": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "12": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "13": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "14": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "15": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "16": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "17": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "18": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "19": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "20": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "21": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "22": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "23": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "24": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "25": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "26": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "27": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "28": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "29": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            },
-            "30": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
-              "turno_previsto": null,
-              "retraso_min": null
-            }
-          },
-          "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
-            "dias_incompletos": 0,
-            "horas_totales": 0.0,
-            "dias_previstos": 22,
-            "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
-          }
-        }
-      },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
-      "calendar_days": {
-        "1": {
-          "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
-          "status": "NO_FICHO"
-        },
-        "2": {
-          "isOrange": false,
-          "isCyan": false,
-          "isRed": true,
-          "status": "HOY"
         },
         "3": {
           "isOrange": false,
@@ -9285,7 +9379,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:08.475220",
+      "ultima_consulta_ok": "2026-11-02T22:50:48.962618",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -9753,7 +9847,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:11.899176",
+      "ultima_consulta_ok": "2026-11-02T22:50:49.178436",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -10182,7 +10276,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:11.476184",
+      "ultima_consulta_ok": "2026-11-02T22:50:52.838828",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -10611,7 +10705,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:12.549724",
+      "ultima_consulta_ok": "2026-11-02T22:50:53.211023",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -11040,16 +11134,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:16.622462",
+      "ultima_consulta_ok": "2026-11-02T22:50:53.437020",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
       "ultimo_fichaje": {
         "fecha": "02/11/2026",
-        "hora": "12:37:33",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "15:50:34",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
         "descanso": false
       },
@@ -11070,10 +11164,16 @@
                   "tipo": "Entrada",
                   "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
                   "descanso": false
+                },
+                {
+                  "hora": "15:50:34",
+                  "tipo": "Salida",
+                  "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 3.22,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -11276,22 +11376,30 @@
           },
           "resumen": {
             "dias_fichados": 1,
-            "dias_completos": 0,
+            "dias_completos": 1,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 3.22,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 4.5
           }
         }
       },
-      "total_fichajes": 1,
+      "total_fichajes": 2,
       "dias_fichados": [
         "02"
       ],
       "dias_naranja_count": 1,
       "dias_sin_fichar_count": 30,
       "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "15:50:34",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "SVO06113-P1-C018 - AM-JU-2024-7 LOT 24",
+          "descanso": false
+        },
         {
           "fecha": "02/11/2026",
           "hora": "12:37:33",
@@ -11494,7 +11602,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:17.129817",
+      "ultima_consulta_ok": "2026-11-02T22:50:57.020340",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -11923,7 +12031,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:24.689853",
+      "ultima_consulta_ok": "2026-11-02T22:51:05.411728",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -12352,12 +12460,19 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:20.737658",
+      "ultima_consulta_ok": "2026-11-02T22:50:57.939682",
       "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en November 2026",
-      "ultimo_fichaje": null,
+      "estado_hoy": "FINALIZADO",
+      "estado_semaforo": "nook",
+      "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
+      "ultimo_fichaje": {
+        "fecha": "02/11/2026",
+        "hora": "19:53:29",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "PROY010147-P2-C001 - IM3, GIRONA",
+        "descanso": false
+      },
       "meses": {
         "2026-11": {
           "dias": {
@@ -12369,9 +12484,22 @@
               "retraso_min": null
             },
             "02": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "17:37:24",
+                  "tipo": "Entrada",
+                  "punto": "PROY010147-P2-C001 - IM3, GIRONA",
+                  "descanso": false
+                },
+                {
+                  "hora": "19:53:29",
+                  "tipo": "Salida",
+                  "punto": "PROY010147-P2-C001 - IM3, GIRONA",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 2.27,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -12573,21 +12701,40 @@
             }
           },
           "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
+            "dias_fichados": 1,
+            "dias_completos": 1,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 2.27,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
+            "cumplimiento_pct": 4.5
           }
         }
       },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
+      "total_fichajes": 2,
+      "dias_fichados": [
+        "02"
+      ],
+      "dias_naranja_count": 1,
+      "dias_sin_fichar_count": 30,
+      "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "19:53:29",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY010147-P2-C001 - IM3, GIRONA",
+          "descanso": false
+        },
+        {
+          "fecha": "02/11/2026",
+          "hora": "17:37:24",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY010147-P2-C001 - IM3, GIRONA",
+          "descanso": false
+        }
+      ],
       "calendar_days": {
         "1": {
           "isOrange": false,
@@ -12596,10 +12743,10 @@
           "status": "NO_FICHO"
         },
         "2": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "3": {
           "isOrange": false,
@@ -12781,7 +12928,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:21.269463",
+      "ultima_consulta_ok": "2026-11-02T22:51:00.722365",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -13249,7 +13396,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:25.439081",
+      "ultima_consulta_ok": "2026-11-02T22:51:02.209410",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -13678,7 +13825,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:26.479414",
+      "ultima_consulta_ok": "2026-11-02T22:51:04.834425",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -14107,7 +14254,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:30.061173",
+      "ultima_consulta_ok": "2026-11-02T22:51:06.410613",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -14575,16 +14722,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:31.158818",
+      "ultima_consulta_ok": "2026-11-02T22:51:09.083950",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (2 días con marcaje)",
       "ultimo_fichaje": {
         "fecha": "02/11/2026",
-        "hora": "06:00:57",
-        "tipo": "Salida",
-        "isEntrada": false,
+        "hora": "21:50:40",
+        "tipo": "Entrada",
+        "isEntrada": true,
         "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
         "descanso": false
       },
@@ -14634,6 +14781,12 @@
                 {
                   "hora": "06:00:57",
                   "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
+                },
+                {
+                  "hora": "21:50:40",
+                  "tipo": "Entrada",
                   "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
                   "descanso": false
                 }
@@ -14851,7 +15004,7 @@
           }
         }
       },
-      "total_fichajes": 6,
+      "total_fichajes": 7,
       "dias_fichados": [
         "01",
         "02"
@@ -14859,6 +15012,14 @@
       "dias_naranja_count": 2,
       "dias_sin_fichar_count": 29,
       "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "21:50:40",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
         {
           "fecha": "02/11/2026",
           "hora": "06:00:57",
@@ -15101,12 +15262,19 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:30.642990",
+      "ultima_consulta_ok": "2026-11-02T22:51:09.281228",
       "datos_obsoletos": false,
-      "estado_hoy": "NO_FICHADO",
-      "estado_semaforo": "noficha",
-      "diagnostico": "🔴 Sin marcajes en November 2026",
-      "ultimo_fichaje": null,
+      "estado_hoy": "FINALIZADO",
+      "estado_semaforo": "nook",
+      "diagnostico": "🟡 Fichaje parcial (1 días con marcaje)",
+      "ultimo_fichaje": {
+        "fecha": "02/11/2026",
+        "hora": "18:58:43",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "PROY017209-P1 - DIPSALUT",
+        "descanso": false
+      },
       "meses": {
         "2026-11": {
           "dias": {
@@ -15118,9 +15286,22 @@
               "retraso_min": null
             },
             "02": {
-              "marcajes": [],
-              "horas_trabajadas": 0.0,
-              "estado": "SIN_MARCAJE",
+              "marcajes": [
+                {
+                  "hora": "16:30:37",
+                  "tipo": "Entrada",
+                  "punto": "PROY017209-P1 - DIPSALUT",
+                  "descanso": false
+                },
+                {
+                  "hora": "18:58:43",
+                  "tipo": "Salida",
+                  "punto": "PROY017209-P1 - DIPSALUT",
+                  "descanso": false
+                }
+              ],
+              "horas_trabajadas": 2.47,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -15322,21 +15503,40 @@
             }
           },
           "resumen": {
-            "dias_fichados": 0,
-            "dias_completos": 0,
+            "dias_fichados": 1,
+            "dias_completos": 1,
             "dias_incompletos": 0,
-            "horas_totales": 0.0,
+            "horas_totales": 2.47,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
-            "cumplimiento_pct": 0.0
+            "cumplimiento_pct": 4.5
           }
         }
       },
-      "total_fichajes": 0,
-      "dias_fichados": [],
-      "dias_naranja_count": 0,
-      "dias_sin_fichar_count": 31,
-      "fichajes": [],
+      "total_fichajes": 2,
+      "dias_fichados": [
+        "02"
+      ],
+      "dias_naranja_count": 1,
+      "dias_sin_fichar_count": 30,
+      "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "18:58:43",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY017209-P1 - DIPSALUT",
+          "descanso": false
+        },
+        {
+          "fecha": "02/11/2026",
+          "hora": "16:30:37",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY017209-P1 - DIPSALUT",
+          "descanso": false
+        }
+      ],
       "calendar_days": {
         "1": {
           "isOrange": false,
@@ -15345,10 +15545,10 @@
           "status": "NO_FICHO"
         },
         "2": {
-          "isOrange": false,
+          "isOrange": true,
           "isCyan": false,
           "isRed": true,
-          "status": "HOY"
+          "status": "FICHO"
         },
         "3": {
           "isOrange": false,
@@ -15530,7 +15730,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:34.842074",
+      "ultima_consulta_ok": "2026-11-02T22:51:10.707812",
       "datos_obsoletos": false,
       "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "nook",
@@ -15984,7 +16184,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:34.296813",
+      "ultima_consulta_ok": "2026-11-02T22:51:13.361954",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -16538,7 +16738,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:35.959892",
+      "ultima_consulta_ok": "2026-11-02T22:51:13.499867",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -16967,7 +17167,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:39.808501",
+      "ultima_consulta_ok": "2026-11-02T22:51:13.926085",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -17491,7 +17691,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:39.502699",
+      "ultima_consulta_ok": "2026-11-02T22:51:18.220206",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
@@ -17959,7 +18159,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:40.018354",
+      "ultima_consulta_ok": "2026-11-02T22:51:18.368907",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
@@ -18427,7 +18627,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:51.601841",
+      "ultima_consulta_ok": "2026-11-02T22:51:26.731307",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -18856,16 +19056,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:44.121686",
+      "ultima_consulta_ok": "2026-11-02T22:51:22.542092",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (2 días con marcaje)",
       "ultimo_fichaje": {
         "fecha": "02/11/2026",
-        "hora": "13:56:14",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "21:57:28",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
         "descanso": false
       },
@@ -18899,10 +19099,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
                   "descanso": false
+                },
+                {
+                  "hora": "21:57:28",
+                  "tipo": "Salida",
+                  "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 8.02,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -19105,16 +19311,16 @@
           },
           "resumen": {
             "dias_fichados": 2,
-            "dias_completos": 1,
+            "dias_completos": 2,
             "dias_incompletos": 0,
-            "horas_totales": 8.0,
+            "horas_totales": 16.02,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 9.1
           }
         }
       },
-      "total_fichajes": 3,
+      "total_fichajes": 4,
       "dias_fichados": [
         "01",
         "02"
@@ -19122,6 +19328,14 @@
       "dias_naranja_count": 2,
       "dias_sin_fichar_count": 29,
       "fichajes": [
+        {
+          "fecha": "02/11/2026",
+          "hora": "21:57:28",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY018037-P2-E002, AJUNTAMENT DE FIGUERES",
+          "descanso": false
+        },
         {
           "fecha": "02/11/2026",
           "hora": "13:56:14",
@@ -19340,7 +19554,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:44.226997",
+      "ultima_consulta_ok": "2026-11-02T22:51:23.458644",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -19769,7 +19983,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:48.332444",
+      "ultima_consulta_ok": "2026-11-02T22:51:26.266692",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -20198,7 +20412,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:49.376647",
+      "ultima_consulta_ok": "2026-11-02T22:51:27.778519",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
@@ -20666,7 +20880,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:18:53.097487",
+      "ultima_consulta_ok": "2026-11-02T22:51:30.581650",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -21095,7 +21309,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-02T14:19:01.829615",
+      "ultima_consulta_ok": "2026-11-02T22:51:38.863033",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
