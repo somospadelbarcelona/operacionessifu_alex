@@ -4115,7 +4115,7 @@ body.anim-fast .nav-links li {
 
   /* Membrete SIFU para la hoja impresa */
   .list-header-incidents::before {
-    content: "GRUPO SIFU GIRONA - ACTA OFICIAL DE SEGUIMIENTO DE CALIDAD\nGenerado desde: SIFU Girona Hub\n--------------------------------------------------------------";
+    content: "GRUPO SIFU BARCELONA - ACTA OFICIAL DE SEGUIMIENTO DE CALIDAD\nGenerado desde: SIFU Barcelona Hub\n--------------------------------------------------------------";
     display: block !important;
     font-family: monospace;
     font-size: 11px;

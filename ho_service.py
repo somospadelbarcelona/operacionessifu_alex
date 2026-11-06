@@ -5,6 +5,7 @@ Permite interactuar con el ERP corporativo HO mediante OData REST v2,
 con soporte de autenticacion HTTP Basic, sesiones con cookies y tokens CSRF para escrituras.
 """
 
+import os
 import sys
 import json
 import logging
@@ -24,8 +25,13 @@ DEFAULT_USER = "acoscolin"
 DEFAULT_PASS = "Sifucosco21"
 RESPONSABLE_ID = "46468278"
 RESPONSABLE_NAME = "COSCOLIN PEREGRIN, ALEJAN"
+OFICINA_BCN = "0801"
+DIVISION_BCN = "0801"
+OFICINA_ACTUAL = OFICINA_BCN
+DIVISION_ACTUAL = DIVISION_BCN
 OFICINA_GIRONA = "1701"
 HO_PROJECTS_URL = f"{HO_BASE_URL}/sap/bc/ui5_ui5/sap/zso/index.html?sap-client=100&sap-language=ES#/Projects"
+BCN_PREFIXES = ["08", "BCN", "BARCELONA", "BADALONA", "HOSPITALET", "SABADELL", "TERRASSA", "MATARO", "GRANOLLERS", "CORNELLA", "PRAT", "SANT CUGAT"]
 GIRONA_PREFIXES = ["17", "GIR", "GIRONA", "FIGUERES", "OLOT", "BLANES", "SALT"]
 
 SAP_PROJECT_ID_MAP = {
@@ -44,7 +50,10 @@ def resolve_sap_project_id(proy_id):
     if not proy_id:
         return ""
     clean_id = str(proy_id).strip().upper()
-    return SAP_PROJECT_ID_MAP.get(clean_id, str(proy_id).strip())
+    # Normalizar automáticamente SV0 (con dígito cero) a SVO (con letra O)
+    if clean_id.startswith("SV0") and len(clean_id) > 3 and clean_id[3].isdigit():
+        clean_id = "SVO" + clean_id[3:]
+    return SAP_PROJECT_ID_MAP.get(clean_id, clean_id)
 
 class HOService:
     def __init__(self, username=DEFAULT_USER, password=DEFAULT_PASS):
@@ -134,6 +143,10 @@ class HOService:
             results = self.query_entity_set("ProyectoSet", filter_query=f"Division eq '{OFICINA_GIRONA}'", top=max_results)
         return results or []
 
+    def get_bcn_projects(self, max_results=1000):
+        """Obtiene los proyectos de Barcelona (División 0801)."""
+        return self.query_entity_set("ProyectoSet", filter_query=f"Division eq '{DIVISION_BCN}'", top=max_results) or []
+
     @staticmethod
     def _parse_sap_pt_time(pt_str):
         """Convierte PT08H30M00S a 08:30."""
@@ -146,18 +159,63 @@ class HOService:
         return pt_str
 
     def get_project_cuadrante(self, project_id, fecha_consulta=None):
-        """Descarga el cuadrante real completo (HAGridSet + NAVHAGHAR/NAVHARHAC + EmpleadoProyectoSet) de un proyecto en SAP HO."""
+        """Descarga el cuadrante real completo (HAGridSet + HSGridSet + TurnosPHSet + EmpleadoProyectoSet) de un proyecto en SAP HO."""
         if not self.is_connected and not self.connect():
             return None
         pid = resolve_sap_project_id(project_id)
-        fechas_a_consultar = [fecha_consulta] if fecha_consulta else list(dict.fromkeys([
-            datetime.now().strftime("%Y-%m-01T00:00:00"),
-            "2026-04-01T00:00:00"
-        ]))
+        mes_actual_fc = datetime.now().strftime("%Y-%m-01T00:00:00")
+        fechas_a_consultar = [fecha_consulta] if fecha_consulta else [mes_actual_fc]
 
         headers = {"Accept": "application/json"}
         filas_map = {}  # (turno_id, emp_id, nom) -> emp_entry
         turnos_dict = {}
+
+        # 1. Consultar HSGridSet del mes actual para saber qué turnos tienen horas de servicio abiertas en el mes en curso
+        turnos_hs_activos = {}  # raw_t ('01') -> {'dias_activos': int, 'hora_inicio': str, 'hora_fin': str, 'horarios': list}
+        mes_cerrado_sap = False
+        fc_hs = fecha_consulta or mes_actual_fc
+        try:
+            url_hs = f"{HO_ODATA_ROOT}/HSGridSet"
+            params_hs = {
+                "$format": "json",
+                "$filter": f"IdProyecto eq '{pid}' and FechaConsulta eq datetime'{fc_hs}'",
+                "$expand": "NAVHSGHSR/NAVHSRHSC"
+            }
+            res_hs = self.session.get(url_hs, params=params_hs, headers=headers, timeout=12)
+            if res_hs.status_code == 200:
+                hs_grids = res_hs.json().get("d", {}).get("results", [])
+                for hg in hs_grids:
+                    mes_cerrado_sap = bool(hg.get("Cerrado", False))
+                    for hrow in hg.get("NAVHSGHSR", {}).get("results", []):
+                        raw_t = str(hrow.get("Turno") or "01").strip().zfill(2)
+                        titulo_h = (hrow.get("Titulo") or "").strip()
+                        if "Persona" in titulo_h:
+                            continue
+                        hcells = hrow.get("NAVHSRHSC", {}).get("results", [])
+                        dias_srv = 0
+                        horarios_srv = []
+                        h_ini_first, h_fin_first = "", ""
+                        for hc in hcells:
+                            hi = self._parse_sap_pt_time(hc.get("HoraInicio"))
+                            hf = self._parse_sap_pt_time(hc.get("HoraFin"))
+                            if hf == "23:59":
+                                hf = "24:00"
+                            if hi and hf and not (hi == "00:00" and hf == "00:00"):
+                                dias_srv += 1
+                                hp = f"{hi} a {hf}"
+                                if hp not in horarios_srv:
+                                    horarios_srv.append(hp)
+                                if not h_ini_first:
+                                    h_ini_first, h_fin_first = hi, hf
+                        if dias_srv > 0:
+                            turnos_hs_activos[raw_t] = {
+                                "dias_servicio_mes": dias_srv,
+                                "hora_inicio": h_ini_first,
+                                "hora_fin": h_fin_first,
+                                "horarios": horarios_srv
+                            }
+        except Exception as e:
+            logger.warning(f"Error consultando HSGridSet para {pid} ({fc_hs}): {e}")
 
         for fc in fechas_a_consultar:
             url = f"{HO_ODATA_ROOT}/HAGridSet"
@@ -176,7 +234,7 @@ class HOService:
                             emp_id = str(row.get("IdEmpleado") or "").strip()
                             titulo_raw = (row.get("Titulo") or "").strip()
                             nom = titulo_raw.split("(")[0].strip() if "(" in titulo_raw else titulo_raw
-                            turno_id = str(row.get("Turno") or "01").strip()
+                            turno_id = str(row.get("Turno") or "01").strip().zfill(2)
                             cells = row.get("NAVHARHAC", {}).get("results", [])
 
                             tipos_celda = []
@@ -198,6 +256,8 @@ class HOService:
 
                                 h_ini = self._parse_sap_pt_time(c.get("HoraInicioReal") or c.get("HoraInicioPlan"))
                                 h_fin = self._parse_sap_pt_time(c.get("HoraFinReal") or c.get("HoraFinPlan"))
+                                if h_fin == "23:59":
+                                    h_fin = "24:00"
                                 if h_ini and h_fin and not (h_ini == "00:00" and h_fin == "00:00"):
                                     dias_activos += 1
                                     h_pair = f"{h_ini} a {h_fin}"
@@ -255,7 +315,6 @@ class HOService:
 
         filas_cuadrante = list(filas_map.values())
         for emp_entry in filas_cuadrante:
-            # Recalcular rol consolidado si se fusionaron meses
             if emp_entry["en_baja"]:
                 emp_entry["rol"] = "BAJA IT"
             elif "SB" in emp_entry["tipos_imputacion"] or "SB" in emp_entry["tipos_asignacion"]:
@@ -266,16 +325,108 @@ class HOService:
                 emp_entry["rol"] = "TITULAR (TI)"
 
             t_id = emp_entry["turno"]
+            cod_num = t_id.replace("T", "").zfill(2)
+            hs_info = turnos_hs_activos.get(cod_num, {})
             if t_id not in turnos_dict:
                 turnos_dict[t_id] = {
                     "id_turno": t_id,
-                    "horarios": [],
-                    "empleados": []
+                    "codigo_turno": cod_num,
+                    "hora_inicio": hs_info.get("hora_inicio", ""),
+                    "hora_fin": hs_info.get("hora_fin", ""),
+                    "horarios": list(hs_info.get("horarios", [])),
+                    "empleados": [],
+                    "en_uso": True,
+                    "activo_mes_actual": True,
+                    "dias_servicio_mes": hs_info.get("dias_servicio_mes", 30),
+                    "historico_cerrado": False
                 }
             turnos_dict[t_id]["empleados"].append(emp_entry)
             for hp in emp_entry["horarios"]:
                 if hp not in turnos_dict[t_id]["horarios"]:
                     turnos_dict[t_id]["horarios"].append(hp)
+                    if not turnos_dict[t_id]["hora_inicio"] and " a " in hp:
+                        p_ini, p_fin = hp.split(" a ", 1)
+                        turnos_dict[t_id]["hora_inicio"] = p_ini.strip()
+                        turnos_dict[t_id]["hora_fin"] = p_fin.strip()
+
+        # Añadir turnos activos en HSGridSet este mes aunque no tengan empleados asignados todavía (vacantes reales del mes actual)
+        for cod_hs, hs_info in turnos_hs_activos.items():
+            t_key = f"T{cod_hs}"
+            if t_key not in turnos_dict:
+                turnos_dict[t_key] = {
+                    "id_turno": t_key,
+                    "codigo_turno": cod_hs,
+                    "hora_inicio": hs_info.get("hora_inicio", "08:00"),
+                    "hora_fin": hs_info.get("hora_fin", "15:00"),
+                    "horarios": list(hs_info.get("horarios", [])),
+                    "empleados": [],
+                    "en_uso": False,
+                    "activo_mes_actual": True,
+                    "dias_servicio_mes": hs_info.get("dias_servicio_mes", 0),
+                    "historico_cerrado": False
+                }
+
+        # Consultar también TurnosPHSet para enriquecer horarios oficiales, pero NO incluir turnos históricos cerrados
+        # de meses pasados (ej. verano) si el proyecto ya tiene turnos activos en HSGridSet este mes
+        turnos_historicos_cerrados = []
+        try:
+            url_tph = f"{HO_ODATA_ROOT}/TurnosPHSet"
+            params_tph = {
+                "$format": "json",
+                "$filter": f"IdProyecto eq '{pid}'",
+                "$expand": "NAVTPHTPD"
+            }
+            res_tph = self.session.get(url_tph, params=params_tph, headers=headers, timeout=12)
+            if res_tph.status_code == 200:
+                tph_results = res_tph.json().get("d", {}).get("results", [])
+                for tph in tph_results:
+                    nav_turnos = tph.get("NAVTPHTPD", {}).get("results", [])
+                    for td in nav_turnos:
+                        raw_t = str(td.get("Turno") or "01").strip().zfill(2)
+                        t_key = f"T{raw_t}"
+                        h_ini_of = self._parse_sap_pt_time(td.get("HoraInicio"))
+                        h_fin_of = self._parse_sap_pt_time(td.get("HoraFin"))
+                        if h_fin_of == "23:59":
+                            h_fin_of = "24:00"
+                        par_of = f"{h_ini_of} a {h_fin_of}" if (h_ini_of and h_fin_of) else ""
+                        if t_key in turnos_dict:
+                            if not turnos_dict[t_key].get("hora_inicio") and h_ini_of:
+                                turnos_dict[t_key]["hora_inicio"] = h_ini_of
+                            if not turnos_dict[t_key].get("hora_fin") and h_fin_of:
+                                turnos_dict[t_key]["hora_fin"] = h_fin_of
+                            if par_of and par_of not in turnos_dict[t_key]["horarios"]:
+                                turnos_dict[t_key]["horarios"].insert(0, par_of)
+                        else:
+                            # Si HSGridSet devolvió turnos para este mes y este turno NO está en HSGridSet,
+                            # significa que es un turno histórico de meses pasados ya cerrados (ej. T07..T21 de agosto)
+                            if turnos_hs_activos:
+                                turnos_historicos_cerrados.append({
+                                    "id_turno": t_key,
+                                    "codigo_turno": raw_t,
+                                    "hora_inicio": h_ini_of,
+                                    "hora_fin": h_fin_of,
+                                    "horarios": [par_of] if par_of else [],
+                                    "empleados": [],
+                                    "en_uso": False,
+                                    "activo_mes_actual": False,
+                                    "historico_cerrado": True
+                                })
+                            else:
+                                turnos_dict[t_key] = {
+                                    "id_turno": t_key,
+                                    "codigo_turno": raw_t,
+                                    "hora_inicio": h_ini_of,
+                                    "hora_fin": h_fin_of,
+                                    "horarios": [par_of] if par_of else [],
+                                    "empleados": [],
+                                    "en_uso": False,
+                                    "activo_mes_actual": True,
+                                    "historico_cerrado": False
+                                }
+        except Exception as e:
+            logger.warning(f"Error consultando TurnosPHSet para {pid}: {e}")
+
+        turnos_ordenados = sorted(turnos_dict.values(), key=lambda x: x.get("id_turno", ""))
 
         emp_proy = self.query_entity_set("EmpleadoProyectoSet", filter_query=f"IdProyecto eq '{pid}'") or []
         empleados_asignados = [
@@ -290,7 +441,9 @@ class HOService:
 
         return {
             "id_proyecto": pid,
-            "turnos": list(turnos_dict.values()),
+            "mes_cerrado": mes_cerrado_sap,
+            "turnos": turnos_ordenados,
+            "turnos_historicos_cerrados": turnos_historicos_cerrados,
             "filas_cuadrante": filas_cuadrante,
             "empleados_proyecto": empleados_asignados
         }
@@ -381,11 +534,16 @@ class HOService:
                 data = res.json().get("d", {})
                 is_error = data.get("Error", False)
                 msg = data.get("Mensaje", "Trámite grabado con éxito en el cuadrante de SAP HO")
-                logger.info(f"CargaHESet ejecutado para {id_empleado}: {msg}")
+                dias_cero = ("0" in msg and "días" in msg.lower())
+                if dias_cero:
+                    logger.warning(f"CargaHESet para {id_empleado}: SAP devolvió 0 días grabados ({msg})")
+                else:
+                    logger.info(f"CargaHESet ejecutado para {id_empleado}: {msg}")
                 return {
-                    "status": "ok" if not is_error else "error",
+                    "status": "ok" if (not is_error and not dias_cero) else "error" if is_error else "alerta",
                     "mensaje": msg,
                     "error": is_error,
+                    "dias_grabados_cero": dias_cero,
                     "tipo_asignacion": tipo_asignacion,
                     "id_empleado": id_empleado
                 }
@@ -487,36 +645,442 @@ class HOService:
             logger.error(f"Fallo de conexión en CargaSPSet: {e}")
             return {"status": "error", "mensaje": str(e)}
 
+    @staticmethod
+    def _format_sap_pt_time(hm_str):
+        """Convierte '08:00' a 'PT08H00M00S' para Edm.Time de SAP OData."""
+        if not hm_str:
+            return "PT00H00M00S"
+        s = str(hm_str).strip()
+        if s.startswith("PT"):
+            return s
+        if ":" in s:
+            parts = s.split(":")
+            try:
+                h = int(parts[0])
+                m = int(parts[1][:2])
+                if h == 24:
+                    return "PT23H59M59S"
+                return f"PT{h:02d}H{m:02d}M00S"
+            except Exception:
+                pass
+        return "PT00H00M00S"
+
+    def crear_turno_servicio(
+        self,
+        id_proyecto,
+        turno="01",
+        fecha_inicio=None,
+        fecha_fin=None,
+        hora_inicio="08:00",
+        hora_fin="15:00",
+        dias_set=None,
+        tipo_dias="T",
+        num_personas="1",
+        borrar=False
+    ):
+        """Crea o abre las Horas de Servicio de un turno en el proyecto mediante CargaHSSet."""
+        if not self.is_connected and not self.connect():
+            return {"status": "error", "mensaje": "Sin conexión con SAP HO"}
+
+        pid = resolve_sap_project_id(id_proyecto)
+        raw_t = str(turno or "01").strip().upper().replace("TURNO", "").replace("T", "").strip()
+        turno_clean = raw_t.zfill(2) if raw_t.isdigit() else "01"
+
+        if not fecha_inicio:
+            fecha_inicio = datetime.now().strftime("%Y-%m-%d")
+        if not fecha_fin or fecha_fin in ["Indefinida", "null", "None"]:
+            fecha_fin = fecha_inicio
+
+        f_ini_sap = self._format_sap_date_payload(fecha_inicio)
+        f_fin_sap = self._format_sap_date_payload(fecha_fin)
+        dias = dias_set or {1, 2, 3, 4, 5, 6, 7}
+        h_ini_pt = self._format_sap_pt_time(hora_inicio)
+        h_fin_pt = self._format_sap_pt_time(hora_fin)
+        zero_pt = "PT00H00M00S"
+
+        url = f"{HO_ODATA_ROOT}/CargaHSSet"
+        payload = {
+            "IdProyecto": pid,
+            "Turno": turno_clean,
+            "Borrar": bool(borrar),
+            "FechaInicio": f_ini_sap,
+            "FechaFin": f_fin_sap,
+            "Lunes": (1 in dias),
+            "Martes": (2 in dias),
+            "Miercoles": (3 in dias),
+            "Jueves": (4 in dias),
+            "Viernes": (5 in dias),
+            "Sabado": (6 in dias),
+            "Domingo": (7 in dias),
+            "TipoDias": str(tipo_dias or "T").strip().upper()[:1] or "T",
+            "NumPersonas": str(num_personas or "1"),
+            "RecurrenciaDias": "",
+            "RecurrenciaSemanas": "",
+            "HoraIniLunes": h_ini_pt if (1 in dias) else zero_pt,
+            "HoraFinLunes": h_fin_pt if (1 in dias) else zero_pt,
+            "HoraIniMartes": h_ini_pt if (2 in dias) else zero_pt,
+            "HoraFinMartes": h_fin_pt if (2 in dias) else zero_pt,
+            "HoraIniMiercoles": h_ini_pt if (3 in dias) else zero_pt,
+            "HoraFinMiercoles": h_fin_pt if (3 in dias) else zero_pt,
+            "HoraIniJueves": h_ini_pt if (4 in dias) else zero_pt,
+            "HoraFinJueves": h_fin_pt if (4 in dias) else zero_pt,
+            "HoraIniViernes": h_ini_pt if (5 in dias) else zero_pt,
+            "HoraFinViernes": h_fin_pt if (5 in dias) else zero_pt,
+            "HoraIniSabado": h_ini_pt if (6 in dias) else zero_pt,
+            "HoraFinSabado": h_fin_pt if (6 in dias) else zero_pt,
+            "HoraIniDomingo": h_ini_pt if (7 in dias) else zero_pt,
+            "HoraFinDomingo": h_fin_pt if (7 in dias) else zero_pt,
+            "Error": False,
+            "Mensaje": ""
+        }
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "x-csrf-token": self.csrf_token or ""
+        }
+        try:
+            res = self.session.post(url, json=payload, headers=headers, timeout=15)
+            if res.status_code in [200, 201]:
+                data = res.json().get("d", {})
+                is_err = bool(data.get("Error", False))
+                msg = data.get("Mensaje") or f"Turno {turno_clean} creado en {pid}"
+                return {"status": "ok" if not is_err else "error", "mensaje": msg, "error": is_err}
+            return {"status": "error", "mensaje": f"HTTP {res.status_code}", "error": True}
+        except Exception as e:
+            return {"status": "error", "mensaje": str(e), "error": True}
+
+    def asignar_cuadrante_empleado(
+        self,
+        id_proyecto,
+        id_empleado,
+        turno="01",
+        fecha_inicio=None,
+        fecha_fin=None,
+        hora_inicio="08:00",
+        hora_fin="15:00",
+        dias_semana=None,
+        tipo_dias="T",
+        tipo_imputacion="TI",
+        tipo_exceso="ES",
+        asignar_turno_completo=False,
+        borrar=False
+    ):
+        """
+        Crea, modifica o elimina una asignación de turno/cuadrante en SAP S/4HANA HO mediante CargaHASet.
+        - turno: código de 2 dígitos del turno ('01', '02', ...)
+        - dias_semana: lista de días [1..7] o letras ['L','M','X','J','V','S','D']
+        - tipo_dias: 'T' (Todos), 'N' (Normales/Laborables), 'F' (Festivos)
+        - tipo_imputacion: 'TI' (Titular), 'BR' (Brigada), 'SB' (Suplente Baja), 'SV' (Suplente Vacaciones), 'EM' (Emergencias), 'SC' (Comité)
+        - borrar: True para desasignar/eliminar recurso del turno (CESE)
+        """
+        if not self.is_connected and not self.connect():
+            return {"status": "error", "mensaje": "Sin conexión con SAP HO"}
+
+        pid = resolve_sap_project_id(id_proyecto)
+        raw_t = str(turno or "01").strip().upper().replace("TURNO", "").replace("T", "").strip()
+        turno_clean = raw_t.zfill(2) if raw_t.isdigit() else "01"
+
+        if not fecha_inicio:
+            fecha_inicio = datetime.now().strftime("%Y-%m-%d")
+        if not fecha_fin or fecha_fin in ["Indefinida", "null", "None"]:
+            fecha_fin = fecha_inicio
+
+        f_ini_sap = self._format_sap_date_payload(fecha_inicio)
+        f_fin_sap = self._format_sap_date_payload(fecha_fin)
+
+        dia_letra_map = {
+            "L": 1, "LUN": 1, "LUNES": 1, "1": 1,
+            "M": 2, "MAR": 2, "MARTES": 2, "2": 2,
+            "X": 3, "MI": 3, "MIE": 3, "MIERCOLES": 3, "MIÉRCOLES": 3, "3": 3,
+            "J": 4, "JUE": 4, "JUEVES": 4, "4": 4,
+            "V": 5, "VIE": 5, "VIERNES": 5, "5": 5,
+            "S": 6, "SAB": 6, "SABADO": 6, "SÁBADO": 6, "6": 6,
+            "D": 7, "DOM": 7, "DOMINGO": 7, "7": 7
+        }
+        dias_set = set()
+        if dias_semana:
+            for x in dias_semana:
+                k = str(x).strip().upper()
+                if k in dia_letra_map:
+                    dias_set.add(dia_letra_map[k])
+                elif k.isdigit() and 1 <= int(k) <= 7:
+                    dias_set.add(int(k))
+        if not dias_set:
+            dias_set = {1, 2, 3, 4, 5}
+
+        # Si el rango de fechas es corto (<= 7 días, ej. "Hoy" en sábado o domingo), asegurar que los días del rango estén incluidos
+        try:
+            from datetime import timedelta
+            d0 = datetime.strptime(str(fecha_inicio).strip()[:10], "%Y-%m-%d")
+            d1 = datetime.strptime(str(fecha_fin).strip()[:10], "%Y-%m-%d")
+            if 0 <= (d1 - d0).days < 7:
+                dias_rango = set()
+                curr = d0
+                while curr <= d1:
+                    dias_rango.add(curr.isoweekday())
+                    curr += timedelta(days=1)
+                if not (dias_set & dias_rango):
+                    dias_set = dias_set | dias_rango
+        except Exception:
+            pass
+
+        te = str(tipo_exceso or "ES").strip().upper()
+        cod_exceso = "SO" if ("SOBRE" in te or te == "SO") else "ES"
+
+        ti_map = {
+            "TITULAR FIJO": "TI",
+            "TITULAR": "TI",
+            "TI": "TI",
+            "REFUERZO TEMPORAL": "BR",
+            "BRIGADA": "BR",
+            "BR": "BR",
+            "BC": "BC",
+            "BP": "BP",
+            "SUPLENTE DE CUADRANTE": "SB",
+            "SUPLENTE BAJA": "SB",
+            "SB": "SB",
+            "SUPLENTE VACACIONES": "SV",
+            "SV": "SV",
+            "EMERGENCIA": "EM",
+            "EMERGENCIAS": "EM",
+            "EM": "EM",
+            "SC": "SC"
+        }
+        cod_imput = ti_map.get(str(tipo_imputacion or "TI").strip().upper(), "TI")
+        td_clean = str(tipo_dias or "T").strip().upper()[:1]
+        if td_clean not in ["T", "N", "F"]:
+            td_clean = "T"
+
+        # IMPORTANTE SAP S/4HANA: Si AsignarTurnoCompleto=True, SAP ignora FechaInicio/FechaFin y HoraInicio/HoraFin
+        # e intenta asignar todo el histórico del turno (incluyendo meses anteriores cerrados).
+        # Por tanto, siempre que se indiquen fechas de vigencia o rango acotado, enviamos AsignarTurnoCompleto=False.
+        usar_turno_completo = False if (fecha_inicio or fecha_fin or hora_inicio or hora_fin) else bool(asignar_turno_completo)
+
+        url = f"{HO_ODATA_ROOT}/CargaHASet"
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "x-csrf-token": self.csrf_token or ""
+        }
+
+        def _build_payload(cod_turno, exceso_override=None, dias_override=None):
+            d_use = dias_override or dias_set
+            return {
+                "IdProyecto": pid,
+                "Turno": cod_turno,
+                "IdEmpleado": str(id_empleado).zfill(8),
+                "Borrar": bool(borrar),
+                "FechaInicio": f_ini_sap,
+                "FechaFin": f_fin_sap,
+                "TipoImputacion": cod_imput,
+                "TipoHora": "",
+                "AsignarTurnoCompleto": usar_turno_completo,
+                "TipoExcesoServicio": exceso_override or cod_exceso,
+                "TipoAsignacion": "HO",
+                "IdEmpleado2": "",
+                "TipoImputacion2": "",
+                "Lunes": (1 in d_use),
+                "Martes": (2 in d_use),
+                "Miercoles": (3 in d_use),
+                "Jueves": (4 in d_use),
+                "Viernes": (5 in d_use),
+                "Sabado": (6 in d_use),
+                "Domingo": (7 in d_use),
+                "TipoDias": td_clean,
+                "RecurrenciaDias": "",
+                "RecurrenciaSemanas": "",
+                "HoraInicio": self._format_sap_pt_time(hora_inicio),
+                "HoraFin": self._format_sap_pt_time(hora_fin)
+            }
+
+        try:
+            payload = _build_payload(turno_clean)
+            res = self.session.post(url, json=payload, headers=headers, timeout=15)
+            if res.status_code in [200, 201]:
+                data = res.json().get("d", {})
+                is_error = data.get("Error", False)
+                msg = data.get("Mensaje") or ("Turno desasignado en SAP HO" if borrar else f"Cuadrante grabado en Turno {turno_clean} de {pid}")
+
+                # Si SAP devuelve "Todas las fechas del turno se encuentran cerradas" o "Ningún día/turno coincide",
+                # ocurre porque el turno elegido (ej. T20/T21 de verano) no tiene Horas de Servicio (HSGridSet) abiertas
+                # en el mes actual o en los días seleccionados.
+                if is_error and not borrar and any(k in msg.lower() for k in ["cerrada", "coincide"]):
+                    logger.info(f"Turno T{turno_clean} sin horas de servicio abiertas en {pid} ({msg}). Intentando abrir/resolver turno activo en mes actual...")
+                    # 1. Intentar abrir el turno en CargaHSSet por si el proyecto tiene horas de contrato disponibles
+                    res_hs = self.crear_turno_servicio(
+                        id_proyecto=pid,
+                        turno=turno_clean,
+                        fecha_inicio=fecha_inicio,
+                        fecha_fin=fecha_fin,
+                        hora_inicio=hora_inicio,
+                        hora_fin=hora_fin,
+                        dias_set=dias_set,
+                        tipo_dias=td_clean
+                    )
+                    if res_hs.get("status") == "ok":
+                        res_retry = self.session.post(url, json=payload, headers=headers, timeout=15)
+                        if res_retry.status_code in [200, 201]:
+                            d_retry = res_retry.json().get("d", {})
+                            if not d_retry.get("Error", False):
+                                msg_ok = d_retry.get("Mensaje") or f"Turno T{turno_clean} creado y asignado en SAP HO"
+                                logger.info(f"CargaHSSet + CargaHASet completado en {pid} T{turno_clean}: {msg_ok}")
+                                return {
+                                    "status": "ok",
+                                    "mensaje": f"{msg_ok} (Turno T{turno_clean} abierto en mes actual)",
+                                    "error": False,
+                                    "id_proyecto": pid,
+                                    "id_empleado": id_empleado,
+                                    "turno": turno_clean
+                                }
+
+                    # 2. Si el proyecto ya tiene el 100% de Horas Contrato repartidas en los turnos activos del mes actual
+                    # (ej. T01..T06), localizar el turno activo abierto del mes en curso y asignar ahí con Sobreasignación (SO)
+                    cuad_actual = self.get_project_cuadrante(pid) or {}
+                    turnos_activos = [
+                        t for t in (cuad_actual.get("turnos") or [])
+                        if not t.get("historico_cerrado")
+                    ]
+                    if turnos_activos:
+                        emp_id_8 = str(id_empleado).zfill(8)
+                        # Preferir un turno activo donde coincida el tramo horario o donde el empleado aún no esté asignado
+                        h_req_ini = str(hora_inicio or "08:00").strip()[:2]
+                        candidatos = sorted(
+                            turnos_activos,
+                            key=lambda t: (
+                                0 if str(t.get("hora_inicio") or "")[:2] == h_req_ini else 1,
+                                0 if not any(str(e.get("id_empleado") or "").zfill(8) == emp_id_8 for e in (t.get("empleados") or [])) else 1,
+                                -(t.get("dias_servicio_mes") or 0),
+                                t.get("codigo_turno") or "99"
+                            )
+                        )
+                        for cand in candidatos:
+                            cod_alt = str(cand.get("codigo_turno") or "01").zfill(2)
+                            payload_alt = _build_payload(cod_alt, exceso_override="SO", dias_override={1, 2, 3, 4, 5, 6, 7})
+                            res_alt = self.session.post(url, json=payload_alt, headers=headers, timeout=15)
+                            if res_alt.status_code in [200, 201]:
+                                d_alt = res_alt.json().get("d", {})
+                                if not d_alt.get("Error", False):
+                                    msg_alt = d_alt.get("Mensaje") or "Asignación modificada."
+                                    nota_redireccion = (
+                                        f"{msg_alt} (Grabado en Turno T{cod_alt} activo del mes actual; "
+                                        f"el Turno T{turno_clean} correspondía a meses anteriores ya cerrados en SAP HO)."
+                                    ) if cod_alt != turno_clean else msg_alt
+                                    logger.info(f"CargaHASet redirigido de T{turno_clean} a T{cod_alt} activo en {pid}: {nota_redireccion}")
+                                    return {
+                                        "status": "ok",
+                                        "mensaje": nota_redireccion,
+                                        "error": False,
+                                        "id_proyecto": pid,
+                                        "id_empleado": id_empleado,
+                                        "turno": cod_alt
+                                    }
+
+                logger.info(f"CargaHASet ({'BORRAR' if borrar else 'ASIGNAR'}) para {id_empleado} en {pid} T{turno_clean}: {msg}")
+                return {
+                    "status": "ok" if not is_error else "error",
+                    "mensaje": msg,
+                    "error": is_error,
+                    "id_proyecto": pid,
+                    "id_empleado": id_empleado,
+                    "turno": turno_clean
+                }
+            else:
+                logger.error(f"Error en CargaHASet: HTTP {res.status_code} - {res.text[:250]}")
+                return {"status": "error", "mensaje": f"Error SAP HTTP {res.status_code}"}
+        except Exception as e:
+            logger.error(f"Fallo de conexión en CargaHASet: {e}")
+            return {"status": "error", "mensaje": str(e)}
+
     def buscar_empleado_id(self, nombre_o_fragmento, id_proyecto=None):
-        """Resuelve el IdEmpleado de SAP oficial a partir de un nombre o fragmento."""
+        """Resuelve el IdEmpleado de SAP oficial a partir de un nombre o fragmento con máxima precisión."""
+        if not nombre_o_fragmento:
+            return None
+
+        term_clean = str(nombre_o_fragmento).strip().upper()
+        words = [w for w in term_clean.split() if len(w) >= 3]
+
+        # 1. Consultar primero en la caché oficial de empleados de Girona (ho_employees_cache.json)
+        try:
+            cache_path = os.path.join(os.path.dirname(__file__), "ho_employees_cache.json")
+            if os.path.exists(cache_path):
+                with open(cache_path, "r", encoding="utf-8") as f:
+                    cdata = json.load(f)
+                    by_name = cdata.get("by_name", {})
+                    # Coincidencia directa por clave
+                    if term_clean in by_name:
+                        emp = by_name[term_clean]
+                        return {
+                            "IdEmpleado": emp.get("id_empleado"),
+                            "Nombre": emp.get("nombre_completo"),
+                            "DNI": emp.get("dni")
+                        }
+                    # Coincidencia con todas las palabras clave
+                    for nom_c, emp in by_name.items():
+                        nom_up = nom_c.upper()
+                        if term_clean in nom_up or (words and all(w in nom_up for w in words)):
+                            return {
+                                "IdEmpleado": emp.get("id_empleado"),
+                                "Nombre": emp.get("nombre_completo"),
+                                "DNI": emp.get("dni")
+                            }
+        except Exception as e:
+            logger.warning(f"Error consultando caché local de empleados: {e}")
+
+        # 2. Si viene el proyecto, buscar en el cuadrante del proyecto (HAGridSet)
+        if id_proyecto:
+            resolved_pid = resolve_sap_project_id(id_proyecto)
+            try:
+                cuad = self.get_project_cuadrante(resolved_pid)
+                if cuad and cuad.get("filas_cuadrante"):
+                    for f in cuad["filas_cuadrante"]:
+                        f_nom = (f.get("nombre") or "").upper()
+                        if term_clean in f_nom or (words and all(w in f_nom for w in words)):
+                            return {
+                                "IdEmpleado": f.get("id_empleado"),
+                                "Nombre": f.get("nombre"),
+                                "DNI": ""
+                            }
+            except Exception as e:
+                logger.warning(f"Error consultando cuadrante del proyecto {resolved_pid}: {e}")
+
         if not self.is_connected and not self.connect():
             return None
 
-        # Si viene el proyecto, buscar primero en EmpleadoProyectoSet de ese proyecto
-        if id_proyecto:
-            id_proyecto = resolve_sap_project_id(id_proyecto)
-            res = self.query_entity_set("EmpleadoProyectoSet", filter_query=f"IdProyecto eq '{id_proyecto}'")
+        # 3. Búsqueda directa en SAP S/4HANA (EmpleadoSet)
+        # Intentar con cada palabra significativa (priorizando apellidos y nombres de Barcelona)
+        for w in words:
+            # Probar en Apellido1
+            res = self.query_entity_set("EmpleadoSet", filter_query=f"substringof('{w}',Apellido1)", top=20)
+            if not res:
+                res = self.query_entity_set("EmpleadoSet", filter_query=f"substringof('{w}',Nombre)", top=20)
+
             if res:
-                term = nombre_o_fragmento.lower()
-                for r in res:
-                    nom = (r.get("Nombre") or "").lower()
-                    if term in nom or any(t in nom for t in term.split() if len(t) >= 4):
+                # Priorizar delegación Barcelona (S081, S082, S083, B081, etc.)
+                bcn_cands = [
+                    r for r in res
+                    if str(r.get("IdCentro") or "").startswith(("S08", "B08"))
+                    or "BARCELONA" in (r.get("NomCentro") or "").upper()
+                ]
+                pool = bcn_cands if bcn_cands else res
+
+                # Buscar candidato que contenga la mayor cantidad de palabras
+                for cand in pool:
+                    nc = (cand.get("NombreCompleto") or f"{cand.get('Nombre', '')} {cand.get('Apellido1', '')} {cand.get('Apellido2', '')}").upper()
+                    if words and all(x in nc for x in words):
                         return {
-                            "IdEmpleado": r.get("IdEmpleado"),
-                            "Nombre": r.get("Nombre"),
-                            "DNI": r.get("DNI")
+                            "IdEmpleado": cand.get("IdEmpleado"),
+                            "Nombre": cand.get("NombreCompleto") or cand.get("Nombre"),
+                            "DNI": cand.get("DNI")
                         }
 
-        # Búsqueda general en EmpleadoSet
-        terminos = [t for t in nombre_o_fragmento.split() if len(t) >= 3]
-        for t in terminos:
-            res = self.query_entity_set("EmpleadoSet", filter_query=f"substringof('{t.upper()}',Nombre)", top=20)
-            if res:
-                return {
-                    "IdEmpleado": res[0].get("IdEmpleado"),
-                    "Nombre": res[0].get("Nombre"),
-                    "DNI": res[0].get("DNI")
-                }
+                if bcn_cands:
+                    best = bcn_cands[0]
+                    return {
+                        "IdEmpleado": best.get("IdEmpleado"),
+                        "Nombre": best.get("NombreCompleto") or best.get("Nombre"),
+                        "DNI": best.get("DNI")
+                    }
+
         return None
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
-// GENERADO AUTOMATICAMENTE POR EL SUPERVISOR VIRTUAL SIFU GIRONA
-// Fecha: 2026-10-12 23:49:01
+// GENERADO AUTOMATICAMENTE POR EL SUPERVISOR VIRTUAL SIFU BARCELONA
+// Fecha: 2026-10-20 21:21:11
 window.SUPERVISOR_SNAPSHOT = {
-  "timestamp": "2026-10-12 23:49:01",
+  "timestamp": "2026-10-20 21:21:11",
   "autonomy_level": 2,
   "ho_status": {
     "connected": true,
@@ -10,20 +10,43 @@ window.SUPERVISOR_SNAPSHOT = {
     "user": "acoscolin",
     "responsable": "COSCOLIN PEREGRIN, ALEJAN",
     "responsable_id": "46468278",
-    "oficina": "1701 - Girona",
-    "proyectos_ho_asignados": 102,
+    "oficina": "0801 - Barcelona",
+    "proyectos_ho_asignados": 104,
     "csrf_ready": true
   },
   "kpis": {
-    "total_servicios": 58,
-    "proyectos_ho_responsable": 102,
-    "total_descubiertos": 0,
-    "total_bajas": 8,
-    "bajas_sin_cubrir": 0,
-    "total_vacaciones_activas": 15,
+    "total_servicios": 67,
+    "proyectos_ho_responsable": 104,
+    "total_descubiertos": 2,
+    "total_bajas": 9,
+    "bajas_sin_cubrir": 1,
+    "total_vacaciones_activas": 0,
     "contratos_vencimiento": 23
   },
-  "alertas_descubiertos": [],
+  "alertas_descubiertos": [
+    {
+      "id": "DESC_SVO14527-P1-C018_0",
+      "proyecto": "SVO14527-P1-C018",
+      "servicio": "Playa de Aro So Food SLU",
+      "direccion": "Caval Bernat 16    17250  Platja d'Aro",
+      "horario": "L-V  9:30 a 11:30",
+      "motivo": "Sin titular ni suplente asignado",
+      "criticidad": "ALTA",
+      "accion_propuesta": "Asignar suplente prioritario para Playa de Aro So Food SLU (SVO14527-P1-C018)",
+      "estado_ho": "Pendiente de regularizar en HO"
+    },
+    {
+      "id": "DESC_PROY015730-P2-C018_1",
+      "proyecto": "PROY015730-P2-C018",
+      "servicio": "INDRA ROC BCN",
+      "direccion": "ROC BORONAT, 133",
+      "horario": "L-V DE 15:00H A 21:00H",
+      "motivo": "Sin titular ni suplente asignado",
+      "criticidad": "ALTA",
+      "accion_propuesta": "Asignar suplente prioritario para INDRA ROC BCN (PROY015730-P2-C018)",
+      "estado_ho": "Pendiente de regularizar en HO"
+    }
+  ],
   "alertas_bajas": [
     {
       "id": "BAJA_SVO04295-P1-C018_0",
@@ -36,17 +59,7 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (SAHIL SINGH ARORA)"
     },
     {
-      "id": "BAJA_SVO04296-P1-C018_1",
-      "proyecto": "SVO04296-P1-C018",
-      "servicio": "AGENCIA CATALANA DE LA JOVENTUT",
-      "titular": "MONICA LOPEZ CEBALLOS",
-      "suplente": "SAHIL SINGH ARORA",
-      "cubierto": true,
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Verificada suplencia (SAHIL SINGH ARORA)"
-    },
-    {
-      "id": "BAJA_SVO01227-P1-C018_2",
+      "id": "BAJA_SVO01227-P1-C018_1",
       "proyecto": "SVO01227-P1-C018",
       "servicio": "NURIA",
       "titular": "JORGE LUIS RAMIREZ SALAS",
@@ -56,9 +69,9 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (SAHIL SINGH ARORA)"
     },
     {
-      "id": "BAJA_SVO12611-P2-C018_3",
+      "id": "BAJA_SVO12611-P2-C018_2",
       "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
+      "servicio": "INDRA ROC BCN",
       "titular": "CARLOS MARTINEZ VILANOVA",
       "suplente": "NIL BAZAN SERES",
       "cubierto": true,
@@ -66,9 +79,9 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (NIL BAZAN SERES)"
     },
     {
-      "id": "BAJA_SVO12611-P2-C018_4",
+      "id": "BAJA_SVO12611-P2-C018_3",
       "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
+      "servicio": "INDRA ROC BCN",
       "titular": "JOSE MANUEL CARRERA MATEOS",
       "suplente": "JOSE ANTONIO SOLA EXPOSITO",
       "cubierto": true,
@@ -76,7 +89,7 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (JOSE ANTONIO SOLA EXPOSITO)"
     },
     {
-      "id": "BAJA_SVO02267-P1-C018_5",
+      "id": "BAJA_SVO02267-P1-C018_4",
       "proyecto": "SVO02267-P1-C018",
       "servicio": "GENERALITAT DE CATALUNYA",
       "titular": "JUAN JOSE GARCIA MANZANEQUE",
@@ -86,7 +99,7 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (IRENE MASSANET MASPOCH)"
     },
     {
-      "id": "BAJA_SVO02267-P1-C018_6",
+      "id": "BAJA_SVO02267-P1-C018_5",
       "proyecto": "SVO02267-P1-C018",
       "servicio": "GENERALITAT DE CATALUNYA",
       "titular": "JULIAN CANO GALLEGO",
@@ -96,168 +109,37 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Verificada suplencia (JOSEP MADI ARIZA)"
     },
     {
-      "id": "BAJA_SVO06834-P1-C018_7",
+      "id": "BAJA_SVO06834-P1-C018_6",
       "proyecto": "SVO06834-P1-C018",
-      "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
+      "servicio": "VUELING AIRLINES BCN",
       "titular": "ALEXIA DOMINGUEZ MARSIÑACH",
       "suplente": "CARLA MASSANELLAS SAURA / BLAS P",
       "cubierto": true,
       "criticidad": "MEDIA",
       "accion_propuesta": "Verificada suplencia (CARLA MASSANELLAS SAURA / BLAS P)"
+    },
+    {
+      "id": "BAJA_PROY015730-P2-C018_7",
+      "proyecto": "PROY015730-P2-C018",
+      "servicio": "INDRA ROC BCN",
+      "titular": "ALICIA PARRILLA MARTINEZ",
+      "suplente": "YOLANDA OLIVARES",
+      "cubierto": true,
+      "criticidad": "MEDIA",
+      "accion_propuesta": "Verificada suplencia (YOLANDA OLIVARES)"
+    },
+    {
+      "id": "BAJA_PROY015730-P2-C018_8",
+      "proyecto": "PROY015730-P2-C018",
+      "servicio": "INDRA ROC BCN",
+      "titular": "LAIA LERMA CRUZ",
+      "suplente": "SIN COBERTURA",
+      "cubierto": false,
+      "criticidad": "CRITICA",
+      "accion_propuesta": "Asignar cobertura urgente a la baja de LAIA LERMA CRUZ"
     }
   ],
-  "alertas_vacaciones": [
-    {
-      "id": "VAC_SVO12611-P2-C018_0",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "ASMA EL OUAHABI",
-      "periodo": "5 agosto al 24 agosto",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para ASMA EL OUAHABI (5 agosto al 24 agosto)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_1",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "CARLOS MARTINEZ VILANOVA",
-      "periodo": "16 al 23 septiembre",
-      "suplente": "NIL BAZAN SERES",
-      "criticidad": "BAJA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para CARLOS MARTINEZ VILANOVA (16 al 23 septiembre)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_2",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "CRISTIAN BRUNET MENDEZ",
-      "periodo": "1 sept  10 dias laborables",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para CRISTIAN BRUNET MENDEZ (1 sept  10 dias laborables)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_3",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "DAVID CONTRERA VIDAL",
-      "periodo": "1 al 16 septiembre",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para DAVID CONTRERA VIDAL (1 al 16 septiembre)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C001_4",
-      "proyecto": "SVO12611-P2-C001",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "ELIA MOGIO MEDINA",
-      "periodo": "25 dias laborables",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para ELIA MOGIO MEDINA (25 dias laborables)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_5",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "JOSE MANUEL CARRERA MATEOS",
-      "periodo": "15 al 31 diciembre",
-      "suplente": "JOSE ANTONIO SOLA EXPOSITO",
-      "criticidad": "BAJA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para JOSE MANUEL CARRERA MATEOS (15 al 31 diciembre)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_6",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "MANUEL QUESADA AGUDO",
-      "periodo": "13 dias laborables",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para MANUEL QUESADA AGUDO (13 dias laborables)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_7",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "MARIANO SEQUERA VACAS",
-      "periodo": "1 al 10 octubre",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para MARIANO SEQUERA VACAS (1 al 10 octubre)"
-    },
-    {
-      "id": "VAC_SVO12611-P2-C018_8",
-      "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
-      "titular": "RAUL GONZALEZ EXPOSITO",
-      "periodo": "21 al 31 diciembre",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para RAUL GONZALEZ EXPOSITO (21 al 31 diciembre)"
-    },
-    {
-      "id": "VAC_SVO11110-P1-C018_9",
-      "proyecto": "SVO11110-P1-C018",
-      "servicio": "DIPSALUT",
-      "titular": "JOSUE RAMON CASTILLO MOLINA",
-      "periodo": "20/07 al 21/08",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para JOSUE RAMON CASTILLO MOLINA (20/07 al 21/08)"
-    },
-    {
-      "id": "VAC_SVO12611-P1-C017_10",
-      "proyecto": "SVO12611-P1-C017",
-      "servicio": "Dirección de Asuntos Económicos de",
-      "titular": "RAUL GONZALEZ EXPOSITO",
-      "periodo": "30 nov al 5 de enero",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para RAUL GONZALEZ EXPOSITO (30 nov al 5 de enero)"
-    },
-    {
-      "id": "VAC_PROY017209-P1_11",
-      "proyecto": "PROY017209-P1",
-      "servicio": "DIPSALUT",
-      "titular": "LIDIA JORDA I MARQUEZ",
-      "periodo": "20/07 al 21/08",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para LIDIA JORDA I MARQUEZ (20/07 al 21/08)"
-    },
-    {
-      "id": "VAC_PROY08324-P2-C001_12",
-      "proyecto": "PROY08324-P2-C001",
-      "servicio": "FCC AQUALIA, S.A.",
-      "titular": "CARMEN ALSINA MENA",
-      "periodo": "1/09 al 21/09",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para CARMEN ALSINA MENA (1/09 al 21/09)"
-    },
-    {
-      "id": "VAC_SVO06834-P1-C018_13",
-      "proyecto": "SVO06834-P1-C018",
-      "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
-      "titular": "ALEXIA DOMINGUEZ MARSIÑACH",
-      "periodo": "BAJA IT",
-      "suplente": "CARLA MASSANELLAS SAURA / BLAS P",
-      "criticidad": "BAJA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para ALEXIA DOMINGUEZ MARSIÑACH (BAJA IT)"
-    },
-    {
-      "id": "VAC_SVO06834-P1-C018_14",
-      "proyecto": "SVO06834-P1-C018",
-      "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
-      "titular": "CARLA MASSANELLAS SAURA",
-      "periodo": "LAURA EMERGENCIAS",
-      "suplente": "Sin plan de sustitución",
-      "criticidad": "MEDIA",
-      "accion_propuesta": "Planificar cobertura de vacaciones para CARLA MASSANELLAS SAURA (LAURA EMERGENCIAS)"
-    }
-  ],
+  "alertas_vacaciones": [],
   "alertas_contratos": [
     {
       "id": "CONT_SVO04296-P1-C018_0",
@@ -271,7 +153,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_SVO01232-P1-C018_1",
       "proyecto": "SVO01232-P1-C018",
-      "servicio": "VALL D'EN BAS",
+      "servicio": "NUTRARESEARCH BCN",
       "titular": "MOHAMED UAHLET",
       "observacion_vencimiento": "25/09/2027",
       "criticidad": "MEDIA",
@@ -280,7 +162,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_SVO12611-P2-C018_2",
       "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
+      "servicio": "INDRA ROC BCN",
       "titular": "ASMA EL OUAHABI",
       "observacion_vencimiento": "02/12/2026",
       "criticidad": "MEDIA",
@@ -289,7 +171,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_SVO12611-P2-C018_3",
       "proyecto": "SVO12611-P2-C018",
-      "servicio": "CASTILLO FIGUERES",
+      "servicio": "INDRA ROC BCN",
       "titular": "DAVID CONTRERA VIDAL",
       "observacion_vencimiento": "02/12/2026",
       "criticidad": "MEDIA",
@@ -298,7 +180,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_SVO12611-P2-C001_4",
       "proyecto": "SVO12611-P2-C001",
-      "servicio": "CASTILLO FIGUERES",
+      "servicio": "INDRA ROC BCN",
       "titular": "ELIA MOGIO MEDINA",
       "observacion_vencimiento": "15/09/2027",
       "criticidad": "MEDIA",
@@ -327,7 +209,7 @@ window.SUPERVISOR_SNAPSHOT = {
       "proyecto": "SVO06113-P1-C018",
       "servicio": "GENERALITAT DE CATALUNYA",
       "titular": "LAMYAA RAJEB",
-      "observacion_vencimiento": "11/10/2026",
+      "observacion_vencimiento": "31/12/2026",
       "criticidad": "MEDIA",
       "accion_propuesta": "Revisar prórroga o renovación contractual de LAMYAA RAJEB"
     },
@@ -352,7 +234,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_PROY017304-P2-C001_10",
       "proyecto": "PROY017304-P2-C001",
-      "servicio": "ASCENSORS GIRONA. SAU",
+      "servicio": "ASCENSORS BCN. SAU",
       "titular": "MONICA GALA SEGURA",
       "observacion_vencimiento": "03/08/2027",
       "criticidad": "MEDIA",
@@ -397,7 +279,7 @@ window.SUPERVISOR_SNAPSHOT = {
     {
       "id": "CONT_SVO06834-P1-C018_15",
       "proyecto": "SVO06834-P1-C018",
-      "servicio": "GRAN CASINO COSTA BRAVA, S.L.",
+      "servicio": "VUELING AIRLINES BCN",
       "titular": "CARLA MASSANELLAS SAURA",
       "observacion_vencimiento": "13/11/2026",
       "criticidad": "MEDIA",
@@ -434,10 +316,10 @@ window.SUPERVISOR_SNAPSHOT = {
       "id": "CONT_SVO14527-P1-C018_19",
       "proyecto": "SVO14527-P1-C018",
       "servicio": "Playa de Aro So Food SLU",
-      "titular": "NATALIA HRABAN",
+      "titular": "DESCUBIERTO",
       "observacion_vencimiento": "06/07/2027",
       "criticidad": "MEDIA",
-      "accion_propuesta": "Revisar prórroga o renovación contractual de NATALIA HRABAN"
+      "accion_propuesta": "Revisar prórroga o renovación contractual de DESCUBIERTO"
     },
     {
       "id": "CONT_PIEC018171_20",
@@ -467,11 +349,184 @@ window.SUPERVISOR_SNAPSHOT = {
       "accion_propuesta": "Revisar prórroga o renovación contractual de NADIA IULIANA GOAGA SUCEVEANU"
     }
   ],
-  "acciones_cola": [],
+  "acciones_cola": [
+    {
+      "tipo": "COBERTURA_BAJA",
+      "proyecto": "PROY015730-P2-C018",
+      "descripcion": "Crear solicitud de cobertura y registrar bitácora en HO para LAIA LERMA CRUZ",
+      "nivel_requerido": 2,
+      "estado": "Pendiente de Aprobación"
+    },
+    {
+      "tipo": "DESCUBIERTO_HO",
+      "proyecto": "SVO14527-P1-C018",
+      "descripcion": "Regularizar asignación operativa de Playa de Aro So Food SLU en HO",
+      "nivel_requerido": 2,
+      "estado": "Pendiente de Aprobación"
+    },
+    {
+      "tipo": "DESCUBIERTO_HO",
+      "proyecto": "PROY015730-P2-C018",
+      "descripcion": "Regularizar asignación operativa de INDRA ROC BCN en HO",
+      "nivel_requerido": 2,
+      "estado": "Pendiente de Aprobación"
+    }
+  ],
   "cuadrantes_ho": {
+    "PGOC018171J": {
+      "id_proyecto": "PGOC018171J",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "14:15",
+          "horarios": [
+            "07:00 a 14:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        }
+      ]
+    },
+    "PGOC001171A": {
+      "id_proyecto": "PGOC001171A",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "horarios": [
+            "10:00 a 11:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "PROY010147-P2-C001": {
+      "id_proyecto": "PROY010147-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 13,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00042164",
+          "nombre": "PAMELA CANDALIJA SIERRA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00058971",
+          "nombre": "POL ROURA PLANAGUMA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00061212",
+          "nombre": "REDA JAIT",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00063058",
+          "nombre": "SERGIO REDONDO VELAZQUEZ",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "PGOC018171L": {
       "id_proyecto": "PGOC018171L",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "08:00 a 16:00",
+            "06:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -512,37 +567,15 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PGOC018171J": {
-      "id_proyecto": "PGOC018171J",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        }
-      ]
-    },
-    "PGOC001171A": {
-      "id_proyecto": "PGOC001171A",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
     "PGOC018171A": {
       "id_proyecto": "PGOC018171A",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:00",
+          "hora_fin": "14:00",
           "horarios": [
             "06:00 a 14:00"
           ],
@@ -569,7 +602,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "06:00 a 14:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -653,19 +705,201 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PIEC018171": {
-      "id_proyecto": "PIEC018171",
+    "PROY008324-P1": {
+      "id_proyecto": "PROY008324-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:15",
+          "hora_fin": "11:15",
           "horarios": [
-            "10:00 a 11:00",
-            "09:00 a 14:00",
-            "09:00 a 11:00",
-            "12:30 a 14:30",
-            "13:00 a 15:00",
-            "13:00 a 19:00",
-            "10:00 a 14:00"
+            "14:30 a 16:30",
+            "09:15 a 11:15"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00066736",
+              "nombre": "MOHAMED UAHLET",
+              "titulo_fila": "MOHAMED UAHLET (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 5,
+              "horarios": [
+                "09:15 a 11:15"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "09:15",
+          "hora_fin": "11:15",
+          "horarios": [
+            "09:15 a 11:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "08:00",
+          "hora_fin": "10:00",
+          "horarios": [
+            "08:00 a 10:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T40",
+          "codigo_turno": "40",
+          "hora_inicio": "15:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "15:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00066736",
+          "nombre": "MOHAMED UAHLET",
+          "titulo_fila": "MOHAMED UAHLET (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 5,
+          "horarios": [
+            "09:15 a 11:15"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00024606",
+          "nombre": "EBRIMA JUWARA SAMASA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037401",
+          "nombre": "EL MAHJOUB BENACHOUR",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00053575",
+          "nombre": "JOSE RODRIGUEZ PEREZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00062782",
+          "nombre": "LAURA PARDILLO LOPEZ",
+          "dni": "",
+          "familia": "08"
+        },
+        {
+          "id_empleado": "00058856",
+          "nombre": "MOHAMED ABDELHAK DJOUMADI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00060348",
+          "nombre": "MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00066736",
+          "nombre": "MOHAMED UAHLET",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00029727",
+          "nombre": "MUSTAPHA EL BAZE",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00054935",
+          "nombre": "NADIA IULIANA GOAGA SUCEVEANU",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00042771",
+          "nombre": "PABLO NISA FERRER",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "PIEC018171": {
+      "id_proyecto": "PIEC018171",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
+          "horarios": [
+            "10:00 a 11:00"
           ],
           "empleados": [
             {
@@ -689,58 +923,40 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "10:00 a 11:00"
               ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 7,
-              "horarios": [
-                "09:00 a 14:00",
-                "09:00 a 11:00",
-                "12:30 a 14:30",
-                "13:00 a 15:00",
-                "13:00 a 19:00",
-                "10:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "12:30 a 14:30",
-                "13:00 a 15:00"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "09:30",
+          "hora_fin": "16:00",
+          "horarios": [
+            "09:30 a 16:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "07:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "07:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -764,56 +980,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 3,
           "horarios": [
             "10:00 a 11:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 7,
-          "horarios": [
-            "09:00 a 14:00",
-            "09:00 a 11:00",
-            "12:30 a 14:30",
-            "13:00 a 15:00",
-            "13:00 a 19:00",
-            "10:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
-          "horarios": [
-            "12:30 a 14:30",
-            "13:00 a 15:00"
           ]
         }
       ],
@@ -886,96 +1052,15 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY010147-P2-C001": {
-      "id_proyecto": "PROY010147-P2-C001",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "18:00 a 20:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 10,
-              "horarios": [
-                "18:00 a 20:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 10,
-          "horarios": [
-            "18:00 a 20:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00042164",
-          "nombre": "PAMELA CANDALIJA SIERRA",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00058971",
-          "nombre": "POL ROURA PLANAGUMA",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00063058",
-          "nombre": "SERGIO REDONDO VELAZQUEZ",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY010147-P1": {
       "id_proyecto": "PROY010147-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "15:00",
+          "hora_fin": "17:00",
           "horarios": [
             "15:00 a 17:00"
           ],
@@ -1002,37 +1087,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "15:00 a 17:00"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 12,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "13:30",
+          "hora_fin": "15:30",
           "horarios": [
-            "15:00 a 16:00"
+            "13:30 a 15:30"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "15:00 a 16:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -1056,28 +1130,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 12,
           "horarios": [
             "15:00 a 17:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "15:00 a 16:00"
           ]
         }
       ],
@@ -1162,364 +1214,35 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY008324-P1": {
-      "id_proyecto": "PROY008324-P1",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "09:15 a 11:15",
-            "07:00 a 11:00",
-            "09:00 a 13:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA",
-                "NAR"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 6,
-              "horarios": [
-                "09:15 a 11:15",
-                "07:00 a 11:00",
-                "09:00 a 13:00"
-              ]
-            },
-            {
-              "id_empleado": "00058856",
-              "nombre": "MOHAMED ABDELHAK DJOUMADI",
-              "titulo_fila": "MOHAMED ABDELHAK DJOUMADI (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 5,
-              "horarios": [
-                "09:15 a 11:15"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "10:00 a 12:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "10:00 a 12:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "10:00 a 12:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA",
-            "NAR"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 6,
-          "horarios": [
-            "09:15 a 11:15",
-            "07:00 a 11:00",
-            "09:00 a 13:00"
-          ]
-        },
-        {
-          "id_empleado": "00058856",
-          "nombre": "MOHAMED ABDELHAK DJOUMADI",
-          "titulo_fila": "MOHAMED ABDELHAK DJOUMADI (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 5,
-          "horarios": [
-            "09:15 a 11:15"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "10:00 a 12:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "10:00 a 12:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00024606",
-          "nombre": "EBRIMA JUWARA SAMASA",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00037401",
-          "nombre": "EL MAHJOUB BENACHOUR",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00053575",
-          "nombre": "JOSE RODRIGUEZ PEREZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "dni": "",
-          "familia": "08"
-        },
-        {
-          "id_empleado": "00058856",
-          "nombre": "MOHAMED ABDELHAK DJOUMADI",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00060348",
-          "nombre": "MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00029727",
-          "nombre": "MUSTAPHA EL BAZE",
-          "dni": "",
-          "familia": "02"
-        },
-        {
-          "id_empleado": "00054935",
-          "nombre": "NADIA IULIANA GOAGA SUCEVEANU",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00042771",
-          "nombre": "PABLO NISA FERRER",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY015170-P2-E002": {
       "id_proyecto": "PROY015170-P2-E002",
+      "mes_cerrado": false,
       "turnos": [],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": []
-    },
-    "PROY015529-P2-E002": {
-      "id_proyecto": "PROY015529-P2-E002",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": []
-    },
-    "PROY016210-P2-C001": {
-      "id_proyecto": "PROY016210-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00044054",
-          "nombre": "MARCOS BLANCO EXPOSITO",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
     },
     "PROY015529-P2-C001": {
       "id_proyecto": "PROY015529-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:45",
+          "hora_fin": "10:45",
           "horarios": [
             "09:45 a 10:45"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00063317",
-              "nombre": "JAVIER DACRUZ CABALLERO",
-              "titulo_fila": "JAVIER DACRUZ CABALLERO (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 20,
-              "horarios": [
-                "09:45 a 10:45"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00063317",
-          "nombre": "JAVIER DACRUZ CABALLERO",
-          "titulo_fila": "JAVIER DACRUZ CABALLERO (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 20,
-          "horarios": [
-            "09:45 a 10:45"
-          ]
-        }
-      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00063317",
@@ -1537,11 +1260,14 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY015529-P1": {
       "id_proyecto": "PROY015529-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:45",
+          "hora_fin": "10:45",
           "horarios": [
-            "08:00 a 10:00",
             "09:45 a 10:45"
           ],
           "empleados": [
@@ -1555,41 +1281,66 @@ window.SUPERVISOR_SNAPSHOT = {
                 "BR"
               ],
               "tipos_asignacion": [
+                "VC",
                 "HO"
               ],
               "colores": [
+                "MAR",
                 "BLA"
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "08:00 a 10:00"
-              ]
-            },
-            {
-              "id_empleado": "00059545",
-              "nombre": "CORNELIU ATOMEI",
-              "titulo_fila": "CORNELIU ATOMEI (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 13,
+              "dias_activos": 21,
               "horarios": [
                 "09:45 a 10:45"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "08:30",
+          "hora_fin": "10:15",
+          "horarios": [
+            "08:30 a 10:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T40",
+          "codigo_turno": "40",
+          "hora_inicio": "08:30",
+          "hora_fin": "09:30",
+          "horarios": [
+            "08:30 a 09:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "08:00",
+          "hora_fin": "09:00",
+          "horarios": [
+            "08:00 a 09:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -1603,36 +1354,16 @@ window.SUPERVISOR_SNAPSHOT = {
             "BR"
           ],
           "tipos_asignacion": [
+            "VC",
             "HO"
           ],
           "colores": [
+            "MAR",
             "BLA"
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "08:00 a 10:00"
-          ]
-        },
-        {
-          "id_empleado": "00059545",
-          "nombre": "CORNELIU ATOMEI",
-          "titulo_fila": "CORNELIU ATOMEI (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 13,
+          "dias_activos": 21,
           "horarios": [
             "09:45 a 10:45"
           ]
@@ -1755,9 +1486,360 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "PROY015730-P2-C001": {
+      "id_proyecto": "PROY015730-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00",
+            "16:00 a 20:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00041438",
+              "nombre": "DORIS IMADE",
+              "titulo_fila": "DORIS IMADE (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "17:00 a 21:00",
+                "16:00 a 20:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "07:15",
+          "hora_fin": "07:30",
+          "horarios": [
+            "07:15 a 07:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "16:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "16:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T07",
+          "codigo_turno": "07",
+          "hora_inicio": "06:15",
+          "hora_fin": "14:00",
+          "horarios": [
+            "06:15 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T10",
+          "codigo_turno": "10",
+          "hora_inicio": "07:15",
+          "hora_fin": "07:30",
+          "horarios": [
+            "07:15 a 07:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T18",
+          "codigo_turno": "18",
+          "hora_inicio": "07:15",
+          "hora_fin": "07:30",
+          "horarios": [
+            "07:15 a 07:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T19",
+          "codigo_turno": "19",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "10:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T67",
+          "codigo_turno": "67",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00041438",
+          "nombre": "DORIS IMADE",
+          "titulo_fila": "DORIS IMADE (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "17:00 a 21:00",
+            "16:00 a 20:00"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00043863",
+          "nombre": "ALICIA PARRILLA MARTINEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00030250",
+          "nombre": "ANTONIO FERNANDEZ BRIA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00041438",
+          "nombre": "DORIS IMADE",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044699",
+          "nombre": "EVA RODRIGUEZ BASCONES",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00038546",
+          "nombre": "GALINA SEREBRYAKOVA USHAKOVA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00052993",
+          "nombre": "IMAN BELARBI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00062781",
+          "nombre": "JORDI VIERGE ARACIL",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056265",
+          "nombre": "KAREN LICETH FLORES ORTIZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00051746",
+          "nombre": "MALIKA EL ABBOUDI NOUINOU",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00041668",
+          "nombre": "MEREIM CHALHI",
+          "dni": "",
+          "familia": "05"
+        },
+        {
+          "id_empleado": "00040504",
+          "nombre": "MILAGROSA NSUE NDONG",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00049629",
+          "nombre": "NURIA GARCIA LOPEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050054",
+          "nombre": "PILAR AGUILAR DE LA TORRE",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037155",
+          "nombre": "SAMUEL JOHNSON",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00060238",
+          "nombre": "SUSANA ALVAREZ LAJARA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00041166",
+          "nombre": "TERESA PEREZ BEL",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00001597",
+          "nombre": "VICENTE TARRIDAS AULADELL",
+          "dni": "",
+          "familia": "09"
+        }
+      ]
+    },
+    "PROY016210-P2-C001": {
+      "id_proyecto": "PROY016210-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "16:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00044054",
+          "nombre": "MARCOS BLANCO EXPOSITO",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "PROY016210-P2-C018": {
       "id_proyecto": "PROY016210-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:15",
+          "horarios": [
+            "20:00 a 21:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -1776,7 +1858,36 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016217-P2-C001": {
       "id_proyecto": "PROY016217-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:15",
+          "horarios": [
+            "18:00 a 19:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -1823,9 +1934,33 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "PROY016221-P2-C001": {
+      "id_proyecto": "PROY016221-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": []
+    },
     "PROY016217-P2-C018": {
       "id_proyecto": "PROY016217-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "19:00",
+          "hora_fin": "20:15",
+          "horarios": [
+            "19:00 a 20:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -1866,15 +2001,38 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016221-P2-C001": {
-      "id_proyecto": "PROY016221-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": []
-    },
     "PROY016231-P2-C001": {
       "id_proyecto": "PROY016231-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "17:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "17:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "17:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "17:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -1891,34 +2049,38 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016233-P2-C001": {
-      "id_proyecto": "PROY016233-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00048356",
-          "nombre": "JOSE MIGUEL RAMOS GONZALEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00033962",
-          "nombre": "MERCEDES ESPINAR GINES",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00040263",
-          "nombre": "SILVIA MURCIANO PEREZ",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY016221-P2-C018": {
       "id_proyecto": "PROY016221-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:30",
+          "horarios": [
+            "18:00 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "14:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "14:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -1971,9 +2133,92 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "PROY016233-P2-C001": {
+      "id_proyecto": "PROY016233-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:30",
+          "horarios": [
+            "18:00 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00048356",
+          "nombre": "JOSE MIGUEL RAMOS GONZALEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00033962",
+          "nombre": "MERCEDES ESPINAR GINES",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00040263",
+          "nombre": "SILVIA MURCIANO PEREZ",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "PROY016231-P2-C018": {
       "id_proyecto": "PROY016231-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "20:15",
+          "hora_fin": "21:30",
+          "horarios": [
+            "20:15 a 21:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "15:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "15:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "15:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "15:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2020,40 +2265,38 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016236-P2-C001": {
-      "id_proyecto": "PROY016236-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00047113",
-          "nombre": "ALASSAN WUMBIE",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00037956",
-          "nombre": "CAROLINA CANO FERNANDEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00044542",
-          "nombre": "NURIA DELGADO GALLARDO",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00050163",
-          "nombre": "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY016233-P2-C018": {
       "id_proyecto": "PROY016233-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "17:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "17:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:30",
+          "horarios": [
+            "18:00 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2106,9 +2349,1698 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "PROY015730-P2-C018": {
+      "id_proyecto": "PROY015730-P2-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:15",
+          "hora_fin": "14:00",
+          "horarios": [
+            "06:15 a 14:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00018191",
+              "nombre": "MARIA CARMEN LEMA GRAIÑO",
+              "titulo_fila": "MARIA CARMEN LEMA GRAIÑO (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "06:15 a 14:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "07:00",
+          "hora_fin": "14:38",
+          "horarios": [
+            "07:00 a 15:00",
+            "07:00 a 14:38"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00058319",
+              "nombre": "JOHN JAIRO BUITRAGO MOLINA",
+              "titulo_fila": "JOHN JAIRO BUITRAGO MOLINA (T02)",
+              "turno": "T02",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "07:00 a 14:38"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00056973",
+              "nombre": "MARLEN WALTERINE DIAZ ORTEGA",
+              "titulo_fila": "MARLEN WALTERINE DIAZ ORTEGA (T03)",
+              "turno": "T03",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "17:00 a 21:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00",
+            "16:00 a 20:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00043863",
+              "nombre": "ALICIA PARRILLA MARTINEZ",
+              "titulo_fila": "ALICIA PARRILLA MARTINEZ (T04)",
+              "turno": "T04",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "BJ"
+              ],
+              "colores": [
+                "ROJ"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "17:00 a 21:00",
+                "16:00 a 20:00"
+              ]
+            },
+            {
+              "id_empleado": "00064684",
+              "nombre": "YOLANDA OLIVARES DOMINGUEZ",
+              "titulo_fila": "YOLANDA OLIVARES DOMINGUEZ (T04)",
+              "turno": "T04",
+              "rol": "SUPLENTE BAJA (SB)",
+              "tipos_imputacion": [
+                "SB"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": true,
+              "dias_activos": 9,
+              "horarios": [
+                "17:00 a 21:00",
+                "16:00 a 20:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "15:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "15:00 a 21:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00001571",
+              "nombre": "JONATHAN SENA MEDINA",
+              "titulo_fila": "JONATHAN SENA MEDINA (T05)",
+              "turno": "T05",
+              "rol": "BRIGADA / APOYO (BR)",
+              "tipos_imputacion": [
+                "BR"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 3,
+              "horarios": [
+                "15:00 a 21:00"
+              ]
+            },
+            {
+              "id_empleado": "00011668",
+              "nombre": "LAIA LERMA CRUZ",
+              "titulo_fila": "LAIA LERMA CRUZ (T05)",
+              "turno": "T05",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "15:00 a 21:00"
+              ]
+            },
+            {
+              "id_empleado": "00063558",
+              "nombre": "MERITXELL GALINDO PRIETO",
+              "titulo_fila": "MERITXELL GALINDO PRIETO (T05)",
+              "turno": "T05",
+              "rol": "EM",
+              "tipos_imputacion": [
+                "EM"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": true,
+              "dias_activos": 2,
+              "horarios": [
+                "15:00 a 21:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "14:00",
+          "hora_fin": "18:00",
+          "horarios": [
+            "14:00 a 18:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00027091",
+              "nombre": "MARIA DOLORES RIOS PINEDA",
+              "titulo_fila": "MARIA DOLORES RIOS PINEDA (T06)",
+              "turno": "T06",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "14:00 a 18:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T07",
+          "codigo_turno": "07",
+          "hora_inicio": "10:15",
+          "hora_fin": "14:15",
+          "horarios": [
+            "10:15 a 14:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T08",
+          "codigo_turno": "08",
+          "hora_inicio": "07:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "07:00 a 14:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00020855",
+              "nombre": "CARMEN RUIZ GARCIA",
+              "titulo_fila": "CARMEN RUIZ GARCIA (T08)",
+              "turno": "T08",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "07:00 a 14:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "15:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00",
+            "15:00 a 21:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00063558",
+              "nombre": "MERITXELL GALINDO PRIETO",
+              "titulo_fila": "MERITXELL GALINDO PRIETO (T20)",
+              "turno": "T20",
+              "rol": "EM",
+              "tipos_imputacion": [
+                "EM"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": true,
+              "dias_activos": 1,
+              "horarios": [
+                "15:00 a 21:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 1,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T47",
+          "codigo_turno": "47",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00057175",
+              "nombre": "PERE QUELART VENTURA",
+              "titulo_fila": "PERE QUELART VENTURA (T47)",
+              "turno": "T47",
+              "rol": "BRIGADA / APOYO (BR)",
+              "tipos_imputacion": [
+                "BR"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 12,
+              "horarios": [
+                "07:00 a 15:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T09",
+          "codigo_turno": "09",
+          "hora_inicio": "16:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "16:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T10",
+          "codigo_turno": "10",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T11",
+          "codigo_turno": "11",
+          "hora_inicio": "06:00",
+          "hora_fin": "10:00",
+          "horarios": [
+            "06:00 a 10:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T14",
+          "codigo_turno": "14",
+          "hora_inicio": "12:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "12:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T15",
+          "codigo_turno": "15",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T22",
+          "codigo_turno": "22",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "10:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T23",
+          "codigo_turno": "23",
+          "hora_inicio": "07:00",
+          "hora_fin": "09:00",
+          "horarios": [
+            "07:00 a 09:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T24",
+          "codigo_turno": "24",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T25",
+          "codigo_turno": "25",
+          "hora_inicio": "15:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "15:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T26",
+          "codigo_turno": "26",
+          "hora_inicio": "12:30",
+          "hora_fin": "18:00",
+          "horarios": [
+            "12:30 a 18:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T27",
+          "codigo_turno": "27",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T28",
+          "codigo_turno": "28",
+          "hora_inicio": "15:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "15:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T29",
+          "codigo_turno": "29",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T30",
+          "codigo_turno": "30",
+          "hora_inicio": "20:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "20:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T31",
+          "codigo_turno": "31",
+          "hora_inicio": "00:00",
+          "hora_fin": "04:00",
+          "horarios": [
+            "00:00 a 04:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T32",
+          "codigo_turno": "32",
+          "hora_inicio": "20:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "20:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T33",
+          "codigo_turno": "33",
+          "hora_inicio": "00:00",
+          "hora_fin": "04:00",
+          "horarios": [
+            "00:00 a 04:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T34",
+          "codigo_turno": "34",
+          "hora_inicio": "20:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "20:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T35",
+          "codigo_turno": "35",
+          "hora_inicio": "00:00",
+          "hora_fin": "04:00",
+          "horarios": [
+            "00:00 a 04:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T36",
+          "codigo_turno": "36",
+          "hora_inicio": "15:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "15:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T37",
+          "codigo_turno": "37",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T38",
+          "codigo_turno": "38",
+          "hora_inicio": "17:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "17:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T39",
+          "codigo_turno": "39",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T40",
+          "codigo_turno": "40",
+          "hora_inicio": "16:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "16:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T41",
+          "codigo_turno": "41",
+          "hora_inicio": "12:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "12:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T42",
+          "codigo_turno": "42",
+          "hora_inicio": "14:30",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:30 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T43",
+          "codigo_turno": "43",
+          "hora_inicio": "16:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "16:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T45",
+          "codigo_turno": "45",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T46",
+          "codigo_turno": "46",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "14:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T61",
+          "codigo_turno": "61",
+          "hora_inicio": "18:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "18:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T62",
+          "codigo_turno": "62",
+          "hora_inicio": "18:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "18:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T63",
+          "codigo_turno": "63",
+          "hora_inicio": "10:00",
+          "hora_fin": "16:00",
+          "horarios": [
+            "10:00 a 16:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T66",
+          "codigo_turno": "66",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00018191",
+          "nombre": "MARIA CARMEN LEMA GRAIÑO",
+          "titulo_fila": "MARIA CARMEN LEMA GRAIÑO (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "06:15 a 14:00"
+          ]
+        },
+        {
+          "id_empleado": "00058319",
+          "nombre": "JOHN JAIRO BUITRAGO MOLINA",
+          "titulo_fila": "JOHN JAIRO BUITRAGO MOLINA (T02)",
+          "turno": "T02",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "07:00 a 14:38"
+          ]
+        },
+        {
+          "id_empleado": "00056973",
+          "nombre": "MARLEN WALTERINE DIAZ ORTEGA",
+          "titulo_fila": "MARLEN WALTERINE DIAZ ORTEGA (T03)",
+          "turno": "T03",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "17:00 a 21:00"
+          ]
+        },
+        {
+          "id_empleado": "00043863",
+          "nombre": "ALICIA PARRILLA MARTINEZ",
+          "titulo_fila": "ALICIA PARRILLA MARTINEZ (T04)",
+          "turno": "T04",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "BJ"
+          ],
+          "colores": [
+            "ROJ"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "17:00 a 21:00",
+            "16:00 a 20:00"
+          ]
+        },
+        {
+          "id_empleado": "00064684",
+          "nombre": "YOLANDA OLIVARES DOMINGUEZ",
+          "titulo_fila": "YOLANDA OLIVARES DOMINGUEZ (T04)",
+          "turno": "T04",
+          "rol": "SUPLENTE BAJA (SB)",
+          "tipos_imputacion": [
+            "SB"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": true,
+          "dias_activos": 9,
+          "horarios": [
+            "17:00 a 21:00",
+            "16:00 a 20:00"
+          ]
+        },
+        {
+          "id_empleado": "00001571",
+          "nombre": "JONATHAN SENA MEDINA",
+          "titulo_fila": "JONATHAN SENA MEDINA (T05)",
+          "turno": "T05",
+          "rol": "BRIGADA / APOYO (BR)",
+          "tipos_imputacion": [
+            "BR"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 3,
+          "horarios": [
+            "15:00 a 21:00"
+          ]
+        },
+        {
+          "id_empleado": "00011668",
+          "nombre": "LAIA LERMA CRUZ",
+          "titulo_fila": "LAIA LERMA CRUZ (T05)",
+          "turno": "T05",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "15:00 a 21:00"
+          ]
+        },
+        {
+          "id_empleado": "00063558",
+          "nombre": "MERITXELL GALINDO PRIETO",
+          "titulo_fila": "MERITXELL GALINDO PRIETO (T05)",
+          "turno": "T05",
+          "rol": "EM",
+          "tipos_imputacion": [
+            "EM"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": true,
+          "dias_activos": 2,
+          "horarios": [
+            "15:00 a 21:00"
+          ]
+        },
+        {
+          "id_empleado": "00027091",
+          "nombre": "MARIA DOLORES RIOS PINEDA",
+          "titulo_fila": "MARIA DOLORES RIOS PINEDA (T06)",
+          "turno": "T06",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "14:00 a 18:00"
+          ]
+        },
+        {
+          "id_empleado": "00020855",
+          "nombre": "CARMEN RUIZ GARCIA",
+          "titulo_fila": "CARMEN RUIZ GARCIA (T08)",
+          "turno": "T08",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "07:00 a 14:00"
+          ]
+        },
+        {
+          "id_empleado": "00063558",
+          "nombre": "MERITXELL GALINDO PRIETO",
+          "titulo_fila": "MERITXELL GALINDO PRIETO (T20)",
+          "turno": "T20",
+          "rol": "EM",
+          "tipos_imputacion": [
+            "EM"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": true,
+          "dias_activos": 1,
+          "horarios": [
+            "15:00 a 21:00"
+          ]
+        },
+        {
+          "id_empleado": "00057175",
+          "nombre": "PERE QUELART VENTURA",
+          "titulo_fila": "PERE QUELART VENTURA (T47)",
+          "turno": "T47",
+          "rol": "BRIGADA / APOYO (BR)",
+          "tipos_imputacion": [
+            "BR"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 12,
+          "horarios": [
+            "07:00 a 15:00"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00063558",
+          "nombre": "MERITXELL GALINDO PRIETO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00017060",
+          "nombre": "ADEL BEN HAMZA EL OUAZANI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00012230",
+          "nombre": "AITOR FEIJOO ORMAECHEA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00015251",
+          "nombre": "ALBERT SANCHEZ PADROSA",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00065632",
+          "nombre": "ALEIX SALVAT CEBALLOS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00043863",
+          "nombre": "ALICIA PARRILLA MARTINEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037158",
+          "nombre": "AMANDA DOS SANTOS ALVAREZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00045431",
+          "nombre": "AMANDA PAOLA PORRAS BASTIDAS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050980",
+          "nombre": "ANDREA PIMENTA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00058599",
+          "nombre": "ANGIE JAQUELINE VALLADARES SIERRA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00036235",
+          "nombre": "ANTONIA ANDRE AMAYA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00028607",
+          "nombre": "ANTONIO MEDINA RODRIGUEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00063792",
+          "nombre": "BEATRIZ RUIZ CABRITO",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00027087",
+          "nombre": "BRIGIDA GUEVARA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00064500",
+          "nombre": "CARLOS ALFREDO MEDRANO MARTINEZ",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00020855",
+          "nombre": "CARMEN RUIZ GARCIA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056341",
+          "nombre": "CESAR WINDSOR SANTANDER INCA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00047815",
+          "nombre": "CRISTINA GARCIA GARCIA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00027095",
+          "nombre": "DANIEL ALVAREZ GUAYTA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00046504",
+          "nombre": "DAVID BONACHERA ALFONSO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00062639",
+          "nombre": "DIEGO CAMPOS MOHAND",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00065513",
+          "nombre": "ELENA PAOLA VALLECILLA CASTILLO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00040469",
+          "nombre": "ENCARNACION PRADA MARTINEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037161",
+          "nombre": "EUGENIA GALARZA LOPEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00047100",
+          "nombre": "FLAVIA MARTINEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00064950",
+          "nombre": "FRANCIS VERONICA DEL ROSARIO DE LA ROSA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00038546",
+          "nombre": "GALINA SEREBRYAKOVA USHAKOVA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044265",
+          "nombre": "GLORIA EDITH FRANCO RUIZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00033564",
+          "nombre": "GRACIELA SUSANA STIVALA ARIET",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00034090",
+          "nombre": "HEIDYS SILESTY LEBRON MORILLO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00016937",
+          "nombre": "IBRAHIM EL BOUTAKMANT",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00052993",
+          "nombre": "IMAN BELARBI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00013232",
+          "nombre": "JACOBO CAMPELO RUIZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00051720",
+          "nombre": "JESUS AYLAGAS ALCARAZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00028936",
+          "nombre": "JOAQUIN MARIO LOAYZA MIRANDA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00058319",
+          "nombre": "JOHN JAIRO BUITRAGO MOLINA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00001571",
+          "nombre": "JONATHAN SENA MEDINA",
+          "dni": "",
+          "familia": "05"
+        },
+        {
+          "id_empleado": "00018107",
+          "nombre": "JORGE ARRIBAS AMAYA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00027118",
+          "nombre": "JOSE RODRIGUEZ RUIZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057221",
+          "nombre": "KELLY MARUSCA CHACON CONTRERAS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057847",
+          "nombre": "KHADIJA EL YOSOUFI",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00011668",
+          "nombre": "LAIA LERMA CRUZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00055629",
+          "nombre": "LARA SOLANAS BATHILDE",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00064050",
+          "nombre": "LEILA HANOUNE",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00058249",
+          "nombre": "LEONOR LATORRE PRADILLO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056502",
+          "nombre": "LUPE VILLANUEVA MEJIA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044224",
+          "nombre": "M VINICIUS NARVAEZ ERAS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00052419",
+          "nombre": "MAGDALENA GAVRILOVA PETROVA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00064553",
+          "nombre": "MANUEL ALEJANDRO CLAROS ANGOLA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00018191",
+          "nombre": "MARIA CARMEN LEMA GRAIÑO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00027091",
+          "nombre": "MARIA DOLORES RIOS PINEDA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056090",
+          "nombre": "MARIA JOSE GARRIDO APARICIO",
+          "dni": "",
+          "familia": "05"
+        },
+        {
+          "id_empleado": "00014321",
+          "nombre": "MARIA LEONOR DOS SANTOS MARTINS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057908",
+          "nombre": "MARIA LUISA LEZCANO DIAZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056973",
+          "nombre": "MARLEN WALTERINE DIAZ ORTEGA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044872",
+          "nombre": "MELISSA LOPEZ RUIZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00048143",
+          "nombre": "MELODY HERNAN MENDEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00041668",
+          "nombre": "MEREIM CHALHI",
+          "dni": "",
+          "familia": "05"
+        },
+        {
+          "id_empleado": "00061049",
+          "nombre": "MIREIA CALABUIG BLANES",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00042537",
+          "nombre": "MONICA LAFUENTE MARTINEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00054725",
+          "nombre": "MONTSERRAT TROYANO ROSELLO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00038193",
+          "nombre": "NAIMA EL GHALIBI KATRANI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00045764",
+          "nombre": "NURIA GARCIA LOPEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037765",
+          "nombre": "NURIA GONZALEZ ALBEROLA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057933",
+          "nombre": "OLGA MARIA CALVO CASATEJADA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057175",
+          "nombre": "PERE QUELART VENTURA",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00050054",
+          "nombre": "PILAR AGUILAR DE LA TORRE",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00051929",
+          "nombre": "RAFAEL HERNANDEZ PERALTA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00005815",
+          "nombre": "RAMON BERNAL HERRERA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00049042",
+          "nombre": "REGLA DURAN GONZALEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00064281",
+          "nombre": "ROBERTO FEIJOO ORMAECHEA",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00054886",
+          "nombre": "ROSA VILLAFUERTE QUIROGA",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00057776",
+          "nombre": "ROXANA ESPINOZA OTOYA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00012406",
+          "nombre": "SERGIO ANTONIO CUNALATA PILAMUNGA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00052765",
+          "nombre": "SERGIO RETAMALES CARBALLO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050366",
+          "nombre": "SIHAM ERRAHMOUNI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00063023",
+          "nombre": "SILVIA RAMON JORDANO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00028996",
+          "nombre": "SONNIA MARIA RECALDE FRANCO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00060238",
+          "nombre": "SUSANA ALVAREZ LAJARA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00015879",
+          "nombre": "TEODORA SANZ SANZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00037320",
+          "nombre": "THOMMY ANTHONY MAZON LOPEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00046429",
+          "nombre": "VICTORIANO CASCO CAÑETE",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00048660",
+          "nombre": "WILBER SALLICA CHALCO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00054922",
+          "nombre": "YOLANDA GALACHE LOPEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00042983",
+          "nombre": "YOLANDA NOGUERA RISPA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00064684",
+          "nombre": "YOLANDA OLIVARES DOMINGUEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057445",
+          "nombre": "YOUSSEF ARROUCHDI EL MRABET",
+          "dni": "",
+          "familia": ""
+        }
+      ]
+    },
     "PROY016236-P2-C018": {
       "id_proyecto": "PROY016236-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:15",
+          "horarios": [
+            "18:00 a 19:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2185,20 +4117,61 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016249-P2-C001": {
-      "id_proyecto": "PROY016249-P2-C001",
-      "turnos": [],
+    "PROY016236-P2-C001": {
+      "id_proyecto": "PROY016236-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:15",
+          "horarios": [
+            "18:00 a 19:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:15",
+          "horarios": [
+            "18:00 a 19:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00037559",
-          "nombre": "ELISABET VILALLON MORON",
+          "id_empleado": "00047113",
+          "nombre": "ALASSAN WUMBIE",
           "dni": "",
           "familia": "01"
         },
         {
-          "id_empleado": "00028364",
-          "nombre": "IVAN FEDERICO MACIEL ROMERO",
+          "id_empleado": "00037956",
+          "nombre": "CAROLINA CANO FERNANDEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044542",
+          "nombre": "NURIA DELGADO GALLARDO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050163",
+          "nombre": "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
           "dni": "",
           "familia": "01"
         }
@@ -2206,7 +4179,23 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016249-P2-C018": {
       "id_proyecto": "PROY016249-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "14:00",
+          "hora_fin": "15:15",
+          "horarios": [
+            "14:00 a 15:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2223,28 +4212,73 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016261-P2-C001": {
-      "id_proyecto": "PROY016261-P2-C001",
-      "turnos": [],
+    "PROY016249-P2-C001": {
+      "id_proyecto": "PROY016249-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:00",
+          "hora_fin": "17:30",
+          "horarios": [
+            "16:00 a 17:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00039914",
-          "nombre": "JOSE MARIA CHAVES HUERTO",
+          "id_empleado": "00037559",
+          "nombre": "ELISABET VILALLON MORON",
           "dni": "",
-          "familia": "05"
+          "familia": "01"
         },
         {
-          "id_empleado": "00013561",
-          "nombre": "YOLANDA RAMOS GILABERT",
+          "id_empleado": "00028364",
+          "nombre": "IVAN FEDERICO MACIEL ROMERO",
           "dni": "",
-          "familia": "05"
+          "familia": "01"
         }
       ]
     },
     "PROY016261-P2-C018": {
       "id_proyecto": "PROY016261-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "16:00",
+          "hora_fin": "17:30",
+          "horarios": [
+            "16:00 a 17:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2321,26 +4355,83 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016272-P2-C001": {
-      "id_proyecto": "PROY016272-P2-C001",
-      "turnos": [],
+    "PROY016261-P2-C001": {
+      "id_proyecto": "PROY016261-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00048356",
-          "nombre": "JOSE MIGUEL RAMOS GONZALEZ",
+          "id_empleado": "00039914",
+          "nombre": "JOSE MARIA CHAVES HUERTO",
+          "dni": "",
+          "familia": "05"
+        },
+        {
+          "id_empleado": "00013561",
+          "nombre": "YOLANDA RAMOS GILABERT",
+          "dni": "",
+          "familia": "05"
+        }
+      ]
+    },
+    "PROY016270-P2-C001": {
+      "id_proyecto": "PROY016270-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00042893",
+          "nombre": "IGNACIO DIAZ LOZANO",
           "dni": "",
           "familia": "01"
         },
         {
-          "id_empleado": "00033962",
-          "nombre": "MERCEDES ESPINAR GINES",
+          "id_empleado": "00052278",
+          "nombre": "ISABEL OLIVARES RODRIGUEZ",
           "dni": "",
           "familia": "01"
         },
         {
-          "id_empleado": "00040263",
-          "nombre": "SILVIA MURCIANO PEREZ",
+          "id_empleado": "00039349",
+          "nombre": "NOELIA POZO ROZAS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00031136",
+          "nombre": "ROSA MARIA RODERO GARCIA",
           "dni": "",
           "familia": "01"
         }
@@ -2348,7 +4439,23 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016270-P2-C018": {
       "id_proyecto": "PROY016270-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2413,9 +4520,66 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "PROY016272-P2-C001": {
+      "id_proyecto": "PROY016272-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:15",
+          "horarios": [
+            "20:00 a 21:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00048356",
+          "nombre": "JOSE MIGUEL RAMOS GONZALEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00033962",
+          "nombre": "MERCEDES ESPINAR GINES",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00040263",
+          "nombre": "SILVIA MURCIANO PEREZ",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "PROY016272-P2-C018": {
       "id_proyecto": "PROY016272-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "15:00",
+          "hora_fin": "17:00",
+          "horarios": [
+            "15:00 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2468,40 +4632,25 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016270-P2-C001": {
-      "id_proyecto": "PROY016270-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00042893",
-          "nombre": "IGNACIO DIAZ LOZANO",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00052278",
-          "nombre": "ISABEL OLIVARES RODRIGUEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00039349",
-          "nombre": "NOELIA POZO ROZAS",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00031136",
-          "nombre": "ROSA MARIA RODERO GARCIA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY016276-P2-C001": {
       "id_proyecto": "PROY016276-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:30",
+          "horarios": [
+            "18:00 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2520,7 +4669,36 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016276-P2-C018": {
       "id_proyecto": "PROY016276-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:30",
+          "horarios": [
+            "18:00 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "17:00",
+          "hora_fin": "18:30",
+          "horarios": [
+            "17:00 a 18:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2623,7 +4801,36 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016281-P2-C001": {
       "id_proyecto": "PROY016281-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "19:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "19:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "19:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "19:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2642,7 +4849,49 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016281-P2-C018": {
       "id_proyecto": "PROY016281-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "20:00",
+          "horarios": [
+            "18:00 a 20:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "17:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "17:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "17:00",
+          "hora_fin": "19:00",
+          "horarios": [
+            "17:00 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2691,7 +4940,23 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016285-P2-C001": {
       "id_proyecto": "PROY016285-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "18:00",
+          "hora_fin": "19:45",
+          "horarios": [
+            "18:00 a 19:45"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2716,7 +4981,23 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016285-P2-C018": {
       "id_proyecto": "PROY016285-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "10:00",
+          "horarios": [
+            "09:00 a 10:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2733,46 +5014,25 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016286-P2-C001": {
-      "id_proyecto": "PROY016286-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00047113",
-          "nombre": "ALASSAN WUMBIE",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00037956",
-          "nombre": "CAROLINA CANO FERNANDEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00042678",
-          "nombre": "JOEL GARCIA MATEOS",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00044542",
-          "nombre": "NURIA DELGADO GALLARDO",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00050163",
-          "nombre": "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "PROY016286-P2-C018": {
       "id_proyecto": "PROY016286-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:30",
+          "horarios": [
+            "20:00 a 21:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2867,20 +5127,109 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY016289-P2-C001": {
-      "id_proyecto": "PROY016289-P2-C001",
-      "turnos": [],
+    "PROY016286-P2-C001": {
+      "id_proyecto": "PROY016286-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:30",
+          "horarios": [
+            "20:00 a 21:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "20:00",
+          "hora_fin": "21:45",
+          "horarios": [
+            "20:00 a 21:45"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00030250",
-          "nombre": "ANTONIO FERNANDEZ BRIA",
+          "id_empleado": "00047113",
+          "nombre": "ALASSAN WUMBIE",
           "dni": "",
           "familia": "01"
         },
         {
-          "id_empleado": "00047896",
-          "nombre": "MANUEL RIOS PEREZ",
+          "id_empleado": "00037956",
+          "nombre": "CAROLINA CANO FERNANDEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00042678",
+          "nombre": "JOEL GARCIA MATEOS",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00044542",
+          "nombre": "NURIA DELGADO GALLARDO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050163",
+          "nombre": "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "PROY017209-P2-C001": {
+      "id_proyecto": "PROY017209-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:30",
+          "hora_fin": "19:00",
+          "horarios": [
+            "16:30 a 19:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "15:00",
+          "hora_fin": "16:30",
+          "horarios": [
+            "15:00 a 16:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00058971",
+          "nombre": "POL ROURA PLANAGUMA",
           "dni": "",
           "familia": "01"
         }
@@ -2888,7 +5237,49 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY016289-P2-C018": {
       "id_proyecto": "PROY016289-P2-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "19:30",
+          "hora_fin": "21:30",
+          "horarios": [
+            "19:30 a 21:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "10:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "10:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "19:00",
+          "hora_fin": "21:00",
+          "horarios": [
+            "19:00 a 21:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -2941,108 +5332,49 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY017209-P2-C001": {
-      "id_proyecto": "PROY017209-P2-C001",
-      "turnos": [],
+    "PROY016289-P2-C001": {
+      "id_proyecto": "PROY016289-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "13:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "13:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "13:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "13:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00058971",
-          "nombre": "POL ROURA PLANAGUMA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
-    "PROY017304-P2-C001": {
-      "id_proyecto": "PROY017304-P2-C001",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "10:30 a 12:30",
-            "07:00 a 08:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "10:30 a 12:30",
-                "07:00 a 08:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "10:30 a 12:30",
-            "07:00 a 08:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00064502",
-          "nombre": "ANWAR EL KHABBAZI RIFI",
+          "id_empleado": "00030250",
+          "nombre": "ANTONIO FERNANDEZ BRIA",
           "dni": "",
           "familia": "01"
         },
         {
-          "id_empleado": "00054120",
-          "nombre": "CASANDRA NARVALAEZ MONGE",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00057045",
-          "nombre": "ELIA MOGIO MEDINA",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00048629",
-          "nombre": "MOHAMED AZLOU",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
+          "id_empleado": "00047896",
+          "nombre": "MANUEL RIOS PEREZ",
           "dni": "",
           "familia": "01"
         }
@@ -3050,9 +5382,13 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY017209-P1": {
       "id_proyecto": "PROY017209-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:30",
+          "hora_fin": "19:00",
           "horarios": [
             "16:30 a 19:00"
           ],
@@ -3079,37 +5415,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "16:30 a 19:00"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "15:00",
+          "hora_fin": "16:30",
           "horarios": [
-            "15:30 a 16:30"
+            "15:00 a 16:30"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00029243",
-              "nombre": "MERCE PLANAS HERAS",
-              "titulo_fila": "MERCE PLANAS HERAS (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "15:30 a 16:30"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -3133,28 +5458,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 20,
           "horarios": [
             "16:30 a 19:00"
-          ]
-        },
-        {
-          "id_empleado": "00029243",
-          "nombre": "MERCE PLANAS HERAS",
-          "titulo_fila": "MERCE PLANAS HERAS (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "15:30 a 16:30"
           ]
         }
       ],
@@ -3221,40 +5524,18 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY017644-P2-C001": {
-      "id_proyecto": "PROY017644-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00059575",
-          "nombre": "JOSE ANTONIO LOPEZ SANCHEZ",
-          "dni": "",
-          "familia": "02"
-        },
-        {
-          "id_empleado": "00048220",
-          "nombre": "MARIA CARMEN ARRIBAS GONZALEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00048628",
-          "nombre": "MONTSERRAT OLLER FONT",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
     "PROY017304-P1": {
       "id_proyecto": "PROY017304-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "09:00",
           "horarios": [
             "07:00 a 09:00",
-            "06:00 a 08:00",
-            "07:00 a 08:00"
+            "06:00 a 08:00"
           ],
           "empleados": [
             {
@@ -3279,109 +5560,66 @@ window.SUPERVISOR_SNAPSHOT = {
                 "07:00 a 09:00",
                 "06:00 a 08:00"
               ]
-            },
-            {
-              "id_empleado": "00058803",
-              "nombre": "JOSE MANUEL MORALES ROSALES",
-              "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "PE",
-                "HO"
-              ],
-              "colores": [
-                "ROJ",
-                "BLA"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 20,
-              "horarios": [
-                "07:00 a 09:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB",
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA",
-                "NAR"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 3,
-              "horarios": [
-                "07:00 a 09:00",
-                "07:00 a 08:00"
-              ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "07:00",
+          "hora_fin": "08:00",
           "horarios": [
-            "06:00 a 10:00"
+            "07:00 a 08:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "06:00 a 10:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "06:00 a 10:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "06:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "06:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T40",
+          "codigo_turno": "40",
+          "hora_inicio": "05:00",
+          "hora_fin": "11:00",
+          "horarios": [
+            "05:00 a 11:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "05:30",
+          "hora_fin": "11:30",
+          "horarios": [
+            "05:30 a 11:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -3406,99 +5644,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "horarios": [
             "07:00 a 09:00",
             "06:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00058803",
-          "nombre": "JOSE MANUEL MORALES ROSALES",
-          "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "PE",
-            "HO"
-          ],
-          "colores": [
-            "ROJ",
-            "BLA"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 20,
-          "horarios": [
-            "07:00 a 09:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB",
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA",
-            "NAR"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 3,
-          "horarios": [
-            "07:00 a 09:00",
-            "07:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "06:00 a 10:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "06:00 a 10:00"
           ]
         }
       ],
@@ -3625,11 +5770,124 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "PROY017644-P1": {
-      "id_proyecto": "PROY017644-P1",
+    "PROY017304-P2-C001": {
+      "id_proyecto": "PROY017304-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "09:00",
+          "horarios": [
+            "07:00 a 09:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "17:30",
+          "hora_fin": "19:30",
+          "horarios": [
+            "17:30 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00064502",
+          "nombre": "ANWAR EL KHABBAZI RIFI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00054120",
+          "nombre": "CASANDRA NARVALAEZ MONGE",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057045",
+          "nombre": "ELIA MOGIO MEDINA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00048629",
+          "nombre": "MOHAMED AZLOU",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00061212",
+          "nombre": "REDA JAIT",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "PROY017644-P2-C001": {
+      "id_proyecto": "PROY017644-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:15",
+          "hora_fin": "10:15",
+          "horarios": [
+            "09:15 a 10:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00059575",
+          "nombre": "JOSE ANTONIO LOPEZ SANCHEZ",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00048220",
+          "nombre": "MARIA CARMEN ARRIBAS GONZALEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00048628",
+          "nombre": "MONTSERRAT OLLER FONT",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "PROY017644-P1": {
+      "id_proyecto": "PROY017644-P1",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
           "horarios": [
             "10:00 a 11:00"
           ],
@@ -3644,12 +5902,10 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO",
-                "VC"
+                "HO"
               ],
               "colores": [
-                "BLA",
-                "MAR"
+                "BLA"
               ],
               "en_baja": false,
               "es_suplente": false,
@@ -3657,82 +5913,53 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "10:00 a 11:00"
               ]
-            },
-            {
-              "id_empleado": "00064145",
-              "nombre": "JAVIER REYES JODAR",
-              "titulo_fila": "JAVIER REYES JODAR (T01)",
-              "turno": "T01",
-              "rol": "SV",
-              "tipos_imputacion": [
-                "SV"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "10:00 a 11:00"
-              ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "11:30",
+          "hora_fin": "13:00",
           "horarios": [
-            "12:00 a 14:00"
+            "11:30 a 13:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "12:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "12:00 a 14:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "07:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "07:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T40",
+          "codigo_turno": "40",
+          "hora_inicio": "12:00",
+          "hora_fin": "13:00",
+          "horarios": [
+            "12:00 a 13:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -3746,84 +5973,16 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "HO",
-            "VC"
+            "HO"
           ],
           "colores": [
-            "BLA",
-            "MAR"
+            "BLA"
           ],
           "en_baja": false,
           "es_suplente": false,
           "dias_activos": 21,
           "horarios": [
             "10:00 a 11:00"
-          ]
-        },
-        {
-          "id_empleado": "00064145",
-          "nombre": "JAVIER REYES JODAR",
-          "titulo_fila": "JAVIER REYES JODAR (T01)",
-          "turno": "T01",
-          "rol": "SV",
-          "tipos_imputacion": [
-            "SV"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "10:00 a 11:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "12:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "12:00 a 14:00"
           ]
         }
       ],
@@ -3910,12 +6069,15 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY018780-P1": {
       "id_proyecto": "PROY018780-P1",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "10:00",
           "horarios": [
-            "09:00 a 10:00",
-            "11:00 a 12:00"
+            "09:00 a 10:00"
           ],
           "empleados": [
             {
@@ -3937,13 +6099,17 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 4,
               "horarios": [
-                "09:00 a 10:00",
-                "11:00 a 12:00"
+                "09:00 a 10:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
         }
       ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [
         {
           "id_empleado": "00064242",
@@ -3964,8 +6130,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 4,
           "horarios": [
-            "09:00 a 10:00",
-            "11:00 a 12:00"
+            "09:00 a 10:00"
           ]
         }
       ],
@@ -4052,62 +6217,39 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "PROY018780-P2-C001": {
       "id_proyecto": "PROY018780-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
-          "id_turno": "T02",
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "11:00",
           "horarios": [
-            "15:00 a 16:00"
+            "10:00 a 11:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "15:00 a 16:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        },
         {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "15:00",
+          "hora_fin": "16:00",
           "horarios": [
             "15:00 a 16:00"
-          ]
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
         }
       ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00057045",
@@ -4147,30 +6289,15 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO01227-P2-C001": {
-      "id_proyecto": "SVO01227-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
     "PROY08324-P2-C001": {
       "id_proyecto": "PROY08324-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "14:30",
+          "hora_fin": "16:30",
           "horarios": [
             "14:30 a 16:30"
           ],
@@ -4197,7 +6324,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "14:30 a 16:30"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 21,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "16:30",
+          "hora_fin": "17:00",
+          "horarios": [
+            "16:30 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -4239,26 +6385,45 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO01232-P2-C001": {
-      "id_proyecto": "SVO01232-P2-C001",
-      "turnos": [],
+    "SVO01227-P2-C001": {
+      "id_proyecto": "SVO01227-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00063317",
-          "nombre": "JAVIER DACRUZ CABALLERO",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00054160",
-          "nombre": "LEONELA LORELEY DELGADO PIN",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00061211",
-          "nombre": "MIQUEL REYES AMADOR",
+          "id_empleado": "00047211",
+          "nombre": "JUAN BONADA GONZALEZ",
           "dni": "",
           "familia": "13"
         },
@@ -4272,35 +6437,17 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO01232-P1-C018": {
       "id_proyecto": "SVO01232-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ],
           "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 13,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
             {
               "id_empleado": "00066736",
               "nombre": "MOHAMED UAHLET",
@@ -4320,61 +6467,24 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 14,
               "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00044790",
-              "nombre": "PEDRO CARRASCO BELMONTE",
-              "titulo_fila": "PEDRO CARRASCO BELMONTE (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 13,
-              "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
           ],
           "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 12,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
             {
               "id_empleado": "00066736",
               "nombre": "MOHAMED UAHLET",
@@ -4396,55 +6506,95 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "00:00 a 08:00"
               ]
-            },
-            {
-              "id_empleado": "00044790",
-              "nombre": "PEDRO CARRASCO BELMONTE",
-              "titulo_fila": "PEDRO CARRASCO BELMONTE (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 12,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "22:59",
+          "hora_fin": "24:00",
+          "horarios": [
+            "22:59 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "00:05",
+          "hora_fin": "08:04",
+          "horarios": [
+            "00:05 a 08:04"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 13,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
         {
           "id_empleado": "00066736",
           "nombre": "MOHAMED UAHLET",
@@ -4464,29 +6614,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 14,
           "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 12,
-          "horarios": [
-            "00:00 a 08:00"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -4507,50 +6635,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "en_baja": false,
           "es_suplente": false,
           "dias_activos": 13,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00044790",
-          "nombre": "PEDRO CARRASCO BELMONTE",
-          "titulo_fila": "PEDRO CARRASCO BELMONTE (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 13,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00044790",
-          "nombre": "PEDRO CARRASCO BELMONTE",
-          "titulo_fila": "PEDRO CARRASCO BELMONTE (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 12,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -4651,11 +6735,15 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO01227-P1-C018": {
       "id_proyecto": "SVO01227-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ],
           "empleados": [
             {
@@ -4668,18 +6756,16 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "BJ",
-                "HO"
+                "BJ"
               ],
               "colores": [
-                "ROJ",
-                "BLA"
+                "ROJ"
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 31,
+              "dias_activos": 22,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -4687,21 +6773,23 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "JUAN BONADA GONZALEZ",
               "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
               "turno": "T01",
-              "rol": "TITULAR (TI)",
+              "rol": "BAJA IT",
               "tipos_imputacion": [
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO"
+                "HO",
+                "PE"
               ],
               "colores": [
-                "BLA"
+                "BLA",
+                "ROJ"
               ],
-              "en_baja": false,
+              "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 14,
+              "dias_activos": 16,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -4723,7 +6811,7 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": true,
               "dias_activos": 1,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -4731,21 +6819,23 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "MOHAMMED ETTMALAH",
               "titulo_fila": "MOHAMMED ETTMALAH (T01)",
               "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
+              "rol": "BAJA IT",
               "tipos_imputacion": [
                 "BR"
               ],
               "tipos_asignacion": [
+                "PE",
                 "HO"
               ],
               "colores": [
+                "ROJ",
                 "BLA"
               ],
-              "en_baja": false,
+              "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 5,
+              "dias_activos": 6,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -4765,15 +6855,22 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": true,
-              "dias_activos": 19,
+              "dias_activos": 8,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
           ],
@@ -4788,16 +6885,14 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "BJ",
-                "HO"
+                "BJ"
               ],
               "colores": [
-                "ROJ",
-                "BLA"
+                "ROJ"
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 31,
+              "dias_activos": 22,
               "horarios": [
                 "00:00 a 08:00"
               ]
@@ -4807,19 +6902,21 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "JUAN BONADA GONZALEZ",
               "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
               "turno": "T02",
-              "rol": "TITULAR (TI)",
+              "rol": "BAJA IT",
               "tipos_imputacion": [
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO"
+                "HO",
+                "PE"
               ],
               "colores": [
-                "BLA"
+                "BLA",
+                "ROJ"
               ],
-              "en_baja": false,
+              "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 13,
+              "dias_activos": 14,
               "horarios": [
                 "00:00 a 08:00"
               ]
@@ -4841,7 +6938,7 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": true,
-              "dias_activos": 1,
+              "dias_activos": 2,
               "horarios": [
                 "00:00 a 08:00"
               ]
@@ -4885,12 +6982,161 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": true,
-              "dias_activos": 19,
+              "dias_activos": 7,
               "horarios": [
                 "00:00 a 08:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "22:59",
+          "hora_fin": "24:00",
+          "horarios": [
+            "22:59 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "00:05",
+          "hora_fin": "08:04",
+          "horarios": [
+            "00:05 a 08:04"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T07",
+          "codigo_turno": "07",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T08",
+          "codigo_turno": "08",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T09",
+          "codigo_turno": "09",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T10",
+          "codigo_turno": "10",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T11",
+          "codigo_turno": "11",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -4904,18 +7150,16 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "BJ",
-            "HO"
+            "BJ"
           ],
           "colores": [
-            "ROJ",
-            "BLA"
+            "ROJ"
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 31,
+          "dias_activos": 22,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -4923,21 +7167,23 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "JUAN BONADA GONZALEZ",
           "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
           "turno": "T01",
-          "rol": "TITULAR (TI)",
+          "rol": "BAJA IT",
           "tipos_imputacion": [
             "TI"
           ],
           "tipos_asignacion": [
-            "HO"
+            "HO",
+            "PE"
           ],
           "colores": [
-            "BLA"
+            "BLA",
+            "ROJ"
           ],
-          "en_baja": false,
+          "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 14,
+          "dias_activos": 16,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -4959,7 +7205,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": true,
           "dias_activos": 1,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -4967,21 +7213,23 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "MOHAMMED ETTMALAH",
           "titulo_fila": "MOHAMMED ETTMALAH (T01)",
           "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
+          "rol": "BAJA IT",
           "tipos_imputacion": [
             "BR"
           ],
           "tipos_asignacion": [
+            "PE",
             "HO"
           ],
           "colores": [
+            "ROJ",
             "BLA"
           ],
-          "en_baja": false,
+          "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 5,
+          "dias_activos": 6,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -5001,9 +7249,9 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": true,
-          "dias_activos": 19,
+          "dias_activos": 8,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -5016,16 +7264,14 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "BJ",
-            "HO"
+            "BJ"
           ],
           "colores": [
-            "ROJ",
-            "BLA"
+            "ROJ"
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 31,
+          "dias_activos": 22,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -5035,19 +7281,21 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "JUAN BONADA GONZALEZ",
           "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
           "turno": "T02",
-          "rol": "TITULAR (TI)",
+          "rol": "BAJA IT",
           "tipos_imputacion": [
             "TI"
           ],
           "tipos_asignacion": [
-            "HO"
+            "HO",
+            "PE"
           ],
           "colores": [
-            "BLA"
+            "BLA",
+            "ROJ"
           ],
-          "en_baja": false,
+          "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 13,
+          "dias_activos": 14,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -5069,7 +7317,7 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": true,
-          "dias_activos": 1,
+          "dias_activos": 2,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -5113,7 +7361,7 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": true,
-          "dias_activos": 19,
+          "dias_activos": 7,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -5182,9 +7430,116 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO02284-P1-C018": {
-      "id_proyecto": "SVO02284-P1-C018",
-      "turnos": [],
+    "SVO01232-P2-C001": {
+      "id_proyecto": "SVO01232-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00063317",
+          "nombre": "JAVIER DACRUZ CABALLERO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00054160",
+          "nombre": "LEONELA LORELEY DELGADO PIN",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00061211",
+          "nombre": "MIQUEL REYES AMADOR",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00062813",
+          "nombre": "SAHIL SINGH ARORA",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "SVO02284-P2-C001": {
+      "id_proyecto": "SVO02284-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:15",
+          "hora_fin": "11:15",
+          "horarios": [
+            "09:15 a 11:15"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00061206",
+          "nombre": "MIREIA VILLALBA DELGADO",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO02288-P1-C018": {
+      "id_proyecto": "SVO02288-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "08:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "08:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -5200,6 +7555,12 @@ window.SUPERVISOR_SNAPSHOT = {
           "familia": "07"
         },
         {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "dni": "",
+          "familia": "01"
+        },
+        {
           "id_empleado": "00029727",
           "nombre": "MUSTAPHA EL BAZE",
           "dni": "",
@@ -5207,23 +7568,92 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO02284-P2-C001": {
-      "id_proyecto": "SVO02284-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
+    "SVO02284-P1-C018": {
+      "id_proyecto": "SVO02284-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
         {
-          "id_empleado": "00061206",
-          "nombre": "MIREIA VILLALBA DELGADO",
-          "dni": "",
-          "familia": "01"
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:30",
+          "hora_fin": "11:30",
+          "horarios": [
+            "08:00 a 10:00",
+            "09:30 a 11:30"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00063866",
+              "nombre": "MOHAMMED ETTMALAH",
+              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
+              "turno": "T01",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "BR"
+              ],
+              "tipos_asignacion": [
+                "HO",
+                "PE"
+              ],
+              "colores": [
+                "BLA",
+                "ROJ"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 8,
+              "horarios": [
+                "09:30 a 11:30"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 8,
+          "historico_cerrado": false
         }
-      ]
-    },
-    "SVO02288-P1-C018": {
-      "id_proyecto": "SVO02288-P1-C018",
-      "turnos": [],
-      "filas_cuadrante": [],
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "07:10",
+          "hora_fin": "11:10",
+          "horarios": [
+            "07:10 a 11:10"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
+          "turno": "T01",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "BR"
+          ],
+          "tipos_asignacion": [
+            "HO",
+            "PE"
+          ],
+          "colores": [
+            "BLA",
+            "ROJ"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 8,
+          "horarios": [
+            "09:30 a 11:30"
+          ]
+        }
+      ],
       "empleados_proyecto": [
         {
           "id_empleado": "00037401",
@@ -5253,114 +7683,65 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO02309-P1-C018": {
       "id_proyecto": "SVO02309-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:30",
+          "hora_fin": "11:30",
           "horarios": [
             "09:30 a 11:30"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00061206",
-              "nombre": "MIREIA VILLALBA DELGADO",
-              "titulo_fila": "MIREIA VILLALBA DELGADO (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "VC",
-                "PE",
-                "HO"
-              ],
-              "colores": [
-                "MAR",
-                "ROJ",
-                "BLA"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 9,
-              "horarios": [
-                "09:30 a 11:30"
-              ]
-            },
-            {
-              "id_empleado": "00064119",
-              "nombre": "JAVIER FELIU LOPEZ",
-              "titulo_fila": "JAVIER FELIU LOPEZ (T01)",
-              "turno": "T01",
-              "rol": "SV",
-              "tipos_imputacion": [
-                "SV"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 1,
-              "horarios": [
-                "09:30 a 11:30"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 9,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
+      "turnos_historicos_cerrados": [
         {
-          "id_empleado": "00061206",
-          "nombre": "MIREIA VILLALBA DELGADO",
-          "titulo_fila": "MIREIA VILLALBA DELGADO (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "VC",
-            "PE",
-            "HO"
-          ],
-          "colores": [
-            "MAR",
-            "ROJ",
-            "BLA"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 9,
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "09:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "09:30 a 11:30"
-          ]
+            "09:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         },
         {
-          "id_empleado": "00064119",
-          "nombre": "JAVIER FELIU LOPEZ",
-          "titulo_fila": "JAVIER FELIU LOPEZ (T01)",
-          "turno": "T01",
-          "rol": "SV",
-          "tipos_imputacion": [
-            "SV"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 1,
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "09:30 a 11:30"
-          ]
+            "10:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "06:40",
+          "hora_fin": "10:40",
+          "horarios": [
+            "06:40 a 10:40"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00049930",
@@ -5468,12 +7849,16 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO02267-P1-C018": {
       "id_proyecto": "SVO02267-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:00",
+          "hora_fin": "21:00",
           "horarios": [
-            "16:00 a 21:00",
-            "22:00 a 23:59"
+            "23:00 a 24:00",
+            "16:00 a 21:00"
           ],
           "empleados": [
             {
@@ -5508,9 +7893,11 @@ window.SUPERVISOR_SNAPSHOT = {
                 "SB"
               ],
               "tipos_asignacion": [
+                "VC",
                 "HO"
               ],
               "colores": [
+                "MAR",
                 "BLA"
               ],
               "en_baja": false,
@@ -5519,37 +7906,21 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "16:00 a 21:00"
               ]
-            },
-            {
-              "id_empleado": "00000823",
-              "nombre": "JULIAN CANO GALLEGO",
-              "titulo_fila": "JULIAN CANO GALLEGO (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA",
-                "NAR"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 13,
-              "horarios": [
-                "22:00 a 23:59"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "22:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "22:00 a 23:59",
-            "00:00 a 07:00"
+            "00:00 a 08:00",
+            "22:00 a 24:00"
           ],
           "empleados": [
             {
@@ -5562,20 +7933,16 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "BJ",
-                "HO"
+                "BJ"
               ],
               "colores": [
-                "ROJ",
-                "BLA",
-                "NAR"
+                "ROJ"
               ],
               "en_baja": true,
               "es_suplente": false,
               "dias_activos": 17,
               "horarios": [
-                "22:00 a 23:59",
-                "00:00 a 07:00"
+                "22:00 a 24:00"
               ]
             },
             {
@@ -5597,16 +7964,23 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": true,
               "dias_activos": 17,
               "horarios": [
-                "22:00 a 23:59"
+                "22:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 17,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "00:00",
+          "hora_fin": "07:00",
           "horarios": [
-            "00:00 a 07:00",
-            "16:00 a 21:00"
+            "16:00 a 21:00",
+            "00:00 a 07:00"
           ],
           "empleados": [
             {
@@ -5652,92 +8026,40 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "00:00 a 07:00"
               ]
-            },
-            {
-              "id_empleado": "00061213",
-              "nombre": "JUAN JOSE GARCIA MANZANEQUE",
-              "titulo_fila": "JUAN JOSE GARCIA MANZANEQUE (T03)",
-              "turno": "T03",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 14,
-              "horarios": [
-                "16:00 a 21:00"
-              ]
-            },
-            {
-              "id_empleado": "00063291",
-              "nombre": "IRENE MASSANET MASPOCH",
-              "titulo_fila": "IRENE MASSANET MASPOCH (T03)",
-              "turno": "T03",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "VC",
-                "HO",
-                "BJ"
-              ],
-              "colores": [
-                "MAR",
-                "BLA",
-                "ROJ",
-                "NAR"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 15,
-              "horarios": [
-                "16:00 a 21:00"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 18,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "16:00",
+          "hora_fin": "18:00",
+          "horarios": [
+            "16:00 a 18:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         },
         {
           "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "21:00",
+          "hora_fin": "21:30",
           "horarios": [
             "21:00 a 21:30"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00063291",
-              "nombre": "IRENE MASSANET MASPOCH",
-              "titulo_fila": "IRENE MASSANET MASPOCH (T05)",
-              "turno": "T05",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "VC",
-                "HO",
-                "BJ"
-              ],
-              "colores": [
-                "MAR",
-                "BLA",
-                "ROJ",
-                "NAR"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 12,
-              "horarios": [
-                "21:00 a 21:30"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -5773,9 +8095,11 @@ window.SUPERVISOR_SNAPSHOT = {
             "SB"
           ],
           "tipos_asignacion": [
+            "VC",
             "HO"
           ],
           "colores": [
+            "MAR",
             "BLA"
           ],
           "en_baja": false,
@@ -5795,20 +8119,16 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "BJ",
-            "HO"
+            "BJ"
           ],
           "colores": [
-            "ROJ",
-            "BLA",
-            "NAR"
+            "ROJ"
           ],
           "en_baja": true,
           "es_suplente": false,
           "dias_activos": 17,
           "horarios": [
-            "22:00 a 23:59",
-            "00:00 a 07:00"
+            "22:00 a 24:00"
           ]
         },
         {
@@ -5830,7 +8150,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": true,
           "dias_activos": 17,
           "horarios": [
-            "22:00 a 23:59"
+            "22:00 a 24:00"
           ]
         },
         {
@@ -5876,105 +8196,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "horarios": [
             "00:00 a 07:00"
           ]
-        },
-        {
-          "id_empleado": "00000823",
-          "nombre": "JULIAN CANO GALLEGO",
-          "titulo_fila": "JULIAN CANO GALLEGO (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA",
-            "NAR"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 13,
-          "horarios": [
-            "22:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00061213",
-          "nombre": "JUAN JOSE GARCIA MANZANEQUE",
-          "titulo_fila": "JUAN JOSE GARCIA MANZANEQUE (T03)",
-          "turno": "T03",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 14,
-          "horarios": [
-            "16:00 a 21:00"
-          ]
-        },
-        {
-          "id_empleado": "00063291",
-          "nombre": "IRENE MASSANET MASPOCH",
-          "titulo_fila": "IRENE MASSANET MASPOCH (T03)",
-          "turno": "T03",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "VC",
-            "HO",
-            "BJ"
-          ],
-          "colores": [
-            "MAR",
-            "BLA",
-            "ROJ",
-            "NAR"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 15,
-          "horarios": [
-            "16:00 a 21:00"
-          ]
-        },
-        {
-          "id_empleado": "00063291",
-          "nombre": "IRENE MASSANET MASPOCH",
-          "titulo_fila": "IRENE MASSANET MASPOCH (T05)",
-          "turno": "T05",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "VC",
-            "HO",
-            "BJ"
-          ],
-          "colores": [
-            "MAR",
-            "BLA",
-            "ROJ",
-            "NAR"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 12,
-          "horarios": [
-            "21:00 a 21:30"
-          ]
         }
       ],
       "empleados_proyecto": [
@@ -6012,7 +8233,24 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO02309-P2-C001": {
       "id_proyecto": "SVO02309-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "14:30",
+          "hora_fin": "16:30",
+          "horarios": [
+            "14:30 a 16:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 9,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -6035,86 +8273,27 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO04295-P2-C001": {
-      "id_proyecto": "SVO04295-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00065037",
-          "nombre": "TANIA JACILINA FRATUCELLO BARGIERI",
-          "dni": "",
-          "familia": ""
-        }
-      ]
-    },
     "SVO03143-P2-C001": {
       "id_proyecto": "SVO03143-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "12:00",
           "horarios": [
-            "09:00 a 10:30",
-            "08:00 a 09:30"
+            "09:00 a 12:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "09:00 a 10:30",
-                "08:00 a 09:30"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "09:00 a 10:30",
-            "08:00 a 09:30"
-          ]
-        }
-      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00064502",
@@ -6150,13 +8329,15 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO03143-P1-C018": {
       "id_proyecto": "SVO03143-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "12:00",
           "horarios": [
-            "09:00 a 12:00",
-            "09:00 a 10:30",
-            "08:00 a 09:30"
+            "09:00 a 12:00"
           ],
           "empleados": [
             {
@@ -6180,131 +8361,68 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "09:00 a 12:00"
               ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "NAR"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "09:00 a 10:30"
-              ]
-            },
-            {
-              "id_empleado": "00058803",
-              "nombre": "JOSE MANUEL MORALES ROSALES",
-              "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "PE",
-                "HO"
-              ],
-              "colores": [
-                "ROJ",
-                "BLA"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 20,
-              "horarios": [
-                "09:00 a 12:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB",
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA",
-                "NAR"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 3,
-              "horarios": [
-                "09:00 a 12:00",
-                "08:00 a 09:30"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "10:30 a 13:30"
+            "09:00 a 14:00",
+            "10:00 a 14:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "10:30 a 13:30"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "10:30 a 13:30"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 1,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "07:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "07:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T44",
+          "codigo_turno": "44",
+          "hora_inicio": "11:40",
+          "hora_fin": "16:40",
+          "horarios": [
+            "11:40 a 16:40"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -6328,121 +8446,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 20,
           "horarios": [
             "09:00 a 12:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "NAR"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "09:00 a 10:30"
-          ]
-        },
-        {
-          "id_empleado": "00058803",
-          "nombre": "JOSE MANUEL MORALES ROSALES",
-          "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "PE",
-            "HO"
-          ],
-          "colores": [
-            "ROJ",
-            "BLA"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 20,
-          "horarios": [
-            "09:00 a 12:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB",
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA",
-            "NAR"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 3,
-          "horarios": [
-            "09:00 a 12:00",
-            "08:00 a 09:30"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "10:30 a 13:30"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "10:30 a 13:30"
           ]
         }
       ],
@@ -6581,126 +8584,72 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO04296-P2-C001": {
-      "id_proyecto": "SVO04296-P2-C001",
+    "SVO04295-P2-C001": {
+      "id_proyecto": "SVO04295-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00050904",
-              "nombre": "FIDEL CASTILLO CANAL",
-              "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 22,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00050904",
-              "nombre": "FIDEL CASTILLO CANAL",
-              "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
-              "turno": "T02",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 22,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
+      "turnos_historicos_cerrados": [
         {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 22,
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
-          ]
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         },
         {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
-          "turno": "T02",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 22,
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
-          ]
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
+          "id_empleado": "00062813",
+          "nombre": "SAHIL SINGH ARORA",
           "dni": "",
           "familia": "13"
         },
@@ -6712,617 +8661,17 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO04298-P2-C001": {
-      "id_proyecto": "SVO04298-P2-C001",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "23:00 a 23:59"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00050904",
-              "nombre": "FIDEL CASTILLO CANAL",
-              "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 8,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00063317",
-              "nombre": "JAVIER DACRUZ CABALLERO",
-              "titulo_fila": "JAVIER DACRUZ CABALLERO (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "00:00 a 08:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00050904",
-              "nombre": "FIDEL CASTILLO CANAL",
-              "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 9,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00063317",
-              "nombre": "JAVIER DACRUZ CABALLERO",
-              "titulo_fila": "JAVIER DACRUZ CABALLERO (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 8,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00063317",
-          "nombre": "JAVIER DACRUZ CABALLERO",
-          "titulo_fila": "JAVIER DACRUZ CABALLERO (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 9,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00063317",
-          "nombre": "JAVIER DACRUZ CABALLERO",
-          "titulo_fila": "JAVIER DACRUZ CABALLERO (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00063317",
-          "nombre": "JAVIER DACRUZ CABALLERO",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00054160",
-          "nombre": "LEONELA LORELEY DELGADO PIN",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
-    "SVO04296-P1-C018": {
-      "id_proyecto": "SVO04296-P1-C018",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "23:00 a 23:59"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00061994",
-              "nombre": "MONICA LOPEZ CEBALLOS",
-              "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 17,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00062813",
-              "nombre": "SAHIL SINGH ARORA",
-              "titulo_fila": "SAHIL SINGH ARORA (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 4,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "00:00 a 08:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00061994",
-              "nombre": "MONICA LOPEZ CEBALLOS",
-              "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 16,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00062813",
-              "nombre": "SAHIL SINGH ARORA",
-              "titulo_fila": "SAHIL SINGH ARORA (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 4,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00061994",
-          "nombre": "MONICA LOPEZ CEBALLOS",
-          "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 17,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00061994",
-          "nombre": "MONICA LOPEZ CEBALLOS",
-          "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 16,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "titulo_fila": "SAHIL SINGH ARORA (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 4,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "titulo_fila": "SAHIL SINGH ARORA (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 4,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00049423",
-          "nombre": "ANGEL REYES BONILLA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00050904",
-          "nombre": "FIDEL CASTILLO CANAL",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00050207",
-          "nombre": "FRANCISCO JAVIER BERSABÉ TAPIA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00055881",
-          "nombre": "JORDI JESUS PORTERO CERVILLA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00040710",
-          "nombre": "JORGE LUIS RAMIREZ SALAS",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00054220",
-          "nombre": "JOSE MANUEL GUTIERREZ PACHECO",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00049650",
-          "nombre": "JOSE MIGUEL BARRIUSO BLANCO",
-          "dni": "",
-          "familia": "05"
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00000823",
-          "nombre": "JULIAN CANO GALLEGO",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00061994",
-          "nombre": "MONICA LOPEZ CEBALLOS",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00049419",
-          "nombre": "POL CARBONELL EZCURRA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00058188",
-          "nombre": "SACHDEV SUND CHUMBER",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
     "SVO04295-P1-C018": {
       "id_proyecto": "SVO04295-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ],
           "empleados": [
             {
@@ -7342,9 +8691,9 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 31,
+              "dias_activos": 22,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -7352,10 +8701,9 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "SAHIL SINGH ARORA",
               "titulo_fila": "SAHIL SINGH ARORA (T01)",
               "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
+              "rol": "TITULAR (TI)",
               "tipos_imputacion": [
-                "TI",
-                "SB"
+                "TI"
               ],
               "tipos_asignacion": [
                 "HO"
@@ -7364,10 +8712,10 @@ window.SUPERVISOR_SNAPSHOT = {
                 "BLA"
               ],
               "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 18,
+              "es_suplente": false,
+              "dias_activos": 17,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -7389,57 +8737,20 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 1,
               "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00047211",
-              "nombre": "JUAN BONADA GONZALEZ",
-              "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
           ],
@@ -7461,7 +8772,7 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 31,
+              "dias_activos": 22,
               "horarios": [
                 "00:00 a 08:00"
               ]
@@ -7471,10 +8782,9 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "SAHIL SINGH ARORA",
               "titulo_fila": "SAHIL SINGH ARORA (T02)",
               "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
+              "rol": "TITULAR (TI)",
               "tipos_imputacion": [
-                "TI",
-                "SB"
+                "TI"
               ],
               "tipos_asignacion": [
                 "HO"
@@ -7483,8 +8793,8 @@ window.SUPERVISOR_SNAPSHOT = {
                 "BLA"
               ],
               "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 17,
+              "es_suplente": false,
+              "dias_activos": 16,
               "horarios": [
                 "00:00 a 08:00"
               ]
@@ -7510,52 +8820,66 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "00:00 a 08:00"
               ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00047211",
-              "nombre": "JUAN BONADA GONZALEZ",
-              "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "21:30",
+          "hora_fin": "23:00",
+          "horarios": [
+            "21:30 a 23:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "08:00",
+          "hora_fin": "09:30",
+          "horarios": [
+            "08:00 a 09:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -7576,9 +8900,9 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 31,
+          "dias_activos": 22,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -7586,10 +8910,9 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "SAHIL SINGH ARORA",
           "titulo_fila": "SAHIL SINGH ARORA (T01)",
           "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
+          "rol": "TITULAR (TI)",
           "tipos_imputacion": [
-            "TI",
-            "SB"
+            "TI"
           ],
           "tipos_asignacion": [
             "HO"
@@ -7598,10 +8921,10 @@ window.SUPERVISOR_SNAPSHOT = {
             "BLA"
           ],
           "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 18,
+          "es_suplente": false,
+          "dias_activos": 17,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -7623,7 +8946,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 1,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -7643,7 +8966,7 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 31,
+          "dias_activos": 22,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -7653,10 +8976,9 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "SAHIL SINGH ARORA",
           "titulo_fila": "SAHIL SINGH ARORA (T02)",
           "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
+          "rol": "TITULAR (TI)",
           "tipos_imputacion": [
-            "TI",
-            "SB"
+            "TI"
           ],
           "tipos_asignacion": [
             "HO"
@@ -7665,8 +8987,8 @@ window.SUPERVISOR_SNAPSHOT = {
             "BLA"
           ],
           "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 17,
+          "es_suplente": false,
+          "dias_activos": 16,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -7689,94 +9011,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "en_baja": false,
           "es_suplente": false,
           "dias_activos": 1,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
           "horarios": [
             "00:00 a 08:00"
           ]
@@ -7881,420 +9115,171 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO04300-P2-C001": {
-      "id_proyecto": "SVO04300-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
+    "SVO04296-P1-C018": {
+      "id_proyecto": "SVO04296-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00061994",
+              "nombre": "MONICA LOPEZ CEBALLOS",
+              "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 16,
+              "horarios": [
+                "23:00 a 24:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00061994",
+              "nombre": "MONICA LOPEZ CEBALLOS",
+              "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
+              "turno": "T02",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 15,
+              "horarios": [
+                "00:00 a 08:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00061994",
+          "nombre": "MONICA LOPEZ CEBALLOS",
+          "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 16,
+          "horarios": [
+            "23:00 a 24:00"
+          ]
+        },
+        {
+          "id_empleado": "00061994",
+          "nombre": "MONICA LOPEZ CEBALLOS",
+          "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
+          "turno": "T02",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 15,
+          "horarios": [
+            "00:00 a 08:00"
+          ]
+        }
+      ],
       "empleados_proyecto": [
+        {
+          "id_empleado": "00049423",
+          "nombre": "ANGEL REYES BONILLA",
+          "dni": "",
+          "familia": "13"
+        },
         {
           "id_empleado": "00050904",
           "nombre": "FIDEL CASTILLO CANAL",
           "dni": "",
           "familia": "13"
-        },
-        {
-          "id_empleado": "00062813",
-          "nombre": "SAHIL SINGH ARORA",
-          "dni": "",
-          "familia": "13"
-        }
-      ]
-    },
-    "SVO06113-P1-C018": {
-      "id_proyecto": "SVO06113-P1-C018",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "12:30 a 16:30"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00062365",
-              "nombre": "LAMYAA RAJEB",
-              "titulo_fila": "LAMYAA RAJEB (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 20,
-              "horarios": [
-                "12:30 a 16:30"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "09:30 a 12:30"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00062365",
-              "nombre": "LAMYAA RAJEB",
-              "titulo_fila": "LAMYAA RAJEB (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 4,
-              "horarios": [
-                "09:30 a 12:30"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00062365",
-          "nombre": "LAMYAA RAJEB",
-          "titulo_fila": "LAMYAA RAJEB (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 20,
-          "horarios": [
-            "12:30 a 16:30"
-          ]
-        },
-        {
-          "id_empleado": "00062365",
-          "nombre": "LAMYAA RAJEB",
-          "titulo_fila": "LAMYAA RAJEB (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 4,
-          "horarios": [
-            "09:30 a 12:30"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00054735",
-          "nombre": "HAFIDA SALEK",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00057203",
-          "nombre": "HIND FARRIS",
-          "dni": "",
-          "familia": ""
-        },
-        {
-          "id_empleado": "00000823",
-          "nombre": "JULIAN CANO GALLEGO",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00062365",
-          "nombre": "LAMYAA RAJEB",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "dni": "",
-          "familia": "08"
-        },
-        {
-          "id_empleado": "00060347",
-          "nombre": "MANJEET SINGH",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00029727",
-          "nombre": "MUSTAPHA EL BAZE",
-          "dni": "",
-          "familia": "02"
-        },
-        {
-          "id_empleado": "00066086",
-          "nombre": "RAQUEL ERMELINDA GARCIA CRUZ",
-          "dni": "",
-          "familia": ""
-        },
-        {
-          "id_empleado": "00058188",
-          "nombre": "SACHDEV SUND CHUMBER",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00056022",
-          "nombre": "VICTORIA ALONSO ROS",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
-    "SVO04300-P1-C018": {
-      "id_proyecto": "SVO04300-P1-C018",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "23:00 a 23:59"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00050972",
-              "nombre": "JOSE MONTERO RODRIGUEZ",
-              "titulo_fila": "JOSE MONTERO RODRIGUEZ (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 16,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00047211",
-              "nombre": "JUAN BONADA GONZALEZ",
-              "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 5,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "00:00 a 08:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00050972",
-              "nombre": "JOSE MONTERO RODRIGUEZ",
-              "titulo_fila": "JOSE MONTERO RODRIGUEZ (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 16,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00047211",
-              "nombre": "JUAN BONADA GONZALEZ",
-              "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 5,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00050972",
-          "nombre": "JOSE MONTERO RODRIGUEZ",
-          "titulo_fila": "JOSE MONTERO RODRIGUEZ (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 16,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00050972",
-          "nombre": "JOSE MONTERO RODRIGUEZ",
-          "titulo_fila": "JOSE MONTERO RODRIGUEZ (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 16,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "titulo_fila": "JUAN BONADA GONZALEZ (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 5,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00047211",
-          "nombre": "JUAN BONADA GONZALEZ",
-          "titulo_fila": "JUAN BONADA GONZALEZ (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 5,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00054221",
-          "nombre": "ALEJANDRO GARCIA LEVA",
-          "dni": "",
-          "familia": "13"
-        },
-        {
-          "id_empleado": "00029474",
-          "nombre": "DANIEL VAQUERIZA DELGADO",
-          "dni": "",
-          "familia": "02"
-        },
-        {
-          "id_empleado": "00037401",
-          "nombre": "EL MAHJOUB BENACHOUR",
-          "dni": "",
-          "familia": "01"
         },
         {
           "id_empleado": "00050207",
@@ -8303,16 +9288,28 @@ window.SUPERVISOR_SNAPSHOT = {
           "familia": "13"
         },
         {
-          "id_empleado": "00049420",
-          "nombre": "IVAN RAMIREZ ORTIZ",
+          "id_empleado": "00055881",
+          "nombre": "JORDI JESUS PORTERO CERVILLA",
           "dni": "",
           "familia": "13"
         },
         {
-          "id_empleado": "00050972",
-          "nombre": "JOSE MONTERO RODRIGUEZ",
+          "id_empleado": "00040710",
+          "nombre": "JORGE LUIS RAMIREZ SALAS",
           "dni": "",
           "familia": "13"
+        },
+        {
+          "id_empleado": "00054220",
+          "nombre": "JOSE MANUEL GUTIERREZ PACHECO",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00049650",
+          "nombre": "JOSE MIGUEL BARRIUSO BLANCO",
+          "dni": "",
+          "familia": "05"
         },
         {
           "id_empleado": "00047211",
@@ -8321,8 +9318,8 @@ window.SUPERVISOR_SNAPSHOT = {
           "familia": "13"
         },
         {
-          "id_empleado": "00049876",
-          "nombre": "MIGUEL JOSE MORAN ROSALES",
+          "id_empleado": "00000823",
+          "nombre": "JULIAN CANO GALLEGO",
           "dni": "",
           "familia": "13"
         },
@@ -8343,22 +9340,212 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "MONICA LOPEZ CEBALLOS",
           "dni": "",
           "familia": "13"
+        },
+        {
+          "id_empleado": "00049419",
+          "nombre": "POL CARBONELL EZCURRA",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00058188",
+          "nombre": "SACHDEV SUND CHUMBER",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00062813",
+          "nombre": "SAHIL SINGH ARORA",
+          "dni": "",
+          "familia": "13"
         }
       ]
     },
-    "SVO06113-P2-E004": {
-      "id_proyecto": "SVO06113-P2-E004",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": []
-    },
-    "SVO04298-P1-C018": {
-      "id_proyecto": "SVO04298-P1-C018",
+    "SVO04296-P2-C001": {
+      "id_proyecto": "SVO04296-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00050904",
+              "nombre": "FIDEL CASTILLO CANAL",
+              "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
+              "turno": "T01",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "BJ"
+              ],
+              "colores": [
+                "ROJ"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 22,
+              "horarios": [
+                "23:00 a 24:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00050904",
+              "nombre": "FIDEL CASTILLO CANAL",
+              "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
+              "turno": "T02",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "BJ"
+              ],
+              "colores": [
+                "ROJ"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 22,
+              "horarios": [
+                "00:00 a 08:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "titulo_fila": "FIDEL CASTILLO CANAL (T01)",
+          "turno": "T01",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "BJ"
+          ],
+          "colores": [
+            "ROJ"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 22,
+          "horarios": [
+            "23:00 a 24:00"
+          ]
+        },
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "titulo_fila": "FIDEL CASTILLO CANAL (T02)",
+          "turno": "T02",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "BJ"
+          ],
+          "colores": [
+            "ROJ"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 22,
+          "horarios": [
+            "00:00 a 08:00"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00047211",
+          "nombre": "JUAN BONADA GONZALEZ",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00065037",
+          "nombre": "TANIA JACILINA FRATUCELLO BARGIERI",
+          "dni": "",
+          "familia": ""
+        }
+      ]
+    },
+    "SVO04298-P1-C018": {
+      "id_proyecto": "SVO04298-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
           ],
           "empleados": [
             {
@@ -8380,7 +9567,7 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 31,
               "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             },
             {
@@ -8402,101 +9589,20 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 15,
               "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00044790",
-              "nombre": "PEDRO CARRASCO BELMONTE",
-              "titulo_fila": "PEDRO CARRASCO BELMONTE (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00061994",
-              "nombre": "MONICA LOPEZ CEBALLOS",
-              "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 1,
-              "horarios": [
-                "23:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00064384",
-              "nombre": "CRISTIAN URBINO BATISTA MEDINA",
-              "titulo_fila": "CRISTIAN URBINO BATISTA MEDINA (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 4,
-              "horarios": [
-                "23:00 a 23:59"
+                "23:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
           "horarios": [
             "00:00 a 08:00"
           ],
@@ -8544,128 +9650,53 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "00:00 a 08:00"
               ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00044790",
-              "nombre": "PEDRO CARRASCO BELMONTE",
-              "titulo_fila": "PEDRO CARRASCO BELMONTE (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00061994",
-              "nombre": "MONICA LOPEZ CEBALLOS",
-              "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00064384",
-              "nombre": "CRISTIAN URBINO BATISTA MEDINA",
-              "titulo_fila": "CRISTIAN URBINO BATISTA MEDINA (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 4,
-              "horarios": [
-                "00:00 a 08:00"
-              ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "22:00 a 23:59",
-            "00:00 a 02:00"
+            "10:00 a 14:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T03)",
-              "turno": "T03",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "22:00 a 23:59",
-                "00:00 a 02:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -8688,7 +9719,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 31,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -8710,7 +9741,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 15,
           "horarios": [
-            "23:00 a 23:59"
+            "23:00 a 24:00"
           ]
         },
         {
@@ -8755,205 +9786,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 14,
           "horarios": [
             "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00044790",
-          "nombre": "PEDRO CARRASCO BELMONTE",
-          "titulo_fila": "PEDRO CARRASCO BELMONTE (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00061994",
-          "nombre": "MONICA LOPEZ CEBALLOS",
-          "titulo_fila": "MONICA LOPEZ CEBALLOS (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 1,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00064384",
-          "nombre": "CRISTIAN URBINO BATISTA MEDINA",
-          "titulo_fila": "CRISTIAN URBINO BATISTA MEDINA (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 4,
-          "horarios": [
-            "23:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00044790",
-          "nombre": "PEDRO CARRASCO BELMONTE",
-          "titulo_fila": "PEDRO CARRASCO BELMONTE (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00061994",
-          "nombre": "MONICA LOPEZ CEBALLOS",
-          "titulo_fila": "MONICA LOPEZ CEBALLOS (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00064384",
-          "nombre": "CRISTIAN URBINO BATISTA MEDINA",
-          "titulo_fila": "CRISTIAN URBINO BATISTA MEDINA (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 4,
-          "horarios": [
-            "00:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T03)",
-          "turno": "T03",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
-          "horarios": [
-            "22:00 a 23:59",
-            "00:00 a 02:00"
           ]
         }
       ],
@@ -9098,9 +9930,572 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "SVO04300-P2-C001": {
+      "id_proyecto": "SVO04300-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00062813",
+          "nombre": "SAHIL SINGH ARORA",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "SVO04298-P2-C001": {
+      "id_proyecto": "SVO04298-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00050904",
+          "nombre": "FIDEL CASTILLO CANAL",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00063317",
+          "nombre": "JAVIER DACRUZ CABALLERO",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00054160",
+          "nombre": "LEONELA LORELEY DELGADO PIN",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00062813",
+          "nombre": "SAHIL SINGH ARORA",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "SVO04300-P1-C018": {
+      "id_proyecto": "SVO04300-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "23:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "23:00 a 24:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00050972",
+              "nombre": "JOSE MONTERO RODRIGUEZ",
+              "titulo_fila": "JOSE MONTERO RODRIGUEZ (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "VC"
+              ],
+              "colores": [
+                "MAR"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 4,
+              "horarios": [
+                "23:00 a 24:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "08:00",
+          "horarios": [
+            "00:00 a 08:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00050972",
+              "nombre": "JOSE MONTERO RODRIGUEZ",
+              "titulo_fila": "JOSE MONTERO RODRIGUEZ (T02)",
+              "turno": "T02",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "VC"
+              ],
+              "colores": [
+                "MAR"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 3,
+              "horarios": [
+                "00:00 a 08:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "21:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "21:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "06:00",
+          "horarios": [
+            "00:00 a 06:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T22",
+          "codigo_turno": "22",
+          "hora_inicio": "12:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "12:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00050972",
+          "nombre": "JOSE MONTERO RODRIGUEZ",
+          "titulo_fila": "JOSE MONTERO RODRIGUEZ (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "VC"
+          ],
+          "colores": [
+            "MAR"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 4,
+          "horarios": [
+            "23:00 a 24:00"
+          ]
+        },
+        {
+          "id_empleado": "00050972",
+          "nombre": "JOSE MONTERO RODRIGUEZ",
+          "titulo_fila": "JOSE MONTERO RODRIGUEZ (T02)",
+          "turno": "T02",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "VC"
+          ],
+          "colores": [
+            "MAR"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 3,
+          "horarios": [
+            "00:00 a 08:00"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00054221",
+          "nombre": "ALEJANDRO GARCIA LEVA",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00029474",
+          "nombre": "DANIEL VAQUERIZA DELGADO",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00037401",
+          "nombre": "EL MAHJOUB BENACHOUR",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00050207",
+          "nombre": "FRANCISCO JAVIER BERSABÉ TAPIA",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00049420",
+          "nombre": "IVAN RAMIREZ ORTIZ",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00050972",
+          "nombre": "JOSE MONTERO RODRIGUEZ",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00047211",
+          "nombre": "JUAN BONADA GONZALEZ",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00049876",
+          "nombre": "MIGUEL JOSE MORAN ROSALES",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00061994",
+          "nombre": "MONICA LOPEZ CEBALLOS",
+          "dni": "",
+          "familia": "13"
+        }
+      ]
+    },
+    "SVO06113-P1-C018": {
+      "id_proyecto": "SVO06113-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:30",
+          "hora_fin": "16:30",
+          "horarios": [
+            "12:30 a 16:30"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00062365",
+              "nombre": "LAMYAA RAJEB",
+              "titulo_fila": "LAMYAA RAJEB (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 18,
+              "horarios": [
+                "12:30 a 16:30"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "16:30",
+          "hora_fin": "19:30",
+          "horarios": [
+            "16:30 a 19:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "07:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "07:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00062365",
+          "nombre": "LAMYAA RAJEB",
+          "titulo_fila": "LAMYAA RAJEB (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 18,
+          "horarios": [
+            "12:30 a 16:30"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00054735",
+          "nombre": "HAFIDA SALEK",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057203",
+          "nombre": "HIND FARRIS",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00000823",
+          "nombre": "JULIAN CANO GALLEGO",
+          "dni": "",
+          "familia": "13"
+        },
+        {
+          "id_empleado": "00062365",
+          "nombre": "LAMYAA RAJEB",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00062782",
+          "nombre": "LAURA PARDILLO LOPEZ",
+          "dni": "",
+          "familia": "08"
+        },
+        {
+          "id_empleado": "00060347",
+          "nombre": "MANJEET SINGH",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00029727",
+          "nombre": "MUSTAPHA EL BAZE",
+          "dni": "",
+          "familia": "02"
+        },
+        {
+          "id_empleado": "00066086",
+          "nombre": "RAQUEL ERMELINDA GARCIA CRUZ",
+          "dni": "",
+          "familia": ""
+        },
+        {
+          "id_empleado": "00058188",
+          "nombre": "SACHDEV SUND CHUMBER",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00056022",
+          "nombre": "VICTORIA ALONSO ROS",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO06113-P2-E004": {
+      "id_proyecto": "SVO06113-P2-E004",
+      "mes_cerrado": false,
+      "turnos": [],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": []
+    },
     "SVO06145-P1-C018": {
       "id_proyecto": "SVO06145-P1-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:30",
+          "hora_fin": "11:00",
+          "horarios": [
+            "11:00 a 13:00",
+            "09:30 a 11:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -9125,7 +10520,23 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO06145-P2-C001": {
       "id_proyecto": "SVO06145-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "13:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "13:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -9136,33 +10547,18 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO06315-P2-C001": {
-      "id_proyecto": "SVO06315-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00064502",
-          "nombre": "ANWAR EL KHABBAZI RIFI",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00057045",
-          "nombre": "ELIA MOGIO MEDINA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "SVO06315-P1-C018": {
       "id_proyecto": "SVO06315-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:15",
+          "hora_fin": "14:45",
           "horarios": [
-            "12:15 a 15:00",
-            "12:15 a 14:45"
+            "12:15 a 14:45",
+            "12:15 a 15:00"
           ],
           "empleados": [
             {
@@ -9186,56 +10582,27 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "12:15 a 15:00"
               ]
-            },
-            {
-              "id_empleado": "00058803",
-              "nombre": "JOSE MANUEL MORALES ROSALES",
-              "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "PE",
-                "HO"
-              ],
-              "colores": [
-                "ROJ",
-                "BLA"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 11,
-              "horarios": [
-                "12:15 a 15:00",
-                "12:15 a 14:45"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 2,
-              "horarios": [
-                "12:15 a 15:00",
-                "12:15 a 14:45"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 12,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "11:30",
+          "hora_fin": "12:30",
+          "horarios": [
+            "11:30 a 12:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -9259,54 +10626,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 7,
           "horarios": [
             "12:15 a 15:00"
-          ]
-        },
-        {
-          "id_empleado": "00058803",
-          "nombre": "JOSE MANUEL MORALES ROSALES",
-          "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "PE",
-            "HO"
-          ],
-          "colores": [
-            "ROJ",
-            "BLA"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 11,
-          "horarios": [
-            "12:15 a 15:00",
-            "12:15 a 14:45"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 2,
-          "horarios": [
-            "12:15 a 15:00",
-            "12:15 a 14:45"
           ]
         }
       ],
@@ -9373,64 +10692,79 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO06316-P2-C001": {
-      "id_proyecto": "SVO06316-P2-C001",
+    "SVO06315-P2-C001": {
+      "id_proyecto": "SVO06315-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:15",
+          "hora_fin": "14:45",
           "horarios": [
-            "10:00 a 12:00"
+            "12:15 a 14:45",
+            "12:15 a 15:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "10:00 a 12:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 12,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
         {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
+          "id_empleado": "00064502",
+          "nombre": "ANWAR EL KHABBAZI RIFI",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00057045",
+          "nombre": "ELIA MOGIO MEDINA",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO06316-P2-C001": {
+      "id_proyecto": "SVO06316-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "12:00",
           "horarios": [
-            "10:00 a 12:00"
-          ]
+            "10:00 a 12:00",
+            "08:30 a 14:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
         }
       ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "10:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "10:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00057045",
@@ -9460,9 +10794,13 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO06316-P1-C018": {
       "id_proyecto": "SVO06316-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "14:00",
           "horarios": [
             "09:00 a 14:00"
           ],
@@ -9488,62 +10826,27 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "09:00 a 14:00"
               ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "09:00 a 14:00"
-              ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 9,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "12:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "12:00 a 14:00",
-            "09:00 a 10:00"
+            "12:00 a 14:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "12:00 a 14:00",
-                "09:00 a 10:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -9567,51 +10870,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 9,
           "horarios": [
             "09:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "09:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
-          "horarios": [
-            "12:00 a 14:00",
-            "09:00 a 10:00"
           ]
         }
       ],
@@ -9656,114 +10914,39 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO06834-P2-C001": {
       "id_proyecto": "SVO06834-P2-C001",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "19:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "19:00 a 23:59"
+            "19:00 a 24:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00058110",
-              "nombre": "DYLAN CALABRIA GALLARDO",
-              "titulo_fila": "DYLAN CALABRIA GALLARDO (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 8,
-              "horarios": [
-                "19:00 a 23:59"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "02:00",
           "horarios": [
             "00:00 a 02:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00058110",
-              "nombre": "DYLAN CALABRIA GALLARDO",
-              "titulo_fila": "DYLAN CALABRIA GALLARDO (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 9,
-              "horarios": [
-                "00:00 a 02:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         }
       ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00058110",
-          "nombre": "DYLAN CALABRIA GALLARDO",
-          "titulo_fila": "DYLAN CALABRIA GALLARDO (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 8,
-          "horarios": [
-            "19:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00058110",
-          "nombre": "DYLAN CALABRIA GALLARDO",
-          "titulo_fila": "DYLAN CALABRIA GALLARDO (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 9,
-          "horarios": [
-            "00:00 a 02:00"
-          ]
-        }
-      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
       "empleados_proyecto": [
         {
           "id_empleado": "00058110",
@@ -9803,138 +10986,17 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO06910-P1-C018": {
-      "id_proyecto": "SVO06910-P1-C018",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "08:00 a 12:00",
-            "12:00 a 16:00",
-            "09:30 a 11:30"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 5,
-              "horarios": [
-                "08:00 a 12:00",
-                "12:00 a 16:00",
-                "09:30 a 11:30"
-              ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "08:00 a 12:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 5,
-          "horarios": [
-            "08:00 a 12:00",
-            "12:00 a 16:00",
-            "09:30 a 11:30"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "08:00 a 12:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "SVO06910-P2-C001": {
       "id_proyecto": "SVO06910-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "08:00",
+          "hora_fin": "12:00",
           "horarios": [
-            "08:00 a 12:00",
-            "12:00 a 16:00",
-            "09:30 a 11:30"
+            "08:00 a 12:00"
           ],
           "empleados": [
             {
@@ -9956,34 +11018,29 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 5,
               "horarios": [
-                "08:00 a 12:00",
-                "12:00 a 16:00",
-                "09:30 a 11:30"
-              ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
                 "08:00 a 12:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "10:00",
+          "hora_fin": "13:00",
+          "horarios": [
+            "10:00 a 13:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -10006,30 +11063,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 5,
           "horarios": [
-            "08:00 a 12:00",
-            "12:00 a 16:00",
-            "09:30 a 11:30"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
             "08:00 a 12:00"
           ]
         }
@@ -10049,23 +11082,27 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO07826-P1-C018": {
-      "id_proyecto": "SVO07826-P1-C018",
+    "SVO06910-P1-C018": {
+      "id_proyecto": "SVO06910-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "08:00",
+          "hora_fin": "12:00",
           "horarios": [
-            "10:00 a 10:30"
+            "08:00 a 12:00"
           ],
           "empleados": [
             {
-              "id_empleado": "00064242",
-              "nombre": "MALIKA CHRIF",
-              "titulo_fila": "MALIKA CHRIF (T01)",
+              "id_empleado": "00063866",
+              "nombre": "MOHAMMED ETTMALAH",
+              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
               "turno": "T01",
-              "rol": "TITULAR (TI)",
+              "rol": "BRIGADA / APOYO (BR)",
               "tipos_imputacion": [
-                "TI"
+                "BR"
               ],
               "tipos_asignacion": [
                 "HO"
@@ -10075,23 +11112,42 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 4,
+              "dias_activos": 5,
               "horarios": [
-                "10:00 a 10:30"
+                "08:00 a 12:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "10:00",
+          "hora_fin": "13:00",
+          "horarios": [
+            "10:00 a 13:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
         {
-          "id_empleado": "00064242",
-          "nombre": "MALIKA CHRIF",
-          "titulo_fila": "MALIKA CHRIF (T01)",
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
           "turno": "T01",
-          "rol": "TITULAR (TI)",
+          "rol": "BRIGADA / APOYO (BR)",
           "tipos_imputacion": [
-            "TI"
+            "BR"
           ],
           "tipos_asignacion": [
             "HO"
@@ -10101,107 +11157,22 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 4,
+          "dias_activos": 5,
           "horarios": [
-            "10:00 a 10:30"
+            "08:00 a 12:00"
           ]
         }
       ],
       "empleados_proyecto": [
-        {
-          "id_empleado": "00064242",
-          "nombre": "MALIKA CHRIF",
-          "dni": "",
-          "familia": "01"
-        },
         {
           "id_empleado": "00010908",
           "nombre": "MOHAMED BELLAHCEN",
           "dni": "",
           "familia": "07"
-        }
-      ]
-    },
-    "SVO07826-P2-C001": {
-      "id_proyecto": "SVO07826-P2-C001",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "16:00 a 16:30"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00061212",
-              "nombre": "REDA JAIT",
-              "titulo_fila": "REDA JAIT (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 3,
-              "horarios": [
-                "16:00 a 16:30"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "titulo_fila": "REDA JAIT (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 3,
-          "horarios": [
-            "16:00 a 16:30"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00057045",
-          "nombre": "ELIA MOGIO MEDINA",
-          "dni": "",
-          "familia": "01"
         },
         {
-          "id_empleado": "00058836",
-          "nombre": "ISABEL AMALIA RAMIREZ FERNANDEZ",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00061212",
-          "nombre": "REDA JAIT",
-          "dni": "",
-          "familia": "01"
-        },
-        {
-          "id_empleado": "00063058",
-          "nombre": "SERGIO REDONDO VELAZQUEZ",
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
           "dni": "",
           "familia": "01"
         }
@@ -10209,11 +11180,15 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO06834-P1-C018": {
       "id_proyecto": "SVO06834-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "19:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "19:00 a 23:59"
+            "19:00 a 24:00"
           ],
           "empleados": [
             {
@@ -10233,15 +11208,41 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 16,
+              "dias_activos": 5,
               "horarios": [
-                "19:00 a 23:59"
+                "19:00 a 24:00"
               ]
             },
             {
               "id_empleado": "00066114",
               "nombre": "CARLA MASSANELLAS SAURA",
               "titulo_fila": "CARLA MASSANELLAS SAURA (T01)",
+              "turno": "T01",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO",
+                "BJ",
+                "VC"
+              ],
+              "colores": [
+                "BLA",
+                "ROJ",
+                "MAR"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 21,
+              "horarios": [
+                "19:00 a 24:00"
+              ]
+            },
+            {
+              "id_empleado": "00066939",
+              "nombre": "BLAS RAMON CARVAJAL AVENDAÑO",
+              "titulo_fila": "BLAS RAMON CARVAJAL AVENDAÑO (T01)",
               "turno": "T01",
               "rol": "TITULAR (TI)",
               "tipos_imputacion": [
@@ -10255,81 +11256,22 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 21,
+              "dias_activos": 8,
               "horarios": [
-                "19:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00048733",
-              "nombre": "ESTHER FALGUERA TORNERO",
-              "titulo_fila": "ESTHER FALGUERA TORNERO (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 13,
-              "horarios": [
-                "19:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00062782",
-              "nombre": "LAURA PARDILLO LOPEZ",
-              "titulo_fila": "LAURA PARDILLO LOPEZ (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "EM"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 22,
-              "horarios": [
-                "19:00 a 23:59"
-              ]
-            },
-            {
-              "id_empleado": "00064164",
-              "nombre": "SERGIO MARCH RUIZ",
-              "titulo_fila": "SERGIO MARCH RUIZ (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 21,
-              "horarios": [
-                "19:00 a 23:59"
+                "19:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "00:00",
+          "hora_fin": "02:00",
           "horarios": [
             "00:00 a 02:00"
           ],
@@ -10351,7 +11293,7 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": true,
               "es_suplente": false,
-              "dias_activos": 15,
+              "dias_activos": 10,
               "horarios": [
                 "00:00 a 02:00"
               ]
@@ -10360,6 +11302,32 @@ window.SUPERVISOR_SNAPSHOT = {
               "id_empleado": "00066114",
               "nombre": "CARLA MASSANELLAS SAURA",
               "titulo_fila": "CARLA MASSANELLAS SAURA (T02)",
+              "turno": "T02",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO",
+                "BJ",
+                "VC"
+              ],
+              "colores": [
+                "BLA",
+                "ROJ",
+                "MAR"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 22,
+              "horarios": [
+                "00:00 a 02:00"
+              ]
+            },
+            {
+              "id_empleado": "00066939",
+              "nombre": "BLAS RAMON CARVAJAL AVENDAÑO",
+              "titulo_fila": "BLAS RAMON CARVAJAL AVENDAÑO (T02)",
               "turno": "T02",
               "rol": "TITULAR (TI)",
               "tipos_imputacion": [
@@ -10373,131 +11341,83 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 21,
-              "horarios": [
-                "00:00 a 02:00"
-              ]
-            },
-            {
-              "id_empleado": "00048733",
-              "nombre": "ESTHER FALGUERA TORNERO",
-              "titulo_fila": "ESTHER FALGUERA TORNERO (T02)",
-              "turno": "T02",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 14,
-              "horarios": [
-                "00:00 a 02:00"
-              ]
-            },
-            {
-              "id_empleado": "00062782",
-              "nombre": "LAURA PARDILLO LOPEZ",
-              "titulo_fila": "LAURA PARDILLO LOPEZ (T02)",
-              "turno": "T02",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "EM"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 22,
-              "horarios": [
-                "00:00 a 02:00"
-              ]
-            },
-            {
-              "id_empleado": "00064164",
-              "nombre": "SERGIO MARCH RUIZ",
-              "titulo_fila": "SERGIO MARCH RUIZ (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 20,
+              "dias_activos": 7,
               "horarios": [
                 "00:00 a 02:00"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "17:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "19:00 a 21:00",
-            "17:00 a 23:59"
+            "17:00 a 24:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T03)",
-              "turno": "T03",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "19:00 a 21:00"
-              ]
-            },
-            {
-              "id_empleado": "00062514",
-              "nombre": "MANUELA GUIJO GUTIERREZ",
-              "titulo_fila": "MANUELA GUIJO GUTIERREZ (T03)",
-              "turno": "T03",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 1,
-              "horarios": [
-                "17:00 a 23:59"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "08:30",
+          "hora_fin": "14:30",
+          "horarios": [
+            "08:30 a 14:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "09:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "09:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "19:00",
+          "hora_fin": "24:00",
+          "horarios": [
+            "19:00 a 24:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "00:00",
+          "hora_fin": "02:00",
+          "horarios": [
+            "00:00 a 02:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -10518,15 +11438,41 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 16,
+          "dias_activos": 5,
           "horarios": [
-            "19:00 a 23:59"
+            "19:00 a 24:00"
           ]
         },
         {
           "id_empleado": "00066114",
           "nombre": "CARLA MASSANELLAS SAURA",
           "titulo_fila": "CARLA MASSANELLAS SAURA (T01)",
+          "turno": "T01",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO",
+            "BJ",
+            "VC"
+          ],
+          "colores": [
+            "BLA",
+            "ROJ",
+            "MAR"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 21,
+          "horarios": [
+            "19:00 a 24:00"
+          ]
+        },
+        {
+          "id_empleado": "00066939",
+          "nombre": "BLAS RAMON CARVAJAL AVENDAÑO",
+          "titulo_fila": "BLAS RAMON CARVAJAL AVENDAÑO (T01)",
           "turno": "T01",
           "rol": "TITULAR (TI)",
           "tipos_imputacion": [
@@ -10540,9 +11486,9 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 21,
+          "dias_activos": 8,
           "horarios": [
-            "19:00 a 23:59"
+            "19:00 a 24:00"
           ]
         },
         {
@@ -10562,7 +11508,7 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": true,
           "es_suplente": false,
-          "dias_activos": 15,
+          "dias_activos": 10,
           "horarios": [
             "00:00 a 02:00"
           ]
@@ -10571,6 +11517,32 @@ window.SUPERVISOR_SNAPSHOT = {
           "id_empleado": "00066114",
           "nombre": "CARLA MASSANELLAS SAURA",
           "titulo_fila": "CARLA MASSANELLAS SAURA (T02)",
+          "turno": "T02",
+          "rol": "BAJA IT",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO",
+            "BJ",
+            "VC"
+          ],
+          "colores": [
+            "BLA",
+            "ROJ",
+            "MAR"
+          ],
+          "en_baja": true,
+          "es_suplente": false,
+          "dias_activos": 22,
+          "horarios": [
+            "00:00 a 02:00"
+          ]
+        },
+        {
+          "id_empleado": "00066939",
+          "nombre": "BLAS RAMON CARVAJAL AVENDAÑO",
+          "titulo_fila": "BLAS RAMON CARVAJAL AVENDAÑO (T02)",
           "turno": "T02",
           "rol": "TITULAR (TI)",
           "tipos_imputacion": [
@@ -10584,185 +11556,9 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 21,
+          "dias_activos": 7,
           "horarios": [
             "00:00 a 02:00"
-          ]
-        },
-        {
-          "id_empleado": "00048733",
-          "nombre": "ESTHER FALGUERA TORNERO",
-          "titulo_fila": "ESTHER FALGUERA TORNERO (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 13,
-          "horarios": [
-            "19:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "titulo_fila": "LAURA PARDILLO LOPEZ (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "EM"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 22,
-          "horarios": [
-            "19:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00064164",
-          "nombre": "SERGIO MARCH RUIZ",
-          "titulo_fila": "SERGIO MARCH RUIZ (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 21,
-          "horarios": [
-            "19:00 a 23:59"
-          ]
-        },
-        {
-          "id_empleado": "00048733",
-          "nombre": "ESTHER FALGUERA TORNERO",
-          "titulo_fila": "ESTHER FALGUERA TORNERO (T02)",
-          "turno": "T02",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 14,
-          "horarios": [
-            "00:00 a 02:00"
-          ]
-        },
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "titulo_fila": "LAURA PARDILLO LOPEZ (T02)",
-          "turno": "T02",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "EM"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 22,
-          "horarios": [
-            "00:00 a 02:00"
-          ]
-        },
-        {
-          "id_empleado": "00064164",
-          "nombre": "SERGIO MARCH RUIZ",
-          "titulo_fila": "SERGIO MARCH RUIZ (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 20,
-          "horarios": [
-            "00:00 a 02:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T03)",
-          "turno": "T03",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "19:00 a 21:00"
-          ]
-        },
-        {
-          "id_empleado": "00062514",
-          "nombre": "MANUELA GUIJO GUTIERREZ",
-          "titulo_fila": "MANUELA GUIJO GUTIERREZ (T03)",
-          "turno": "T03",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 1,
-          "horarios": [
-            "17:00 a 23:59"
           ]
         }
       ],
@@ -10772,6 +11568,12 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "ALEXIA DOMINGUEZ MARSIÑACH",
           "dni": "",
           "familia": "01"
+        },
+        {
+          "id_empleado": "00066939",
+          "nombre": "BLAS RAMON CARVAJAL AVENDAÑO",
+          "dni": "",
+          "familia": ""
         },
         {
           "id_empleado": "00066114",
@@ -10889,15 +11691,207 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
+    "SVO07826-P1-C018": {
+      "id_proyecto": "SVO07826-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:00",
+          "hora_fin": "10:30",
+          "horarios": [
+            "10:00 a 10:30"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00064242",
+              "nombre": "MALIKA CHRIF",
+              "titulo_fila": "MALIKA CHRIF (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 4,
+              "horarios": [
+                "10:00 a 10:30"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00064242",
+          "nombre": "MALIKA CHRIF",
+          "titulo_fila": "MALIKA CHRIF (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 4,
+          "horarios": [
+            "10:00 a 10:30"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00064242",
+          "nombre": "MALIKA CHRIF",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        }
+      ]
+    },
     "SVO08418-P1-C018": {
       "id_proyecto": "SVO08418-P1-C018",
+      "mes_cerrado": false,
       "turnos": [],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": []
     },
+    "SVO07826-P2-C001": {
+      "id_proyecto": "SVO07826-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "16:00",
+          "hora_fin": "16:30",
+          "horarios": [
+            "16:00 a 16:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "16:30",
+          "hora_fin": "17:00",
+          "horarios": [
+            "16:30 a 17:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00057045",
+          "nombre": "ELIA MOGIO MEDINA",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00058836",
+          "nombre": "ISABEL AMALIA RAMIREZ FERNANDEZ",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00061212",
+          "nombre": "REDA JAIT",
+          "dni": "",
+          "familia": "01"
+        },
+        {
+          "id_empleado": "00063058",
+          "nombre": "SERGIO REDONDO VELAZQUEZ",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO08176-P1-C018": {
+      "id_proyecto": "SVO08176-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:00",
+          "hora_fin": "09:00",
+          "horarios": [
+            "06:00 a 09:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00062233",
+          "nombre": "JABBA SANNEH",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "SVO08588-P2-C001": {
       "id_proyecto": "SVO08588-P2-C001",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "10:00",
+          "horarios": [
+            "07:00 a 10:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -10914,12 +11908,132 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO08588-P1-C018": {
-      "id_proyecto": "SVO08588-P1-C018",
+    "SVO08572-P1-C018": {
+      "id_proyecto": "SVO08572-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:00",
+          "hora_fin": "15:00",
           "horarios": [
+            "12:00 a 15:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00063866",
+              "nombre": "MOHAMMED ETTMALAH",
+              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
+              "turno": "T01",
+              "rol": "BRIGADA / APOYO (BR)",
+              "tipos_imputacion": [
+                "BR"
+              ],
+              "tipos_asignacion": [
+                "HO"
+              ],
+              "colores": [
+                "BLA"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 5,
+              "horarios": [
+                "12:00 a 15:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "06:00",
+          "hora_fin": "10:00",
+          "horarios": [
+            "06:00 a 10:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "09:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "09:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        }
+      ],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
+          "turno": "T01",
+          "rol": "BRIGADA / APOYO (BR)",
+          "tipos_imputacion": [
+            "BR"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 5,
+          "horarios": [
+            "12:00 a 15:00"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00062782",
+          "nombre": "LAURA PARDILLO LOPEZ",
+          "dni": "",
+          "familia": "08"
+        },
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO08588-P1-C018": {
+      "id_proyecto": "SVO08588-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:00",
+          "hora_fin": "09:00",
+          "horarios": [
+            "06:15 a 09:15",
             "06:00 a 09:00"
           ],
           "empleados": [
@@ -10933,26 +12047,28 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO"
+                "HO",
+                "VC"
               ],
               "colores": [
-                "BLA"
+                "BLA",
+                "MAR"
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 28,
+              "dias_activos": 22,
               "horarios": [
                 "06:00 a 09:00"
               ]
             },
             {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
+              "id_empleado": "00067057",
+              "nombre": "ISABEL LEONOR SARMIENTO SANTILLAN",
+              "titulo_fila": "ISABEL LEONOR SARMIENTO SANTILLAN (T01)",
               "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
+              "rol": "SV",
               "tipos_imputacion": [
-                "BR"
+                "SV"
               ],
               "tipos_asignacion": [
                 "HO"
@@ -10961,43 +12077,58 @@ window.SUPERVISOR_SNAPSHOT = {
                 "BLA"
               ],
               "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
+              "es_suplente": true,
+              "dias_activos": 10,
               "horarios": [
                 "06:00 a 09:00"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "09:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "10:00 a 12:00"
+            "09:00 a 14:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-              "turno": "T02",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "10:00 a 12:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "07:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "07:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "06:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "06:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -11011,26 +12142,28 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "HO"
+            "HO",
+            "VC"
           ],
           "colores": [
-            "BLA"
+            "BLA",
+            "MAR"
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 28,
+          "dias_activos": 22,
           "horarios": [
             "06:00 a 09:00"
           ]
         },
         {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
+          "id_empleado": "00067057",
+          "nombre": "ISABEL LEONOR SARMIENTO SANTILLAN",
+          "titulo_fila": "ISABEL LEONOR SARMIENTO SANTILLAN (T01)",
           "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
+          "rol": "SV",
           "tipos_imputacion": [
-            "BR"
+            "SV"
           ],
           "tipos_asignacion": [
             "HO"
@@ -11039,32 +12172,10 @@ window.SUPERVISOR_SNAPSHOT = {
             "BLA"
           ],
           "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
+          "es_suplente": true,
+          "dias_activos": 10,
           "horarios": [
             "06:00 a 09:00"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T02)",
-          "turno": "T02",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "10:00 a 12:00"
           ]
         }
       ],
@@ -11074,6 +12185,12 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "CELIA PEREZ TABOADA",
           "dni": "",
           "familia": "01"
+        },
+        {
+          "id_empleado": "00067057",
+          "nombre": "ISABEL LEONOR SARMIENTO SANTILLAN",
+          "dni": "",
+          "familia": ""
         },
         {
           "id_empleado": "00059266",
@@ -11119,201 +12236,15 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO08572-P1-C018": {
-      "id_proyecto": "SVO08572-P1-C018",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "12:00 a 15:00",
-            "16:00 a 18:30",
-            "09:00 a 12:00",
-            "11:30 a 14:30",
-            "06:00 a 08:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 5,
-              "horarios": [
-                "12:00 a 15:00",
-                "16:00 a 18:30",
-                "09:00 a 12:00",
-                "11:30 a 14:30"
-              ]
-            },
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "06:00 a 08:00"
-              ]
-            },
-            {
-              "id_empleado": "00062782",
-              "nombre": "LAURA PARDILLO LOPEZ",
-              "titulo_fila": "LAURA PARDILLO LOPEZ (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "EM"
-              ],
-              "tipos_asignacion": [
-                "BJ"
-              ],
-              "colores": [
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 5,
-              "horarios": [
-                "09:00 a 12:00"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 5,
-          "horarios": [
-            "12:00 a 15:00",
-            "16:00 a 18:30",
-            "09:00 a 12:00",
-            "11:30 a 14:30"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "06:00 a 08:00"
-          ]
-        },
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "titulo_fila": "LAURA PARDILLO LOPEZ (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "EM"
-          ],
-          "tipos_asignacion": [
-            "BJ"
-          ],
-          "colores": [
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 5,
-          "horarios": [
-            "09:00 a 12:00"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00062782",
-          "nombre": "LAURA PARDILLO LOPEZ",
-          "dni": "",
-          "familia": "08"
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
-    "SVO08600-P2-C001": {
-      "id_proyecto": "SVO08600-P2-C001",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00064502",
-          "nombre": "ANWAR EL KHABBAZI RIFI",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
-    },
     "SVO08600-P1-C018": {
       "id_proyecto": "SVO08600-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "12:30",
+          "hora_fin": "14:30",
           "horarios": [
             "12:30 a 14:30"
           ],
@@ -11340,84 +12271,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "12:30 a 14:30"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:00",
+          "hora_fin": "14:00",
           "horarios": [
-            "12:00 a 14:00",
-            "15:00 a 17:00"
+            "12:00 a 14:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00010908",
-              "nombre": "MOHAMED BELLAHCEN",
-              "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-              "turno": "T01",
-              "rol": "EM",
-              "tipos_imputacion": [
-                "EM"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 1,
-              "horarios": [
-                "12:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00058803",
-              "nombre": "JOSE MANUEL MORALES ROSALES",
-              "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "PE",
-                "HO"
-              ],
-              "colores": [
-                "ROJ",
-                "BLA"
-              ],
-              "en_baja": true,
-              "es_suplente": false,
-              "dias_activos": 4,
-              "horarios": [
-                "12:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00063866",
-              "nombre": "MOHAMMED ETTMALAH",
-              "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-              "turno": "T01",
-              "rol": "BRIGADA / APOYO (BR)",
-              "tipos_imputacion": [
-                "BR"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 1,
-              "horarios": [
-                "15:00 a 17:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -11441,74 +12314,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 5,
           "horarios": [
             "12:30 a 14:30"
-          ]
-        },
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "titulo_fila": "MOHAMED BELLAHCEN (T01)",
-          "turno": "T01",
-          "rol": "EM",
-          "tipos_imputacion": [
-            "EM"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 1,
-          "horarios": [
-            "12:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00058803",
-          "nombre": "JOSE MANUEL MORALES ROSALES",
-          "titulo_fila": "JOSE MANUEL MORALES ROSALES (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "PE",
-            "HO"
-          ],
-          "colores": [
-            "ROJ",
-            "BLA"
-          ],
-          "en_baja": true,
-          "es_suplente": false,
-          "dias_activos": 4,
-          "horarios": [
-            "12:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "titulo_fila": "MOHAMMED ETTMALAH (T01)",
-          "turno": "T01",
-          "rol": "BRIGADA / APOYO (BR)",
-          "tipos_imputacion": [
-            "BR"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 1,
-          "horarios": [
-            "15:00 a 17:00"
           ]
         }
       ],
@@ -11557,21 +12362,55 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO09463-P1-C018": {
-      "id_proyecto": "SVO09463-P1-C018",
-      "turnos": [],
+    "SVO08600-P2-C001": {
+      "id_proyecto": "SVO08600-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "12:30",
+          "hora_fin": "14:30",
+          "horarios": [
+            "12:30 a 14:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 5,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
-      "empleados_proyecto": []
-    },
-    "SVO10033-P1-C017": {
-      "id_proyecto": "SVO10033-P1-C017",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": []
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00064502",
+          "nombre": "ANWAR EL KHABBAZI RIFI",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
     },
     "SVO09869-P1-C018": {
       "id_proyecto": "SVO09869-P1-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "13:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "13:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -11582,11 +12421,61 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO10033-P2-C018": {
-      "id_proyecto": "SVO10033-P2-C018",
+    "SVO09463-P1-C018": {
+      "id_proyecto": "SVO09463-P1-C018",
+      "mes_cerrado": false,
+      "turnos": [],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": []
+    },
+    "SVO10033-P1-C017": {
+      "id_proyecto": "SVO10033-P1-C017",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "13:00",
+          "horarios": [
+            "07:00 a 13:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "12:00",
+          "hora_fin": "16:30",
+          "horarios": [
+            "12:00 a 16:30",
+            "13:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": []
+    },
+    "SVO10033-P2-C018": {
+      "id_proyecto": "SVO10033-P2-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "13:00",
           "horarios": [
             "07:00 a 13:00"
           ],
@@ -11596,24 +12485,45 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "MARIA MOLINA PEREZ",
               "titulo_fila": "MARIA MOLINA PEREZ (T01)",
               "turno": "T01",
-              "rol": "TITULAR (TI)",
+              "rol": "BAJA IT",
               "tipos_imputacion": [
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO"
+                "HO",
+                "PE"
               ],
               "colores": [
-                "BLA"
+                "BLA",
+                "ROJ"
               ],
-              "en_baja": false,
+              "en_baja": true,
               "es_suplente": false,
               "dias_activos": 20,
               "horarios": [
                 "07:00 a 13:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 20,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "12:00",
+          "hora_fin": "16:30",
+          "horarios": [
+            "12:00 a 16:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -11622,17 +12532,19 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "MARIA MOLINA PEREZ",
           "titulo_fila": "MARIA MOLINA PEREZ (T01)",
           "turno": "T01",
-          "rol": "TITULAR (TI)",
+          "rol": "BAJA IT",
           "tipos_imputacion": [
             "TI"
           ],
           "tipos_asignacion": [
-            "HO"
+            "HO",
+            "PE"
           ],
           "colores": [
-            "BLA"
+            "BLA",
+            "ROJ"
           ],
-          "en_baja": false,
+          "en_baja": true,
           "es_suplente": false,
           "dias_activos": 20,
           "horarios": [
@@ -11663,88 +12575,21 @@ window.SUPERVISOR_SNAPSHOT = {
     },
     "SVO12611-P1-C017": {
       "id_proyecto": "SVO12611-P1-C017",
+      "mes_cerrado": false,
       "turnos": [],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": []
-    },
-    "SVO12987-P1-C018": {
-      "id_proyecto": "SVO12987-P1-C018",
-      "turnos": [],
-      "filas_cuadrante": [],
-      "empleados_proyecto": []
-    },
-    "SVO12611-P2-C001": {
-      "id_proyecto": "SVO12611-P2-C001",
-      "turnos": [
-        {
-          "id_turno": "T01",
-          "horarios": [
-            "10:30 a 18:30"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00057045",
-              "nombre": "ELIA MOGIO MEDINA",
-              "titulo_fila": "ELIA MOGIO MEDINA (T01)",
-              "turno": "T01",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 4,
-              "horarios": [
-                "10:30 a 18:30"
-              ]
-            }
-          ]
-        }
-      ],
-      "filas_cuadrante": [
-        {
-          "id_empleado": "00057045",
-          "nombre": "ELIA MOGIO MEDINA",
-          "titulo_fila": "ELIA MOGIO MEDINA (T01)",
-          "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 4,
-          "horarios": [
-            "10:30 a 18:30"
-          ]
-        }
-      ],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00057045",
-          "nombre": "ELIA MOGIO MEDINA",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
     },
     "SVO11110-P1-C018": {
       "id_proyecto": "SVO11110-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "08:00",
+          "hora_fin": "14:00",
           "horarios": [
             "08:00 a 14:00"
           ],
@@ -11771,10 +12616,17 @@ window.SUPERVISOR_SNAPSHOT = {
                 "08:00 a 14:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "14:00",
+          "hora_fin": "15:00",
           "horarios": [
             "14:00 a 15:00"
           ],
@@ -11801,37 +12653,26 @@ window.SUPERVISOR_SNAPSHOT = {
                 "14:00 a 15:00"
               ]
             }
-          ]
-        },
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
         {
           "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "14:00",
+          "hora_fin": "15:00",
           "horarios": [
-            "14:00 a 16:00"
+            "14:00 a 15:00"
           ],
-          "empleados": [
-            {
-              "id_empleado": "00062828",
-              "nombre": "JOSUE RAMON CASTILLO MOLINA",
-              "titulo_fila": "JOSUE RAMON CASTILLO MOLINA (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 2,
-              "horarios": [
-                "14:00 a 16:00"
-              ]
-            }
-          ]
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -11878,28 +12719,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "horarios": [
             "14:00 a 15:00"
           ]
-        },
-        {
-          "id_empleado": "00062828",
-          "nombre": "JOSUE RAMON CASTILLO MOLINA",
-          "titulo_fila": "JOSUE RAMON CASTILLO MOLINA (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 2,
-          "horarios": [
-            "14:00 a 16:00"
-          ]
         }
       ],
       "empleados_proyecto": [
@@ -11917,15 +12736,127 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO13652-P1-C018": {
-      "id_proyecto": "SVO13652-P1-C018",
+    "SVO12987-P1-C018": {
+      "id_proyecto": "SVO12987-P1-C018",
+      "mes_cerrado": false,
       "turnos": [],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": []
     },
+    "SVO12611-P2-C001": {
+      "id_proyecto": "SVO12611-P2-C001",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "10:30",
+          "hora_fin": "18:30",
+          "horarios": [
+            "10:30 a 18:30"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00057045",
+              "nombre": "ELIA MOGIO MEDINA",
+              "titulo_fila": "ELIA MOGIO MEDINA (T01)",
+              "turno": "T01",
+              "rol": "TITULAR (TI)",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO",
+                "VC"
+              ],
+              "colores": [
+                "BLA",
+                "MAR"
+              ],
+              "en_baja": false,
+              "es_suplente": false,
+              "dias_activos": 4,
+              "horarios": [
+                "10:30 a 18:30"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 4,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "10:30",
+          "hora_fin": "18:30",
+          "horarios": [
+            "10:30 a 18:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 22,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [
+        {
+          "id_empleado": "00057045",
+          "nombre": "ELIA MOGIO MEDINA",
+          "titulo_fila": "ELIA MOGIO MEDINA (T01)",
+          "turno": "T01",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO",
+            "VC"
+          ],
+          "colores": [
+            "BLA",
+            "MAR"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
+          "dias_activos": 4,
+          "horarios": [
+            "10:30 a 18:30"
+          ]
+        }
+      ],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00057045",
+          "nombre": "ELIA MOGIO MEDINA",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
     "SVO13762-P1-C018": {
       "id_proyecto": "SVO13762-P1-C018",
-      "turnos": [],
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "08:00",
+          "hora_fin": "14:30",
+          "horarios": [
+            "08:00 a 14:30"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
       "empleados_proyecto": [
         {
@@ -11942,31 +12873,25 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO14029-P1-C018": {
-      "id_proyecto": "SVO14029-P1-C018",
+    "SVO13652-P1-C018": {
+      "id_proyecto": "SVO13652-P1-C018",
+      "mes_cerrado": false,
       "turnos": [],
+      "turnos_historicos_cerrados": [],
       "filas_cuadrante": [],
-      "empleados_proyecto": [
-        {
-          "id_empleado": "00010908",
-          "nombre": "MOHAMED BELLAHCEN",
-          "dni": "",
-          "familia": "07"
-        },
-        {
-          "id_empleado": "00063866",
-          "nombre": "MOHAMMED ETTMALAH",
-          "dni": "",
-          "familia": "01"
-        }
-      ]
+      "empleados_proyecto": []
     },
     "SVO14527-P1-C018": {
       "id_proyecto": "SVO14527-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "09:00",
+          "hora_fin": "11:00",
           "horarios": [
+            "09:30 a 11:30",
             "09:00 a 11:00"
           ],
           "empleados": [
@@ -11987,12 +12912,31 @@ window.SUPERVISOR_SNAPSHOT = {
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 27,
+              "dias_activos": 13,
               "horarios": [
                 "09:00 a 11:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 27,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "13:00",
+          "hora_fin": "14:00",
+          "horarios": [
+            "13:00 a 14:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -12013,7 +12957,7 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 27,
+          "dias_activos": 13,
           "horarios": [
             "09:00 a 11:00"
           ]
@@ -12046,11 +12990,63 @@ window.SUPERVISOR_SNAPSHOT = {
         }
       ]
     },
-    "SVO12611-P2-C018": {
-      "id_proyecto": "SVO12611-P2-C018",
+    "SVO14029-P1-C018": {
+      "id_proyecto": "SVO14029-P1-C018",
+      "mes_cerrado": false,
       "turnos": [
         {
           "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "07:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "07:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "11:00",
+          "hora_fin": "15:00",
+          "horarios": [
+            "11:00 a 15:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": true,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [],
+      "filas_cuadrante": [],
+      "empleados_proyecto": [
+        {
+          "id_empleado": "00010908",
+          "nombre": "MOHAMED BELLAHCEN",
+          "dni": "",
+          "familia": "07"
+        },
+        {
+          "id_empleado": "00063866",
+          "nombre": "MOHAMMED ETTMALAH",
+          "dni": "",
+          "familia": "01"
+        }
+      ]
+    },
+    "SVO12611-P2-C018": {
+      "id_proyecto": "SVO12611-P2-C018",
+      "mes_cerrado": false,
+      "turnos": [
+        {
+          "id_turno": "T01",
+          "codigo_turno": "01",
+          "hora_inicio": "06:00",
+          "hora_fin": "14:00",
           "horarios": [
             "06:00 a 14:00"
           ],
@@ -12087,16 +13083,14 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
-                "HO",
-                "VC"
+                "HO"
               ],
               "colores": [
-                "BLA",
-                "MAR"
+                "BLA"
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 17,
+              "dias_activos": 15,
               "horarios": [
                 "06:00 a 14:00"
               ]
@@ -12106,6 +13100,45 @@ window.SUPERVISOR_SNAPSHOT = {
               "nombre": "RAUL GONZALEZ EXPOSITO",
               "titulo_fila": "RAUL GONZALEZ EXPOSITO (T01)",
               "turno": "T01",
+              "rol": "BAJA IT",
+              "tipos_imputacion": [
+                "TI"
+              ],
+              "tipos_asignacion": [
+                "HO",
+                "BJ"
+              ],
+              "colores": [
+                "BLA",
+                "ROJ"
+              ],
+              "en_baja": true,
+              "es_suplente": false,
+              "dias_activos": 16,
+              "horarios": [
+                "06:00 a 14:00"
+              ]
+            }
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
+        },
+        {
+          "id_turno": "T02",
+          "codigo_turno": "02",
+          "hora_inicio": "14:00",
+          "hora_fin": "22:00",
+          "horarios": [
+            "14:00 a 22:00"
+          ],
+          "empleados": [
+            {
+              "id_empleado": "00060930",
+              "nombre": "MANUEL QUESADA AGUDO",
+              "titulo_fila": "MANUEL QUESADA AGUDO (T02)",
+              "turno": "T02",
               "rol": "TITULAR (TI)",
               "tipos_imputacion": [
                 "TI"
@@ -12117,85 +13150,6 @@ window.SUPERVISOR_SNAPSHOT = {
                 "BLA"
               ],
               "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 16,
-              "horarios": [
-                "06:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00054220",
-              "nombre": "JOSE MANUEL GUTIERREZ PACHECO",
-              "titulo_fila": "JOSE MANUEL GUTIERREZ PACHECO (T01)",
-              "turno": "T01",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO",
-                "BJ"
-              ],
-              "colores": [
-                "BLA",
-                "ROJ"
-              ],
-              "en_baja": true,
-              "es_suplente": true,
-              "dias_activos": 12,
-              "horarios": [
-                "06:00 a 14:00"
-              ]
-            },
-            {
-              "id_empleado": "00063897",
-              "nombre": "NIL BAZAN SERES",
-              "titulo_fila": "NIL BAZAN SERES (T01)",
-              "turno": "T01",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SV",
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 15,
-              "horarios": [
-                "06:00 a 14:00"
-              ]
-            }
-          ]
-        },
-        {
-          "id_turno": "T02",
-          "horarios": [
-            "14:00 a 22:00"
-          ],
-          "empleados": [
-            {
-              "id_empleado": "00060930",
-              "nombre": "MANUEL QUESADA AGUDO",
-              "titulo_fila": "MANUEL QUESADA AGUDO (T02)",
-              "turno": "T02",
-              "rol": "BAJA IT",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO",
-                "BJ"
-              ],
-              "colores": [
-                "BLA",
-                "ROJ"
-              ],
-              "en_baja": true,
               "es_suplente": false,
               "dias_activos": 18,
               "horarios": [
@@ -12209,8 +13163,7 @@ window.SUPERVISOR_SNAPSHOT = {
               "turno": "T02",
               "rol": "SUPLENTE BAJA (SB)",
               "tipos_imputacion": [
-                "SB",
-                "SV"
+                "SB"
               ],
               "tipos_asignacion": [
                 "HO"
@@ -12224,81 +13177,20 @@ window.SUPERVISOR_SNAPSHOT = {
               "horarios": [
                 "14:00 a 22:00"
               ]
-            },
-            {
-              "id_empleado": "00060952",
-              "nombre": "RAUL GONZALEZ EXPOSITO",
-              "titulo_fila": "RAUL GONZALEZ EXPOSITO (T02)",
-              "turno": "T02",
-              "rol": "TITULAR (TI)",
-              "tipos_imputacion": [
-                "TI"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": false,
-              "dias_activos": 16,
-              "horarios": [
-                "14:00 a 22:00"
-              ]
-            },
-            {
-              "id_empleado": "00062599",
-              "nombre": "ADRIANA GAMBERA",
-              "titulo_fila": "ADRIANA GAMBERA (T02)",
-              "turno": "T02",
-              "rol": "SUPLENTE BAJA (SB)",
-              "tipos_imputacion": [
-                "SB"
-              ],
-              "tipos_asignacion": [
-                "HO",
-                "VC"
-              ],
-              "colores": [
-                "BLA",
-                "MAR"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 17,
-              "horarios": [
-                "14:00 a 22:00"
-              ]
-            },
-            {
-              "id_empleado": "00064388",
-              "nombre": "HECTOR GOMEZ CARRERA",
-              "titulo_fila": "HECTOR GOMEZ CARRERA (T02)",
-              "turno": "T02",
-              "rol": "SV",
-              "tipos_imputacion": [
-                "SV"
-              ],
-              "tipos_asignacion": [
-                "HO"
-              ],
-              "colores": [
-                "BLA"
-              ],
-              "en_baja": false,
-              "es_suplente": true,
-              "dias_activos": 1,
-              "horarios": [
-                "14:00 a 22:00"
-              ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T03",
+          "codigo_turno": "03",
+          "hora_inicio": "22:00",
+          "hora_fin": "24:00",
           "horarios": [
-            "22:00 a 23:59"
+            "22:00 a 24:00"
           ],
           "empleados": [
             {
@@ -12320,7 +13212,7 @@ window.SUPERVISOR_SNAPSHOT = {
               "es_suplente": false,
               "dias_activos": 16,
               "horarios": [
-                "22:00 a 23:59"
+                "22:00 a 24:00"
               ]
             },
             {
@@ -12333,22 +13225,31 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
+                "VC",
                 "HO"
               ],
               "colores": [
+                "MAR",
                 "BLA"
               ],
               "en_baja": false,
               "es_suplente": false,
               "dias_activos": 16,
               "horarios": [
-                "22:00 a 23:59"
+                "22:00 a 24:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T04",
+          "codigo_turno": "04",
+          "hora_inicio": "00:00",
+          "hora_fin": "06:00",
           "horarios": [
             "00:00 a 06:00"
           ],
@@ -12385,22 +13286,31 @@ window.SUPERVISOR_SNAPSHOT = {
                 "TI"
               ],
               "tipos_asignacion": [
+                "VC",
                 "HO"
               ],
               "colores": [
+                "MAR",
                 "BLA"
               ],
               "en_baja": false,
               "es_suplente": false,
-              "dias_activos": 16,
+              "dias_activos": 15,
               "horarios": [
                 "00:00 a 06:00"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 31,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T05",
+          "codigo_turno": "05",
+          "hora_inicio": "10:30",
+          "hora_fin": "18:30",
           "horarios": [
             "10:30 a 18:30"
           ],
@@ -12427,10 +13337,17 @@ window.SUPERVISOR_SNAPSHOT = {
                 "10:30 a 18:30"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 23,
+          "historico_cerrado": false
         },
         {
           "id_turno": "T06",
+          "codigo_turno": "06",
+          "hora_inicio": "10:30",
+          "hora_fin": "14:30",
           "horarios": [
             "10:30 a 14:30"
           ],
@@ -12457,7 +13374,78 @@ window.SUPERVISOR_SNAPSHOT = {
                 "10:30 a 14:30"
               ]
             }
-          ]
+          ],
+          "en_uso": true,
+          "activo_mes_actual": true,
+          "dias_servicio_mes": 27,
+          "historico_cerrado": false
+        }
+      ],
+      "turnos_historicos_cerrados": [
+        {
+          "id_turno": "T07",
+          "codigo_turno": "07",
+          "hora_inicio": "06:00",
+          "hora_fin": "12:00",
+          "horarios": [
+            "06:00 a 12:00"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T08",
+          "codigo_turno": "08",
+          "hora_inicio": "00:00",
+          "hora_fin": "04:24",
+          "horarios": [
+            "00:00 a 04:24"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T09",
+          "codigo_turno": "09",
+          "hora_inicio": "00:00",
+          "hora_fin": "05:38",
+          "horarios": [
+            "00:00 a 05:38"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T20",
+          "codigo_turno": "20",
+          "hora_inicio": "14:00",
+          "hora_fin": "20:20",
+          "horarios": [
+            "14:00 a 20:20"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
+        },
+        {
+          "id_turno": "T21",
+          "codigo_turno": "21",
+          "hora_inicio": "14:00",
+          "hora_fin": "21:38",
+          "horarios": [
+            "14:00 a 21:38"
+          ],
+          "empleados": [],
+          "en_uso": false,
+          "activo_mes_actual": false,
+          "historico_cerrado": true
         }
       ],
       "filas_cuadrante": [
@@ -12493,16 +13481,14 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
-            "HO",
-            "VC"
+            "HO"
           ],
           "colores": [
-            "BLA",
-            "MAR"
+            "BLA"
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 17,
+          "dias_activos": 15,
           "horarios": [
             "06:00 a 14:00"
           ]
@@ -12512,28 +13498,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "nombre": "RAUL GONZALEZ EXPOSITO",
           "titulo_fila": "RAUL GONZALEZ EXPOSITO (T01)",
           "turno": "T01",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 16,
-          "horarios": [
-            "06:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00060930",
-          "nombre": "MANUEL QUESADA AGUDO",
-          "titulo_fila": "MANUEL QUESADA AGUDO (T02)",
-          "turno": "T02",
           "rol": "BAJA IT",
           "tipos_imputacion": [
             "TI"
@@ -12548,6 +13512,28 @@ window.SUPERVISOR_SNAPSHOT = {
           ],
           "en_baja": true,
           "es_suplente": false,
+          "dias_activos": 16,
+          "horarios": [
+            "06:00 a 14:00"
+          ]
+        },
+        {
+          "id_empleado": "00060930",
+          "nombre": "MANUEL QUESADA AGUDO",
+          "titulo_fila": "MANUEL QUESADA AGUDO (T02)",
+          "turno": "T02",
+          "rol": "TITULAR (TI)",
+          "tipos_imputacion": [
+            "TI"
+          ],
+          "tipos_asignacion": [
+            "HO"
+          ],
+          "colores": [
+            "BLA"
+          ],
+          "en_baja": false,
+          "es_suplente": false,
           "dias_activos": 18,
           "horarios": [
             "14:00 a 22:00"
@@ -12560,8 +13546,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "turno": "T02",
           "rol": "SUPLENTE BAJA (SB)",
           "tipos_imputacion": [
-            "SB",
-            "SV"
+            "SB"
           ],
           "tipos_asignacion": [
             "HO"
@@ -12595,7 +13580,7 @@ window.SUPERVISOR_SNAPSHOT = {
           "es_suplente": false,
           "dias_activos": 16,
           "horarios": [
-            "22:00 a 23:59"
+            "22:00 a 24:00"
           ]
         },
         {
@@ -12608,16 +13593,18 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
+            "VC",
             "HO"
           ],
           "colores": [
+            "MAR",
             "BLA"
           ],
           "en_baja": false,
           "es_suplente": false,
           "dias_activos": 16,
           "horarios": [
-            "22:00 a 23:59"
+            "22:00 a 24:00"
           ]
         },
         {
@@ -12652,14 +13639,16 @@ window.SUPERVISOR_SNAPSHOT = {
             "TI"
           ],
           "tipos_asignacion": [
+            "VC",
             "HO"
           ],
           "colores": [
+            "MAR",
             "BLA"
           ],
           "en_baja": false,
           "es_suplente": false,
-          "dias_activos": 16,
+          "dias_activos": 15,
           "horarios": [
             "00:00 a 06:00"
           ]
@@ -12706,121 +13695,6 @@ window.SUPERVISOR_SNAPSHOT = {
           "dias_activos": 27,
           "horarios": [
             "10:30 a 14:30"
-          ]
-        },
-        {
-          "id_empleado": "00054220",
-          "nombre": "JOSE MANUEL GUTIERREZ PACHECO",
-          "titulo_fila": "JOSE MANUEL GUTIERREZ PACHECO (T01)",
-          "turno": "T01",
-          "rol": "BAJA IT",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO",
-            "BJ"
-          ],
-          "colores": [
-            "BLA",
-            "ROJ"
-          ],
-          "en_baja": true,
-          "es_suplente": true,
-          "dias_activos": 12,
-          "horarios": [
-            "06:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00063897",
-          "nombre": "NIL BAZAN SERES",
-          "titulo_fila": "NIL BAZAN SERES (T01)",
-          "turno": "T01",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SV",
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 15,
-          "horarios": [
-            "06:00 a 14:00"
-          ]
-        },
-        {
-          "id_empleado": "00060952",
-          "nombre": "RAUL GONZALEZ EXPOSITO",
-          "titulo_fila": "RAUL GONZALEZ EXPOSITO (T02)",
-          "turno": "T02",
-          "rol": "TITULAR (TI)",
-          "tipos_imputacion": [
-            "TI"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": false,
-          "dias_activos": 16,
-          "horarios": [
-            "14:00 a 22:00"
-          ]
-        },
-        {
-          "id_empleado": "00062599",
-          "nombre": "ADRIANA GAMBERA",
-          "titulo_fila": "ADRIANA GAMBERA (T02)",
-          "turno": "T02",
-          "rol": "SUPLENTE BAJA (SB)",
-          "tipos_imputacion": [
-            "SB"
-          ],
-          "tipos_asignacion": [
-            "HO",
-            "VC"
-          ],
-          "colores": [
-            "BLA",
-            "MAR"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 17,
-          "horarios": [
-            "14:00 a 22:00"
-          ]
-        },
-        {
-          "id_empleado": "00064388",
-          "nombre": "HECTOR GOMEZ CARRERA",
-          "titulo_fila": "HECTOR GOMEZ CARRERA (T02)",
-          "turno": "T02",
-          "rol": "SV",
-          "tipos_imputacion": [
-            "SV"
-          ],
-          "tipos_asignacion": [
-            "HO"
-          ],
-          "colores": [
-            "BLA"
-          ],
-          "en_baja": false,
-          "es_suplente": true,
-          "dias_activos": 1,
-          "horarios": [
-            "14:00 a 22:00"
           ]
         }
       ],

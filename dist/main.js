@@ -5579,7 +5579,7 @@ var PWAInstaller = {
   isInstalled: false,
   init() {
     console.log("\uD83D\uDCF1 Inicializando PWA Installer...");
-    this.registerServiceWorker();
+    /* SW desactivado (rendimiento): provocaba bucle de recarga con index.html */
     this.checkIfInstalled();
     this.setupInstallPrompt();
     this.detectInstallation();
@@ -10878,7 +10878,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     initVoiceCommand();
     if (typeof initQualityModule === "function")
       initQualityModule();
-    checkServerExcel();
+    if (!state2.masterData || state2.masterData.length === 0) checkServerExcel();
     if (typeof syncDataFromAPI === "function") {
       syncDataFromAPI();
     }
@@ -11154,16 +11154,20 @@ function setupCoreInteractions() {
     forceSyncSave();
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
+    if (document.visibilityState === "hidden" && typeof hasUnsavedChanges !== "undefined" && hasUnsavedChanges) {
       forceSyncSave();
     }
   });
   window.addEventListener("blur", () => {
-    forceSyncSave();
+    if (typeof hasUnsavedChanges !== "undefined" && hasUnsavedChanges) {
+      forceSyncSave();
+    }
   });
   setInterval(() => {
-    forceSyncSave();
-  }, 5000);
+    if (typeof hasUnsavedChanges !== "undefined" && hasUnsavedChanges) {
+      forceSyncSave();
+    }
+  }, 15000);
   window.addEventListener("drop", (e) => {
     e.preventDefault();
     document.body.style.border = "none";
@@ -13025,6 +13029,12 @@ window.switchTab = (tabId) => {
       if (typeof window.initQuadrantsModule === "function")
         setTimeout(window.initQuadrantsModule, 50);
     }
+    if (tabId === "supervisor") {
+      console.log("\uD83E\uDD16 Activando Secci\u00F3n SUPERVISOR HO...");
+      if (typeof window.onSupervisorTabOpened === "function") {
+        window.onSupervisorTabOpened();
+      }
+    }
     if (tabId === "smarthub") {
       console.log("\uD83D\uDCCA Inicializando GESTIÓN AVANZADA...");
       setTimeout(() => {
@@ -14297,9 +14307,11 @@ function setupEventListeners() {
     });
   };
   function updateQuickActionCounters() {
-    if (!state2.masterData)
+    if (document.hidden || !state2.masterData)
       return;
     const cUncovered = document.getElementById("count-card-uncovered");
+    if (!cUncovered)
+      return;
     const cBajaIT = document.getElementById("count-card-bajas-it");
     const cAbsences = document.getElementById("count-card-absences");
     const cFinHoy = document.getElementById("count-card-fin-hoy");
@@ -14384,23 +14396,14 @@ async function checkServerExcel() {
     return;
   }
   try {
-    const response = await fetch("./MASTER GENERAL GIRONA OKK.xlsx");
-    if (!response.ok)
-      throw new Error("No se encontró el archivo en servidor");
-    const arrayBuffer = await response.arrayBuffer();
-    const data = new Uint8Array(arrayBuffer);
-    const workbook = XLSX.read(data, { type: "array" });
-    const firstSheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[firstSheetName];
-    const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-    if (jsonData && jsonData.length > 0) {
-      state2.masterData = jsonData;
+    if (Array.isArray(window.INITIAL_MASTER_DATA) && window.INITIAL_MASTER_DATA.length > 0) {
+      state2.masterData = window.INITIAL_MASTER_DATA;
       renderMasterSummary2();
-      showToast2("✅ MASTER sincronizado desde servidor (GitHub)", "success");
-      console.log("✅ Datos cargados desde MASTER GENERAL GIRONA OKK.xlsx (Servidor)");
+      console.log("✅ Master Barcelona verificado desde master_data.js (División 0801)");
+      return;
     }
   } catch (error) {
-    console.warn("⚠️ No se pudo cargar MASTER GENERAL GIRONA OKK.xlsx del servidor:", error);
+    console.warn("⚠️ No se pudo cargar MASTER GENERAL del servidor:", error);
   }
 }
 var GEO_KNOWLEDGE_BASE = {
@@ -14590,8 +14593,8 @@ var TERRITORY_DB = [
   "IGUALADA",
   "VIC",
   "MANRESA",
-  "BLANES",
-  "LLORET",
+  "SANT FELIU",
+  "SANT JUST",
   "CUBELLES",
   "PALLEJA",
   "MASQUEFA",

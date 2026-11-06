@@ -1,0 +1,1973 @@
+[
+  {
+    "id": "AUD-1793912917172-111",
+    "timestamp": "2026-11-05T21:08:37.172Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 683
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793910341393-224",
+    "timestamp": "2026-11-05T20:25:41.393Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 683
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793910318839-827",
+    "timestamp": "2026-11-05T20:25:18.839Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793910318248-300",
+    "timestamp": "2026-11-05T20:25:18.248Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793910292541-240",
+    "timestamp": "2026-11-05T20:24:52.541Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793910291792-533",
+    "timestamp": "2026-11-05T20:24:51.792Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793742621696-987",
+    "timestamp": "2026-11-03T21:50:21.696Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793741012117-167",
+    "timestamp": "2026-11-03T21:23:32.117Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793740985964-783",
+    "timestamp": "2026-11-03T21:23:05.964Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793735400414-500",
+    "timestamp": "2026-11-03T19:50:00.414Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793735398143-673",
+    "timestamp": "2026-11-03T19:49:58.143Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793694196483-328",
+    "timestamp": "2026-11-03T08:23:16.483Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793694194702-347",
+    "timestamp": "2026-11-03T08:23:14.702Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793694122776-683",
+    "timestamp": "2026-11-03T08:22:02.776Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793694009436-815",
+    "timestamp": "2026-11-03T08:20:09.436Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793693539955-550",
+    "timestamp": "2026-11-03T08:12:19.955Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793652583646-427",
+    "timestamp": "2026-11-02T20:49:43.646Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793652582883-563",
+    "timestamp": "2026-11-02T20:49:42.883Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793652575779-54",
+    "timestamp": "2026-11-02T20:49:35.779Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793652559950-623",
+    "timestamp": "2026-11-02T20:49:19.950Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-11",
+      "tipo": "manual",
+      "workersProcessed": 680
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793652333590-270",
+    "timestamp": "2026-11-02T20:45:33.590Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793652332803-100",
+    "timestamp": "2026-11-02T20:45:32.803Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793652146375-102",
+    "timestamp": "2026-11-02T20:42:26.375Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793652145499-604",
+    "timestamp": "2026-11-02T20:42:25.499Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651942342-181",
+    "timestamp": "2026-11-02T20:39:02.342Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651937547-111",
+    "timestamp": "2026-11-02T20:38:57.547Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651902668-734",
+    "timestamp": "2026-11-02T20:38:22.668Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651901943-738",
+    "timestamp": "2026-11-02T20:38:21.943Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651863092-415",
+    "timestamp": "2026-11-02T20:37:43.092Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651862486-529",
+    "timestamp": "2026-11-02T20:37:42.486Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651796418-271",
+    "timestamp": "2026-11-02T20:36:36.418Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651795801-376",
+    "timestamp": "2026-11-02T20:36:35.801Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651680250-480",
+    "timestamp": "2026-11-02T20:34:40.250Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00066376-2026-10-15",
+    "workerId": "00066376",
+    "workerDni": "47242996F",
+    "workerName": "ABDELJALIL ARCHAN GARCIA",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "(AUX) Olivella (COMBUSTIBLES Y TRANSPORTES OLIVELLA)",
+        "descanso": false,
+        "canal": "PORTAL",
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651679585-320",
+    "timestamp": "2026-11-02T20:34:39.585Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 723
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793651321296-391",
+    "timestamp": "2026-11-02T20:28:41.296Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793651321199-312",
+    "timestamp": "2026-11-02T20:28:41.199Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793650978884-223",
+    "timestamp": "2026-11-02T20:22:58.884Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793650978791-366",
+    "timestamp": "2026-11-02T20:22:58.791Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793650744818-210",
+    "timestamp": "2026-11-02T20:19:04.818Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793650744671-528",
+    "timestamp": "2026-11-02T20:19:04.671Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793650619900-271",
+    "timestamp": "2026-11-02T20:16:59.900Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793650619785-566",
+    "timestamp": "2026-11-02T20:16:59.785Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793649245153-15",
+    "timestamp": "2026-11-02T19:54:05.153Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793649244835-858",
+    "timestamp": "2026-11-02T19:54:04.835Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793648988636-688",
+    "timestamp": "2026-11-02T19:49:48.636Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793648988545-814",
+    "timestamp": "2026-11-02T19:49:48.545Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793648951259-983",
+    "timestamp": "2026-11-02T19:49:11.259Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793648951142-820",
+    "timestamp": "2026-11-02T19:49:11.142Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793648915664-423",
+    "timestamp": "2026-11-02T19:48:35.664Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793648915553-106",
+    "timestamp": "2026-11-02T19:48:35.554Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793648159486-416",
+    "timestamp": "2026-11-02T19:35:59.486Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793648159174-534",
+    "timestamp": "2026-11-02T19:35:59.174Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793644719545-699",
+    "timestamp": "2026-11-02T18:38:39.545Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793644719424-152",
+    "timestamp": "2026-11-02T18:38:39.424Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793644637156-163",
+    "timestamp": "2026-11-02T18:37:17.156Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793644636994-396",
+    "timestamp": "2026-11-02T18:37:16.994Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793644577507-236",
+    "timestamp": "2026-11-02T18:36:17.507Z",
+    "userId": "USR-AUDITOR-01",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00051151-2026-10-15",
+    "workerId": "00051151",
+    "workerDni": "36530075A",
+    "workerName": "ALEXIA DOMINGUEZ MARSIÑACH",
+    "campoModificado": "Marcaje SUBSANACION_COMPLETA 15/2026-10",
+    "valorPrevio": [],
+    "valorNuevo": [
+      {
+        "hora": "07:45:00",
+        "tipo": "Entrada",
+        "isEntrada": true,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      },
+      {
+        "hora": "15:45:00",
+        "tipo": "Salida",
+        "isEntrada": false,
+        "punto": "GRAN CASINO COSTA BRAVA, S.L.",
+        "descanso": false,
+        "origen": "REGULARIZACION_MANUAL",
+        "ajustadoPor": "Alejandro Coscolin"
+      }
+    ],
+    "motivoJustificado": "Regularización por fallo de cobertura en lector de huella RFID",
+    "tipoAccion": "SUBSANACION_COMPLETA"
+  },
+  {
+    "id": "AUD-1793644577398-569",
+    "timestamp": "2026-11-02T18:36:17.398Z",
+    "userId": "SYSTEM",
+    "userNombre": "Sistema Automático SIFU",
+    "recordId": "N/A",
+    "workerId": "N/A",
+    "workerDni": "N/A",
+    "workerName": "N/A",
+    "campoModificado": "SINCRONIZACION_MANUAL",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "mes": "2026-10",
+      "tipo": "manual",
+      "workersProcessed": 51
+    },
+    "motivoJustificado": "Sincronización manual forzada desde el panel de control",
+    "tipoAccion": "SYNC_FORZADA"
+  },
+  {
+    "id": "AUD-1793643980218-514",
+    "timestamp": "2026-11-02T18:26:20.218Z",
+    "userId": "GESTOR",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00043863-2026-11-02",
+    "workerId": "00043863",
+    "workerDni": "38461194L",
+    "workerName": "ALICIA PARRILLA MARTINEZ",
+    "campoModificado": "Marcaje Salida 02/2026-11",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "hora": "22:30:00",
+      "tipo": "Salida",
+      "isEntrada": false,
+      "punto": "INDRA ROC BCN",
+      "descanso": false,
+      "origen": "REGULARIZACION_MANUAL",
+      "ajustadoPor": "Alejandro Coscolin"
+    },
+    "motivoJustificado": "Olvido de marcaje de salida al terminar turno en Indra Roc Boronat",
+    "tipoAccion": "AJUSTE_HORA"
+  },
+  {
+    "id": "AUD-1793643933408-575",
+    "timestamp": "2026-11-02T18:25:33.408Z",
+    "userId": "GESTOR",
+    "userNombre": "Alejandro Coscolin",
+    "recordId": "00043863-2026-11-02",
+    "workerId": "00043863",
+    "workerName": "ALICIA PARRILLA MARTINEZ",
+    "campoModificado": "Marcaje Salida 02/2026-11",
+    "valorPrevio": null,
+    "valorNuevo": {
+      "hora": "22:30:00",
+      "tipo": "Salida",
+      "isEntrada": false,
+      "punto": "INDRA ROC BCN",
+      "descanso": false,
+      "origen": "REGULARIZACION_MANUAL",
+      "ajustadoPor": "Alejandro Coscolin"
+    },
+    "motivoJustificado": "Olvido de marcaje de salida al terminar turno en Indrar Roc Boronat",
+    "tipoAccion": "AJUSTE_HORA"
+  }
+]

@@ -1,0 +1,1464 @@
+/* ==========================================================================
+   SIFU GIRONA — 2.5 IMPUTACIONES HO - AUTO (COCKPIT EJECUTIVO)
+   Director Operativo IA 24x7 · Exclusivo para ALEJANDRO COSCOLIN
+   Estilos Cockpit Ejecutivo de Alta Fidelidad Visual y Responsivo
+   ========================================================================== */
+
+:root {
+  --ho-bg-page: #f8fafc;
+  --ho-bg-card: #ffffff;
+  --ho-bg-card-alt: #f1f5f9;
+  --ho-navy-950: #0a0f1d;
+  --ho-navy-900: #0f172a;
+  --ho-navy-800: #1e293b;
+  --ho-navy-700: #334155;
+  --ho-blue-600: #2563eb;
+  --ho-blue-500: #3b82f6;
+  --ho-blue-400: #60a5fa;
+  --ho-cyan-500: #06b6d4;
+  --ho-cyan-400: #22d3ee;
+  --ho-emerald-600: #059669;
+  --ho-emerald-500: #10b981;
+  --ho-emerald-100: #d1fae5;
+  --ho-emerald-50: #ecfdf5;
+  --ho-crimson-600: #dc2626;
+  --ho-crimson-500: #ef4444;
+  --ho-crimson-100: #fee2e2;
+  --ho-crimson-50: #fef2f2;
+  --ho-amber-600: #d97706;
+  --ho-amber-500: #f59e0b;
+  --ho-amber-100: #fef3c7;
+  --ho-amber-50: #fffbeb;
+  --ho-orange-500: #f97316;
+  --ho-border-subtle: #e2e8f0;
+  --ho-border-strong: #cbd5e1;
+  --ho-text-primary: #0f172a;
+  --ho-text-secondary: #475569;
+  --ho-text-muted: #64748b;
+  --ho-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --ho-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --ho-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --ho-shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.10), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+  --ho-font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ho-font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+}
+
+/* ==========================================================================
+   Contenedor Raíz Cockpit
+   ========================================================================== */
+.ho-auto-root {
+  font-family: var(--ho-font-sans);
+  color: var(--ho-text-primary);
+  background-color: var(--ho-bg-page);
+  padding: 18px 24px 60px;
+  max-width: 1720px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  animation: hoFadeIn 0.35s ease-out;
+}
+
+@keyframes hoFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Header Ejecutivo Principal (Cockpit)
+   ========================================================================== */
+.ho-auto-header {
+  background: linear-gradient(135deg, #0a0f1d 0%, #0f172a 45%, #1e293b 100%);
+  border-radius: 18px;
+  padding: 24px 28px;
+  color: #ffffff;
+  box-shadow: var(--ho-shadow-xl);
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ho-auto-header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(37, 99, 235, 0) 70%);
+  pointer-events: none;
+}
+
+.ho-auto-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.ho-auto-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ho-auto-brand-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.4);
+}
+
+.ho-auto-brand-titles h1 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ho-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.ho-badge-ai {
+  background: rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(34, 211, 238, 0.5);
+  color: #38bdf8;
+}
+
+.ho-badge-live {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  color: #34d399;
+}
+
+.ho-badge-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #34d399;
+  box-shadow: 0 0 10px #34d399;
+  animation: hoPulse 1.8s infinite;
+}
+
+@keyframes hoPulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #34d399; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.ho-auto-brand-subtitle {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ho-supervisor-tag {
+  color: #f8fafc;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.ho-auto-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ho-btn-action-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.ho-btn-action-ghost:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.ho-btn-action-glow {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  color: #ffffff;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s ease;
+}
+
+.ho-btn-action-glow:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Selector Rápido de Riesgo */
+.ho-risk-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.ho-risk-filter-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+
+.ho-risk-pill-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #cbd5e1;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ho-risk-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.ho-risk-pill-btn.active {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.ho-risk-pill-btn.critico.active {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.ho-risk-pill-btn.alto.active {
+  background: rgba(249, 115, 22, 0.3);
+  border-color: #f97316;
+  color: #fdba74;
+}
+
+.ho-risk-pill-btn.medio.active {
+  background: rgba(245, 158, 11, 0.3);
+  border-color: #f59e0b;
+  color: #fde68a;
+}
+
+.ho-risk-pill-btn.bajo.active {
+  background: rgba(16, 185, 129, 0.3);
+  border-color: #10b981;
+  color: #a7f3d0;
+}
+
+/* ==========================================================================
+   Ticker / Telemetría en Vivo (Estilo Terminal)
+   ========================================================================== */
+.ho-telemetry-bar {
+  background: #090d16;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--ho-font-mono);
+  font-size: 12px;
+  color: #94a3b8;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.ho-telemetry-status-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: #38bdf8;
+  font-weight: 700;
+  border-right: 1px solid #1e293b;
+  padding-right: 14px;
+}
+
+.ho-telemetry-content {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e2e8f0;
+}
+
+.ho-telemetry-tag {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.ho-telemetry-tag.crit { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
+.ho-telemetry-tag.auto { background: rgba(56, 189, 248, 0.25); color: #7dd3fc; }
+.ho-telemetry-tag.ok { background: rgba(16, 185, 129, 0.25); color: #6ee7b7; }
+
+/* ==========================================================================
+   Bloque de KPIs Principales de Alejandro Coscolin
+   ========================================================================== */
+.ho-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ho-kpi-card {
+  background: var(--ho-bg-card);
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--ho-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ho-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ho-shadow-md);
+  border-color: var(--ho-border-strong);
+}
+
+.ho-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #cbd5e1;
+}
+
+.ho-kpi-card.kpi-salud::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+.ho-kpi-card.kpi-servicios::before { background: #3b82f6; }
+.ho-kpi-card.kpi-descubiertos::before { background: #ef4444; }
+.ho-kpi-card.kpi-desviacion::before { background: #f59e0b; }
+.ho-kpi-card.kpi-riesgos::before { background: #f97316; }
+.ho-kpi-card.kpi-aprobaciones::before { background: #8b5cf6; }
+
+.ho-kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ho-kpi-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ho-text-muted);
+}
+
+.ho-kpi-icon {
+  font-size: 20px;
+}
+
+.ho-kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.ho-kpi-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ho-navy-900);
+  line-height: 1;
+}
+
+.ho-kpi-trend {
+  font-size: 11.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.ho-kpi-trend.good { background: var(--ho-emerald-50); color: var(--ho-emerald-600); }
+.ho-kpi-trend.bad { background: var(--ho-crimson-50); color: var(--ho-crimson-600); }
+.ho-kpi-trend.warn { background: var(--ho-amber-50); color: var(--ho-amber-600); }
+
+.ho-kpi-desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ho-text-secondary);
+}
+
+/* ==========================================================================
+   Panel de Propuestas Automáticas Pendientes
+   ========================================================================== */
+.ho-section-container {
+  background: var(--ho-bg-card);
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: var(--ho-shadow-sm);
+  margin-bottom: 24px;
+}
+
+.ho-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ho-border-subtle);
+}
+
+.ho-section-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ho-section-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.ho-section-icon-badge.robot { background: #eff6ff; color: #2563eb; }
+.ho-section-icon-badge.tabs { background: #f0fdf4; color: #16a34a; }
+.ho-section-icon-badge.predict { background: #faf5ff; color: #9333ea; }
+.ho-section-icon-badge.reports { background: #fff7ed; color: #ea580c; }
+
+.ho-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ho-navy-900);
+}
+
+.ho-section-subtitle {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--ho-text-muted);
+}
+
+.ho-propuestas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta Individual de Propuesta Automática */
+.ho-propuesta-card {
+  background: #ffffff;
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--ho-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.ho-propuesta-card:hover {
+  box-shadow: var(--ho-shadow-lg);
+  border-color: #cbd5e1;
+}
+
+.ho-propuesta-card.critico {
+  border-left: 5px solid var(--ho-crimson-500);
+  background: linear-gradient(180deg, #fffafa 0%, #ffffff 40%);
+}
+
+.ho-propuesta-card.alto {
+  border-left: 5px solid var(--ho-orange-500);
+}
+
+.ho-propuesta-card.medio {
+  border-left: 5px solid var(--ho-amber-500);
+}
+
+.ho-propuesta-card.bajo {
+  border-left: 5px solid var(--ho-blue-500);
+}
+
+.ho-propuesta-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ho-priority-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ho-priority-tag.critico {
+  background: var(--ho-crimson-100);
+  color: var(--ho-crimson-600);
+  border: 1px solid #fca5a5;
+  animation: hoCriticoPulse 2s infinite ease-in-out;
+}
+
+@keyframes hoCriticoPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.ho-priority-tag.alto {
+  background: #ffedd5;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+}
+
+.ho-priority-tag.medio {
+  background: var(--ho-amber-100);
+  color: var(--ho-amber-600);
+  border: 1px solid #fde68a;
+}
+
+.ho-priority-tag.bajo {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.ho-proy-code {
+  font-family: var(--ho-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.ho-propuesta-centro {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ho-navy-900);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Bloques de Explicación de la Propuesta */
+.ho-propuesta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 12.5px;
+}
+
+.ho-detail-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  line-height: 1.45;
+}
+
+.ho-detail-box strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.ho-detail-box.problema {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #991b1b;
+}
+
+.ho-detail-box.causa {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.ho-detail-box.impacto {
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.ho-detail-box.solucion {
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  color: #166534;
+}
+
+.ho-detail-box.accion-sap {
+  background: #eff6ff;
+  border: 1px dashed #93c5fd;
+  color: #1e40af;
+  font-family: var(--ho-font-mono);
+  font-size: 11.5px;
+}
+
+/* Botones de la Tarjeta */
+.ho-propuesta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ho-border-subtle);
+}
+
+.ho-btn-approve {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+  transition: all 0.2s ease;
+}
+
+.ho-btn-approve:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 6px 14px rgba(5, 150, 105, 0.35);
+  transform: translateY(-1px);
+}
+
+.ho-btn-group-secondary {
+  display: flex;
+  gap: 8px;
+}
+
+.ho-btn-discard {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.ho-btn-discard:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.ho-btn-open-sap {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #2563eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ho-btn-open-sap:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+/* ==========================================================================
+   Pestañas de los 7 Controles Continuos
+   ========================================================================== */
+.ho-controls-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--ho-border-subtle);
+  scrollbar-width: thin;
+}
+
+.ho-controls-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.ho-controls-nav::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.ho-control-tab-btn {
+  background: #ffffff;
+  border: 1px solid var(--ho-border-subtle);
+  color: var(--ho-text-secondary);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.ho-control-tab-btn:hover {
+  background: #f8fafc;
+  color: var(--ho-text-primary);
+  border-color: var(--ho-border-strong);
+}
+
+.ho-control-tab-btn.active {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+.ho-control-badge-count {
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ho-control-tab-btn.active .ho-control-badge-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Contenedor del Control Activo */
+.ho-control-content-box {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 6px 0;
+}
+
+/* Tablas Interactivas de los Controles */
+.ho-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--ho-border-subtle);
+}
+
+.ho-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.ho-data-table th {
+  background: #f8fafc;
+  color: var(--ho-text-muted);
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--ho-border-subtle);
+}
+
+.ho-data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--ho-border-subtle);
+  color: var(--ho-text-primary);
+  vertical-align: middle;
+}
+
+.ho-data-table tr:hover td {
+  background: #f8fafc;
+}
+
+.ho-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Chips en Tablas */
+.ho-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ho-status-chip.ok { background: var(--ho-emerald-50); color: var(--ho-emerald-600); }
+.ho-status-chip.descubierto { background: var(--ho-crimson-50); color: var(--ho-crimson-600); }
+.ho-status-chip.alerta { background: var(--ho-amber-50); color: var(--ho-amber-600); }
+.ho-status-chip.neutral { background: #f1f5f9; color: #475569; }
+
+/* ==========================================================================
+   Matriz Predictiva IA a 30 Días
+   ========================================================================== */
+.ho-predictive-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.ho-predictive-card {
+  background: #ffffff;
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--ho-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.ho-predictive-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+}
+
+.ho-predictive-card.semana-1::before { background: #ef4444; }
+.ho-predictive-card.semana-2::before { background: #f97316; }
+.ho-predictive-card.semana-3::before { background: #f59e0b; }
+.ho-predictive-card.semana-4::before { background: #10b981; }
+
+.ho-predictive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ho-predictive-horizon {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--ho-text-muted);
+}
+
+.ho-predictive-risk-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.ho-predictive-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ho-navy-900);
+  margin: 0 0 8px;
+}
+
+.ho-predictive-desc {
+  font-size: 12.5px;
+  color: var(--ho-text-secondary);
+  line-height: 1.45;
+  margin: 0 0 14px;
+}
+
+.ho-predictive-action-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 11.5px;
+  color: #1e293b;
+}
+
+.ho-predictive-action-box strong {
+  display: block;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: #2563eb;
+  margin-bottom: 3px;
+}
+
+/* ==========================================================================
+   Modo Ejecutivo & Generación de Informes
+   ========================================================================== */
+.ho-reports-toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.ho-btn-report {
+  flex: 1;
+  min-width: 220px;
+  background: #ffffff;
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ho-navy-900);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--ho-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.ho-btn-report:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: var(--ho-shadow-md);
+}
+
+.ho-btn-report-icon {
+  font-size: 22px;
+}
+
+.ho-btn-report-texts {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.ho-btn-report-title {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ho-btn-report-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ho-text-muted);
+}
+
+/* Visor / Modal de Informes */
+.ho-report-viewer-card {
+  background: #ffffff;
+  border: 1px solid var(--ho-border-subtle);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--ho-shadow-md);
+}
+
+.ho-report-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ho-border-subtle);
+}
+
+.ho-report-viewer-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ho-navy-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ho-report-viewer-content {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: var(--ho-font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: #1e293b;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.ho-report-viewer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   Toast / Notificaciones Flotantes
+   ========================================================================== */
+.ho-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  z-index: 99999;
+  border-left: 5px solid #10b981;
+  animation: hoToastSlide 0.3s ease-out;
+}
+
+@keyframes hoToastSlide {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   Adaptación Responsive (PC, Tablet y Móvil)
+   ========================================================================== */
+@media (max-width: 1400px) {
+  .ho-kpis-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ho-predictive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .ho-auto-root {
+    padding: 12px 14px 40px;
+  }
+  .ho-auto-header {
+    padding: 18px;
+  }
+  .ho-kpis-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ho-propuestas-grid {
+    grid-template-columns: 1fr;
+  }
+  .ho-predictive-grid {
+    grid-template-columns: 1fr;
+  }
+  .ho-reports-toolbar {
+    flex-direction: column;
+  }
+  .ho-btn-report {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .ho-kpis-grid {
+    grid-template-columns: 1fr;
+  }
+  .ho-auto-brand-titles h1 {
+    font-size: 20px;
+  }
+  .ho-auto-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ho-risk-filter-bar {
+    width: 100%;
+  }
+  .ho-btn-group-secondary {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   PIZARRA DIGITAL DE ÚLTIMA GENERACIÓN (COMMAND HUD & 24x7 SENTINEL)
+   ========================================================================== */
+.ho-pizarra-header {
+  background: linear-gradient(135deg, #050b14 0%, #0a1428 50%, #0f224a 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ho-pizarra-header::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #10b981 0%, #38bdf8 50%, #6366f1 100%);
+}
+
+.ho-radar-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ho-radar-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  position: relative;
+}
+
+.ho-radar-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  animation: hoRadarPulse 1.8s infinite;
+  opacity: 0;
+}
+
+@keyframes hoRadarPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.ho-pizarra-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr 380px;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 1360px) {
+  .ho-pizarra-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ho-pizarra-grid > :nth-child(3) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 980px) {
+  .ho-pizarra-grid {
+    grid-template-columns: 1fr;
+  }
+  .ho-pizarra-grid > :nth-child(3) {
+    grid-column: auto;
+  }
+}
+
+/* Columna de Semáforo Táctico */
+.ho-pizarra-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ho-semaforo-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.ho-semaforo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.ho-semaforo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ho-semaforo-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ho-semaforo-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.ho-badge-good { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.ho-badge-warn { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.ho-badge-info { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+
+/* Panel Táctico de Acciones Directas (1 Clic) */
+.ho-tactical-board {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+}
+
+.ho-tactical-board-header {
+  background: #f8fafc;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ho-action-pill-card {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  transition: background 0.15s ease;
+}
+
+.ho-action-pill-card:hover {
+  background: #f8fafc;
+}
+
+.ho-action-pill-card:last-child {
+  border-bottom: none;
+}
+
+/* Terminal Cibernético 24x7 */
+.ho-cyber-terminal {
+  background: #060b13;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 480px;
+}
+
+.ho-terminal-header {
+  background: #0b1320;
+  border-bottom: 1px solid #1e293b;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ho-font-mono);
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+.ho-terminal-feed {
+  padding: 12px 14px;
+  font-family: var(--ho-font-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #38bdf8;
+  height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: radial-gradient(circle at 50% 0%, #0f1c32 0%, #060b13 70%);
+}
+
+.ho-terminal-line {
+  display: flex;
+  gap: 8px;
+  animation: hoLineFade 0.25s ease-out;
+}
+
+@keyframes hoLineFade {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.ho-log-time { color: #64748b; font-size: 10.5px; }
+.ho-log-text-ok { color: #34d399; }
+.ho-log-text-info { color: #38bdf8; }
+.ho-log-text-warn { color: #fbbf24; }
+
+/* Micro-Consola Directa */
+.ho-terminal-footer {
+  padding: 12px;
+  border-top: 1px solid #1e293b;
+  background: #09101b;
+}
+
+.ho-quick-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.ho-chip-btn {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ho-chip-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+
+/* Modal Emergente de Cuadrantes */
+.ho-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ho-modal-dialog {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 940px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  border: 1px solid #cbd5e1;
+  overflow: hidden;
+  animation: hoModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hoModalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}

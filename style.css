@@ -564,6 +564,11 @@ body {
     background: rgba(102, 126, 234, 0.05);
 }
 
+.tab-btn[data-tab="supervisor"]:hover {
+    color: #0d324d;
+    background: rgba(13, 50, 77, 0.08);
+}
+
 /* Active States - Professional Gradients */
 .tab-btn.active {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -596,6 +601,11 @@ body {
 
 .tab-btn.active[data-tab="smarthub"] {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.tab-btn.active[data-tab="supervisor"] {
+    background: linear-gradient(135deg, #0d324d 0%, #7f5a83 100%) !important;
+    color: #fff !important;
 }
 
 .tab-btn i,
@@ -4205,7 +4215,7 @@ body {
 }
 
 @media print {
-    body>* {
+    body>*:not(#girona-pro-root) {
         display: none !important;
     }
 

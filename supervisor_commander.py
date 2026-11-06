@@ -95,9 +95,34 @@ class SupervisorCommander:
         return coincidencias
 
     def _buscar_en_sap_ho(self, entidades):
-        """Busca proyectos en SAP HO coincidentes."""
+        """Busca proyectos en SAP HO coincidentes para Barcelona (División 0801)."""
+        cache_carteras = os.path.join(BASE_DIR, "ho_carteras_cache.json")
+        if os.path.exists(cache_carteras):
+            try:
+                with open(cache_carteras, "r", encoding="utf-8") as f:
+                    cdata = json.load(f)
+                    proys = cdata.get("proyectos", [])
+                    if not entidades:
+                        return proys
+                    coincidencias = []
+                    for p in proys:
+                        txt = f"{p.get('id_proyecto', '')} {p.get('denominacion', '')} {p.get('cliente', '')} {p.get('gestor_nombre', '')}".lower()
+                        if any(e in txt for e in entidades):
+                            coincidencias.append({
+                                "IdProyecto": p.get("id_proyecto"),
+                                "Denominacion": p.get("denominacion"),
+                                "Cliente": p.get("cliente")
+                            })
+                    if coincidencias:
+                        return coincidencias
+            except Exception as e:
+                logger.warning(f"Error buscando proyectos en cache BCN: {e}")
+
         self.ho.connect()
-        proyectos = self.ho.get_girona_projects()
+        try:
+            proyectos = self.ho.get_bcn_projects()
+        except Exception:
+            proyectos = self.ho.get_girona_projects()
         if not entidades:
             return proyectos
         coincidencias = []
@@ -107,31 +132,142 @@ class SupervisorCommander:
                 coincidencias.append(p)
         return coincidencias
 
-    def _obtener_todos_trabajadores_girona(self):
-        """Obtiene la plantilla y bolsa completa de trabajadores de Girona que gestiona el responsable."""
-        trabajadores_set = set()
-        
-        # 1. Cargar empleados oficiales de SAP HO (Delegación Girona S171)
-        cache_path = os.path.join(BASE_DIR, "ho_employees_cache.json")
+    def _obtener_datos_barcelona(self):
+        """Obtiene la plantilla completa (685 trabs), los 9 gestores y los proyectos de Barcelona (División 0801)."""
+        INVALIDOS = {
+            "NONE", "FALTA TITULAR", "DESCUBIERTO", "PUNTUA", "NULL", "NO", "PENDIENTE",
+            "SIN PLAN", "BAJA EMPRESA", "BAJA IT", "VACACIONES", "OPERARIO TITULAR",
+            "OPERARIO", "SIN TITULAR", "PENDIENTE-CUADRANTE", "SIN CLIENTE EN CUADRANTE"
+        }
+
+        trabajadores_map = {}
+        trabajador_proyectos = {}
+        proyectos_map = {}
+        gestores_lista = []
+
+        # 1. Cargar desde ho_carteras_cache.json (fuente principal oficial de Barcelona)
+        cache_path = os.path.join(BASE_DIR, "ho_carteras_cache.json")
         if os.path.exists(cache_path):
             try:
                 with open(cache_path, "r", encoding="utf-8") as f:
-                    ho_data = json.load(f)
-                    for nom in ho_data.get("by_name", {}).keys():
-                        n = " ".join(str(nom).strip().split()).upper()
-                        if n and n not in ["NONE", "FALTA TITULAR", "DESCUBIERTO", "PUNTUA", "NULL"] and not n.startswith("VUELVE"):
-                            trabajadores_set.add(n)
+                    cdata = json.load(f)
+                    gestores_lista = cdata.get("gestores", [])
+                    g_names = {g["id"]: g.get("nombre_corto", g.get("nombre")) for g in gestores_lista}
+
+                    for w in cdata.get("trabajadores", []):
+                        nom = " ".join(str(w.get("nombre") or w.get("nombre_completo") or "").strip().split()).upper()
+                        if not nom or nom in INVALIDOS or nom.startswith("VUELVE") or len(nom) <= 2:
+                            continue
+                        
+                        gid = w.get("gestor_id") or w.get("id_responsable") or ""
+                        proys = w.get("proyectos_asignados", [])
+                        pid = (proys[0].get("id_proyecto") or proys[0]) if proys else (w.get("proyecto") or "")
+                        pnom = proys[0].get("denominacion", "") if (proys and isinstance(proys[0], dict)) else ""
+
+                        item = {
+                            "id": w.get("id") or w.get("id_empleado") or "",
+                            "nombre": nom,
+                            "dni": w.get("dni", ""),
+                            "telefono": w.get("telefono", ""),
+                            "email": w.get("email", ""),
+                            "gestor_id": gid,
+                            "gestor_nombre": w.get("responsable_rrhh") or w.get("nom_responsable") or g_names.get(gid, "Gestor BCN"),
+                            "gestor_corto": w.get("responsable_corto") or g_names.get(gid, "Gestor"),
+                            "proyecto_id": pid,
+                            "proyecto_nombre": pnom,
+                            "vac_restantes": w.get("vac_restantes", 25),
+                            "tipo_contrato": w.get("tipo_contrato", "Indefinido"),
+                            "estado": "BAJA IT" if (w.get("en_baja_it_actual") or w.get("en_baja_hoy")) else "ACTIVO"
+                        }
+                        trabajadores_map[nom] = item
+                        if pid and nom not in trabajador_proyectos:
+                            trabajador_proyectos[nom] = pid
+
+                    for p in cdata.get("proyectos", []):
+                        pid = str(p.get("id_proyecto") or p.get("id") or "").strip()
+                        if pid:
+                            denom = p.get("denominacion") or p.get("cliente") or pid
+                            gid = p.get("gestor_id") or ""
+                            if pid not in proyectos_map:
+                                proyectos_map[pid] = {
+                                    "id": pid,
+                                    "nombre": f"{pid} - {denom}",
+                                    "denominacion": denom,
+                                    "cliente": p.get("cliente") or denom,
+                                    "gestor_id": gid,
+                                    "gestor": g_names.get(gid, p.get("gestor_nombre", "Barcelona"))
+                                }
+
+                    for s in cdata.get("servicios_operativos", []):
+                        pid = s.get("proyecto", "").strip()
+                        cli = s.get("cliente") or s.get("nombreServicio") or pid
+                        if pid and pid not in proyectos_map:
+                            proyectos_map[pid] = {
+                                "id": pid,
+                                "nombre": f"{pid} - {cli}",
+                                "denominacion": cli,
+                                "cliente": cli,
+                                "gestor_id": s.get("gestor_id", ""),
+                                "gestor": s.get("gestor", "Barcelona")
+                            }
+                        for r_nom in [s.get("titular"), s.get("suplente")]:
+                            if not r_nom:
+                                continue
+                            nom = " ".join(str(r_nom).strip().split()).upper()
+                            if nom and nom not in INVALIDOS and not nom.startswith("VUELVE") and len(nom) > 2:
+                                if pid and nom not in trabajador_proyectos:
+                                    trabajador_proyectos[nom] = pid
+                                if nom in trabajadores_map and not trabajadores_map[nom]["proyecto_id"] and pid:
+                                    trabajadores_map[nom]["proyecto_id"] = pid
+                                    trabajadores_map[nom]["proyecto_nombre"] = cli
             except Exception as e:
-                logger.warning(f"Error leyendo ho_employees_cache.json: {e}")
-                
-        # 2. Cargar trabajadores de Servicios y Descubiertos del Excel Maestro
-        for s in (self.supervisor.master_services + self.supervisor.descubiertos):
-            for fld in ["TITULAR", "SUPL"]:
-                val = " ".join(str(s.get(fld, "")).strip().split()).upper()
-                if val and val not in ["NONE", "FALTA TITULAR", "DESCUBIERTO", "PUNTUA", "NULL", "NO", "PENDIENTE"] and not val.startswith("VUELVE") and len(val) > 2:
-                    trabajadores_set.add(val)
-                    
-        return sorted(list(trabajadores_set))
+                logger.warning(f"Error leyendo ho_carteras_cache.json en Commander: {e}")
+
+        # 2. Complementar con ho_employees_cache.json
+        emp_cache = os.path.join(BASE_DIR, "ho_employees_cache.json")
+        if os.path.exists(emp_cache):
+            try:
+                with open(emp_cache, "r", encoding="utf-8") as f:
+                    edata = json.load(f)
+                    for nom_raw, emp in edata.get("by_name", {}).items():
+                        nom = " ".join(str(nom_raw).strip().split()).upper()
+                        if nom and nom not in INVALIDOS and not nom.startswith("VUELVE") and len(nom) > 2:
+                            if nom not in trabajadores_map:
+                                trabajadores_map[nom] = {
+                                    "id": emp.get("id_empleado", ""),
+                                    "nombre": nom,
+                                    "dni": emp.get("dni", ""),
+                                    "telefono": emp.get("telefono", ""),
+                                    "email": emp.get("email", ""),
+                                    "gestor_id": emp.get("id_responsable", ""),
+                                    "gestor_nombre": emp.get("nom_responsable", "Gestor Barcelona"),
+                                    "gestor_corto": emp.get("nom_responsable", "Gestor"),
+                                    "proyecto_id": "",
+                                    "proyecto_nombre": "",
+                                    "vac_restantes": emp.get("vac_restantes", 25),
+                                    "tipo_contrato": emp.get("tipo_contrato", "Indefinido"),
+                                    "estado": "ACTIVO"
+                                }
+            except Exception as e:
+                logger.warning(f"Error complementando ho_employees_cache.json: {e}")
+
+        todos_trabajadores = sorted(list(trabajadores_map.keys()))
+        trabajadores_detalle = [trabajadores_map[k] for k in todos_trabajadores]
+        todos_proyectos = sorted(list(proyectos_map.values()), key=lambda x: x["nombre"])
+
+        return {
+            "todos_trabajadores": todos_trabajadores,
+            "trabajadores_detalle": trabajadores_detalle,
+            "trabajadores_map": trabajadores_map,
+            "trabajador_proyectos": trabajador_proyectos,
+            "todos_proyectos": todos_proyectos,
+            "gestores": gestores_lista
+        }
+
+    def _obtener_todos_trabajadores_girona(self):
+        """Devuelve la lista completa de trabajadores de Barcelona/Girona."""
+        datos = self._obtener_datos_barcelona()
+        return datos["todos_trabajadores"]
 
     def ejecutar_comando_in_situ(self, comando_texto):
         """Interpreta cualquier orden o pregunta en lenguaje natural."""
@@ -487,45 +623,41 @@ class SupervisorCommander:
         }
 
     def cmd_wizard_tramite(self, tipo_accion, entidades, cmd_original):
-        """Prepara el contexto y datos detectados para abrir el Asistente Guiado de Gestión Operativa."""
-        servicios = self._buscar_en_servicios(entidades)
-        srv_match = servicios[0] if servicios else (self.supervisor.master_services[0] if self.supervisor.master_services else {})
-        
-        # Intentar extraer trabajador si coincide con el texto
+        """Prepara el contexto y datos detectados para abrir el Asistente Guiado de Gestión Operativa (División 0801 Barcelona)."""
+        datos_bcn = self._obtener_datos_barcelona()
+        todos_trabajadores = datos_bcn["todos_trabajadores"]
+        trabajadores_detalle = datos_bcn["trabajadores_detalle"]
+        trabajadores_map = datos_bcn["trabajadores_map"]
+        trabajador_proyectos = datos_bcn["trabajador_proyectos"]
+        todos_proyectos = datos_bcn["todos_proyectos"]
+        gestores_lista = datos_bcn["gestores"]
+
+        # 1. Detección inteligente de trabajador en cmd_original sin falsos positivos (como BAJA EMPRESA)
+        cmd_clean = cmd_original.lower()
+        for kw in ["tramitar", "poner", "dar de", "asignar", "sustituir", "cubrir", "revertir", "quitar", "anular", "baja", "it", "empresa", "vacacion", "vacaciones", "permiso", "ausencia", "cuadrante", "cese"]:
+            cmd_clean = re.sub(r'\b' + kw + r'\b', ' ', cmd_clean)
+        cmd_clean = " ".join(cmd_clean.split())
+
         titular_detectado = ""
-        for s in self.supervisor.master_services:
-            t = str(s.get("TITULAR", "")).strip()
-            if t and t.lower() in cmd_original.lower():
-                titular_detectado = t
-                srv_match = s
-                break
-        if not titular_detectado:
-            titular_detectado = srv_match.get("TITULAR", "") or ""
+        proy_id = ""
+        servicio_nombre = "Servicio Barcelona"
 
-        proy_id = srv_match.get("PROYECTO") if srv_match else ""
-        servicio_nombre = srv_match.get("SERVICIO") or srv_match.get("TIPO S") or "Servicio Girona"
+        if len(cmd_clean) >= 3:
+            # Buscar coincidencia exacta o por subcadena/palabras (ej: 'virgil' -> VIRGILIO POLANCO)
+            for t_nom, t_obj in trabajadores_map.items():
+                t_lower = t_nom.lower()
+                if cmd_clean in t_lower or any(len(tok) >= 4 and tok in t_lower for tok in cmd_clean.split()):
+                    titular_detectado = t_nom
+                    proy_id = t_obj.get("proyecto_id") or trabajador_proyectos.get(t_nom, "")
+                    servicio_nombre = t_obj.get("proyecto_nombre") or (f"Proyecto {proy_id}" if proy_id else "Servicio Barcelona")
+                    break
 
-        # Listado completo de trabajadores de Girona (Plantilla SAP HO S171 + Excel Maestro + Descubiertos)
-        todos_trabajadores = self._obtener_todos_trabajadores_girona()
-        
-        # Mapeo de trabajador a proyecto para auto-selección en el buscador
-        trabajador_proyectos = {}
-        for s in (self.supervisor.master_services + self.supervisor.descubiertos):
-            t = " ".join(str(s.get('TITULAR', '')).strip().split()).upper()
-            pid = s.get('PROYECTO')
-            if t and pid and t not in ['', 'NONE', 'FALTA TITULAR', 'DESCUBIERTO'] and t not in trabajador_proyectos:
-                trabajador_proyectos[t] = pid
+        # Si aún no tiene proyecto detectado y hay proyectos, tomar el primero de Barcelona como default
+        if not proy_id and todos_proyectos:
+            proy_id = todos_proyectos[0]["id"]
+            servicio_nombre = todos_proyectos[0]["nombre"]
 
-        # La bolsa de suplentes disponibles incluye a toda la plantilla de Girona
         suplentes_pool = list(todos_trabajadores)
-
-        # Proyectos disponibles
-        todos_proyectos = []
-        for s in self.supervisor.master_services:
-            pid = s.get('PROYECTO')
-            cli = s.get('SERVICIO') or s.get('TIPO S') or pid
-            if pid and not any(p['id'] == pid for p in todos_proyectos):
-                todos_proyectos.append({'id': pid, 'nombre': f"{pid} - {cli}"})
 
         titulos = {
             "SUSTITUIR": "👥 Asistente Guiado: Sustituir Empleado (SAP HO)",
@@ -542,7 +674,7 @@ class SupervisorCommander:
             "SUSTITUIR": f"Configurando sustitución operativa para {titular_detectado} en {servicio_nombre} ({proy_id}). Selecciona empleado suplente, tipo de imputación y exceso de servicio para registrar en CargaSPSet de SAP HO.",
             "REVERTIR": f"Reversión y anulación de baja, vacaciones o absentismo para {titular_detectado} en {servicio_nombre} ({proy_id}). Se restaurarán las horas normales en SAP HO.",
             "AUSENCIA": f"Asignando ausencia/licencia oficial a {titular_detectado} en {servicio_nombre} ({proy_id}). Selecciona la tipología exacta de SAP HO.",
-            "BAJA": f"Preparando tramitación de baja médica para {titular_detectado} en {servicio_nombre} ({proy_id}). Completa las preguntas para registrar en SAP HO.",
+            "BAJA": f"Preparando tramitación de baja médica para {titular_detectado} en {servicio_nombre} ({proy_id})." if titular_detectado else "Selecciona o busca el trabajador de Barcelona para tramitar su baja médica IT.",
             "VACACIONES": f"Planificando periodo vacacional para {titular_detectado} en {servicio_nombre} ({proy_id}). Revisa fechas y cobertura.",
             "ABSENTISMO": f"Registrando incidencia de absentismo o permiso para {titular_detectado} en {servicio_nombre} ({proy_id}).",
             "CUADRANTE": f"Configurando nuevo cuadrante para {titular_detectado} en {servicio_nombre} ({proy_id}). Define turnos y días.",
@@ -560,11 +692,13 @@ class SupervisorCommander:
             "proyecto": proy_id,
             "servicio": servicio_nombre,
             "trabajador": titular_detectado,
-            "horario_actual": srv_match.get("HORARIO", "08:00 - 15:00"),
+            "horario_actual": "08:00 - 15:00",
             "suplentes_sugeridos": suplentes_pool,
             "todos_trabajadores": todos_trabajadores,
+            "trabajadores_detalle": trabajadores_detalle,
             "todos_proyectos": todos_proyectos,
             "trabajador_proyectos": trabajador_proyectos,
+            "gestores": gestores_lista,
             "direct_ho_url": build_ho_project_url(proy_id)
         }
 
@@ -597,11 +731,29 @@ class SupervisorCommander:
         msg_cuadrante = ""
         codigo_asig = "BJ"
 
-        # 2A. SUSTITUIR EMPLEADO (CargaSPSet)
+        # 2A. CUBRIR PUESTO / SUSTITUIR EMPLEADO (CargaSPSet + opción CargaHESet / CargaHASet)
         if accion == "SUSTITUIR":
-            emp_suplente = self.ho.buscar_empleado_id(suplente) if suplente else None
+            emp_suplente = self.ho.buscar_empleado_id(suplente, id_proyecto=proyecto) if suplente else None
             id_suplente_sap = emp_suplente.get("IdEmpleado") if emp_suplente else None
             nombre_suplente_sap = emp_suplente.get("Nombre") if emp_suplente else (suplente or "Suplente Asignado")
+            marcar_ausencia = bool(datos.get("marcar_ausencia_titular", False))
+            turno_sel = datos.get("turno") or ""
+            h_ini_sel = datos.get("hora_inicio") or "08:00"
+            h_fin_sel = datos.get("hora_fin") or "15:00"
+
+            # Si el usuario pidió marcar simultáneamente la ausencia (Baja/Vacaciones/Permiso) al titular en SAP HO
+            msg_aus_previa = ""
+            if marcar_ausencia and id_empleado_sap:
+                map_imp_to_asig = {"SB": "BJ", "SV": "VC", "SC": "PE", "EM": "AB"}
+                cod_aus_tit = map_imp_to_asig.get(tipo_imputacion, "BJ")
+                res_aus = self.ho.asignar_ausencia_empleado(
+                    id_empleado=id_empleado_sap,
+                    fecha_inicio=fecha_ini,
+                    fecha_fin=fecha_fin,
+                    tipo_asignacion=cod_aus_tit
+                )
+                if res_aus.get("status") == "ok":
+                    msg_aus_previa = f"[Ausencia '{cod_aus_tit}' marcada al titular] + "
 
             if id_empleado_sap and id_suplente_sap:
                 res_sp = self.ho.sustituir_empleado(
@@ -614,14 +766,55 @@ class SupervisorCommander:
                     tipo_exceso=tipo_exceso
                 )
                 exito_cuadrante = (res_sp.get("status") == "ok")
-                msg_cuadrante = res_sp.get("mensaje", "")
+                msg_cuadrante = msg_aus_previa + res_sp.get("mensaje", "")
+
+                # Si CargaSPSet devuelve error pero se seleccionó un turno concreto del proyecto, intentar asignación directa al turno (CargaHASet)
+                if not exito_cuadrante and turno_sel:
+                    res_ha = self.ho.asignar_cuadrante_empleado(
+                        id_proyecto=proyecto,
+                        id_empleado=id_suplente_sap,
+                        turno=turno_sel,
+                        fecha_inicio=fecha_ini,
+                        fecha_fin=fecha_fin,
+                        hora_inicio=h_ini_sel,
+                        hora_fin=h_fin_sel,
+                        dias_semana=datos.get("dias_semana") or [1, 2, 3, 4, 5],
+                        tipo_dias=datos.get("tipo_dias") or "T",
+                        tipo_imputacion=tipo_imputacion,
+                        tipo_exceso=tipo_exceso,
+                        asignar_turno_completo=bool(datos.get("asignar_turno_completo", False)),
+                        borrar=False
+                    )
+                    if res_ha.get("status") == "ok":
+                        exito_cuadrante = True
+                        msg_cuadrante = msg_aus_previa + res_ha.get("mensaje", "")
+            elif id_suplente_sap and (turno_sel or not trabajador or trabajador.upper() in ["SIN ESPECIFICAR", "FALTA TITULAR", "DESCUBIERTO"]):
+                # Cobertura directa sobre puesto vacante / descubierto en turno de proyecto (CargaHASet)
+                res_ha = self.ho.asignar_cuadrante_empleado(
+                    id_proyecto=proyecto,
+                    id_empleado=id_suplente_sap,
+                    turno=turno_sel or "01",
+                    fecha_inicio=fecha_ini,
+                    fecha_fin=fecha_fin,
+                    hora_inicio=h_ini_sel,
+                    hora_fin=h_fin_sel,
+                    dias_semana=datos.get("dias_semana") or [1, 2, 3, 4, 5],
+                    tipo_dias=datos.get("tipo_dias") or "T",
+                    tipo_imputacion=tipo_imputacion,
+                    tipo_exceso=tipo_exceso,
+                    asignar_turno_completo=bool(datos.get("asignar_turno_completo", False)),
+                    borrar=False
+                )
+                exito_cuadrante = (res_ha.get("status") == "ok")
+                msg_cuadrante = res_ha.get("mensaje", "")
             else:
-                exito_cuadrante = True
-                msg_cuadrante = f"Sustitución coordinada para {nombre_sap} con {nombre_suplente_sap} en {proyecto}"
+                exito_cuadrante = False
+                faltante = f"suplente '{suplente}'" if not id_suplente_sap else f"titular '{trabajador}'"
+                msg_cuadrante = f"No se pudo identificar en SAP HO el código de empleado para {faltante}."
 
             registrar_evento(
                 "EXITO" if exito_cuadrante else "ALERTA",
-                f"Sustitución SAP HO: {nombre_sap} -> {nombre_suplente_sap} en {proyecto}: {msg_cuadrante}"
+                f"Cubrir Puesto SAP HO: {nombre_sap} -> {nombre_suplente_sap} en {proyecto}: {msg_cuadrante}"
             )
 
         # 2B. REVERTIR BAJA / VACACIONES / AUSENCIA (CargaHE2Set)
@@ -635,15 +828,61 @@ class SupervisorCommander:
                 exito_cuadrante = (res_rev.get("status") == "ok")
                 msg_cuadrante = res_rev.get("mensaje", "")
             else:
-                exito_cuadrante = True
-                msg_cuadrante = f"Reversión de ausencia registrada para {nombre_sap}"
+                exito_cuadrante = False
+                msg_cuadrante = f"No se pudo identificar el Id de empleado en SAP HO para {nombre_sap}"
 
             registrar_evento(
                 "EXITO" if exito_cuadrante else "ALERTA",
                 f"Reversión en SAP HO para {nombre_sap}: {msg_cuadrante}"
             )
 
-        # 2C. ASIGNAR AUSENCIA / BAJA / VACACIONES / ABSENTISMO (CargaHESet)
+        # 2C. NUEVO CUADRANTE / CESE DE TURNO EN PROYECTO (CargaHASet)
+        elif accion in ["CUADRANTE", "CESE"]:
+            turno_sel = datos.get("turno") or "01"
+            h_ini_sel = datos.get("hora_inicio") or ""
+            h_fin_sel = datos.get("hora_fin") or ""
+            if (not h_ini_sel or not h_fin_sel) and horario:
+                m_hor = re.findall(r'(\d{1,2}:\d{2})', horario)
+                if len(m_hor) >= 2:
+                    h_ini_sel, h_fin_sel = m_hor[0], m_hor[1]
+                m_tur = re.search(r'\bT?(\d{2})\b', horario)
+                if m_tur and not datos.get("turno"):
+                    turno_sel = m_tur.group(1)
+            if not h_ini_sel:
+                h_ini_sel = "08:00"
+            if not h_fin_sel:
+                h_fin_sel = "15:00"
+
+            if id_empleado_sap:
+                res_ha = self.ho.asignar_cuadrante_empleado(
+                    id_proyecto=proyecto,
+                    id_empleado=id_empleado_sap,
+                    turno=turno_sel,
+                    fecha_inicio=fecha_ini,
+                    fecha_fin=fecha_fin,
+                    hora_inicio=h_ini_sel,
+                    hora_fin=h_fin_sel,
+                    dias_semana=datos.get("dias_semana") or [1, 2, 3, 4, 5],
+                    tipo_dias=datos.get("tipo_dias") or "T",
+                    tipo_imputacion=datos.get("tipo_imputacion") or tipo_detalle or "TI",
+                    tipo_exceso=tipo_exceso,
+                    asignar_turno_completo=bool(datos.get("asignar_turno_completo", False)),
+                    borrar=(accion == "CESE")
+                )
+                exito_cuadrante = (res_ha.get("status") == "ok")
+                msg_cuadrante = res_ha.get("mensaje", "")
+                turno_final = res_ha.get("turno") or turno_sel
+                codigo_asig = f"T{str(turno_final).replace('T', '').zfill(2)}"
+            else:
+                exito_cuadrante = False
+                msg_cuadrante = f"No se pudo identificar el Id de empleado oficial en SAP HO para {nombre_sap}"
+
+            registrar_evento(
+                "EXITO" if exito_cuadrante else "ALERTA",
+                f"Cuadrante SAP HO ({accion} {codigo_asig}) para {nombre_sap} en {proyecto}: {msg_cuadrante}"
+            )
+
+        # 2D. ASIGNAR AUSENCIA / BAJA / VACACIONES / ABSENTISMO (CargaHESet)
         elif accion in ["AUSENCIA", "BAJA", "VACACIONES", "ABSENTISMO"]:
             CODIGOS_VALIDOS_SAP = {
                 "BJ", "VC", "VD", "VN", "AB", "PE", "AN", "DC", "AS",
@@ -696,36 +935,19 @@ class SupervisorCommander:
                     fecha_fin=fecha_fin,
                     tipo_asignacion=codigo_asig
                 )
-                exito_cuadrante = (res_asig.get("status") == "ok")
+                exito_cuadrante = (res_asig.get("status") == "ok" and not res_asig.get("dias_grabados_cero"))
                 msg_cuadrante = res_asig.get("mensaje", "")
             else:
-                exito_cuadrante = True
-                msg_cuadrante = f"Marcaje de ausencia '{codigo_asig}' programado"
+                exito_cuadrante = False
+                msg_cuadrante = f"No se pudo identificar el Id de empleado oficial en SAP para {nombre_sap}"
 
             registrar_evento(
                 "EXITO" if exito_cuadrante else "ALERTA",
                 f"Cuadrante SAP HO ({codigo_asig}) para {nombre_sap} ({id_empleado_sap}): {msg_cuadrante}"
             )
 
-        # 3. Construir texto oficial de bitácora como respaldo histórico (respetando MaxLength 255 de SAP)
-        fec_txt = f"{fecha_ini} al {fecha_fin}" if (fecha_fin and fecha_fin != fecha_ini and fecha_fin != "Indefinida") else f"{fecha_ini}"
-        partes = [
-            f"[SIFU {accion}] {nombre_sap}",
-            f"{proyecto}",
-            fec_txt
-        ]
-        if tipo_detalle and tipo_detalle != "Estándar":
-            partes.append(f"{tipo_detalle}")
-        if suplente:
-            partes.append(f"Supl:{suplente}")
-        if horario:
-            partes.append(f"Turno:{horario}")
-        if obs:
-            partes.append(f"Nota:{obs}")
-        partes.append(f"Resp:ALEJAN COSCOLIN")
-
         # 3. Registrar evento general en vivo
-        registrar_evento("EXITO", f"Trámite [{accion}] completado para {nombre_sap}. Cuadrante SAP HO: {'ACTUALIZADO (' + codigo_asig + ')' if exito_cuadrante else 'Local'}")
+        registrar_evento("EXITO" if exito_cuadrante else "ALERTA", f"Trámite [{accion}] procesado para {nombre_sap}. Cuadrante SAP HO: {'ACTUALIZADO (' + codigo_asig + ')' if exito_cuadrante else msg_cuadrante}")
 
         # 4. Actualizar memoria local si es baja o suplencia
         for s in self.supervisor.master_services:
@@ -761,24 +983,30 @@ class SupervisorCommander:
 
         if accion == "SUSTITUIR":
             resumen_confirmacion = (
-                f"Sustitución registrada en SAP HO (CargaSPSet) para el proyecto {proyecto}: "
-                f"Ausente: {nombre_sap} ➡️ Suplente: {suplente or 'Asignado'} "
-                f"({fecha_ini} al {fecha_fin}) con tipo imputación '{tipo_imputacion}' y exceso '{tipo_exceso}'."
+                f"Cobertura de puesto procesada en SAP HO para el proyecto {proyecto}: "
+                f"Titular/Puesto: {nombre_sap} ➡️ Cubierto por: {suplente or 'Asignado'} "
+                f"({fecha_ini} al {fecha_fin}) · Motivo '{tipo_imputacion}' · Exceso '{tipo_exceso}'. "
+                f"Respuesta SAP: {msg_cuadrante}"
             )
         elif accion == "REVERTIR":
             resumen_confirmacion = (
-                f"Reversión completada en SAP HO (CargaHE2Set) para {nombre_sap} en el proyecto {proyecto} "
-                f"({fecha_ini} al {fecha_fin}). Se han restaurado las horas normales de cuadrante sin incidencias."
+                f"Reversión procesada en SAP HO (CargaHE2Set) para {nombre_sap} en el proyecto {proyecto} "
+                f"({fecha_ini} al {fecha_fin}). Respuesta SAP: {msg_cuadrante}"
+            )
+        elif accion in ["CUADRANTE", "CESE"]:
+            resumen_confirmacion = (
+                f"{'Asignación de Nuevo Cuadrante' if accion == 'CUADRANTE' else 'Desasignación de Turno (Cese)'} en SAP HO (CargaHASet) "
+                f"para {nombre_sap} en {proyecto} ({codigo_asig}, {fecha_ini} al {fecha_fin}). Respuesta SAP: {msg_cuadrante}"
             )
         else:
             resumen_confirmacion = (
-                f"Operación '{accion}' tramitada para {nombre_sap} en {servicio} ({proyecto}). "
-                f"Cuadrante de SAP HO actualizado directamente (Marcaje '{codigo_asig}' inyectado en turnos)."
+                f"Operación '{accion}' procesada para {nombre_sap} en {servicio} ({proyecto}). "
+                f"Marcaje '{codigo_asig}' en SAP HO ({fecha_ini} al {fecha_fin}). Respuesta SAP: {msg_cuadrante}"
             )
 
         return {
             "status": "ok",
-            "mensaje": f"Trámite '{accion}' registrado y aplicado en el cuadrante de SAP HO",
+            "mensaje": msg_cuadrante or f"Trámite '{accion}' procesado en SAP HO",
             "accion": accion,
             "trabajador": nombre_sap,
             "id_empleado_sap": id_empleado_sap,

@@ -24,6 +24,8 @@ const integrationsRoutes = require('./routes/integrations');
 const aldiPartsRoutes = require('./routes/aldiParts');
 const incidentsRoutes = require('./routes/incidents');
 const notesRoutes = require('./routes/notes');
+const timeTrackingRoutes = require('./routes/timeTracking');
+const timeTrackingService = require('./services/timeTrackingService');
 
 // Importar middlewares
 const errorHandler = require('./middleware/errorHandler');
@@ -87,7 +89,9 @@ app.get('/', (req, res) => {
             notifications: '/api/notifications',
             exports: '/api/exports',
             integrations: '/api/integrations',
-            aldiParts: '/api/aldi-parts'
+            aldiParts: '/api/aldi-parts',
+            timeTracking: '/api/time-tracking',
+            fichajes: '/api/fichajes'
         }
     });
 });
@@ -112,6 +116,8 @@ app.use('/api/integrations', integrationsRoutes);
 app.use('/api/aldi-parts', aldiPartsRoutes);
 app.use('/api/incidents', incidentsRoutes);
 app.use('/api/notes', notesRoutes);
+app.use('/api/time-tracking', timeTrackingRoutes);
+app.use('/api/fichajes', timeTrackingRoutes); // Alias de compatibilidad
 
 // Error handler (debe ser el último middleware)
 app.use(errorHandler);
@@ -141,6 +147,7 @@ io.on('connection', (socket) => {
 
 // Hacer io accesible globalmente
 app.set('io', io);
+timeTrackingService.setSocketIO(io);
 
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGODB_URI, {

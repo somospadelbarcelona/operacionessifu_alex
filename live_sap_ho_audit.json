@@ -1,0 +1,680 @@
+{
+  "timestamp": "",
+  "total_proyectos": 102,
+  "total_fallos": 51,
+  "fallos": [
+    {
+      "id_proyecto": "PROY015529-P1",
+      "denominacion": "Limpieza Wurth Olot - Girona",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja IT medica de CORNELIU ATOMEI sin suplente asignado en el cuadrante de SAP HO",
+      "bajas": [
+        "CORNELIU ATOMEI"
+      ]
+    },
+    {
+      "id_proyecto": "PGOC018171L",
+      "denominacion": "PGO LIMPIEZA GIRONA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "6 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "EL HASSANE JEDDOUB",
+        "EL MAHJOUB BENACHOUR",
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN",
+        "NAIMA SABABI ELAALILI",
+        "PABLO NISA FERRER"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016210-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT ARGENTONA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "GLORIA LAVADO GUERRERO",
+        "JUAN MANUEL PEREZ BRIS"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016217-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT BEGUES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "6 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ENCARNACION PRADA MARTINEZ",
+        "FRANCISCO JAVIER TINAJO LUIS",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "JORGE ARRIBAS AMAYA",
+        "KETHY MARITA GUTIERREZ SAIRITUPAC",
+        "VICTOR DELGADO RODRIGUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016221-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT CALELLA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "8 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ENCARNACION PRADA MARTINEZ",
+        "GLORIA LAVADO GUERRERO",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "JUAN MANUEL PEREZ BRIS",
+        "MARIA CARMEN DELGADO PICHARDO",
+        "MONICA LAFUENTE MARTINEZ",
+        "SERGIO ANTONIO CUNALATA PILAMUNGA",
+        "VANESSA MARTINEZ PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016231-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT CUBELLES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "7 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ELENA GARCIA ORTIZ",
+        "JACOBO CAMPELO RUIZ",
+        "JUAN DE DIOS RUIZ MARCOS",
+        "LAURA LOPEZ LIRIO",
+        "MARCOS BAIG CAIMI",
+        "MONTSERRAT RODRIGUEZ REDONDO",
+        "SERGIO ANTONIO CUNALATA PILAMUNGA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016233-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT ESPLUGUES DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "8 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO MEDINA RODRIGUEZ",
+        "CAROLA COPA TAMO",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "HEIDYS SILESTY LEBRON MORILLO",
+        "JOAQUIN MARIO LOAYZA MIRANDA",
+        "JORGE ARRIBAS AMAYA",
+        "M VINICIUS NARVAEZ ERAS"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016236-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT GAVA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "12 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA DOS SANTOS ALVAREZ",
+        "AMELIA PADIAL TRES",
+        "EVA OLMO MERINO",
+        "FLAVIA MARTINEZ",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "JOAQUIN MARIO LOAYZA MIRANDA",
+        "JOEL GARCIA MATEOS",
+        "JOSE SANCHEZ MORA",
+        "MONICA LAFUENTE MARTINEZ",
+        "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
+        "RAFAELA NOTARIO MARTINEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016249-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT MOLINS DE REI",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA DOS SANTOS ALVAREZ",
+        "VICTORIANO CASCO CAÑETE"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016261-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT EL PRAT DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "12 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA PAOLA PORRAS BASTIDAS",
+        "ANTONIA ANDRE AMAYA",
+        "CLOTILDE PEREA LUNA",
+        "CRISTINA CAMACHO SORIA",
+        "DANIEL NUÑEZ ROMERO",
+        "ENCARNACION PRADA MARTINEZ",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "HEIDYS SILESTY LEBRON MORILLO",
+        "IGOR IGLESIAS GIMON",
+        "JUAN MANUEL PLATA ACOSTA",
+        "MARIA DEL MAR PAYAN RODRIGUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016270-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT FELIU DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "10 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA PAOLA PORRAS BASTIDAS",
+        "ANTONIO MEDINA RODRIGUEZ",
+        "BRIGIDA GUEVARA",
+        "CLOTILDE PEREA LUNA",
+        "ELUR PACHACUTEC REASCOS MORALES",
+        "FCO JAVIER HIDALGO ARJONA",
+        "JORGE ARRIBAS AMAYA",
+        "JOSE SANCHEZ MORA",
+        "MARIA LEONOR DOS SANTOS MARTINS",
+        "MONICA LAFUENTE MARTINEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016272-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT JUST DESVERN",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "8 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO MEDINA RODRIGUEZ",
+        "CAROLA COPA TAMO",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "HEIDYS SILESTY LEBRON MORILLO",
+        "JOAQUIN MARIO LOAYZA MIRANDA",
+        "JORGE ARRIBAS AMAYA",
+        "M VINICIUS NARVAEZ ERAS"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016276-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT VICENÇ DELS HORT",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "16 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA PAOLA PORRAS BASTIDAS",
+        "ANNA JULIAN CUSCOLL",
+        "DENISE PIMIENTA DE ALMEIDA RUIZ DOS SANTOS",
+        "ENCARNACION PRADA MARTINEZ",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "HASSANA ESSAKKAKI",
+        "IGNACIO DIAZ LOZANO",
+        "JACOBO CAMPELO RUIZ",
+        "JOAQUIN MARIO LOAYZA MIRANDA",
+        "JORGE ARRIBAS AMAYA",
+        "M VINICIUS NARVAEZ ERAS",
+        "MONICA LAFUENTE MARTINEZ",
+        "MONTSERRAT RODRIGUEZ REDONDO",
+        "RAQUEL MOLINA LOPEZ TELLO",
+        "SERGIO ANTONIO CUNALATA PILAMUNGA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016281-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT SITGES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "7 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ELENA GARCIA ORTIZ",
+        "JACOBO CAMPELO RUIZ",
+        "JUAN DE DIOS RUIZ MARCOS",
+        "LAURA LOPEZ LIRIO",
+        "MARCOS BAIG CAIMI",
+        "MONTSERRAT RODRIGUEZ REDONDO",
+        "SERGIO ANTONIO CUNALATA PILAMUNGA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016285-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT VALLIRANA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANDREA LUQUE OLIVO",
+        "MARIA MERCEDES OLIVO DOT"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016286-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT VILADECANS",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "15 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "AMANDA DOS SANTOS ALVAREZ",
+        "AMELIA PADIAL TRES",
+        "ANISSA HARRAK OUAHABI",
+        "ENCARNACION PRADA MARTINEZ",
+        "EVA OLMO MERINO",
+        "FLAVIA MARTINEZ",
+        "GLORIA EDITH FRANCO RUIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "JOAQUIN MARIO LOAYZA MIRANDA",
+        "JOEL GARCIA MATEOS",
+        "JOSE SANCHEZ MORA",
+        "MONICA LAFUENTE MARTINEZ",
+        "PRISCILA DOMINGA CASTAÑEDA MENDOZA",
+        "RAFAELA NOTARIO MARTINEZ",
+        "SOLEDAD CAÑAVERAS MOÑINO"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016289-P2-C018",
+      "denominacion": "LIMPIEZA OFIC. OGT VILANOVA I LA GELTRU",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "8 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ELENA GARCIA ORTIZ",
+        "GRACIELA SUSANA STIVALA ARIET",
+        "JACOBO CAMPELO RUIZ",
+        "JUAN DE DIOS RUIZ MARCOS",
+        "LAURA LOPEZ LIRIO",
+        "MARCOS BAIG CAIMI",
+        "MONTSERRAT RODRIGUEZ REDONDO",
+        "SERGIO ANTONIO CUNALATA PILAMUNGA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016210-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT ARGENTONA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "MARCOS BLANCO EXPOSITO"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016217-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT BEGUES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "7 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "FRANCISCO CARPIO VILLANUEVA",
+        "FRANCISCO JAVIER TINAJO LUIS",
+        "JAIME ARIAS TINOCO",
+        "JAVIER ALFOCEA PASCUAL",
+        "MARCOS BLANCO EXPOSITO",
+        "MOHAMMED HAJJI",
+        "VICTOR DELGADO RODRIGUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016231-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT CUBELLES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO FERNANDEZ BRIA",
+        "MANUEL RIOS PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016233-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT ESPLUGUES DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JOSE MIGUEL RAMOS GONZALEZ",
+        "MERCEDES ESPINAR GINES",
+        "SILVIA MURCIANO PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016236-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT GAVA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "4 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ALASSAN WUMBIE",
+        "CAROLINA CANO FERNANDEZ",
+        "NURIA DELGADO GALLARDO",
+        "PRISCILA DOMINGA CASTAÑEDA MENDOZA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016249-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT MOLINS DE REI",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ELISABET VILALLON MORON",
+        "IVAN FEDERICO MACIEL ROMERO"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016261-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT EL PRAT DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JOSE MARIA CHAVES HUERTO",
+        "YOLANDA RAMOS GILABERT"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016270-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT FELIU DE LLOB.",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "4 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "IGNACIO DIAZ LOZANO",
+        "ISABEL OLIVARES RODRIGUEZ",
+        "NOELIA POZO ROZAS",
+        "ROSA MARIA RODERO GARCIA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016272-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT JUST DESVERN",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JOSE MIGUEL RAMOS GONZALEZ",
+        "MERCEDES ESPINAR GINES",
+        "SILVIA MURCIANO PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016276-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT SANT VICENÇ DELS HORT",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ALAN JOSE CABALLERO GONZALEZ",
+        "IVAN FEDERICO MACIEL ROMERO"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016281-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT SITGES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO FERNANDEZ BRIA",
+        "MANUEL RIOS PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016285-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT VALLIRANA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANNA JULIAN CUSCOLL",
+        "EVA DIAZ MENA",
+        "RAUL PAZ OSUNA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016286-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT VILADECANS",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "5 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ALASSAN WUMBIE",
+        "CAROLINA CANO FERNANDEZ",
+        "JOEL GARCIA MATEOS",
+        "NURIA DELGADO GALLARDO",
+        "PRISCILA DOMINGA CASTAÑEDA MENDOZA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY016289-P2-C001",
+      "denominacion": "LIMPIEZA OFIC. OGT VILANOVA I LA GELTRU",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO FERNANDEZ BRIA",
+        "MANUEL RIOS PEREZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02284-P1-C018",
+      "denominacion": "Servicio Limpieza POL. IND. MAS XIRGU II",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "EL MAHJOUB BENACHOUR",
+        "MOHAMED BELLAHCEN",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02288-P1-C018",
+      "denominacion": "Servicio Limpieza C/ SES FALQUES,25",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "4 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "EL MAHJOUB BENACHOUR",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02309-P2-C001",
+      "denominacion": "Servicio Limpieza P.I. CLOS DE LES FIRES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANAID SANCHEZ ARESTE",
+        "ELIA MOGIO MEDINA",
+        "PAMELA CANDALIJA SIERRA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017644-P2-C001",
+      "denominacion": "Limpieza Wurth Palamos - Girona",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JOSE ANTONIO LOPEZ SANCHEZ",
+        "MARIA CARMEN ARRIBAS GONZALEZ",
+        "MONTSERRAT OLLER FONT"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01227-P2-C001",
+      "denominacion": "Albergue - Lote 2 - Queralbs",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JUAN BONADA GONZALEZ",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04296-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 22",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja IT medica de FIDEL CASTILLO CANAL, FIDEL CASTILLO CANAL sin suplente asignado en el cuadrante de SAP HO",
+      "bajas": [
+        "FIDEL CASTILLO CANAL",
+        "FIDEL CASTILLO CANAL"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04300-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 9",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "FIDEL CASTILLO CANAL",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01232-P2-C001",
+      "denominacion": "Albergue - Lote 7 - Vall den Bas",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "4 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JAVIER DACRUZ CABALLERO",
+        "LEONELA LORELEY DELGADO PIN",
+        "MIQUEL REYES AMADOR",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06145-P1-C018",
+      "denominacion": "LIMP. RENFE LOTE 5 - SEGUR DE CALAFELL",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "3 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "MATEO NUÑEZ CAYERO",
+        "SALVADOR DIAZ GIMENEZ",
+        "SALVADOR SANCHEZ MELENDEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06145-P2-C001",
+      "denominacion": "LIMP. RENFE LOTE 5 - SEGUR DE CALAFELL",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANTONIO FERNANDEZ BRIA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06315-P2-C001",
+      "denominacion": "AM-JU-2024-183 LOT 2",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANWAR EL KHABBAZI RIFI",
+        "ELIA MOGIO MEDINA"
+      ]
+    },
+    {
+      "id_proyecto": "PGOC001171A",
+      "denominacion": "PGO EPID AUXILIARES GIRONA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "FIDEL CASTILLO CANAL"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02284-P2-C001",
+      "denominacion": "Servicio Limpieza POL. IND. MAS XIRGU II",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "MIREIA VILLALBA DELGADO"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08588-P2-C001",
+      "denominacion": "(LIM) Estación de autobuses de Palamós",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "JOSE ANTONIO LOPEZ SANCHEZ",
+        "REDA JAIT"
+      ]
+    },
+    {
+      "id_proyecto": "SVO09869-P1-C018",
+      "denominacion": "OAC L'ESCALA",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "OUAFAE DOUIRI"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017209-P2-C001",
+      "denominacion": "DIPSALUT",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "POL ROURA PLANAGUMA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04295-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 12 - PLANOLES",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "SAHIL SINGH ARORA",
+        "TANIA JACILINA FRATUCELLO BARGIERI"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08600-P2-C001",
+      "denominacion": "(LIM) DEPURADORA SANTA COLOMA FARNERS",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "1 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "ANWAR EL KHABBAZI RIFI"
+      ]
+    },
+    {
+      "id_proyecto": "SVO13762-P1-C018",
+      "denominacion": "(LIM) ASC. SANT FELIU PUNTUAL",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN"
+      ]
+    },
+    {
+      "id_proyecto": "SVO14029-P1-C018",
+      "denominacion": "(LIM) BRIGADA CRISTALERO",
+      "cliente": "Sin cliente",
+      "tipo_fallo": "SIN_PLANIFICACION_HO",
+      "motivo": "2 empleados asignados a bitacora pero 0 horas planificadas en el cuadrante",
+      "empleados": [
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH"
+      ]
+    }
+  ]
+}

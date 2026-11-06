@@ -35,6 +35,26 @@ const init = () => {
         // Lógica para enviar email con estadísticas globales
     });
 
+    // Control Horario: Delta Sync cada 5 minutos
+    const timeTrackingService = require('../services/timeTrackingService');
+    cron.schedule('*/5 * * * *', async () => {
+        try {
+            await timeTrackingService.syncDelta();
+        } catch (error) {
+            logger.error('Error en cron delta sync de fichajes:', error);
+        }
+    });
+
+    // Control Horario: Reconciliación y compactación nocturna completa a las 02:00 AM
+    cron.schedule('0 2 * * *', async () => {
+        try {
+            logger.info('⏰ Iniciando consolidación nocturna de fichajes...');
+            await timeTrackingService.syncNightly();
+        } catch (error) {
+            logger.error('Error en cron nocturno de fichajes:', error);
+        }
+    });
+
     logger.success('✅ Sistema de Tareas Programadas activo');
 };
 

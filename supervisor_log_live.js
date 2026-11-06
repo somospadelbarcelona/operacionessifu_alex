@@ -1,302 +1,302 @@
 window.SUPERVISOR_LIVE_LOG = [
   {
-    "timestamp": "17:59:42",
-    "tipo": "EXITO",
-    "mensaje": "Trámite [VACACIONES] completado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (VC)",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:59:42",
-    "tipo": "EXITO",
-    "mensaje": "Cuadrante SAP HO (VC) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 5",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:59:12",
+    "timestamp": "23:25:58",
     "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (VACACIONES) para ERNESTO MALO HERRERO",
+    "mensaje": "Abriendo asistente guiado (BAJA) para servicio",
     "detalle": ""
   },
   {
-    "timestamp": "17:59:12",
+    "timestamp": "23:25:57",
     "tipo": "INFO",
-    "mensaje": "Orden recibida: 'asignar vacaciones a'",
+    "mensaje": "Orden recibida: 'tramitar baja'",
     "detalle": ""
   },
   {
-    "timestamp": "17:52:52",
+    "timestamp": "23:25:57",
+    "tipo": "ACCION",
+    "mensaje": "Abriendo asistente guiado (BAJA) para VIRGILIO POLANCO",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:25:57",
+    "tipo": "INFO",
+    "mensaje": "Orden recibida: 'tramitar baja virgil'",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:18:18",
+    "tipo": "ACCION",
+    "mensaje": "Abriendo asistente guiado (BAJA) para servicio",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:18:17",
+    "tipo": "INFO",
+    "mensaje": "Orden recibida: 'tramitar baja'",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:18:17",
+    "tipo": "ACCION",
+    "mensaje": "Abriendo asistente guiado (BAJA) para VIRGILIO POLANCO",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:18:16",
+    "tipo": "INFO",
+    "mensaje": "Orden recibida: 'tramitar baja virgil'",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:17:30",
+    "tipo": "ACCION",
+    "mensaje": "Abriendo asistente guiado (BAJA) para VIRGILIO POLANCO",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:17:30",
+    "tipo": "INFO",
+    "mensaje": "Orden recibida: 'tramitar baja virgil'",
+    "detalle": ""
+  },
+  {
+    "timestamp": "10:04:52",
     "tipo": "EXITO",
-    "mensaje": "Trámite [BAJA] completado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
+    "mensaje": "Trámite [VACACIONES] procesado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (VC)",
     "detalle": ""
   },
   {
-    "timestamp": "17:52:51",
+    "timestamp": "10:04:51",
+    "tipo": "EXITO",
+    "mensaje": "Cuadrante SAP HO (VC) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 1",
+    "detalle": ""
+  },
+  {
+    "timestamp": "10:04:22",
+    "tipo": "EXITO",
+    "mensaje": "Trámite [REVERTIR] procesado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
+    "detalle": ""
+  },
+  {
+    "timestamp": "10:04:22",
+    "tipo": "EXITO",
+    "mensaje": "Reversión en SAP HO para CARLA MASSANELLAS SAURA: Se revirtieron las bajas/vacaciones.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "10:03:37",
+    "tipo": "EXITO",
+    "mensaje": "Trámite [BAJA] procesado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
+    "detalle": ""
+  },
+  {
+    "timestamp": "10:03:37",
     "tipo": "EXITO",
     "mensaje": "Cuadrante SAP HO (BJ) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 1",
     "detalle": ""
   },
   {
-    "timestamp": "17:52:31",
-    "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (BAJA) para ERNESTO MALO HERRERO",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:52:31",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'tramitar baja para'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:52:20",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 1 coincidencias para 'carla' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:52:20",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'carla'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:40:32",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 1 coincidencias para 'carla' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "17:40:31",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'carla'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:28:20",
-    "tipo": "EXITO",
-    "mensaje": "Trámite [BAJA] completado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:28:20",
-    "tipo": "EXITO",
-    "mensaje": "Cuadrante SAP HO (BJ) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 1",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:28:01",
-    "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (BAJA) para ERNESTO MALO HERRERO",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:28:01",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'tramitar baja para'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:27:52",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 1 coincidencias para 'carla' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:27:51",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'carla'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:27:48",
-    "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (BAJA) para ERNESTO MALO HERRERO",
-    "detalle": ""
-  },
-  {
-    "timestamp": "16:27:48",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'tramitar baja para'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "13:15:56",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 1 coincidencias para 'carla' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "13:15:56",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'CARLA'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "23:16:05",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 1 coincidencias para 'elia' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "23:16:04",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'ELIA'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:36:53",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 3 coincidencias para 'casino' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:36:53",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'casino'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:34:35",
-    "tipo": "INFO",
-    "mensaje": "Encontradas 0 coincidencias para 'ayuda' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:34:34",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'ayuda'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:29:13",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 3 coincidencias para 'casino' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:29:13",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'CASINO'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:29:10",
-    "tipo": "INFO",
-    "mensaje": "Encontradas 0 coincidencias para 'casinoi' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:29:09",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'CASINOI'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:22:15",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 3 coincidencias para 'consultar casino' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:22:15",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'CONSULTAR CASINO'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:22:04",
-    "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (VACACIONES) para CARLA MASSANELLAS SAURA",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:22:04",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'asignar vacaciones a CARLA'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:20:42",
-    "tipo": "EXITO",
-    "mensaje": "Titulares consultados para GRAN CASINO COSTA BRAVA, S.L.: 2 registros.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:20:42",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'titular en el casino'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:19:38",
-    "tipo": "EXITO",
-    "mensaje": "Encontradas 3 coincidencias para 'casino' entre Excel Maestro y SAP HO.",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:19:37",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'CASINO'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:19:34",
+    "timestamp": "10:03:04",
     "tipo": "ALERTA",
-    "mensaje": "0 descubiertos listados.",
+    "mensaje": "Trámite [VACACIONES] procesado para JUAN BONADA GONZALEZ. Cuadrante SAP HO: Se está asignando 20 días de más, de los que le corresponden",
     "detalle": ""
   },
   {
-    "timestamp": "03:19:34",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'descubiertos urgentes'",
-    "detalle": ""
-  },
-  {
-    "timestamp": "03:19:34",
+    "timestamp": "10:03:04",
     "tipo": "ALERTA",
-    "mensaje": "0 descubiertos listados.",
+    "mensaje": "Cuadrante SAP HO (VC) para JUAN BONADA GONZALEZ (00047211): Se está asignando 20 días de más, de los que le corresponden",
     "detalle": ""
   },
   {
-    "timestamp": "03:19:34",
-    "tipo": "INFO",
-    "mensaje": "Orden recibida: 'descubiertos urgentes'",
+    "timestamp": "10:03:04",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [VACACIONES] procesado para JUAN BONADA GONZALEZ. Cuadrante SAP HO: Cantidad de días grabados: 20",
     "detalle": ""
   },
   {
-    "timestamp": "03:16:56",
-    "tipo": "EXITO",
-    "mensaje": "Trámite [BAJA] completado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
+    "timestamp": "10:03:04",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para JUAN BONADA GONZALEZ (00047211): Cantidad de días grabados: 20",
     "detalle": ""
   },
   {
-    "timestamp": "03:16:56",
-    "tipo": "EXITO",
-    "mensaje": "Cuadrante SAP HO (BJ) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 0",
+    "timestamp": "10:02:37",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [VACACIONES] procesado para JUAN BONADA GONZALEZ. Cuadrante SAP HO: Se está asignando 1 días de más, de los que le corresponden",
     "detalle": ""
   },
   {
-    "timestamp": "03:16:46",
+    "timestamp": "10:02:37",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para JUAN BONADA GONZALEZ (00047211): Se está asignando 1 días de más, de los que le corresponden",
+    "detalle": ""
+  },
+  {
+    "timestamp": "20:58:00",
     "tipo": "ACCION",
-    "mensaje": "Abriendo asistente guiado (BAJA) para ERNESTO MALO HERRERO",
+    "mensaje": "Servicio actualizado (LIMPIEZA INDRA  ROC BORONAT): {\"SUPL\": \"YOLANDA OLIVARES DOMINGUEZ\", \"ESTADO\": \"BAJA CUBIERTA\", \"TITULAR\": \"ALICIA PARRILLA MARTINEZ\"}",
+    "detalle": "Persistido en memoria operativa"
+  },
+  {
+    "timestamp": "20:57:41",
+    "tipo": "ACCION",
+    "mensaje": "Servicio actualizado (LIMPIEZA INDRA  ROC BORONAT): {\"SUPL\": \"\", \"ESTADO\": \"BAJA SIN SUPLENTE\", \"TITULAR\": \"ALICIA PARRILLA MARTINEZ\"}",
+    "detalle": "Persistido en memoria operativa"
+  },
+  {
+    "timestamp": "19:06:17",
+    "tipo": "EXITO",
+    "mensaje": "Encontradas 9 coincidencias para 'indra' entre Excel Maestro y SAP HO.",
     "detalle": ""
   },
   {
-    "timestamp": "03:16:46",
+    "timestamp": "19:06:16",
     "tipo": "INFO",
-    "mensaje": "Orden recibida: 'tramitar baja para'",
+    "mensaje": "Orden recibida: 'INDRA'",
     "detalle": ""
   },
   {
-    "timestamp": "03:14:24",
-    "tipo": "EXITO",
-    "mensaje": "Trámite [BAJA] completado para CARLA MASSANELLAS SAURA. Cuadrante SAP HO: ACTUALIZADO (BJ)",
+    "timestamp": "11:41:36",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [VACACIONES] procesado para IRENE MASSANET MASPOCH. Cuadrante SAP HO: Cantidad de días grabados: 20",
     "detalle": ""
   },
   {
-    "timestamp": "03:14:24",
+    "timestamp": "11:41:36",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para IRENE MASSANET MASPOCH (00063291): Cantidad de días grabados: 20",
+    "detalle": ""
+  },
+  {
+    "timestamp": "11:41:16",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [VACACIONES] procesado para IRENE MASSANET MASPOCH. Cuadrante SAP HO: Se está asignando 1 días de más, de los que le corresponden",
+    "detalle": ""
+  },
+  {
+    "timestamp": "11:41:16",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para IRENE MASSANET MASPOCH (00063291): Se está asignando 1 días de más, de los que le corresponden",
+    "detalle": ""
+  },
+  {
+    "timestamp": "23:40:45",
+    "tipo": "ACCION",
+    "mensaje": "Servicio actualizado (LIMPIEZA ASCENSORES): {}",
+    "detalle": "Persistido en memoria operativa"
+  },
+  {
+    "timestamp": "20:11:20",
     "tipo": "EXITO",
-    "mensaje": "Cuadrante SAP HO (BJ) para CARLA MASSANELLAS SAURA (00066114): Cantidad de días grabados: 3",
+    "mensaje": "Trámite [CUADRANTE] procesado para NIL BAZAN SERES. Cuadrante SAP HO: ACTUALIZADO (T06)",
+    "detalle": ""
+  },
+  {
+    "timestamp": "20:11:20",
+    "tipo": "EXITO",
+    "mensaje": "Cuadrante SAP HO (CUADRANTE T06) para NIL BAZAN SERES en SVO12611-P2-C018: Asignación modificada.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:55:07",
+    "tipo": "EXITO",
+    "mensaje": "Trámite [VACACIONES] procesado para SARAI PONCE MORENO. Cuadrante SAP HO: ACTUALIZADO (VC)",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:55:07",
+    "tipo": "EXITO",
+    "mensaje": "Cuadrante SAP HO (VC) para SARAI PONCE MORENO (00062808): Cantidad de días grabados: 13",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:54:08",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [VACACIONES] procesado para SARAI PONCE MORENO. Cuadrante SAP HO: Se está asignando 12 días de más, de los que le corresponden",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:54:08",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para SARAI PONCE MORENO (00062808): Se está asignando 12 días de más, de los que le corresponden",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:53:47",
+    "tipo": "EXITO",
+    "mensaje": "Encontradas 1 coincidencias para 'sara' entre Excel Maestro y SAP HO.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:53:47",
+    "tipo": "INFO",
+    "mensaje": "Orden recibida: 'SARA'",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:21:54",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [CUADRANTE] procesado para NIL BAZAN SERES. Cuadrante SAP HO: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:21:54",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (CUADRANTE T21) para NIL BAZAN SERES en SVO12611-P2-C018: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:20:58",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [CUADRANTE] procesado para NIL BAZAN SERES. Cuadrante SAP HO: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:20:58",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (CUADRANTE T20) para NIL BAZAN SERES en SVO12611-P2-C018: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:18:39",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [CUADRANTE] procesado para CRISTIAN BRUNET MENDEZ. Cuadrante SAP HO: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:18:39",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (CUADRANTE T21) para CRISTIAN BRUNET MENDEZ en SVO12611-P2-C018: Todas las fechas del turno se encuentran cerradas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:16:15",
+    "tipo": "ALERTA",
+    "mensaje": "Trámite [SUSTITUIR] procesado para ELIA MOGIO MEDINA. Cuadrante SAP HO: Empleado no tiene bajas en el proyecto en las fechas indicadas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "19:16:15",
+    "tipo": "ALERTA",
+    "mensaje": "Cubrir Puesto SAP HO: ELIA MOGIO MEDINA -> MOHAMMED ETTMALAH en SVO12611-P2-C001: Empleado no tiene bajas en el proyecto en las fechas indicadas.",
+    "detalle": ""
+  },
+  {
+    "timestamp": "14:26:55",
+    "tipo": "EXITO",
+    "mensaje": "Trámite [ASIGNACION_CUADRANTE] completado para SAHIL SINGH ARORA. Cuadrante SAP HO: Local",
+    "detalle": ""
+  },
+  {
+    "timestamp": "12:56:58",
+    "tipo": "EXITO",
+    "mensaje": "Trámite [VACACIONES] completado para ELIA MOGIO MEDINA. Cuadrante SAP HO: Local",
+    "detalle": ""
+  },
+  {
+    "timestamp": "12:56:58",
+    "tipo": "ALERTA",
+    "mensaje": "Cuadrante SAP HO (VC) para ELIA MOGIO MEDINA (00057045): Se está asignando 5 días de más, de los que le corresponden",
     "detalle": ""
   }
 ];

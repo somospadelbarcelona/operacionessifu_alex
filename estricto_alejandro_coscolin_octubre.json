@@ -1,0 +1,1421 @@
+{
+  "responsable": "COSCOLIN PEREGRIN, ALEJANDRO",
+  "id_responsable": "46468278",
+  "division": "1701",
+  "total": 68,
+  "sin_asignacion_count": 36,
+  "baja_sin_suplente_count": 4,
+  "ok_count": 28,
+  "proyectos": [
+    {
+      "id_proyecto": "PROY010147-P1",
+      "denominacion": "IM3, GIRONA",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MALIKA CHRIF"
+      ],
+      "empleados_bitacora": [
+        "CARINA JUAN LEON",
+        "EL MAHJOUB BENACHOUR",
+        "HADDA FADIL",
+        "HAMID BOULAHOUAJEB",
+        "JORDI SERRA DEULOFEU",
+        "LAURA PARDILLO LOPEZ",
+        "LEONOR BELANDO ROLDAN",
+        "MALIKA CHRIF",
+        "MOHAMED BELLAHCEN",
+        "MUSTAPHA EL BAZE",
+        "NABILA BOUHARRAT SAROUKH",
+        "NAIMA SABABI ELAALILI",
+        "PAMELA CANDALIJA SIERRA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017209-P1",
+      "denominacion": "DIPSALUT",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MERCE PLANAS HERAS"
+      ],
+      "empleados_bitacora": [
+        "ADRIAN NAVARRO SUREDA",
+        "DANIEL VAQUERIZA DELGADO",
+        "JORDI SERRA DEULOFEU",
+        "JOSE MANUEL MORALES ROSALES",
+        "JOSEP MANEL GARCIA LOPEZ",
+        "LAURA PARDILLO LOPEZ",
+        "LIDIA JORDA I MARQUEZ",
+        "MARIA DEL PILAR DIAZ HERRAIZ",
+        "MERCE PLANAS HERAS",
+        "MOHAMMED KADRI TAYEBI"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017304-P1",
+      "denominacion": "LIMPIEZA ASCENSORES",
+      "cliente": "",
+      "poblacion": "RIUDELLOTS",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MONICA GALA SEGURA"
+      ],
+      "empleados_bitacora": [
+        "ABDESLAM MAROUAN",
+        "BLAS GABARRI CORTES",
+        "BOUBACAR SEYDI BALDE",
+        "CRISTINA SANCHEZ IGLESIAS",
+        "DANIEL GALINDO PEREZ",
+        "EDUARDO MUÑOZ ROJAS",
+        "EL MAHJOUB BENACHOUR",
+        "ESTHER PEREZ FERNANDEZ",
+        "HAMID BOULAHOUAJEB",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JORDI SERRA DEULOFEU",
+        "JOSE MANUEL MORALES ROSALES",
+        "LAURA PARDILLO LOPEZ",
+        "MANUEL OSORIO VACA",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA GALA SEGURA",
+        "MUSTAPHA EL BAZE",
+        "PABLO NISA FERRER",
+        "YAZZA HARCHALI DROUSSI"
+      ]
+    },
+    {
+      "id_proyecto": "PROY018780-P1",
+      "denominacion": "OCA",
+      "cliente": "",
+      "poblacion": "MADRID",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MALIKA CHRIF"
+      ],
+      "empleados_bitacora": [
+        "CARINA JUAN LEON",
+        "EBRAHIM BOUZIDI CUBERO",
+        "EDUARDO MUÑOZ ROJAS",
+        "EL MAHJOUB BENACHOUR",
+        "JAMILA BERGU KHARBOUCH",
+        "JORDI SERRA DEULOFEU",
+        "JULIAN CANO GALLEGO",
+        "LEONOR BELANDO ROLDAN",
+        "MALIKA CHRIF",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED ZEGHDOUD CHAMLAL",
+        "MUSTAPHA EL BAZE",
+        "PABLO NISA FERRER"
+      ]
+    },
+    {
+      "id_proyecto": "PROY008324-P1",
+      "denominacion": "FCC AQUALIA SANT FELIU DE GUÍXOLS",
+      "cliente": "",
+      "poblacion": "MADRID",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MOHAMMED ETTMALAH"
+      ],
+      "empleados_bitacora": [
+        "EBRIMA JUWARA SAMASA",
+        "EL MAHJOUB BENACHOUR",
+        "JOSE RODRIGUEZ PEREZ",
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED ABDELHAK DJOUMADI",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE",
+        "NADIA IULIANA GOAGA SUCEVEANU",
+        "PABLO NISA FERRER"
+      ]
+    },
+    {
+      "id_proyecto": "PROY015529-P1",
+      "denominacion": "Limpieza Wurth Olot - Girona",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 19 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ALBERT GRANADOS GALINDO",
+        "CARINA JUAN LEON",
+        "CORNELIU ATOMEI",
+        "EL MAHJOUB BENACHOUR",
+        "EVA MUÑOZ MORON",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JOSE RAMON MERINO AGUILAR",
+        "JULIAN CANO GALLEGO",
+        "LAURA PARDILLO LOPEZ",
+        "LEONOR BELANDO ROLDAN",
+        "MANJEET SINGH",
+        "MARI CARMEN UCERO ZARAGOZA",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE",
+        "PABLO NISA FERRER",
+        "SACHDEV SUND CHUMBER",
+        "SERENE DELGADO USERO",
+        "VISHAKHA SINGH KAUR"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017644-P1",
+      "denominacion": "Limpieza Wurth Palamos - Girona",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "NADIA IULIANA GOAGA SUCEVEANU"
+      ],
+      "empleados_bitacora": [
+        "CELIA PEREZ TABOADA",
+        "EBRIMA JUWARA SAMASA",
+        "EL MAHJOUB BENACHOUR",
+        "FERRAN MORAGAS LARDIN",
+        "JAVIER REYES JODAR",
+        "JOSE RODRIGUEZ PEREZ",
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE",
+        "NADIA IULIANA GOAGA SUCEVEANU",
+        "PABLO NISA FERRER"
+      ]
+    },
+    {
+      "id_proyecto": "PGOC018171A",
+      "denominacion": "PGO AUXILIARES  GIRONA",
+      "cliente": "",
+      "poblacion": "HOSPITALET DE LLOBREGAT,L'",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "LAURA PARDILLO LOPEZ"
+      ],
+      "empleados_bitacora": [
+        "FERNANDO CASARRUBIO PEDREÑO",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JORGE LUIS RAMIREZ SALAS",
+        "JOSE MONTERO RODRIGUEZ",
+        "JUAN ALFONSO FERNANDEZ PARADAS",
+        "JUAN GAY PUIG",
+        "LAURA PARDILLO LOPEZ",
+        "MARI CARMEN PRIETO LAMBERTOS",
+        "MARIANO SOY ANDRADE"
+      ]
+    },
+    {
+      "id_proyecto": "PGOC018171L",
+      "denominacion": "PGO LIMPIEZA GIRONA",
+      "cliente": "",
+      "poblacion": "HOSPITALET DE LLOBREGAT,L'",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 6 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "EL HASSANE JEDDOUB",
+        "EL MAHJOUB BENACHOUR",
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN",
+        "NAIMA SABABI ELAALILI",
+        "PABLO NISA FERRER"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01227-P1-C018",
+      "denominacion": "Albergue - Lote 2 - Queralbs",
+      "cliente": "",
+      "poblacion": "Queralbs",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 10,
+      "empleados_en_cuadrante": [
+        "JORGE LUIS RAMIREZ SALAS",
+        "JUAN BONADA GONZALEZ",
+        "SAHIL SINGH ARORA",
+        "MOHAMMED ETTMALAH",
+        "JOSE LUIS HERNANDEZ TORRES",
+        "JORGE LUIS RAMIREZ SALAS",
+        "JUAN BONADA GONZALEZ",
+        "SAHIL SINGH ARORA",
+        "MOHAMMED ETTMALAH",
+        "JOSE LUIS HERNANDEZ TORRES"
+      ],
+      "empleados_bitacora": [
+        "HECTOR GOMEZ CARRERA",
+        "JORGE LUIS RAMIREZ SALAS",
+        "JOSE LUIS HERNANDEZ TORRES",
+        "JUAN BONADA GONZALEZ",
+        "JUAN GAY PUIG",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "NOEMI GISBERT NADAL",
+        "SAHIL SINGH ARORA",
+        "SANTI DORCA PONS"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01232-P1-C018",
+      "denominacion": "Albergue - Lote 7 - Vall den Bas",
+      "cliente": "",
+      "poblacion": "Vall den Bas",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 4,
+      "empleados_en_cuadrante": [
+        "MOHAMED BELLAHCEN",
+        "MOHAMED UAHLET",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED UAHLET"
+      ],
+      "empleados_bitacora": [
+        "ANGEL DESIDERIO AVILA RODRIGUEZ",
+        "CORNELIU ATOMEI",
+        "FERNANDO CASARRUBIO PEDREÑO",
+        "JAVIER FLORENSA AROCA",
+        "JORDI COMPTE ARGELES",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JULIAN CANO GALLEGO",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED HAMZA SLIMANI",
+        "MOHAMED UAHLET",
+        "MOHAMMED ETTMALAH",
+        "MONICA LOPEZ CEBALLOS",
+        "PEDRO CARRASCO BELMONTE",
+        "POL CARBONELL EZCURRA",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02267-P1-C018",
+      "denominacion": "LOTE 3 STA. COLOMA FARNERS (ESC.AGR)",
+      "cliente": "",
+      "poblacion": "Santa Coloma de Farners",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 6,
+      "empleados_en_cuadrante": [
+        "JUAN JOSE GARCIA MANZANEQUE",
+        "IRENE MASSANET MASPOCH",
+        "JULIAN CANO GALLEGO",
+        "JOSEP MADI ARIZA",
+        "JULIAN CANO GALLEGO",
+        "JOSEP MADI ARIZA"
+      ],
+      "empleados_bitacora": [
+        "IRENE MASSANET MASPOCH",
+        "JOSEP MADI ARIZA",
+        "JUAN JOSE GARCIA MANZANEQUE",
+        "JULIAN CANO GALLEGO",
+        "MOHAMED BELLAHCEN"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02284-P1-C018",
+      "denominacion": "Servicio Limpieza POL. IND. MAS XIRGU II",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 3 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "EL MAHJOUB BENACHOUR",
+        "MOHAMED BELLAHCEN",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02288-P1-C018",
+      "denominacion": "Servicio Limpieza C/ SES FALQUES,25",
+      "cliente": "",
+      "poblacion": "BLANES",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "EL MAHJOUB BENACHOUR",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02309-P1-C018",
+      "denominacion": "Servicio Limpieza P.I. CLOS DE LES FIRES",
+      "cliente": "",
+      "poblacion": "FIGUERES",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 17 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "HAMED MUAGNI AZARIAH",
+        "CONCEPCION RIGALL MORENO",
+        "EL MAHJOUB BENACHOUR",
+        "GLORIA MARTINEZ MARIN",
+        "HADDA FADIL",
+        "JAVIER FELIU LOPEZ",
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "LAURA PARDILLO LOPEZ",
+        "LUIS GARCIA PEREZ",
+        "LUIS GONZALEZ GONZALEZ",
+        "MIREIA VILLALBA DELGADO",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED EL HATMI",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE",
+        "PAMELA CANDALIJA SIERRA",
+        "PETRE CATRICENCO"
+      ]
+    },
+    {
+      "id_proyecto": "SVO03143-P1-C018",
+      "denominacion": "(LIM) LIMPIEZA ANUAL",
+      "cliente": "",
+      "poblacion": "Riudellots de la Selva",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MONICA GALA SEGURA"
+      ],
+      "empleados_bitacora": [
+        "ABDESLAM MAROUAN",
+        "ANDREA BRUNO",
+        "BLAS GABARRI CORTES",
+        "CRISTINA SANCHEZ IGLESIAS",
+        "DANIEL GALINDO PEREZ",
+        "EDUARDO MUÑOZ ROJAS",
+        "EL MAHJOUB BENACHOUR",
+        "ESTHER PEREZ FERNANDEZ",
+        "HAMID BOULAHOUAJEB",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JORDI SERRA DEULOFEU",
+        "JOSE MANUEL MORALES ROSALES",
+        "KARIM BADDOURI MOUSSAOUI",
+        "LAURA PARDILLO LOPEZ",
+        "MANUEL OSORIO VACA",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA GALA SEGURA",
+        "MUSTAPHA EL BAZE",
+        "PABLO NISA FERRER",
+        "SOLIMAN ZEIZAOUI",
+        "YAZZA HARCHALI DROUSSI"
+      ]
+    },
+    {
+      "id_proyecto": "PROY010147-P2-C001",
+      "denominacion": "IM3, GIRONA",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "PAMELA CANDALIJA SIERRA",
+        "POL ROURA PLANAGUMA",
+        "REDA JAIT",
+        "SERGIO REDONDO VELAZQUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02309-P2-C001",
+      "denominacion": "Servicio Limpieza P.I. CLOS DE LES FIRES",
+      "cliente": "",
+      "poblacion": "FIGUERES",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 3 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ANAID SANCHEZ ARESTE",
+        "ELIA MOGIO MEDINA",
+        "PAMELA CANDALIJA SIERRA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY018780-P2-C001",
+      "denominacion": "OCA",
+      "cliente": "",
+      "poblacion": "MADRID",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 6 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ELIA MOGIO MEDINA",
+        "FARAH OUTEGRAR",
+        "ISABEL AMALIA RAMIREZ FERNANDEZ",
+        "PAMELA CANDALIJA SIERRA",
+        "REDA JAIT",
+        "SERGIO REDONDO VELAZQUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017644-P2-C001",
+      "denominacion": "Limpieza Wurth Palamos - Girona",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 3 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "JOSE ANTONIO LOPEZ SANCHEZ",
+        "MARIA CARMEN ARRIBAS GONZALEZ",
+        "MONTSERRAT OLLER FONT"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04295-P1-C018",
+      "denominacion": "GestBoes - 2436484 LOT 12 - PLANOLES",
+      "cliente": "",
+      "poblacion": "Planoles",
+      "horas_semana": 0,
+      "estado_real": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja médica IT de ['ERNESTO MALO HERRERO', 'ERNESTO MALO HERRERO'] sin suplente asignado en el cuadrante de octubre.",
+      "filas_cuadrante": 6,
+      "empleados_en_cuadrante": [
+        "ERNESTO MALO HERRERO",
+        "SAHIL SINGH ARORA",
+        "MOHAMMED ETTMALAH",
+        "ERNESTO MALO HERRERO",
+        "SAHIL SINGH ARORA",
+        "MOHAMMED ETTMALAH"
+      ],
+      "empleados_bitacora": [
+        "ALEJANDRO GARCIA LEVA",
+        "ERNESTO MALO HERRERO",
+        "FRANCISCO JAVIER BERSABÉ TAPIA",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JORGE LUIS RAMIREZ SALAS",
+        "JOSE LUIS MESA VILLALBA",
+        "JOSE MIGUEL BARRIUSO BLANCO",
+        "JOSE RODRIGUEZ PEREZ",
+        "JUAN BONADA GONZALEZ",
+        "LAURA PARDILLO LOPEZ",
+        "MARI CARMEN PRIETO LAMBERTOS",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA LOPEZ CEBALLOS",
+        "POL CARBONELL EZCURRA",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04296-P1-C018",
+      "denominacion": "GestBoes - 2436484 LOT 22 - St JOAN ABAD",
+      "cliente": "",
+      "poblacion": "Sant Joan de les Abadesses",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 2,
+      "empleados_en_cuadrante": [
+        "MONICA LOPEZ CEBALLOS",
+        "MONICA LOPEZ CEBALLOS"
+      ],
+      "empleados_bitacora": [
+        "ANGEL REYES BONILLA",
+        "FIDEL CASTILLO CANAL",
+        "FRANCISCO JAVIER BERSABÉ TAPIA",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JORGE LUIS RAMIREZ SALAS",
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "JOSE MIGUEL BARRIUSO BLANCO",
+        "JUAN BONADA GONZALEZ",
+        "JULIAN CANO GALLEGO",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA LOPEZ CEBALLOS",
+        "POL CARBONELL EZCURRA",
+        "SACHDEV SUND CHUMBER",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04298-P1-C018",
+      "denominacion": "GestBoes - 2436484 LOT 11 - OLOT",
+      "cliente": "",
+      "poblacion": "Olot",
+      "horas_semana": 0,
+      "estado_real": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja médica IT de ['JOSE MANUEL GUTIERREZ PACHECO', 'JOSE MANUEL GUTIERREZ PACHECO'] sin suplente asignado en el cuadrante de octubre.",
+      "filas_cuadrante": 4,
+      "empleados_en_cuadrante": [
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "PEDRO FERNANDEZ RIBAS",
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "PEDRO FERNANDEZ RIBAS"
+      ],
+      "empleados_bitacora": [
+        "ALBERT GRANADOS GALINDO",
+        "ANGEL DESIDERIO AVILA RODRIGUEZ",
+        "CARLOS MARTINEZ VILANOVA",
+        "CORNELIU ATOMEI",
+        "CRISTIAN URBINO BATISTA MEDINA",
+        "FERNANDO CASARRUBIO PEDREÑO",
+        "FRANCISCO COLOMER VIDAL",
+        "FRANCISCO JAVIER BERSABÉ TAPIA",
+        "JORDI COMPTE ARGELES",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "JOSE MARIA COMAS PUJOLRAS",
+        "JULIAN CANO GALLEGO",
+        "LAURA PARDILLO LOPEZ",
+        "MARI CARMEN UCERO ZARAGOZA",
+        "MARIANO SOY ANDRADE",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA LOPEZ CEBALLOS",
+        "MUSTAPHA EL BAZE",
+        "PEDRO CARRASCO BELMONTE",
+        "PEDRO FERNANDEZ RIBAS",
+        "SACHDEV SUND CHUMBER"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04300-P1-C018",
+      "denominacion": "GestBoes - 2436484 LOT 9- LA MOLINA",
+      "cliente": "",
+      "poblacion": "La Molina",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 2,
+      "empleados_en_cuadrante": [
+        "JOSE MONTERO RODRIGUEZ",
+        "JOSE MONTERO RODRIGUEZ"
+      ],
+      "empleados_bitacora": [
+        "ALEJANDRO GARCIA LEVA",
+        "DANIEL VAQUERIZA DELGADO",
+        "EL MAHJOUB BENACHOUR",
+        "FRANCISCO JAVIER BERSABÉ TAPIA",
+        "IVAN RAMIREZ ORTIZ",
+        "JOSE MONTERO RODRIGUEZ",
+        "JUAN BONADA GONZALEZ",
+        "MIGUEL JOSE MORAN ROSALES",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA LOPEZ CEBALLOS"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01227-P2-C001",
+      "denominacion": "Albergue - Lote 2 - Queralbs",
+      "cliente": "",
+      "poblacion": "Queralbs",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "JUAN BONADA GONZALEZ",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04296-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 22",
+      "cliente": "",
+      "poblacion": "Sant Joan de les Abadesses",
+      "horas_semana": 0,
+      "estado_real": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja médica IT de ['FIDEL CASTILLO CANAL', 'FIDEL CASTILLO CANAL'] sin suplente asignado en el cuadrante de octubre.",
+      "filas_cuadrante": 2,
+      "empleados_en_cuadrante": [
+        "FIDEL CASTILLO CANAL",
+        "FIDEL CASTILLO CANAL"
+      ],
+      "empleados_bitacora": [
+        "FIDEL CASTILLO CANAL",
+        "JUAN BONADA GONZALEZ",
+        "TANIA JACILINA FRATUCELLO BARGIERI"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04300-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 9",
+      "cliente": "",
+      "poblacion": "La Molina",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "FIDEL CASTILLO CANAL",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO03143-P2-C001",
+      "denominacion": "(LIM) LIMPIEZA ANUAL",
+      "cliente": "",
+      "poblacion": "Riudellots de la Selva",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 5 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ANWAR EL KHABBAZI RIFI",
+        "ELIA MOGIO MEDINA",
+        "FARAH OUTEGRAR",
+        "MOHAMED AZLOU",
+        "REDA JAIT"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017304-P2-C001",
+      "denominacion": "LIMPIEZA ASCENSORES",
+      "cliente": "",
+      "poblacion": "RIUDELLOTS",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 5 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ANWAR EL KHABBAZI RIFI",
+        "CASANDRA NARVALAEZ MONGE",
+        "ELIA MOGIO MEDINA",
+        "MOHAMED AZLOU",
+        "REDA JAIT"
+      ]
+    },
+    {
+      "id_proyecto": "PROY015529-P2-E002",
+      "denominacion": "Limpieza Wurth Olot - Girona",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO04298-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 11 - OLOT",
+      "cliente": "",
+      "poblacion": "Olot",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "FIDEL CASTILLO CANAL",
+        "JAVIER DACRUZ CABALLERO",
+        "LEONELA LORELEY DELGADO PIN",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO01232-P2-C001",
+      "denominacion": "Albergue - Lote 7 - Vall den Bas",
+      "cliente": "",
+      "poblacion": "Vall den Bas",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "JAVIER DACRUZ CABALLERO",
+        "LEONELA LORELEY DELGADO PIN",
+        "MIQUEL REYES AMADOR",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06113-P1-C018",
+      "denominacion": "AM-JU-2024-7 LOT 24",
+      "cliente": "",
+      "poblacion": "Ripoll",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "LAMYAA RAJEB"
+      ],
+      "empleados_bitacora": [
+        "HAFIDA SALEK",
+        "HIND FARRIS",
+        "JULIAN CANO GALLEGO",
+        "LAMYAA RAJEB",
+        "LAURA PARDILLO LOPEZ",
+        "MANJEET SINGH",
+        "MOHAMED BELLAHCEN",
+        "MUSTAPHA EL BAZE",
+        "RAQUEL ERMELINDA GARCIA CRUZ",
+        "SACHDEV SUND CHUMBER",
+        "VICTORIA ALONSO ROS"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06315-P1-C018",
+      "denominacion": "GENERALITAT CATALUNYA archivos agua viva",
+      "cliente": "",
+      "poblacion": "Aiguaviva",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MONICA GALA SEGURA"
+      ],
+      "empleados_bitacora": [
+        "EDUARDO MUÑOZ ROJAS",
+        "JAMILA BERGU KHARBOUCH",
+        "JORDI SERRA DEULOFEU",
+        "JOSE MANUEL MORALES ROSALES",
+        "LAURA PARDILLO LOPEZ",
+        "MANUEL OSORIO VACA",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA GALA SEGURA",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06316-P1-C018",
+      "denominacion": "GENERALITAT CATALUNYA GRUPO VERT",
+      "cliente": "",
+      "poblacion": "Girona",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MALIKA CHRIF"
+      ],
+      "empleados_bitacora": [
+        "EDUARDO MUÑOZ ROJAS",
+        "JOSE MANUEL MORALES ROSALES",
+        "MALIKA CHRIF",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06834-P1-C018",
+      "denominacion": "(LIM) CASINO LLORET",
+      "cliente": "",
+      "poblacion": "LLORET DE MAR",
+      "horas_semana": 0,
+      "estado_real": "BAJA_SIN_SUPLENTE",
+      "motivo": "Baja médica IT de ['ALEXIA DOMINGUEZ MARSIÑACH', 'CARLA MASSANELLAS SAURA', 'ALEXIA DOMINGUEZ MARSIÑACH', 'CARLA MASSANELLAS SAURA'] sin suplente asignado en el cuadrante de octubre.",
+      "filas_cuadrante": 6,
+      "empleados_en_cuadrante": [
+        "ALEXIA DOMINGUEZ MARSIÑACH",
+        "CARLA MASSANELLAS SAURA",
+        "BLAS RAMON CARVAJAL AVENDAÑO",
+        "ALEXIA DOMINGUEZ MARSIÑACH",
+        "CARLA MASSANELLAS SAURA",
+        "BLAS RAMON CARVAJAL AVENDAÑO"
+      ],
+      "empleados_bitacora": [
+        "ALEXIA DOMINGUEZ MARSIÑACH",
+        "BLAS RAMON CARVAJAL AVENDAÑO",
+        "CARLA MASSANELLAS SAURA",
+        "CARMEN CORTES GARCIA",
+        "DAVID MEDINA ESCOZ",
+        "ESTHER FALGUERA TORNERO",
+        "JORDI JESUS PORTERO CERVILLA",
+        "JOSE JAVIER HIERRO CARNE",
+        "JOSE RODRIGUEZ PEREZ",
+        "JOSEFA TORO PADILLA",
+        "LAURA PARDILLO LOPEZ",
+        "LORENA SALAZAR BUENO",
+        "MANUELA GUIJO GUTIERREZ",
+        "MOHAMED AAMER KHALIFI",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "NURIA MARTIN FLAVIAN",
+        "ROMA SERRAT DRAPER",
+        "SERGIO MARCH RUIZ",
+        "TATIANA MARIBEL ROMERO ROBLES",
+        "YANSEL LORENZO VALDEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06910-P1-C018",
+      "denominacion": "ETAP Arbúcies",
+      "cliente": "",
+      "poblacion": "Arbúcies",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MOHAMMED ETTMALAH"
+      ],
+      "empleados_bitacora": [
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06315-P2-C001",
+      "denominacion": "AM-JU-2024-183 LOT 2",
+      "cliente": "",
+      "poblacion": "Aiguaviva",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ANWAR EL KHABBAZI RIFI",
+        "ELIA MOGIO MEDINA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06834-P2-C001",
+      "denominacion": "(LIM) CASINO LLORET",
+      "cliente": "",
+      "poblacion": "LLORET DE MAR",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 6 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "DYLAN CALABRIA GALLARDO",
+        "JOSE ANTONIO LOPEZ SANCHEZ",
+        "JUAN ANTONIO ALVAREZ RODRIGUEZ",
+        "MIQUEL REYES AMADOR",
+        "YANSEL LORENZO VALDEZ",
+        "ZAKARIAE ALAMI-MERROUNI EL BAKKARI"
+      ]
+    },
+    {
+      "id_proyecto": "PGOC001171A",
+      "denominacion": "PGO EPID AUXILIARES GIRONA",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 1 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "FIDEL CASTILLO CANAL"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06316-P2-C001",
+      "denominacion": "AM-JU-2024-183 LOT 1",
+      "cliente": "",
+      "poblacion": "Girona",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ELIA MOGIO MEDINA",
+        "MIREIA VILLALBA DELGADO",
+        "REDA JAIT",
+        "SERGIO REDONDO VELAZQUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO07826-P1-C018",
+      "denominacion": "(LIM) CONTROL GROUP",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MALIKA CHRIF"
+      ],
+      "empleados_bitacora": [
+        "MALIKA CHRIF",
+        "MOHAMED BELLAHCEN"
+      ]
+    },
+    {
+      "id_proyecto": "SVO07826-P2-C001",
+      "denominacion": "(LIM) CONTROL GROUP",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 4 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ELIA MOGIO MEDINA",
+        "ISABEL AMALIA RAMIREZ FERNANDEZ",
+        "REDA JAIT",
+        "SERGIO REDONDO VELAZQUEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO02284-P2-C001",
+      "denominacion": "Servicio Limpieza POL. IND. MAS XIRGU II",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 1 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "MIREIA VILLALBA DELGADO"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08572-P1-C018",
+      "denominacion": "(LIM) Ecoenergies VILADRAU",
+      "cliente": "",
+      "poblacion": "Viladrau",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MOHAMMED ETTMALAH"
+      ],
+      "empleados_bitacora": [
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08588-P1-C018",
+      "denominacion": "(ITF)Estación de autobuses de Palamós(FT",
+      "cliente": "",
+      "poblacion": "Palamós",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "SARAI PONCE MORENO"
+      ],
+      "empleados_bitacora": [
+        "CELIA PEREZ TABOADA",
+        "IVAN RODRIGUEZ FIGUERAS",
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN",
+        "MOHAMED EL BACHIR EL AKKIOUI EL KHALIDI",
+        "MOHAMMED ETTMALAH",
+        "NADIA IULIANA GOAGA SUCEVEANU",
+        "SARAI PONCE MORENO"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08600-P1-C018",
+      "denominacion": "(LIM) DEPURADORA SANTA COLOMA FARNERS",
+      "cliente": "",
+      "poblacion": "SANTA COLOMA DE FARNERS",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MONICA GALA SEGURA"
+      ],
+      "empleados_bitacora": [
+        "JOSE MANUEL MORALES ROSALES",
+        "MANUEL OSORIO VACA",
+        "MANUEL TITOS LOZANO",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "MONICA GALA SEGURA",
+        "MUSTAPHA EL BAZE"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06910-P2-C001",
+      "denominacion": "ETAP Arbúcies",
+      "cliente": "",
+      "poblacion": "Arbúcies",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MOHAMMED ETTMALAH"
+      ],
+      "empleados_bitacora": [
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH"
+      ]
+    },
+    {
+      "id_proyecto": "SVO08588-P2-C001",
+      "denominacion": "(LIM) Estación de autobuses de Palamós",
+      "cliente": "",
+      "poblacion": "Palamós",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "JOSE ANTONIO LOPEZ SANCHEZ",
+        "REDA JAIT"
+      ]
+    },
+    {
+      "id_proyecto": "PROY08324-P2-C001",
+      "denominacion": "FCC AQUALIA SANT FELIU DE GUÍXOLS",
+      "cliente": "",
+      "poblacion": "MADRID",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "CARMEN ALSINA MENA"
+      ],
+      "empleados_bitacora": [
+        "CARMEN ALSINA MENA",
+        "JOSE ANTONIO LOPEZ SANCHEZ"
+      ]
+    },
+    {
+      "id_proyecto": "SVO09463-P1-C018",
+      "denominacion": "NORTHIUS_GIRONA_OE1",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO09869-P1-C018",
+      "denominacion": "OAC L'ESCALA",
+      "cliente": "",
+      "poblacion": "L'Escala",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 1 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "OUAFAE DOUIRI"
+      ]
+    },
+    {
+      "id_proyecto": "SVO10033-P1-C017",
+      "denominacion": "SALT-MONTNEGRE",
+      "cliente": "",
+      "poblacion": "SALT",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO11110-P1-C018",
+      "denominacion": "(AUX) Conserjeria Dipsalut 2025 mañanas",
+      "cliente": "",
+      "poblacion": "Gerona",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 2,
+      "empleados_en_cuadrante": [
+        "JOSUE RAMON CASTILLO MOLINA",
+        "JOSUE RAMON CASTILLO MOLINA"
+      ],
+      "empleados_bitacora": [
+        "IRENE MASSANET MASPOCH",
+        "JOSUE RAMON CASTILLO MOLINA"
+      ]
+    },
+    {
+      "id_proyecto": "PROY017209-P2-C001",
+      "denominacion": "DIPSALUT",
+      "cliente": "",
+      "poblacion": "GIRONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 1 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "POL ROURA PLANAGUMA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO04295-P2-C001",
+      "denominacion": "GestBoes - 2436484 LOT 12 - PLANOLES",
+      "cliente": "",
+      "poblacion": "Planoles",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "SAHIL SINGH ARORA",
+        "TANIA JACILINA FRATUCELLO BARGIERI"
+      ]
+    },
+    {
+      "id_proyecto": "PROY015529-P2-C001",
+      "denominacion": "Limpieza Wurth Olot - Girona",
+      "cliente": "",
+      "poblacion": "BARCELONA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "JAVIER DACRUZ CABALLERO",
+        "SAHIL SINGH ARORA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO12611-P1-C017",
+      "denominacion": "Museo Histórico de Figueres - Castillo S",
+      "cliente": "",
+      "poblacion": "FIGUERES",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO12611-P2-C018",
+      "denominacion": "Museo Histórico de Figueres - Castillo S",
+      "cliente": "",
+      "poblacion": "FIGUERES",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 11,
+      "empleados_en_cuadrante": [
+        "CARLOS MARTINEZ VILANOVA",
+        "CRISTIAN BRUNET MENDEZ",
+        "RAUL GONZALEZ EXPOSITO",
+        "MANUEL QUESADA AGUDO",
+        "NIL BAZAN SERES",
+        "MARIANO SEQUERA VACAS",
+        "JOSE MANUEL CARRERA MATEOS",
+        "MARIANO SEQUERA VACAS",
+        "JOSE MANUEL CARRERA MATEOS",
+        "DAVID CONTRERA VIDAL",
+        "ASMA EL OUAHABI"
+      ],
+      "empleados_bitacora": [
+        "ADRIANA GAMBERA",
+        "ASMA EL OUAHABI",
+        "CARLOS MARTINEZ VILANOVA",
+        "CRISTIAN BRUNET MENDEZ",
+        "DAVID CONTRERA VIDAL",
+        "HECTOR GOMEZ CARRERA",
+        "JOSE ANTONIO SOLA EXPOSITO",
+        "JOSE MANUEL CARRERA MATEOS",
+        "JOSE MANUEL GUTIERREZ PACHECO",
+        "MANUEL QUESADA AGUDO",
+        "MARIANO SEQUERA VACAS",
+        "MOHAMED BELLAHCEN",
+        "NIL BAZAN SERES",
+        "RAUL GONZALEZ EXPOSITO"
+      ]
+    },
+    {
+      "id_proyecto": "SVO12611-P2-C001",
+      "denominacion": "Museo Histórico de Figueres - Castillo S",
+      "cliente": "",
+      "poblacion": "FIGUERES",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "ELIA MOGIO MEDINA"
+      ],
+      "empleados_bitacora": [
+        "ELIA MOGIO MEDINA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO06113-P2-E004",
+      "denominacion": "AM-JU-2024-7 LOT 24",
+      "cliente": "",
+      "poblacion": "Ripoll",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO12987-P1-C018",
+      "denominacion": "(AUX) AJUNTAMENT DE SALT LOTE 2",
+      "cliente": "",
+      "poblacion": "Salt",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO13652-P1-C018",
+      "denominacion": "(AUX) conserjería Dipsalut 2025",
+      "cliente": "",
+      "poblacion": "La Creueta",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 0 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": []
+    },
+    {
+      "id_proyecto": "SVO08600-P2-C001",
+      "denominacion": "(LIM) DEPURADORA SANTA COLOMA FARNERS",
+      "cliente": "",
+      "poblacion": "SANTA COLOMA DE FARNERS",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 1 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "ANWAR EL KHABBAZI RIFI"
+      ]
+    },
+    {
+      "id_proyecto": "SVO13762-P1-C018",
+      "denominacion": "(LIM) ASC. SANT FELIU PUNTUAL",
+      "cliente": "",
+      "poblacion": "SANT FELIU DE GUIXOLS",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "LAURA PARDILLO LOPEZ",
+        "MOHAMED BELLAHCEN"
+      ]
+    },
+    {
+      "id_proyecto": "SVO10033-P2-C018",
+      "denominacion": "SALT-MONTNEGRE",
+      "cliente": "",
+      "poblacion": "SALT",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "MARIA MOLINA PEREZ"
+      ],
+      "empleados_bitacora": [
+        "LIDIA JORDA I MARQUEZ",
+        "MARIA MOLINA PEREZ",
+        "TERESA ROMERO SANDIA"
+      ]
+    },
+    {
+      "id_proyecto": "SVO14029-P1-C018",
+      "denominacion": "(LIM) BRIGADA CRISTALERO",
+      "cliente": "",
+      "poblacion": "RIUDELLOTS DE LA SELVA",
+      "horas_semana": 0,
+      "estado_real": "SIN_ASIGNACION_OCTUBRE",
+      "motivo": "En octubre 2026 NO hay empleados asignados en cuadrante (0 horas asignadas). Bitácora tiene 2 operarios.",
+      "filas_cuadrante": 0,
+      "empleados_en_cuadrante": [],
+      "empleados_bitacora": [
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH"
+      ]
+    },
+    {
+      "id_proyecto": "SVO14527-P1-C018",
+      "denominacion": "(LIM) Playa de Aro So Food SLU - GIRONA",
+      "cliente": "",
+      "poblacion": "Platja d'Aro",
+      "horas_semana": 0,
+      "estado_real": "OK",
+      "motivo": "Cuadrante cubierto en octubre",
+      "filas_cuadrante": 1,
+      "empleados_en_cuadrante": [
+        "NATALIA HRABAN"
+      ],
+      "empleados_bitacora": [
+        "MOHAMED ABDELHAK DJOUMADI",
+        "MOHAMED BELLAHCEN",
+        "MOHAMMED ETTMALAH",
+        "NATALIA HRABAN"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen Técnico - Plataforma Operativa Barcelona</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 14mm 16mm 14mm 16mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.45;
+      font-size: 10.5pt;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .header {
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-title h1 {
+      margin: 0;
+      font-size: 16pt;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+    .header-title p {
+      margin: 3px 0 0 0;
+      font-size: 9pt;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .badge {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .intro {
+      background: #f8fafc;
+      border-left: 3px solid #0284c7;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      font-size: 9.5pt;
+      color: #334155;
+      border-radius: 0 6px 6px 0;
+    }
+    .section {
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
+    }
+    .section-title .num {
+      background: #0284c7;
+      color: #ffffff;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 8.5pt;
+    }
+    .content-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 9px 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .pitch {
+      font-style: italic;
+      color: #1e3a8a;
+      background: #eff6ff;
+      border: 1px dashed #93c5fd;
+      padding: 7px 10px;
+      border-radius: 5px;
+      margin: 6px 0;
+      font-size: 9pt;
+    }
+    ul {
+      margin: 4px 0;
+      padding-left: 18px;
+    }
+    li {
+      margin-bottom: 3px;
+    }
+    strong {
+      color: #0f172a;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .card {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 7px 10px;
+      font-size: 8.8pt;
+    }
+    .card-title {
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .footer {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 8pt;
+      color: #94a3b8;
+    }
+    code {
+      font-family: Consolas, monospace;
+      background: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 8.5pt;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-title">
+      <h1>Arquitectura y Guía Técnica: App Operativa Barcelona (0801)</h1>
+      <p>Argumentario técnico sobre diseño, sincronizaciones SAP HO y Fichajes CTI</p>
+    </div>
+    <div>
+      <span class="badge">Ficha Técnica</span>
+    </div>
+  </div>
+
+  <div class="intro">
+    <strong>Enfoque clave:</strong> Explica el proyecto como una solución de ingeniería de procesos orientada a solventar la lentitud y dispersión de los portales corporativos mediante una <em>arquitectura desacoplada en tres capas</em>: frontend local ultrarrápido, scripts ETL en Python y almacenamiento en caché estructurada.
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="num">1</span> Arquitectura General del Sistema
+    </div>
+    <div class="content-box">
+      <div class="pitch">
+        "El objetivo era tener un cuadro de mando unificado y de respuesta instantánea para la operativa de Barcelona sin depender de las caídas o la lentitud de las webs. Por eso diseñé una arquitectura modular en local."
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">🖥️ Frontend (SPA Modular)</div>
+          Desarrollado en <strong>HTML5, CSS3 y Vanilla JavaScript</strong>. No necesita servidores web pesados ni dependencias complejas; lee directamente la caché local en memoria para ofrecer tiempos de carga inferiores a 200ms.
+        </div>
+        <div class="card">
+          <div class="card-title">⚙️ Backend / Middleware ETL</div>
+          Scripts modulares en <strong>Python</strong> encargados de autenticación, extracción directa, limpieza y normalización de datos hacia estructuras JSON estandarizadas.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="num">2</span> Sincronización con SAP S/4HANA (HO)
+    </div>
+    <div class="content-box">
+      <div class="pitch">
+        "SAP HO trabaja internamente con servicios OData/REST. Analicé el tráfico de red de la sesión corporativa e integré las consultas directas en un servicio Python multihilo."
+      </div>
+      <ul>
+        <li><strong>Protocolo OData / REST:</strong> Conexión directa a los endpoints del servicio SAP <code>ZPS_HOPER_SRV</code> mediante cabeceras HTTP autenticadas con la sesión del responsable.</li>
+        <li><strong>Endpoints principales:</strong>
+          <ul>
+            <li><code>EmpleadoSet('{Id}')</code>: Obtención de contadores en tiempo real (vacaciones totales, disfrutadas y saldo pendiente).</li>
+            <li><code>ExcelEmpleadoSet</code>: Extracción detallada de cuadrantes anuales, turnos, festivos y sustituciones.</li>
+            <li><code>ProyectosEmpleadoAsigSet</code>: Mapeo de personal asignado a centros de coste y proyectos de Barcelona.</li>
+          </ul>
+        </li>
+        <li><strong>Rendimiento Multihilo:</strong> Uso de <code>ThreadPoolExecutor</code> en Python para paralelizar la consulta de decenas de trabajadores en pocos segundos sin bloquear la aplicación.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="num">3</span> Extracción y Cruce con CTI / Fichajes (GCalidad)
+    </div>
+    <div class="content-box">
+      <div class="pitch">
+        "Como el portal de presencia y control horario (CTI/GCalidad) no cuenta con una API pública accesible, implementé un conector RPA con navegador headless mediante Playwright."
+      </div>
+      <ul>
+        <li><strong>Automatización RPA (Playwright Chromium):</strong> Un script asíncrono inicia una instancia en segundo plano (headless), realiza el login seguro y navega al <em>Control de Presencia Transversal</em>.</li>
+        <li><strong>Inyección de Filtros Operativos:</strong> Selecciona automáticamente la gerencia y delegación (Barcelona 0801), acota el rango del mes y procesa los registros de fichajes.</li>
+        <li><strong>Normalización y Conciliación:</strong> Cruza los fichajes reales con los turnos teóricos previstos en SAP HO para resaltar ausencias, retrasos o fichajes fuera de cuadrante.</li>
+        <li><strong>Ejecutable directo:</strong> Integrado en un <code>.bat</code> para que la actualización de presencia sea a demanda con un solo clic.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="num">4</span> Argumentario Rápido ante Preguntas Típicas
+    </div>
+    <div class="content-box">
+      <ul>
+        <li><strong>"¿Cómo has hecho tantas pantallas y módulos tú solo?"</strong><br>
+          <em>"Tengo una estructura base modular muy limpia en CSS y JavaScript que he ido reutilizando: un patrón de componentes idéntico para cuadrantes, absentismo, fichajes y censo, cambiando solo la fuente de datos."</em></li>
+        <li><strong>"¿Por qué no lo montaste en Excel o PowerBI?"</strong><br>
+          <em>"Porque Excel colapsa al cruzar miles de registros y no permite interactividad personalizada (alertas de bajas, gestión de sustitutos en vivo); y PowerBI no te permite accionar operativamente ni editar datos al momento."</em></li>
+        <li><strong>"¿Dónde se guardan los datos?"</strong><br>
+          <em>"En esquemas JSON locales estructurados que actúan como caché intermedia de alto rendimiento, evitando saturar los servidores de la empresa."</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Documento Técnico Interno — Delegación Barcelona (0801) SIFU</span>
+    <span>Arquitectura de Sistemas, Integración y Operaciones</span>
+  </div>
+
+</body>
+</html>

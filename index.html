@@ -4,57 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- NUCLEAR CACHE BUSTER - FORCE SW UNREGISTER, CACHE CLEAR & AUTO-RELOAD -->
+    <!-- LIMPIEZA SILENCIOSA DE SERVICE WORKERS ANTIGUOS (sin recargar la página).
+         El antiguo "Nuclear Cache Buster" forzaba una recarga completa en cada visita
+         (bucle con el SW que registraba dist/main.js). Ahora la frescura la garantiza
+         el servidor con ETag/304. -->
     <script>
-        (function() {
-            let cleared = false;
-            
-            // Desregistrar Service Worker
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    if (registrations.length > 0) {
-                        for(let registration of registrations) {
-                            registration.unregister();
-                        }
-                        cleared = true;
-                    }
-                });
-            }
-            
-            // Borrar Cache Storage
-            if ('caches' in window) {
-                caches.keys().then(function(names) {
-                    if (names.length > 0) {
-                        for (let name of names) {
-                            caches.delete(name);
-                        }
-                        cleared = true;
-                    }
-                });
-            }
-            
-            // Forzar recarga si no se ha aplicado la versión 2.6 del bust
-            setTimeout(() => {
-                if (cleared || !localStorage.getItem('cache_bust_v26_dia')) {
-                    localStorage.setItem('cache_bust_v26_dia', 'true');
-                    console.log('🔄 Forzando recarga de página limpia...');
-                    window.location.reload(true);
-                }
-            }, 250);
-        })();
+        // PURGA TOTAL DE SERVICE WORKERS Y CACHE STORAGE
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (regs) {
+                regs.forEach(function (r) { r.unregister(); });
+            }).catch(function () {});
+        }
+        if ('caches' in window) {
+            caches.keys().then(function (names) {
+                names.forEach(function (name) { caches.delete(name); });
+            }).catch(function () {});
+        }
     </script>
-    <title>SIFU | PANEL DE CONTROL v8.2</title>
+    <title>SIFU BARCELONA | PANEL DE CONTROL v8.2</title>
 
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Sistema avanzado de gestión operativa predictiva">
+    <meta name="description" content="Sistema avanzado de gestión operativa predictiva - Delegación Barcelona (0801)">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SIFU Informer">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icon-192.png">
-    <link rel="stylesheet" href="cmh_styles.css?v=3.2">
+    <link rel="stylesheet" href="cmh_styles.css?v=4.0">
     <link rel="stylesheet" href="fichajes_styles.css?v=2.7">
+    <link rel="stylesheet" href="fichajes_live.css?v=2.0">
+    <link rel="stylesheet" href="ho_vacaciones_module.css?v=20261028_2305">
+    <link rel="stylesheet" href="ho_auto_supervisor.css?v=2.5">
+    <link rel="stylesheet" href="clientes_styles.css?v=7.0">
+    <link rel="stylesheet" href="enterprise_platform.css?v=20261105_v9_enterprise">
+    <link rel="stylesheet" href="ho_god_sync.css?v=3.0">
 
     <!-- MODAL ENGINE STYLES (God Mode) -->
     <style>
@@ -236,7 +220,14 @@
         }
 
         #girona-pro-root {
-            display: block !important;
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        #sifu-enterprise-root {
+            display: flex !important;
             min-height: 100vh;
             width: 100%;
         }
@@ -248,8 +239,10 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="dist/main.css?v=sifu-sync-force-11">
-    <link rel="stylesheet" href="supervisor_styles.css?v=24">
-    <link rel="stylesheet" href="girona_pro_app.css?v=9.7">
+    <link rel="stylesheet" href="supervisor_styles.css?v=30">
+    <link rel="stylesheet" href="girona_pro_app.css?v=13.1">
+    <link rel="stylesheet" href="ho_intelligent_review.css?v=2.3">
+    <link rel="stylesheet" href="ho_auto_supervisor.css?v=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -335,8 +328,11 @@
         SifuAuth.init();
     </script>
 
-    <!-- CONTENEDOR PRINCIPAL DIRECTO: SIFU GIRONA OPERACIONES PRO -->
-    <div id="girona-pro-root"></div>
+    <!-- PLATAFORMA INTEGRAL SIFU ENTERPRISE (NUEVO DISEÑO v2.0) -->
+    <div id="sifu-enterprise-root"></div>
+
+    <!-- CONTENEDOR SECUNDARIO HEREDADO -->
+    <div id="girona-pro-root" style="display: none !important;"></div>
 
     <!-- Subtle Google-style background blobs -->
     <div class="bg-blob"></div>
@@ -359,7 +355,11 @@
                                 style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); letter-spacing: 0.5px;">
                                 👁️ VISIÓN DIRECTIVA
                             </button>
-                            <button id="btn-header-supervisor" class="supervisor-badge-btn" onclick="window.openSupervisorModal()">
+                            <button id="btn-header-sync-ho" class="supervisor-badge-btn ho-god-header-btn-badge" onclick="if(window.HOGodSync){window.HOGodSync.openHUD();window.HOGodSync.triggerSync();}else if(window.HOVacacionesExplorer){window.HOVacacionesExplorer.syncAllLive(false);}" style="background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); color: white; border: 1px solid #7dd3fc; box-shadow: 0 0 14px rgba(14, 165, 233, 0.45);" title="Sincronización Maestra SAP S/4HANA HO (Nivel Dios: Carteras, Censo, Cuadrantes, Vacaciones y Coberturas)">
+                                <span>🔄</span>
+                                <span>SINCRONIZAR HO (NIVEL DIOS)</span>
+                            </button>
+                            <button id="btn-header-supervisor" class="supervisor-badge-btn" onclick="switchTab('supervisor')">
                                 <span class="supervisor-pulse-dot"></span>
                                 <span>🤖 SUPERVISOR HO [ONLINE]</span>
                             </button>
@@ -456,7 +456,7 @@
                             <button class="tab-btn" data-tab="avanzado" onclick="switchTab('avanzado')">
                                 <span>🚀</span> AVANZADO
                             </button>
-                            <button class="tab-btn" data-tab="supervisor" onclick="window.openSupervisorModal()" style="background: linear-gradient(135deg, #0d324d 0%, #7f5a83 100%); color: white !important; font-weight: 800; border-radius: 8px;">
+                            <button class="tab-btn" data-tab="supervisor" onclick="switchTab('supervisor')">
                                 <span>🤖</span> SUPERVISOR HO
                             </button>
                             <button class="tab-btn" data-tab="cmh" onclick="if(window.AppState){window.AppState.activeTab='cmh'; if(window.renderAppShell) window.renderAppShell();} else {switchTab('cmh');}">
@@ -825,7 +825,7 @@
                                 <div class="summary-dashboard-header" style="margin-bottom: 10px; text-align: left; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
                                     <div>
                                         <h2 class="dash-title-gradient">CUADRO DE MANDO OPERATIVO</h2>
-                                        <p style="color: var(--text-muted); font-size: 13.5px; margin: 0;">Análisis en tiempo real del rendimiento, estabilidad del servicio y absentismo en Girona</p>
+                                        <p style="color: var(--text-muted); font-size: 13.5px; margin: 0;">Análisis en tiempo real del rendimiento, estabilidad del servicio y absentismo en Barcelona (0801)</p>
                                     </div>
                                     <div id="network-status-badge" style="display: flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; transition: all 0.3s ease;">
                                         <span id="network-status-dot" class="status-pulse-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: pulse-dot-anim 1.5s infinite; transition: all 0.3s ease;"></span>
@@ -1409,6 +1409,10 @@
                         </div>
                     </div> <!-- Cierre de div de la línea 1264 -->
                 </div> <!-- Cierre de tab-avanzado -->
+
+                <div class="tab-content" id="tab-supervisor">
+                    <!-- Contenedor integrado del Supervisor Virtual Autónomo (SAP S/4HANA) -->
+                </div>
             </div> <!-- Cierre de operational-hub -->
         </div> <!-- Cierre de dashboard-grid -->
     </main>
@@ -1715,25 +1719,51 @@
     <!-- Microsoft Authentication Library -->
     <script src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js"></script>
 
+    <!-- REGLA MAESTRA UNIVERSAL SOCIEDADES P1 (SIFU) vs P2 (EPID) -->
+    <script src="sifu_sociedades_rules.js?v=2.0-dual"></script>
+
     <!-- Local Data Files -->
     <script src="master_data.js"></script>
     <script src="special_covering_data.js"></script>
     <script src="orders_data.js"></script>
     <script src="supervisor_data.js?v=24"></script>
     <script src="supervisor_log_live.js?v=24"></script>
-    <script src="supervisor_panel.js?v=27" defer></script>
+    <script src="supervisor_panel.js?v=30" defer></script>
 
     <!-- Main Entry Point Module -->
     <script src="dist/main.js?v=sifu-sync-force-11" defer></script>
     <script src="vacation_module.js" defer></script>
-    <!-- SIFU GIRONA CMH & AUDITORÍA SAP S/4HANA -->
-    <script src="cmh_module.js?v=3.2" defer></script>
-    <!-- SIFU GIRONA FICHAJES & CONTROL DE PRESENCIA EN TIEMPO REAL -->
-    <script src="fichajes_data.js?v=1.0"></script>
-    <script src="fichajes_contraste_data.js?v=2.0"></script>
-    <script src="fichajes_module.js?v=2.7" defer></script>
-    <!-- SIFU GIRONA OPERACIONES PRO SUITE v9.7 (PC & MOBILE) -->
-    <script src="girona_pro_app.js?v=9.7" defer></script>
+    <!-- SIFU BARCELONA CMH & AUDITORÍA SAP S/4HANA -->
+    <script src="cmh_bcn_data.js?v=20261105_v11_clean_indra"></script>
+    <script src="cmh_module.js?v=5.0" defer></script>
+    <!-- BAJAS DEFINITIVAS DE EMPRESA (FUERA DE EMPRESA) -->
+    <script src="bajas_empresa_data.js?v=1.0"></script>
+    <!-- CARTERAS Y PLANTILLA SAP S/4HANA HO BARCELONA 0801 (TIEMPO REAL MULTI-GESTOR 9 GESTORES) -->
+    <script src="ho_carteras_data.js?v=3.0"></script>
+    <!-- SIFU BARCELONA FICHAJES & CONTROL DE PRESENCIA EN TIEMPO REAL -->
+    <script src="fichajes_contraste_data.js?v=20261105_v11_clean_indra"></script>
+    <script src="fichajes_data.js?v=5.0"></script>
+    <script src="fichajes_carteras_unifier.js?v=2.0"></script>
+    <script src="fichajes_module.js?v=3.2" defer></script>
+    <script src="fichajes_live.js?v=2.1" defer></script>
+    <!-- 2.3 REVISIÓN HO INTELIGENTE · DIRECTOR DE OPERACIONES VIRTUAL -->
+    <script src="ho_intelligent_review.js?v=4.0" defer></script>
+    <!-- 2.4 VACACIONES TRABAJADORES · EXPLORADOR WINDOWS SAP S/4HANA HO 100% EN VIVO -->
+    <script src="ho_vacaciones_data.js?v=20261028_2245" defer></script>
+    <script src="ho_vacaciones_module.js?v=20261028_2305" defer></script>
+    <!-- 2.5 HO 2.0 AUTO · SUPERVISOR OPERATIVO IA 24x7 (BARCELONA) -->
+    <script src="ho_auto_engine.js?v=3.1-dual" defer></script>
+    <script src="ho_auto_supervisor.js?v=3.0-oficio" defer></script>
+    <!-- 5. ESTUDIO ECONÓMICO & ESCANDALLO OFICIAL PRO SIFU -->
+    <script src="estudio_economico_module.js?v=3.0" defer></script>
+    <!-- 6. CLIENTES & PLIEGOS TÉCNICOS (6.1 INDRA ROC BORONAT) -->
+    <script src="clientes_module.js?v=5.0" defer></script>
+    <!-- BCN SIFU OPERACIONES PRO SUITE (BARCELONA 0801 · PC & MOBILE) -->
+    <script src="girona_pro_app.js?v=14.0" defer></script>
+    <!-- SIFU ENTERPRISE OPERATIONS PLATFORM (PLATAFORMA EMPRESARIAL INTEGRAL) -->
+    <script src="enterprise_platform.js?v=20261105_v11_clean_indra"></script>
+    <!-- ORQUESTADOR MAESTRO DE SINCRONIZACIÓN SAP HO (NIVEL DIOS) -->
+    <script src="ho_god_sync.js?v=3.0" defer></script>
 
     <!-- UI Interactions Inline Script -->
     <script>

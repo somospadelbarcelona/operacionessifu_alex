@@ -1,0 +1,985 @@
+/* ============================================================================
+   SIFU GIRONA OPERACIONES PRO — SECCIÓN 6. CLIENTES (6.1 INDRA ROC BORONAT)
+   Estilos Ejecutivos para Gestión Técnica de Pliegos, Plantas, Frecuencias y Cuadrantes
+   Centro: INDRA ROC BORONAT (ESCATA02) — C/ Roc Boronat 133, 22@ Barcelona
+   ============================================================================ */
+
+/* Contenedor Principal */
+.clientes-container {
+  width: 100% !important;
+  max-width: 1600px !important;
+  margin: 0 auto !important;
+  padding: 16px 20px 60px !important;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: #0f172a !important;
+  box-sizing: border-box !important;
+}
+
+/* Hero Banner Corporativo Indra */
+.indra-hero-card {
+  background: linear-gradient(135deg, #071e3d 0%, #0033a0 45%, #0284c7 100%) !important;
+  border-radius: 16px !important;
+  padding: 24px 28px !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 30px -6px rgba(0, 51, 160, 0.35) !important;
+  margin-bottom: 22px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.indra-hero-card::after {
+  content: 'INDRA' !important;
+  position: absolute !important;
+  right: -25px !important;
+  bottom: -35px !important;
+  font-size: 130px !important;
+  font-weight: 900 !important;
+  color: rgba(255, 255, 255, 0.05) !important;
+  letter-spacing: 8px !important;
+  pointer-events: none !important;
+}
+
+.indra-hero-content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.indra-hero-left {
+  flex: 1 !important;
+  min-width: 320px !important;
+}
+
+.indra-hero-badges {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 10px !important;
+}
+
+.indra-badge-pill {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.indra-badge-pill.strategic {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+}
+
+.indra-badge-pill.status-live {
+  background: rgba(16, 185, 129, 0.25) !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  color: #a7f3d0 !important;
+}
+
+.indra-badge-pill.sap {
+  background: rgba(2, 132, 199, 0.35) !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  color: #bae6fd !important;
+  font-family: monospace !important;
+}
+
+.indra-hero-title {
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  margin: 0 0 8px 0 !important;
+  letter-spacing: -0.5px !important;
+}
+
+.hub-name {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #93c5fd !important;
+}
+
+.indra-hero-desc {
+  font-size: 13.5px !important;
+  color: #e0f2fe !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+  max-width: 900px !important;
+}
+
+.indra-badge-tag {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 3px 9px !important;
+  border-radius: 6px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.indra-hero-sub {
+  font-size: 13.5px !important;
+  color: #e0f2fe !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  flex-wrap: wrap !important;
+  margin-top: 6px !important;
+}
+
+.indra-hero-sub span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.indra-hero-actions {
+  display: flex !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.indra-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 9px 16px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.indra-btn-primary {
+  background: #ffffff !important;
+  color: #0033a0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.indra-btn-primary:hover {
+  background: #f0f9ff !important;
+  transform: translateY(-2px) !important;
+}
+
+.indra-btn-secondary {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.indra-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Grid de KPIs Superiores */
+.indra-kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+  gap: 14px !important;
+  margin-bottom: 22px !important;
+}
+
+.indra-kpi-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  padding: 16px 20px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  transition: all 0.2s ease !important;
+}
+
+.indra-kpi-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08) !important;
+}
+
+.indra-kpi-card-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+}
+
+.indra-kpi-top {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+.indra-kpi-label {
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: #64748b !important;
+}
+
+.indra-kpi-icon-wrap {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+}
+
+.indra-kpi-value {
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  margin-bottom: 4px !important;
+  line-height: 1.15 !important;
+}
+
+.indra-kpi-meta {
+  font-size: 12px !important;
+  color: #64748b !important;
+}
+
+/* Navegación Interna PILL-TABS */
+.indra-nav-container {
+  display: flex !important;
+  gap: 10px !important;
+  background: #ffffff !important;
+  padding: 8px !important;
+  border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-bottom: 24px !important;
+  overflow-x: auto !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+.indra-tab-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 18px !important;
+  border-radius: 10px !important;
+  border: 1px solid transparent !important;
+  background: #f8fafc !important;
+  color: #475569 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+}
+
+.indra-tab-pill:hover {
+  background: #f1f5f9 !important;
+  color: #0033a0 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.indra-tab-pill.active {
+  background: #0033a0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 51, 160, 0.3) !important;
+  border-color: #0033a0 !important;
+}
+
+.pill-counter {
+  background: rgba(0, 0, 0, 0.08) !important;
+  padding: 2px 8px !important;
+  border-radius: 10px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  margin-left: 4px !important;
+}
+
+.indra-tab-pill.active .pill-counter {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* ============================================================================
+   PESTAÑA 1: PLAN DE PLANTAS & EDIFICIO (LAYOUT 2 COLUMNAS)
+   ============================================================================ */
+.indra-plantas-grid {
+  display: grid !important;
+  grid-template-columns: 340px 1fr !important;
+  gap: 24px !important;
+  align-items: start !important;
+}
+
+@media (max-width: 1024px) {
+  .indra-plantas-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Columna Izquierda: Tarjeta del Edificio y Niveles */
+.indra-building-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 18px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+.indra-building-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.indra-building-title {
+  font-size: 13.5px !important;
+  font-weight: 900 !important;
+  color: #0033a0 !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.indra-building-badge {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+}
+
+.indra-levels-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.indra-level-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 12px 14px !important;
+  border-radius: 12px !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.indra-level-item:hover {
+  background: #f0f9ff !important;
+  border-color: #38bdf8 !important;
+  transform: translateX(3px) !important;
+}
+
+.indra-level-item.active {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border-color: #0033a0 !important;
+  box-shadow: 0 4px 14px rgba(0, 51, 160, 0.15) !important;
+  transform: translateX(4px) !important;
+}
+
+.indra-level-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.indra-level-num-badge {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 8px !important;
+  background: #334155 !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-size: 12.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.indra-level-item.active .indra-level-num-badge {
+  background: #0033a0 !important;
+  box-shadow: 0 2px 6px rgba(0, 51, 160, 0.4) !important;
+}
+
+.indra-level-name {
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+.indra-level-item.active .indra-level-name {
+  color: #0033a0 !important;
+  font-weight: 900 !important;
+}
+
+.indra-level-sub {
+  font-size: 11px !important;
+  color: #64748b !important;
+  margin-top: 2px !important;
+}
+
+.indra-level-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 4px !important;
+}
+
+.indra-level-progress-pill {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  padding: 2px 7px !important;
+  border-radius: 6px !important;
+}
+
+.indra-level-worker {
+  font-size: 11px !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  max-width: 95px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Columna Derecha: Panel de Detalle de Planta */
+.indra-floor-detail {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+.indra-floor-header-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 22px 26px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+.indra-floor-title-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+.indra-floor-main-title {
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  margin: 0 0 6px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.indra-floor-desc {
+  font-size: 13px !important;
+  color: #475569 !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+}
+
+.btn-quick-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+}
+
+.btn-quick-action:hover {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-quick-action.primary {
+  background: #0033a0 !important;
+  color: #ffffff !important;
+  border-color: #0033a0 !important;
+}
+
+.btn-quick-action.primary:hover {
+  background: #002270 !important;
+}
+
+/* Metadatos de la Planta */
+.indra-floor-meta-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  gap: 12px !important;
+  margin-bottom: 18px !important;
+}
+
+.indra-floor-meta-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+}
+
+.indra-floor-meta-lbl {
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #64748b !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 4px !important;
+}
+
+.indra-floor-meta-val {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+/* Asignación de Operario en la Planta */
+.indra-worker-assign-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  border: 1.5px solid #86efac !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  margin-bottom: 18px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+}
+
+.indra-worker-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.indra-worker-avatar {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  background: #15803d !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25) !important;
+}
+
+.indra-worker-name {
+  font-size: 14px !important;
+  color: #14532d !important;
+}
+
+.indra-worker-sub {
+  font-size: 12px !important;
+  color: #166534 !important;
+  margin-top: 2px !important;
+}
+
+.indra-worker-select-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.indra-select {
+  padding: 7px 12px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #16a34a !important;
+  background: #ffffff !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  color: #14532d !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+/* Barra de Progreso de Planta */
+.indra-progress-container {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+}
+
+.indra-progress-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+  margin-bottom: 8px !important;
+}
+
+.indra-progress-bar-bg {
+  height: 8px !important;
+  background: #e2e8f0 !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+}
+
+.indra-progress-bar-fill {
+  height: 100% !important;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%) !important;
+  transition: width 0.3s ease !important;
+}
+
+/* Grupos de Frecuencia de Tareas */
+.indra-tasks-frequency-group {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 20px 22px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+.indra-freq-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.indra-freq-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+}
+
+.indra-freq-badge {
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  padding: 4px 12px !important;
+  border-radius: 8px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+}
+
+.badge-diaria {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.badge-alterna {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd !important;
+}
+
+.badge-semanal {
+  background: #f3e8ff !important;
+  color: #6b21a8 !important;
+  border: 1px solid #e9d5ff !important;
+}
+
+.badge-brigada {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+  border: 1px solid #fecaca !important;
+}
+
+.indra-freq-schedule {
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+  background: #f8fafc !important;
+  padding: 3px 10px !important;
+  border-radius: 6px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.indra-tasks-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Ítem Individual de Tarea con Checkbox */
+.indra-task-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.indra-task-item:hover {
+  border-color: #94a3b8 !important;
+  background: #f8fafc !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+}
+
+.indra-task-item.completed {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+}
+
+.indra-task-checkbox {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 6px !important;
+  border: 2px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  transition: all 0.15s ease !important;
+  margin-top: 1px !important;
+}
+
+.indra-task-item.completed .indra-task-checkbox {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+}
+
+.indra-task-content {
+  flex: 1 !important;
+}
+
+.indra-task-title {
+  margin: 0 0 4px 0 !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+}
+
+.indra-task-item.completed .indra-task-title {
+  color: #166534 !important;
+  text-decoration: line-through !important;
+}
+
+.indra-task-meta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 11.5px !important;
+  flex-wrap: wrap !important;
+  margin-top: 6px !important;
+}
+
+.indra-task-badge-tag {
+  background: #e2e8f0 !important;
+  color: #334155 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* ============================================================================
+   PESTAÑAS 2, 3, 4, 5: PLIEGO, CUADRANTE, PAPELERA Y AUDITORÍA
+   ============================================================================ */
+.indra-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 24px 28px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+  margin-bottom: 22px !important;
+}
+
+.indra-card-title {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  margin: 0 0 18px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.indra-papelera-banner {
+  background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+  border-radius: 14px !important;
+  padding: 20px 24px !important;
+  color: #ffffff !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  margin: 20px 0 !important;
+}
+
+/* Cuadrantes de Turnos */
+.indra-shifts-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 18px !important;
+  margin-bottom: 24px !important;
+}
+
+.indra-shift-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  padding: 18px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.indra-shift-top {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: 10px !important;
+}
+
+.indra-shift-title {
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.indra-shift-time {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #0033a0 !important;
+}
+
+.indra-shift-workers-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding-top: 12px !important;
+}
+
+.indra-shift-worker-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 12.5px !important;
+}
+
+.indra-shift-worker-row .name {
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+.indra-shift-worker-row .role {
+  font-size: 11.5px !important;
+  color: #64748b !important;
+}
+
+/* Papelera Única Resumen */
+.indra-recycle-bars-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 14px !important;
+  margin-bottom: 22px !important;
+}
+
+.indra-recycle-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+}
+
+.indra-recycle-card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+.indra-recycle-card-title {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+.indra-recycle-card-val {
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  color: #0033a0 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Tablas Corporativas */
+.indra-table-responsive {
+  overflow-x: auto !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+}
+
+.indra-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 12.5px !important;
+  text-align: left !important;
+}
+
+.indra-table th {
+  background: #f8fafc !important;
+  padding: 12px 16px !important;
+  font-weight: 800 !important;
+  color: #475569 !important;
+  border-bottom: 1.5px solid #e2e8f0 !important;
+}
+
+.indra-table td {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.indra-table tr:hover td {
+  background: #f8fafc !important;
+}

@@ -977,10 +977,27 @@ select.fich-col-filter {
   border: 1px solid #c4b5fd;
 }
 
+.fich-check-badge.badge-vacaciones {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+}
+
+.fich-check-badge.badge-descanso {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
 .fich-worker-card.is-baja {
   opacity: 0.9;
   border-color: #ddd6fe;
   background: #faf5ff;
+}
+
+.fich-worker-card.is-vacaciones {
+  border-color: #bae6fd;
+  background: #f0f9ff;
 }
 
 

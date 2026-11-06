@@ -4008,7 +4008,7 @@ body {
 }
 
 @media print {
-  body > * {
+  body > *:not(#girona-pro-root) {
     display: none !important;
   }
 

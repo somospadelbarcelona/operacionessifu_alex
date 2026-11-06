@@ -1,0 +1,944 @@
+/* ==========================================================================
+   2.3 REVISIÓN HO INTELIGENTE — DIRECTOR DE OPERACIONES VIRTUAL AUTÓNOMO
+   Auditoría Continua y Auto-Corrección en Tiempo Real de Cuadrantes y Asignaciones
+   Delegación SIFU Girona · Responsable: ALEJANDRO COSCOLIN
+   ========================================================================== */
+
+.ho-intel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  animation: hoFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1e293b;
+}
+
+@keyframes hoFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header Ejecutivo */
+.ho-intel-header {
+  background: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e293b 100%);
+  border-radius: 14px;
+  padding: 22px 26px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ho-intel-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+}
+
+.ho-intel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+
+.ho-intel-logo-icon {
+  font-size: 34px;
+  width: 58px;
+  height: 58px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.ho-radar-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+  animation: hoRadarPulse 1.8s infinite;
+}
+
+@keyframes hoRadarPulse {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.ho-intel-title-text h1 {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.ho-intel-badge-senior {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.ho-intel-badge-live {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ho-intel-subtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.ho-intel-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.ho-intel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ho-intel-btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+}
+
+.ho-intel-btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-1px);
+}
+
+.ho-intel-btn-autofix {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.ho-intel-btn-autofix:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+}
+
+.ho-intel-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ho-intel-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* Dictamen Ejecutivo Banner */
+.ho-intel-verdict-banner {
+  background: #ffffff;
+  border-radius: 12px;
+  border-left: 5px solid #0284c7;
+  padding: 16px 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ho-intel-verdict-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ho-intel-verdict-title {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #0369a1;
+  background: #f0f9ff;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.ho-intel-verdict-meta {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.ho-intel-verdict-body {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #334155;
+  margin: 0;
+}
+
+/* Scorecard KPIs */
+.ho-intel-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.ho-intel-kpi-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ho-intel-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.ho-intel-kpi-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #94a3b8;
+}
+
+.ho-intel-kpi-card.kpi-success::after { background: #10b981; }
+.ho-intel-kpi-card.kpi-warning::after { background: #f59e0b; }
+.ho-intel-kpi-card.kpi-danger::after { background: #ef4444; }
+.ho-intel-kpi-card.kpi-primary::after { background: #0284c7; }
+
+.ho-intel-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ho-intel-kpi-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.ho-intel-kpi-icon {
+  font-size: 18px;
+}
+
+.ho-intel-kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.ho-intel-kpi-value {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.ho-intel-kpi-subtag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.ho-intel-kpi-subtag.success { background: #dcfce7; color: #15803d; }
+.ho-intel-kpi-subtag.warning { background: #fef3c7; color: #b45309; }
+.ho-intel-kpi-subtag.danger { background: #fee2e2; color: #b91c1c; }
+
+.ho-intel-kpi-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Navegación por Pilares */
+.ho-intel-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 2px;
+  overflow-x: auto;
+}
+
+.ho-intel-tab-btn {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ho-intel-tab-btn:hover {
+  color: #0284c7;
+}
+
+.ho-intel-tab-btn.active {
+  color: #0284c7;
+  border-bottom-color: #0284c7;
+}
+
+.ho-intel-tab-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.ho-intel-tab-badge.danger { background: #fee2e2; color: #b91c1c; }
+.ho-intel-tab-badge.warning { background: #fef3c7; color: #b45309; }
+.ho-intel-tab-badge.success { background: #dcfce7; color: #15803d; }
+
+/* ==========================================================================
+   PANEL AUTÓNOMO EN VIVO (PILAR 1)
+   ========================================================================== */
+
+.ho-autonomous-panel {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ho-scanner-controls-bar {
+  background: #f8fafc;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ho-scanner-status-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ho-scanner-pulse-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ho-pulse-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: hoRadarPulse 1.6s infinite;
+}
+
+.ho-pulse-circle.paused {
+  background: #94a3b8;
+  animation: none;
+}
+
+.ho-scanner-progress-container {
+  flex: 1;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ho-scanner-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.ho-progress-track {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.ho-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0284c7 0%, #10b981 100%);
+  border-radius: 99px;
+  transition: width 0.35s ease;
+}
+
+.ho-scanner-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Área de contenido del escáner dividido (Tarjeta de proyecto + Terminal en directo) */
+.ho-scanner-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0;
+  min-height: 480px;
+}
+
+@media (max-width: 1100px) {
+  .ho-scanner-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta del proyecto en análisis en vivo */
+.ho-scanner-card-view {
+  padding: 24px;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+}
+
+.ho-card-meta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ho-card-proy-code {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.ho-card-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ho-card-client-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ho-card-service-desc {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+  margin: 0;
+}
+
+.ho-card-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+}
+
+.ho-card-info-table td {
+  padding: 6px 10px;
+  font-size: 12.5px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ho-card-info-table td.label {
+  font-weight: 700;
+  color: #64748b;
+  width: 130px;
+}
+
+.ho-card-info-table td.value {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Diagnóstico del Cuadrante */
+.ho-diagnostic-box {
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ho-diagnostic-box.ok {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.ho-diagnostic-box.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.ho-diag-header {
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+}
+
+/* Snippet Visual del Cuadrante en Vivo */
+.ho-quadrant-snippet {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.ho-qs-header {
+  background: #f1f5f9;
+  padding: 8px 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #475569;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ho-qs-matrix {
+  display: grid;
+  grid-template-columns: 140px repeat(14, 1fr);
+  gap: 2px;
+  padding: 8px;
+  overflow-x: auto;
+  font-size: 11px;
+}
+
+.ho-qs-head-cell {
+  font-weight: 800;
+  color: #64748b;
+  text-align: center;
+  padding: 4px 2px;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.ho-qs-worker-cell {
+  font-weight: 700;
+  color: #1e293b;
+  padding: 6px 8px;
+  background: #ffffff;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ho-qcell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 10px;
+}
+
+.ho-qcell.ti { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+.ho-qcell.bj { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+.ho-qcell.sb { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+.ho-qcell.desc { background: #ffedd5; color: #c2410c; border: 1px solid #fdba74; animation: hoRadarPulse 1.2s infinite; }
+.ho-qcell.vc { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+.ho-qcell.d { background: #f1f5f9; color: #94a3b8; }
+
+/* Caja de Auto-Corrección Sugerida */
+.ho-autofix-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ho-autofix-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #15803d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ho-candidate-card {
+  background: #ffffff;
+  border-radius: 9px;
+  padding: 12px 14px;
+  border: 1px solid #bbf7d0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ho-candidate-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ho-cand-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ho-cand-sub {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ho-cand-match-badge {
+  background: #15803d;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 99px;
+}
+
+/* Terminal de Auditoría en Directo */
+.ho-scanner-terminal-view {
+  background: #090d16;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ho-terminal-header {
+  background: #111827;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ho-terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.ho-term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.ho-term-dot.r { background: #ef4444; }
+.ho-term-dot.y { background: #f59e0b; }
+.ho-term-dot.g { background: #10b981; }
+
+.ho-terminal-title {
+  font-family: monospace;
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.ho-terminal-body {
+  padding: 16px;
+  overflow-y: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 480px;
+}
+
+.ho-log-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  word-break: break-word;
+}
+
+.ho-log-time {
+  color: #64748b;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.ho-log-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.ho-log-badge.ok { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.ho-log-badge.alert { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.ho-log-badge.error { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.ho-log-badge.fix { background: rgba(14, 165, 233, 0.25); color: #38bdf8; }
+
+.ho-log-msg {
+  color: #cbd5e1;
+}
+
+.ho-log-msg.highlight {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   PARRILLA DE CUADRANTES Y SERVICIOS (PILAR 2)
+   ========================================================================== */
+
+.ho-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+
+.ho-service-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.ho-service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ho-service-card.has-error {
+  border-color: #fca5a5;
+  background: #fffafa;
+}
+
+.ho-sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ho-sc-client {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.ho-sc-proy {
+  font-family: monospace;
+  font-size: 11px;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #475569;
+}
+
+.ho-sc-assignment-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  padding: 6px 0;
+  border-top: 1px solid #f1f5f9;
+}
+
+.ho-sc-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Estilos de Tablas y Listados */
+.ho-intel-table-wrap {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.ho-intel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  text-align: left;
+}
+
+.ho-intel-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 800;
+  padding: 12px 14px;
+  border-bottom: 2px solid #e2e8f0;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.ho-intel-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.ho-intel-table tr:hover td {
+  background: #f8fafc;
+}
+
+/* Modal de Cuadrante Detallado */
+.ho-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: hoFadeIn 0.2s ease;
+}
+
+.ho-modal-box {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 950px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.ho-modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 16px 16px 0 0;
+}
+
+.ho-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -161,14 +161,26 @@ console.log('💎 Loading Modal System v5.0...');
         });
     }
 
-    // Run when ready
+    // Delegated click listener - Zero overhead, survives DOM rebuilds
+    document.addEventListener('click', function (e) {
+        const el = e.target.closest('#metric-uncovered, #metric-absences, #metric-incidents');
+        if (!el) return;
+        if (el.id === 'metric-uncovered' && typeof window.showUncoveredDetails === 'function') {
+            e.preventDefault();
+            window.showUncoveredDetails();
+        } else if (el.id === 'metric-absences' && typeof window.showAbsenceDetails === 'function') {
+            e.preventDefault();
+            window.showAbsenceDetails();
+        } else if (el.id === 'metric-incidents' && typeof window.showIncidentDetails === 'function') {
+            e.preventDefault();
+            window.showIncidentDetails();
+        }
+    });
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', attachListeners);
     } else {
         attachListeners();
     }
-
-    // Emergency backup check every 2 seconds (in case DOM is rebuilt)
-    setInterval(attachListeners, 2000);
 
 })();

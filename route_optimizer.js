@@ -15,30 +15,68 @@ const RouteOptimizer = {
     },
 
     buildLocationDatabase() {
-        // Base de datos de coordenadas (simuladas para Barcelona y alrededores)
+        // Base de datos geoespacial oficial de Municipios y Comarcas de BARCELONA (Delegación 0801)
         this.locations = new Map([
-            ['Barcelona', { lat: 41.3851, lng: 2.1734 }],
-            ['Badalona', { lat: 41.4502, lng: 2.2447 }],
-            ['Hospitalet', { lat: 41.3598, lng: 2.1006 }],
-            ['Cornellà', { lat: 41.3563, lng: 2.0752 }],
-            ['Sant Adrià', { lat: 41.4301, lng: 2.2201 }],
-            ['Esplugues', { lat: 41.3768, lng: 2.0878 }],
-            ['Sant Boi', { lat: 41.3431, lng: 2.0363 }],
-            ['Viladecans', { lat: 41.3145, lng: 2.0141 }],
-            ['Gavà', { lat: 41.3057, lng: 2.0012 }],
-            ['Castelldefels', { lat: 41.2814, lng: 1.9774 }]
+            ['Barcelona', { lat: 41.3851, lng: 2.1734, comarca: 'Barcelonès' }],
+            ['L\'Hospitalet de Llobregat', { lat: 41.3597, lng: 2.0997, comarca: 'Barcelonès' }],
+            ['Badalona', { lat: 41.4500, lng: 2.2474, comarca: 'Barcelonès' }],
+            ['Santa Coloma de Gramenet', { lat: 41.4515, lng: 2.2082, comarca: 'Barcelonès' }],
+            ['Sant Adrià de Besòs', { lat: 41.4306, lng: 2.2189, comarca: 'Barcelonès' }],
+            ['Cornellà de Llobregat', { lat: 41.3570, lng: 2.0722, comarca: 'Baix Llobregat' }],
+            ['El Prat de Llobregat', { lat: 41.3275, lng: 2.0947, comarca: 'Baix Llobregat' }],
+            ['Sant Boi de Llobregat', { lat: 41.3461, lng: 2.0422, comarca: 'Baix Llobregat' }],
+            ['Viladecans', { lat: 41.3142, lng: 2.0114, comarca: 'Baix Llobregat' }],
+            ['Gavà', { lat: 41.3061, lng: 2.0039, comarca: 'Baix Llobregat' }],
+            ['Castelldefels', { lat: 41.2800, lng: 1.9764, comarca: 'Baix Llobregat' }],
+            ['Sant Feliu de Llobregat', { lat: 41.3833, lng: 2.0500, comarca: 'Baix Llobregat' }],
+            ['Esplugues de Llobregat', { lat: 41.3769, lng: 2.0858, comarca: 'Baix Llobregat' }],
+            ['Sant Joan Despí', { lat: 41.3703, lng: 2.0567, comarca: 'Baix Llobregat' }],
+            ['Sant Cugat del Vallès', { lat: 41.4722, lng: 2.0858, comarca: 'Vallès Occidental' }],
+            ['Sabadell', { lat: 41.5433, lng: 2.1094, comarca: 'Vallès Occidental' }],
+            ['Terrassa', { lat: 41.5633, lng: 2.0089, comarca: 'Vallès Occidental' }],
+            ['Rubí', { lat: 41.4925, lng: 2.0319, comarca: 'Vallès Occidental' }],
+            ['Cerdanyola del Vallès', { lat: 41.4914, lng: 2.1408, comarca: 'Vallès Occidental' }],
+            ['Ripollet', { lat: 41.4967, lng: 2.1578, comarca: 'Vallès Occidental' }],
+            ['Barberà del Vallès', { lat: 41.5161, lng: 2.1264, comarca: 'Vallès Occidental' }],
+            ['Granollers', { lat: 41.6078, lng: 2.2878, comarca: 'Vallès Oriental' }],
+            ['Mollet del Vallès', { lat: 41.5369, lng: 2.2131, comarca: 'Vallès Oriental' }],
+            ['Parets del Vallès', { lat: 41.5739, lng: 2.2333, comarca: 'Vallès Oriental' }],
+            ['Montcada i Reixac', { lat: 41.4864, lng: 2.1878, comarca: 'Vallès Oriental' }],
+            ['Mataró', { lat: 41.5381, lng: 2.4447, comarca: 'Maresme' }],
+            ['El Masnou', { lat: 41.4819, lng: 2.3167, comarca: 'Maresme' }],
+            ['Premià de Mar', { lat: 41.4917, lng: 2.3653, comarca: 'Maresme' }],
+            ['Vilassar de Mar', { lat: 41.5039, lng: 2.3928, comarca: 'Maresme' }]
         ]);
+
+        // Coordenadas centrales por Comarca de Barcelona
+        this.comarcaCoords = {
+            'Barcelonès': { lat: 41.3851, lng: 2.1734 },
+            'Baix Llobregat': { lat: 41.3500, lng: 2.0500 },
+            'Vallès Occidental': { lat: 41.5433, lng: 2.1094 },
+            'Vallès Oriental': { lat: 41.6078, lng: 2.2878 },
+            'Maresme': { lat: 41.5381, lng: 2.4447 },
+            'Garraf / Penedès': { lat: 41.2239, lng: 1.7258 }
+        };
+    },
+
+    getComarcaDistanceKm(comarcaA, comarcaB) {
+        if (!comarcaA || !comarcaB) return 15;
+        if (comarcaA === comarcaB) return 0;
+        const c1 = this.comarcaCoords[comarcaA] || this.comarcaCoords['Barcelonès'];
+        const c2 = this.comarcaCoords[comarcaB] || this.comarcaCoords['Barcelonès'];
+        return Math.round(this.calculateDistance(c1, c2));
     },
 
     analyzeWorkerRoutes() {
-        if (!window.state || !window.state.masterData) return;
+        const sourceData = (window.state && window.state.masterData) || window.INITIAL_MASTER_DATA;
+        if (!sourceData) return;
 
-        console.log('🔍 Analizando rutas de trabajadores...');
+        console.log('🔍 Analizando rutas de trabajadores en Barcelona (Delegación 0801)...');
 
         const workerRoutes = {};
 
         // Agrupar servicios por trabajador
-        window.state.masterData.forEach(service => {
+        sourceData.forEach(service => {
             const worker = service.TITULAR;
             if (!worker || service.ESTADO !== 'CUBIERTO') return;
 

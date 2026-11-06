@@ -11,7 +11,7 @@ const PWAInstaller = {
         console.log('📱 Inicializando PWA Installer...');
 
         // Registrar Service Worker
-        this.registerServiceWorker();
+        /* SW desactivado (rendimiento): provocaba bucle de recarga con index.html */
 
         // Detectar si ya está instalada
         this.checkIfInstalled();

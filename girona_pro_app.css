@@ -414,12 +414,280 @@
   border-radius: var(--g-radius);
   border: 1px solid var(--g-border);
   box-shadow: var(--g-shadow-sm);
-  overflow-x: auto;
-  scrollbar-width: none;
+  position: relative;
+  overflow: visible;
+  z-index: 100;
 }
 
 .pro-tabs-nav::-webkit-scrollbar {
   display: none;
+}
+
+.pro-nav-num {
+  font-weight: 800;
+  color: var(--g-primary);
+  font-size: 12px;
+  margin-right: 2px;
+  opacity: 0.95;
+}
+
+.pro-tab-item.active .pro-nav-num {
+  color: #38bdf8;
+}
+
+.pro-nav-subtext {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-left: 2px;
+}
+
+/* Contenedor y disparador de Menús Desplegables */
+.pro-nav-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.pro-dropdown-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.pro-dropdown-chevron {
+  display: inline-block;
+  font-size: 11px;
+  margin-left: 2px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.75;
+}
+
+.pro-nav-dropdown:hover .pro-dropdown-chevron,
+.pro-nav-dropdown.is-open .pro-dropdown-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Área de tolerancia hover */
+.pro-nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+/* Menú desplegable flotante */
+.pro-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 270px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid var(--g-border);
+  box-shadow: 0 14px 34px -4px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 1000;
+  animation: proMenuPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes proMenuPop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pro-nav-dropdown:hover .pro-dropdown-menu,
+.pro-nav-dropdown.is-open .pro-dropdown-menu {
+  display: flex;
+}
+
+.pro-dropdown-header {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--g-text-muted);
+  padding: 6px 12px 4px;
+}
+
+.pro-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--g-text);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.pro-dropdown-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.pro-dropdown-item.active {
+  background: #eff6ff;
+  color: #0284c7;
+}
+
+.pro-dropdown-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pro-dropdown-item-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pro-dropdown-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-dropdown-item-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: inherit;
+}
+
+.pro-dropdown-item-sub {
+  font-size: 10.5px;
+  color: var(--g-text-muted);
+  font-weight: 500;
+}
+
+.pro-dropdown-divider {
+  height: 1px;
+  background: var(--g-border);
+  margin: 4px 6px;
+}
+
+/* Barra de Navegación 1-Clic de Cartera */
+.pro-cartera-bar-clean {
+  max-width: 1600px;
+  margin: 0 auto 12px;
+  padding: 0 16px;
+}
+
+.pro-cartera-bar-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pro-segment-group {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.pro-segment-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pro-segment-btn:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: #0f172a;
+}
+
+.pro-segment-btn.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 800;
+}
+
+.pro-segment-btn.is-danger {
+  color: #b91c1c;
+}
+
+.pro-segment-btn.is-danger.active {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.pro-segment-btn.is-warning {
+  color: #b45309;
+}
+
+.pro-segment-btn.is-warning.active {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.pro-segment-badge {
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 99px;
+  transition: all 0.15s ease;
+}
+
+.pro-segment-btn.active .pro-segment-badge {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.pro-segment-badge.badge-danger {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.pro-segment-badge.badge-warning {
+  background: #f59e0b !important;
+  color: #ffffff !important;
+}
+
+.pro-segment-badge.muted {
+  background: #f1f5f9;
+  color: #64748b;
 }
 
 .pro-tab-item {
@@ -1739,3 +2007,99 @@ select.pro-table-col-filter {
 
 
 
+
+
+/* ==========================================================================
+   ESTILOS DE IMPRESIÓN Y EXPORTACIÓN PDF PROFESIONAL (CARTERA GIRONA)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 8mm 10mm;
+  }
+
+  /* Anular display: none de hojas de estilos heredadas sobre el contenedor raíz */
+  body > #girona-pro-root {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Ocultar elementos de navegación e interacción web */
+  .pro-header,
+  .pro-controls-bar,
+  .pro-quick-actions,
+  .pro-bottom-nav,
+  .pro-ia-banner,
+  .pro-alarm-banner,
+  .pro-drawer-overlay,
+  .pro-drawer-panel,
+  .pro-filter-group,
+  .pro-table-filters,
+  .pro-touch-btn,
+  .pro-btn-action,
+  .pro-btn-table-clear,
+  .pro-nav-tabs,
+  .pro-search-bar,
+  .pro-tab-item,
+  .pro-carteras-selector,
+  .pro-gestores-bar,
+  #pro-filter-modal,
+  #pro-ho-modal-overlay,
+  .no-print,
+  #toast-container {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Adaptar el cuerpo principal para paginación fluida */
+  .pro-main-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* La tabla debe expandirse a página completa sin cortes por overflow */
+  .pro-table-wrapper {
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    width: 100% !important;
+  }
+
+  .pro-table {
+    width: 100% !important;
+    font-size: 9.5px !important;
+    border-collapse: collapse !important;
+  }
+
+  .pro-table thead {
+    display: table-header-group !important;
+  }
+
+  .pro-table tr {
+    page-break-inside: avoid !important;
+  }
+
+  .pro-table td, 
+  .pro-table th {
+    padding: 5px 6px !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  .pro-kpis-container {
+    page-break-inside: avoid !important;
+    margin-bottom: 12px !important;
+  }
+}

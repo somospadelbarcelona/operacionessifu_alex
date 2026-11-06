@@ -1043,22 +1043,26 @@ function setupCoreInteractions() {
         forceSyncSave();
     });
 
-    // EVENTO 3: visibilitychange (cuando la pestaña se oculta)
+    // EVENTO 3: visibilitychange (solo guardar si hay cambios pendientes)
     document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
+        if (document.visibilityState === 'hidden' && typeof hasUnsavedChanges !== 'undefined' && hasUnsavedChanges) {
             forceSyncSave();
         }
     });
 
-    // EVENTO 4: blur de la ventana (cuando pierde el foco)
+    // EVENTO 4: blur de la ventana (solo guardar si hay cambios pendientes para no bloquear el hilo principal)
     window.addEventListener('blur', () => {
-        forceSyncSave();
+        if (typeof hasUnsavedChanges !== 'undefined' && hasUnsavedChanges) {
+            forceSyncSave();
+        }
     });
 
-    // EVENTO 5: Guardado periódico cada 5 segundos (respaldo adicional)
+        // EVENTO 5: Guardado peridico condicional (solo si hay cambios sin guardar)
     setInterval(() => {
-        forceSyncSave();
-    }, 5000);
+        if (typeof hasUnsavedChanges !== 'undefined' && hasUnsavedChanges) {
+            forceSyncSave();
+        }
+    }, 10000);
 
     window.addEventListener('drop', (e) => {
         e.preventDefault();
@@ -3286,6 +3290,10 @@ function analyzeIncidents() {
 
 // Tab Switching Logic
 window.switchTab = (tabId) => {
+    if (tabId === 'supervisor' && window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.switchModule === 'function') {
+        window.SifuEnterprisePlatform.switchModule('sap_ho', 'ho_supervisor');
+        return;
+    }
     const tabs = document.querySelectorAll('.tab-content');
     const btns = document.querySelectorAll('.tab-btn');
 
@@ -3341,6 +3349,13 @@ window.switchTab = (tabId) => {
         if (tabId === 'cuadrantes') {
             console.log("🗓️ Iniciando Cuadrantes...");
             if (typeof window.initQuadrantsModule === 'function') setTimeout(window.initQuadrantsModule, 50);
+        }
+
+        if (tabId === 'supervisor') {
+            console.log("🤖 Activando Sección SUPERVISOR HO...");
+            if (typeof window.onSupervisorTabOpened === 'function') {
+                window.onSupervisorTabOpened();
+            }
         }
 
 
@@ -4786,9 +4801,10 @@ function setupEventListeners() {
     };
 
     function updateQuickActionCounters() {
-        if (!state.masterData) return;
+        if (document.hidden || !state.masterData) return;
 
         const cUncovered = document.getElementById('count-card-uncovered');
+        if (!cUncovered) return;
         const cBajaIT = document.getElementById('count-card-bajas-it');
         const cAbsences = document.getElementById('count-card-absences');
         const cFinHoy = document.getElementById('count-card-fin-hoy');
@@ -4913,36 +4929,14 @@ async function checkServerExcel() {
     }
 
     try {
-        const response = await fetch('./MASTER GENERAL GIRONA OKK.xlsx');
-        if (!response.ok) throw new Error("No se encontró el archivo en servidor");
-
-        const arrayBuffer = await response.arrayBuffer();
-        const data = new Uint8Array(arrayBuffer);
-        const workbook = XLSX.read(data, { type: 'array' });
-
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-
-        if (jsonData && jsonData.length > 0) {
-            state.masterData = jsonData; // Assuming state.masterData is the global source of truth
-            // If you intend to use globalMasterData and originalMasterData as new global state variables,
-            // they should be declared globally and assigned here. For now, I'll update state.masterData.
-            // globalMasterData = jsonData; // If these were declared globally
-            // originalMasterData = [...jsonData]; // If these were declared globally
-
-            // Persistir (assuming saveDataToIndexedDB and updateDashboardCounts exist elsewhere)
-            // saveDataToIndexedDB(globalMasterData);
-            // updateDashboardCounts();
-
-            // Re-render the master table
-            renderMasterSummary(); // This will re-render the table based on state.masterData
-
-            showToast("✅ MASTER sincronizado desde servidor (GitHub)", "success");
-            console.log("✅ Datos cargados desde MASTER GENERAL GIRONA OKK.xlsx (Servidor)");
+        if (Array.isArray(window.INITIAL_MASTER_DATA) && window.INITIAL_MASTER_DATA.length > 0) {
+            state.masterData = window.INITIAL_MASTER_DATA;
+            renderMasterSummary();
+            console.log("✅ Master Barcelona verificado desde master_data.js (División 0801)");
+            return;
         }
     } catch (error) {
-        console.warn("⚠️ No se pudo cargar MASTER GENERAL GIRONA OKK.xlsx del servidor:", error);
+        console.warn("⚠️ No se pudo cargar MASTER GENERAL del servidor:", error);
         // No mostrar error al usuario si falla silenciosamente, ya usará el botón manual si quiere
     }
 }
@@ -5144,7 +5138,7 @@ const TERRITORY_DB = [
     "CASTELLDEFELS", "GAVA", "EL PRAT", "SANT CUGAT", "RUBI", "TERRASSA", "SABADELL",
     "GRANOLLERS", "MOLLET", "MATARO", "PREMIA", "VILASSAR", "CALELLA", "ARENYS",
     "PINEDA", "SITGES", "VILANOVA", "VILAFRANCA", "MARTORELL", "SANT JOAN DESPI",
-    "ESPLUGUES", "SANT ADRIA", "IGUALADA", "VIC", "MANRESA", "BLANES", "LLORET",
+    "ESPLUGUES", "SANT ADRIA", "IGUALADA", "VIC", "MANRESA", "SANT FELIU", "SANT JUST",
     "CUBELLES", "PALLEJA", "MASQUEFA", "CALAFELL", "SANT PERE DE RIBES", "MALGRAT",
     "POBLENOU", "GUINARDO", "SARRIA", "SANTS", "LES CORTS", "EIXAMPLE", "GRACIA",
     "HORTA", "NOU BARRIS", "SANT ANDREU", "SANT MARTI", "EL MASNOU", "CANET", "CERDANYOLA", "MONTCADA"

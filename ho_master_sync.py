@@ -31,6 +31,7 @@ CACHE_FILE = os.path.join(BASE_DIR, "ho_employees_cache.json")
 CUADRANTES_CACHE_FILE = os.path.join(BASE_DIR, "ho_cuadrantes_cache.json")
 
 from ho_service import HOService, RESPONSABLE_ID, SAP_PROJECT_ID_MAP, resolve_sap_project_id
+from bajas_empresa_service import es_baja_empresa, registrar_baja_empresa
 
 def normalize_name(name):
     if not name:
@@ -55,7 +56,7 @@ def parse_sap_date(d_str):
 SAP_HO_ROW_OVERRIDES = {
     2:  {"PROYECTO": "SVO04295-P1-C018", "ESTADO": "BAJA IT",  "TITULAR": "ERNESTO MALO HERRERO",          "SUPL": "SAHIL SINGH ARORA"},
     3:  {"PROYECTO": "SVO04298-P1-C018", "ESTADO": "CUBIERTO", "TITULAR": "JOSE MANUEL GUTIERREZ PACHECO", "SUPL": "PEDRO FERNANDEZ RIBAS"},
-    5:  {"PROYECTO": "SVO04296-P1-C018", "ESTADO": "BAJA IT",  "TITULAR": "MONICA LOPEZ CEBALLOS",         "SUPL": "SAHIL SINGH ARORA"},
+    5:  {"PROYECTO": "SVO04296-P1-C018", "ESTADO": "CUBIERTO", "TITULAR": "MONICA LOPEZ CEBALLOS",         "HORARIO": "23:00 a 08:00 (T01/T02)"},
     8:  {"PROYECTO": "SVO01227-P2-C001", "ESTADO": "CUBIERTO", "TITULAR": "JUAN BONADA GONZALEZ",          "SUPL": "SAHIL SINGH ARORA", "HORARIO": "Según cuadrante albergue"},
     9:  {"PROYECTO": "SVO01227-P1-C018", "ESTADO": "BAJA IT",  "TITULAR": "JORGE LUIS RAMIREZ SALAS",      "SUPL": "SAHIL SINGH ARORA"},
     12: {"PROYECTO": "SVO04295-P2-C001", "ESTADO": "CUBIERTO", "TITULAR": "SAHIL SINGH ARORA"},
@@ -92,7 +93,7 @@ class HOMasterSynchronizer:
         self.ho_cuadrantes = {} # proy_id -> cuadrante_dict
 
     def fetch_ho_employees(self):
-        """Descarga todos los empleados de Girona de SAP HO."""
+        """Descarga todos los empleados de Barcelona de SAP HO."""
         self.ho_connected = self.ho.connect()
         if not self.ho_connected:
             # Cargar desde caché si existe
@@ -108,11 +109,33 @@ class HOMasterSynchronizer:
                     print(f"[WARN] Error leyendo cache: {e}")
             return False
 
-        all_emps = []
-        for centro in ['S171', 'S172', 'B171']:
-            res = self.ho.query_entity_set("EmpleadoSet", filter_query=f"IdCentro eq '{centro}'", top=500)
-            if res:
-                all_emps.extend(res)
+        from ho_carteras_sync import _fetch_bcn_employees
+        bcn_dict = _fetch_bcn_employees()
+        all_emps = list(bcn_dict.values())
+
+        # Enriquecer con consulta individual EmpleadoSet('{id}') en paralelo para obtener vacTotales, vacTomados y vacRestantes reales de SAP HO
+        from concurrent.futures import ThreadPoolExecutor
+        from ho_service import HO_ODATA_ROOT
+
+        def _fetch_emp_single(emp_item):
+            eid = str(emp_item.get('IdEmpleado') or '').strip()
+            if not eid:
+                return emp_item
+            try:
+                s = HOService()
+                s.is_connected = True
+                r = s.session.get(f"{HO_ODATA_ROOT}/EmpleadoSet('{eid}')", params={"$format": "json"}, headers={"Accept": "application/json"}, timeout=10)
+                if r.status_code == 200:
+                    d_single = r.json().get("d", {})
+                    if d_single and d_single.get("IdEmpleado"):
+                        return d_single
+            except Exception:
+                pass
+            return emp_item
+
+        if all_emps:
+            with ThreadPoolExecutor(max_workers=12) as pool:
+                all_emps = list(pool.map(_fetch_emp_single, all_emps))
 
         # Mapear y procesar empleados
         self.ho_employees = {}
@@ -130,6 +153,8 @@ class HOMasterSynchronizer:
                 "email": (e.get('Email') or '').strip(),
                 "id_centro": e.get('IdCentro'),
                 "nom_centro": e.get('NomCentro'),
+                "id_responsable": (e.get('IdResponsable') or '').strip(),
+                "nom_responsable": (e.get('NomResponsable') or '').strip(),
                 "id_tipo_contrato": e.get('IdTipoContrato'),
                 "tipo_contrato": e.get('DenTipoContrato') or ('Fijo' if fin_str == 'Indefinido' else 'Temporal'),
                 "inicio_contrato": ini_str,
@@ -138,8 +163,21 @@ class HOMasterSynchronizer:
                 "vac_totales": int(e.get('vacTotales') or 0),
                 "vac_tomados": int(e.get('vacTomados') or 0),
                 "vac_restantes": int(e.get('vacRestantes') or 0),
-                "horas_semana": e.get('HorasSemana')
+                "horas_semana": e.get('HorasSemana'),
+                "id_status": str(e.get('IdStatus') or '').strip(),
+                "nom_status": (e.get('NomStatus') or '').strip(),
+                "cerrado": bool(e.get('Cerrado')),
+                "fecha_finiquito": str(e.get('FechaFiniquito') or '')
             }
+
+            # Si en SAP figura dado de baja, con ficha cerrada o con estatus 0, registrar en bajas_empresa
+            if processed["id_status"] == '0' or processed["nom_status"] == 'Dado de baja' or processed["cerrado"] is True:
+                registrar_baja_empresa(processed['dni'], processed['nombre_completo'], motivo=f"Dado de baja en SAP HO ({processed['nom_status'] or 'Status 0'})")
+                continue
+
+            # Si ya está registrado como baja definitiva de empresa, no incluirlo
+            if es_baja_empresa(processed['dni'], processed['nombre_completo'])[0]:
+                continue
 
             norm = normalize_name(processed['nombre_completo'])
             if norm:
@@ -243,7 +281,10 @@ class HOMasterSynchronizer:
             print(f"[ERROR] Archivo Excel no encontrado: {EXCEL_PATH}")
             return False
 
-        wb = openpyxl.load_workbook(EXCEL_PATH, data_only=False)
+        import io
+        from extract_excel import read_bytes_shared
+        raw_bytes = read_bytes_shared(EXCEL_PATH)
+        wb = openpyxl.load_workbook(io.BytesIO(raw_bytes) if raw_bytes else EXCEL_PATH, data_only=False)
         ws = wb['SEGUIMIENTO']
 
         # Paso 0: Aplicar prioridad absoluta de SAP HO (cuadrantes HAGridSet y EmpleadoProyectoSet) y limpiar filas basura

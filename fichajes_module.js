@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * FICHAJES MODULE v2.5 - CONTROL DE PRESENCIA Y FICHAJES EN TIEMPO REAL
- * SIFU GIRONA · DELEGACIÓN 1623 (GRUPO SIFU OPERATIVA)
+ * SIFU BARCELONA · DELEGACIÓN 0801 (GRUPO SIFU OPERATIVA)
  * Control Intuitivo Diario, Filtro por Cliente/Trabajador y Semáforo de Cumplimiento:
  *  🟢 OK - 100% | 🟡 NO OK - Problemas | 🔴 NO FICHA | 🩺 BAJA IT (Excluida)
  * Marcadores con Números y Porcentajes (%) en Tiempo Real
@@ -11,38 +11,341 @@
 (function () {
   'use strict';
 
-  const STORAGE_KEY_FICHAJES = 'sifu_fichajes_girona_cache_v1';
+  const STORAGE_KEY_FICHAJES = 'sifu_fichajes_bcn_cache_v1';
 
-  // Lista oficial de operarios en situación de Incapacidad Temporal (Baja Médica IT justificada)
+  // Lista estricta de operarios en situación de Incapacidad Temporal (Baja Médica IT justificada)
   const BAJAS_IT_OFICIALES = [
     { dni: '36530075A', nombre: 'ALEXIA DOMINGUEZ MARSINACH' },
-    { dni: '36538075A', nombre: 'ALEXIA DOMINGUEZ MARSINACH' },
+    { dni: '36530075A', nombre: 'ALEXIA DOMINGUEZ MARSIÑACH' },
     { dni: '40429576S', nombre: 'CARLOS MARTINEZ VILANOVA' },
     { dni: '46601633E', nombre: 'ERNESTO MALO HERRERO' },
+    { dni: '37381865B', nombre: 'FIDEL CASTILLO CANAL' },
     { dni: '45173415N', nombre: 'JORGE LUIS RAMIREZ SALAS' },
+    { dni: '40434075Y', nombre: 'JOSE MANUEL GUTIERREZ PACHECO' },
+    { dni: '41652517T', nombre: 'JUAN JOSE GARCIA MANZANEQUE' },
     { dni: '77731473Y', nombre: 'JULIAN CANO GALLEGO' },
-    { dni: '41652517T', nombre: 'JUAN JOSE GARCIA MANZANEQUE' }
+    { dni: '40352745G', nombre: 'LAURA PARDILLO LOPEZ' },
+    { dni: '33893922H', nombre: 'MANUEL QUESADA AGUDO' }
   ];
 
+  const _normTextCache = new Map();
   function normalizeText(str) {
-    return (str || '')
+    if (!str) return '';
+    const s = String(str);
+    let cached = _normTextCache.get(s);
+    if (cached !== undefined) return cached;
+    cached = s
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toUpperCase()
       .trim();
+    if (_normTextCache.size > 5000) _normTextCache.clear();
+    _normTextCache.set(s, cached);
+    return cached;
   }
 
-  function esOperarioDeBaja(nombre, dni) {
-    if (dni) {
-      const cleanDni = String(dni).toUpperCase().replace(/[\s-]/g, '');
-      if (BAJAS_IT_OFICIALES.some(b => b.dni === cleanDni)) return true;
+  const GESTORES_BCN_OFICIALES = [
+    { id: '00066957', nombre_corto: 'Sonia Cañete', empresa_badge: '🏢 SIFU' },
+    { id: '00063967', nombre_corto: 'Adrià Serrano', empresa_badge: '🏢 SIFU' },
+    { id: '00001370', nombre_corto: 'Julio Ortiz', empresa_badge: '🏢 SIFU' },
+    { id: '00015251', nombre_corto: 'Albert Sánchez', empresa_badge: '🏢 SIFU' },
+    { id: '00060598', nombre_corto: 'Jordi Giménez', empresa_badge: '🏢 SIFU' },
+    { id: '00065945', nombre_corto: 'Liana Garayshina', empresa_badge: '🏢 SIFU' },
+    { id: '00027631', nombre_corto: 'Alba Valverde', empresa_badge: '🏢 SIFU' },
+    { id: '00010085', nombre_corto: 'José García', empresa_badge: '🏢 SIFU' },
+    { id: '00062620', nombre_corto: 'Alejandro Coscolin', empresa_badge: '🏢 SIFU' }
+  ];
+
+  function getGestoresDisponiblesList() {
+    if (window.FichajesCarterasUnifier && Array.isArray(window.FichajesCarterasUnifier.GESTORES_CONOCIDOS) && window.FichajesCarterasUnifier.GESTORES_CONOCIDOS.length > 0) {
+      return window.FichajesCarterasUnifier.GESTORES_CONOCIDOS;
     }
-    if (!nombre) return false;
-    const norm = normalizeText(nombre);
-    return BAJAS_IT_OFICIALES.some(b => {
-      const bNorm = normalizeText(b.nombre);
-      return norm === bNorm || norm.includes(bNorm) || bNorm.includes(norm);
+    return GESTORES_BCN_OFICIALES;
+  }
+
+  let _bajaLookupCache = null;
+  let _bajaLookupRefHO = null;
+  let _bajaLookupRefMaster = null;
+
+  function getBajaLookupIndex() {
+    const refHO = window.HO_CARTERAS_PAYLOAD;
+    const refMaster = window.INITIAL_MASTER_DATA;
+    if (_bajaLookupCache && _bajaLookupRefHO === refHO && _bajaLookupRefMaster === refMaster) {
+      return _bajaLookupCache;
+    }
+    const dnis = new Set();
+    const names = new Set();
+
+    // 1. Lista estricta verificada de Barcelona (0801)
+    BAJAS_IT_OFICIALES.forEach(b => {
+      if (b.dni) dnis.add(String(b.dni).toUpperCase().replace(/[\s\-_.]/g, ''));
+      if (b.nombre) names.add(normalizeText(b.nombre));
     });
+
+    // 2. Carteras oficiales de SAP HO
+    if (refHO && Array.isArray(refHO.trabajadores)) {
+      refHO.trabajadores.forEach(w => {
+        const est = String(w.estado_hoy || '').trim().toUpperCase();
+        if (w.en_baja || est === 'BAJA' || est === 'BAJA_IT') {
+          const wDni = String(w.dni || '').toUpperCase().replace(/[\s\-_.]/g, '');
+          const wNom = normalizeText(w.nombre);
+          if (wDni) dnis.add(wDni);
+          if (wNom) names.add(wNom);
+        }
+      });
+    }
+
+    // 3. Servicios operativos de SAP HO
+    if (refHO && Array.isArray(refHO.servicios_operativos)) {
+      refHO.servicios_operativos.forEach(s => {
+        const est = String(s.estado || s.estado_hoy || '').toUpperCase();
+        if (est.includes('BAJA') && !est.includes('CUBIERTO')) {
+          const tDni = String(s.dni || '').toUpperCase().replace(/[\s\-_.]/g, '');
+          const tNom = normalizeText(s.titular || s.nombre);
+          if (tDni) dnis.add(tDni);
+          if (tNom) names.add(tNom);
+        }
+      });
+    }
+
+    // 4. INITIAL_MASTER_DATA
+    if (refMaster && Array.isArray(refMaster)) {
+      refMaster.forEach(r => {
+        const est = (String(r.ESTADO || '') + ' ' + String(r.ESTADO1 || '')).toUpperCase();
+        if ((est.includes('BAJA') || est.includes(' IT')) && !est.includes('CUBIERTO') && !est.includes('SUPL')) {
+          const rDni = String(r.DNI || '').toUpperCase().replace(/[\s\-_.]/g, '');
+          const rTit = normalizeText(r.TITULAR);
+          if (rDni) dnis.add(rDni);
+          if (rTit) names.add(rTit);
+        }
+      });
+    }
+
+    // 5. Cuadrantes de SAP HO
+    if (window.HO_CUADRANTES && typeof window.HO_CUADRANTES === 'object') {
+      for (const proy of Object.values(window.HO_CUADRANTES)) {
+        const filas = proy.filas_cuadrante || [];
+        for (let i = 0; i < filas.length; i++) {
+          const f = filas[i];
+          if (f.es_suplente || (f.rol && f.rol.includes('SUPLENTE'))) continue;
+          if (f.en_baja || f.rol === 'BAJA IT' || (f.tipos_asignacion && f.tipos_asignacion.includes('BJ'))) {
+            const fNom = normalizeText(f.nombre);
+            if (fNom) names.add(fNom);
+          }
+        }
+      }
+    }
+
+    // 6. Bajas IT oficiales IT2001 (ho_vacaciones_data.js)
+    const refVac = window.HO_VACACIONES_PAYLOAD;
+    if (refVac && Array.isArray(refVac.trabajadores)) {
+      refVac.trabajadores.forEach(w => {
+        if (w.en_baja_it_actual || (w.otras_ausencias_2026 && w.otras_ausencias_2026.Baja > 0)) {
+          const wDni = String(w.dni || '').toUpperCase().replace(/[\s\-_.]/g, '');
+          const wNom = normalizeText(w.nombre_completo || w.nombre);
+          if (wDni) dnis.add(wDni);
+          if (wNom) names.add(wNom);
+        }
+      });
+    }
+
+    _bajaLookupRefHO = refHO;
+    _bajaLookupRefMaster = refMaster;
+    _bajaLookupCache = { dnis, names, namesArr: Array.from(names) };
+    return _bajaLookupCache;
+  }
+
+  function esOperarioDeBaja(nombre, dni, workerObj) {
+    if (workerObj && (workerObj.en_baja || workerObj.isBaja || workerObj.en_baja_sap || workerObj.estado_hoy === 'BAJA_IT' || workerObj.estado_hoy === 'Baja' || workerObj.estado_semaforo === 'baja')) {
+      return true;
+    }
+    const idx = getBajaLookupIndex();
+    const cleanDni = dni ? String(dni).toUpperCase().replace(/[\s\-_.]/g, '') : '';
+    if (cleanDni && idx.dnis.has(cleanDni)) return true;
+
+    const norm = normalizeText(nombre);
+    if (!norm) return false;
+    if (idx.names.has(norm)) return true;
+
+    for (let i = 0; i < idx.namesArr.length; i++) {
+      const bNorm = idx.namesArr[i];
+      if (bNorm.length > 5 && (norm.includes(bNorm) || bNorm.includes(norm))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  let _vacLookupCache = null;
+  let _vacLookupRefVac = null;
+  let _vacLookupRefHO = null;
+
+  function getVacacionesLookupIndex() {
+    const refVac = window.HO_VACACIONES_PAYLOAD;
+    const refHO = window.HO_CARTERAS_PAYLOAD;
+    if (_vacLookupCache && _vacLookupRefVac === refVac && _vacLookupRefHO === refHO) {
+      return _vacLookupCache;
+    }
+    const dnis = new Set();
+    const names = new Set();
+    const vacDaysByDni = {};
+
+    if (refVac && Array.isArray(refVac.trabajadores)) {
+      refVac.trabajadores.forEach(w => {
+        const wDni = String(w.dni || '').toUpperCase().replace(/[\s\-_.]/g, '');
+        const wNom = normalizeText(w.nombre_completo || w.nombre);
+        const periods = w.periodos_vacaciones || [];
+        const octDays = new Set();
+        periods.forEach(p => {
+          (p.dias || []).forEach(d => {
+            const fIso = String(d.fecha || '');
+            if (fIso.startsWith('2026-10')) {
+              octDays.add(fIso.slice(-2));
+            }
+          });
+        });
+        if (octDays.size > 0 || (w.fechas_detalle && Object.keys(w.fechas_detalle).some(k => k.startsWith('2026-10')))) {
+          if (wDni) {
+            dnis.add(wDni);
+            vacDaysByDni[wDni] = octDays;
+          }
+          if (wNom) names.add(wNom);
+        }
+      });
+    }
+
+    if (refHO && Array.isArray(refHO.trabajadores)) {
+      refHO.trabajadores.forEach(w => {
+        const est = String(w.estado_hoy || '').toUpperCase();
+        if (w.de_vacaciones || est.includes('VACACION') || est.includes('PERMISO')) {
+          const wDni = String(w.dni || '').toUpperCase().replace(/[\s\-_.]/g, '');
+          const wNom = normalizeText(w.nombre);
+          if (wDni) dnis.add(wDni);
+          if (wNom) names.add(wNom);
+        }
+      });
+    }
+
+    _vacLookupRefVac = refVac;
+    _vacLookupRefHO = refHO;
+    _vacLookupCache = { dnis, names, namesArr: Array.from(names), vacDaysByDni };
+    return _vacLookupCache;
+  }
+
+  function esOperarioDeVacaciones(nombre, dni, workerObj, diaPad) {
+    if (workerObj) {
+      if (workerObj.de_vacaciones || workerObj.de_vacaciones_sap || workerObj.isVacaciones || workerObj.estado_semaforo === 'vacaciones' || (workerObj.estado_hoy && String(workerObj.estado_hoy).toUpperCase().includes('VACACION'))) {
+        return true;
+      }
+      if (diaPad && Array.isArray(workerObj.dias_vacaciones_activos) && workerObj.dias_vacaciones_activos.includes(diaPad)) {
+        return true;
+      }
+    }
+    const idx = getVacacionesLookupIndex();
+    const cleanDni = dni ? String(dni).toUpperCase().replace(/[\s\-_.]/g, '') : '';
+    if (cleanDni && idx.dnis.has(cleanDni)) {
+      if (diaPad && idx.vacDaysByDni[cleanDni]) {
+        return idx.vacDaysByDni[cleanDni].has(diaPad);
+      }
+      return true;
+    }
+    const norm = normalizeText(nombre);
+    if (norm && idx.names.has(norm)) return true;
+    return false;
+  }
+
+  function getDiasPrevistosTrabajador(workerObj) {
+    if (!workerObj) return new Set([1, 2, 3, 4, 5]); // L-V (1: Lun ... 5: Vie)
+    const h = String(workerObj.horario_habitual || '').toUpperCase();
+    if (h.includes('DOMINGO') && !h.includes('LUNES') && !h.includes('MARTES') && !h.includes('MIERCOLES') && !h.includes('MIÉRCOLES') && !h.includes('JUEVES') && !h.includes('VIERNES') && !h.includes('SABADO') && !h.includes('SÁBADO')) {
+      return new Set([0]); // Solo domingo
+    }
+    if (h.includes('FIN DE SEMANA') || h.includes('SABADO Y DOMINGO') || h.includes('SÁBADO Y DOMINGO')) {
+      return new Set([6, 0]); // Sábado y domingo
+    }
+    const s = new Set();
+    if (h.includes('L-') || h.includes('LUNES') || h.includes(' L ') || h.includes('L,')) s.add(1);
+    if (h.includes('M-') || h.includes('MARTES') || h.includes(' M ') || h.includes('M,')) s.add(2);
+    if (h.includes('X-') || h.includes('MIERCOLES') || h.includes('MIÉRCOLES') || h.includes(' X ') || h.includes('X,')) s.add(3);
+    if (h.includes('J-') || h.includes('JUEVES') || h.includes(' J ') || h.includes('J,')) s.add(4);
+    if (h.includes('V-') || h.includes('VIERNES') || h.includes(' V ') || h.includes('V,')) s.add(5);
+    if (h.includes('S-') || h.includes('SABADO') || h.includes('SÁBADO') || h.includes(' S ') || h.includes('S,')) s.add(6);
+    if (h.includes('D-') || h.includes('DOMINGO') || h.includes(' D ') || h.includes('D,')) s.add(0);
+    return s.size > 0 ? s : new Set([1, 2, 3, 4, 5]);
+  }
+
+  function esDiaDescanso(workerObj, diaNum, mesNum, anioNum) {
+    if (!workerObj) return false;
+    const diaPad = String(diaNum).padStart(2, '0');
+    if (Array.isArray(workerObj.dias_descanso_activos) && workerObj.dias_descanso_activos.includes(diaPad)) {
+      return true;
+    }
+    const dObj = new Date(anioNum, mesNum - 1, diaNum);
+    const dow = dObj.getDay();
+    const previstos = getDiasPrevistosTrabajador(workerObj);
+    return !previstos.has(dow);
+  }
+
+  const _spanishDateCache = new Map();
+  // Funciones para parseo y validación de vigencia contractual (Alta / Finiquito)
+  function parseSpanishDate(dStr) {
+    if (!dStr || typeof dStr !== 'string') return null;
+    let cached = _spanishDateCache.get(dStr);
+    if (cached !== undefined) return cached;
+    const parts = dStr.trim().split('/');
+    if (parts.length === 3) {
+      const d = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      const y = parseInt(parts[2], 10);
+      if (!isNaN(d) && !isNaN(m) && !isNaN(y)) {
+        const dt = new Date(y, m - 1, d);
+        _spanishDateCache.set(dStr, dt);
+        return dt;
+      }
+    }
+    _spanishDateCache.set(dStr, null);
+    return null;
+  }
+
+  function getEstadoContractualDia(workerObj, diaNum, mesNum, anioNum) {
+    if (!workerObj) return { contratado: true };
+    if (!workerObj.inicio_contrato && (!workerObj.fin_contrato || workerObj.fin_contrato === 'Indefinido' || workerObj.fin_contrato === 'indefinido')) {
+      return { contratado: true };
+    }
+    const targetTs = new Date(anioNum, mesNum - 1, diaNum, 12, 0, 0, 0).getTime();
+
+    if (workerObj._fIniTs === undefined) {
+      const fIni = parseSpanishDate(workerObj.inicio_contrato);
+      workerObj._fIniTs = fIni ? new Date(fIni.getFullYear(), fIni.getMonth(), fIni.getDate(), 0, 0, 0, 0).getTime() : null;
+    }
+    if (workerObj._fIniTs !== null && targetTs < workerObj._fIniTs) {
+      return {
+        contratado: false,
+        motivo: 'PREVIO_ALTA',
+        label: `No contratado (Alta: ${workerObj.inicio_contrato})`,
+        fechaAlta: workerObj.inicio_contrato
+      };
+    }
+
+    if (workerObj._fFinTs === undefined) {
+      const finStr = workerObj.fin_contrato;
+      if (finStr && finStr.toLowerCase() !== 'indefinido' && finStr.toLowerCase() !== 'null') {
+        const fFin = parseSpanishDate(finStr);
+        workerObj._fFinTs = fFin ? new Date(fFin.getFullYear(), fFin.getMonth(), fFin.getDate(), 23, 59, 59, 999).getTime() : null;
+      } else {
+        workerObj._fFinTs = null;
+      }
+    }
+    if (workerObj._fFinTs !== null && targetTs > workerObj._fFinTs) {
+      return {
+        contratado: false,
+        motivo: 'POST_FIN',
+        label: `Contrato finalizado (${workerObj.fin_contrato})`,
+        fechaFin: workerObj.fin_contrato
+      };
+    }
+
+    return { contratado: true };
   }
 
   // Nombres oficiales en español y funciones de fecha dinámica
@@ -94,18 +397,21 @@
     filterServicio: 'todos',
     filterTipo: 'todos', // 'todos' | 'entrada' | 'salida'
     filterMetodo: 'todos', // 'todos' | 'APP' | 'GPS'
-    filterCheck: 'todos', // 'todos' | 'ok' | 'nook' | 'noficha' | 'baja'
+    contrasteGestor: 'todos', // 'todos' | '00062620' | '00063187' | ...
     contrasteSector: 'todos',
     contrasteSemaforo: 'todos',
-    contrasteMes: 10, // 1 a 12 (por defecto 10 Octubre)
-    contrasteAnio: 2026, // Año (por defecto 2026)
+    contrasteMes: (window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.mes_actual) ? parseInt(window.FICHAJES_CONTRASTE_PAYLOAD.mes_actual.split('-')[1], 10) : (new Date().getMonth() + 1),
+    contrasteAnio: (window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.mes_actual) ? parseInt(window.FICHAJES_CONTRASTE_PAYLOAD.mes_actual.split('-')[0], 10) : new Date().getFullYear(),
     contrasteDia: 'todos', // 'todos' | '01' .. '31'
     contrasteDiaModo: 'todos', // 'todos' | 'ficho' | 'noficho'
     contrasteSubView: 'tarjetas',
     contrasteSort: 'nombre',
+    showAllCards: false,
+    cardsLimit: 24,
     activeModalWorkerDNI: null,
     compactColFilters: {
       estado: '',
+      gestor: '',
       trabajador: '',
       dni: '',
       servicio: '',
@@ -134,11 +440,11 @@
     isSyncing: false,
     lastSync: null,
     items: [],
-    plantillaGirona: []
+    plantillaOperativa: []
   };
 
-  // Censo de trabajadores de la delegación de Girona (limpio y sin duplicidades)
-  function loadPlantillaGirona() {
+  // Censo de trabajadores de la delegación de Barcelona (0801) (limpio y sin duplicidades)
+  function loadPlantillaOperativa() {
     const map = {};
 
     function addWorker(nombre, dni, codigo, cliente, centro, isBaja) {
@@ -159,16 +465,16 @@
           nombre: cleanNombre,
           dni: dni || '',
           codigo: codigo || '',
-          cliente: cliente || 'ASIGNACIÓN GIRONA',
-          centro: centro || 'SERVICIO GIRONA',
+          cliente: cliente || 'ASIGNACIÓN BARCELONA',
+          centro: centro || 'SERVICIO BARCELONA',
           isBaja: isBaja || esOperarioDeBaja(cleanNombre)
         };
       } else {
         if (isBaja) map[cleanNombre].isBaja = true;
         if (dni && !map[cleanNombre].dni) map[cleanNombre].dni = dni;
         if (codigo && !map[cleanNombre].codigo) map[cleanNombre].codigo = codigo;
-        if (cliente && map[cleanNombre].cliente === 'ASIGNACIÓN GIRONA') map[cleanNombre].cliente = cliente;
-        if (centro && map[cleanNombre].centro === 'SERVICIO GIRONA') map[cleanNombre].centro = centro;
+        if (cliente && map[cleanNombre].cliente === 'ASIGNACIÓN BARCELONA') map[cleanNombre].cliente = cliente;
+        if (centro && map[cleanNombre].centro === 'SERVICIO BARCELONA') map[cleanNombre].centro = centro;
       }
     }
 
@@ -203,7 +509,7 @@
       });
     }
 
-    FichState.plantillaGirona = Object.values(map).sort((a, b) => a.nombre.localeCompare(b.nombre));
+    FichState.plantillaOperativa = Object.values(map).sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   // Carga inicial de datos
@@ -211,7 +517,7 @@
     if (window.FICHAJES_RAW_PAYLOAD && Array.isArray(window.FICHAJES_RAW_PAYLOAD.fichajes)) {
       FichState.items = normalizeFichajes(window.FICHAJES_RAW_PAYLOAD.fichajes);
       FichState.lastSync = window.FICHAJES_RAW_PAYLOAD.fecha_sincronizacion || new Date().toLocaleString();
-      loadPlantillaGirona();
+      loadPlantillaOperativa();
       return;
     }
 
@@ -222,7 +528,7 @@
         if (Array.isArray(parsed.fichajes)) {
           FichState.items = normalizeFichajes(parsed.fichajes);
           FichState.lastSync = parsed.lastSync || new Date().toLocaleString();
-          loadPlantillaGirona();
+          loadPlantillaOperativa();
           return;
         }
       }
@@ -231,7 +537,7 @@
     }
 
     FichState.items = [];
-    loadPlantillaGirona();
+    loadPlantillaOperativa();
   }
 
   // Normalizador de registros
@@ -262,7 +568,7 @@
         distanciaNum: distanciaNum,
         lat: item.LATI || null,
         lng: item.LONG || null,
-        delegacion: item.DENO || 'SIFU GIRONA',
+        delegacion: item.DENO || 'SIFU BARCELONA',
         sociedad: item.EMNO || 'GRUPO SIFU OPERATIVA'
       };
     });
@@ -296,8 +602,9 @@
   // EVALUADOR DEL SEMÁFORO / CHECK DE CUMPLIMIENTO CON DETECCIÓN DE BAJA IT
   // ==========================================================================
   function evaluateWorkerCheck(workerName, workerFichajes, targetFecha, isBajaRegistrada) {
-    // 1. SI ESTÁ DE BAJA MÉDICA IT: NO CONTABILIZA NI EN NO FICHA NI EN NO OK
-    if (isBajaRegistrada || esOperarioDeBaja(workerName)) {
+    // 1. SI ESTÁ DE BAJA MÉDICA IT: NO CONTABILIZA NI EN NO FICHA NI EN NO OK (solo si no tiene fichajes)
+    const tieneMarcajes = workerFichajes && workerFichajes.length > 0;
+    if (!tieneMarcajes && (isBajaRegistrada || esOperarioDeBaja(workerName))) {
       return {
         check: 'baja',
         badgeClass: 'badge-baja',
@@ -449,9 +756,10 @@
   }
 
   // Obtener estado consolidado con Porcentajes (%) y Exclusión de Bajas IT
-  function getComplianceMatrix() {
+  function getComplianceMatrix(fechaOverride) {
+    const fechaEval = fechaOverride || FichState.filterFecha;
     const itemsPorFecha = FichState.items.filter(i => {
-      if (FichState.filterFecha !== 'todas' && i.fechaEfectiva !== FichState.filterFecha) return false;
+      if (fechaEval !== 'todas' && i.fechaEfectiva !== fechaEval) return false;
       return true;
     });
 
@@ -463,9 +771,9 @@
       fichajesByWorker[item.empleadoNombre].push(item);
     });
 
-    const evaluatedWorkers = FichState.plantillaGirona.map(w => {
+    const evaluatedWorkers = FichState.plantillaOperativa.map(w => {
       const wFichajes = fichajesByWorker[w.nombre] || [];
-      const evalResult = evaluateWorkerCheck(w.nombre, wFichajes, FichState.filterFecha, w.isBaja);
+      const evalResult = evaluateWorkerCheck(w.nombre, wFichajes, fechaEval, w.isBaja);
       
       const centrosList = Array.from(new Set(wFichajes.map(f => f.centroNombre).filter(Boolean)));
       const clientesList = Array.from(new Set(wFichajes.map(f => f.clienteNombre).filter(Boolean)));
@@ -474,8 +782,8 @@
         nombre: w.nombre,
         dni: w.dni || (wFichajes[0] ? wFichajes[0].empleadoDNI : ''),
         codigo: w.codigo || (wFichajes[0] ? wFichajes[0].empleadoCod : ''),
-        cliente: clientesList.join(', ') || w.cliente || 'ASIGNACIÓN GIRONA',
-        centro: centrosList.join(', ') || w.centro || 'SERVICIO GIRONA',
+        cliente: clientesList.join(', ') || w.cliente || 'ASIGNACIÓN BARCELONA',
+        centro: centrosList.join(', ') || w.centro || 'SERVICIO BARCELONA',
         fichajes: wFichajes,
         ...evalResult
       };
@@ -510,16 +818,60 @@
     };
   }
 
-  // Inicializar
-  initData();
+  // Inicialización diferida (lazy) para no bloquear el arranque con los 16.695 registros históricos
+  let _legacyDataInitialized = false;
+  function ensureLegacyDataLoaded() {
+    if (_legacyDataInitialized) return;
+    _legacyDataInitialized = true;
+    initData();
+  }
 
   // ==========================================================================
   // RENDER PRINCIPAL DE LA VISTA DEL DASHBOARD
   // ==========================================================================
   window.renderFichajesDashboardView = function () {
+    const isContraste = !FichState.viewMode || FichState.viewMode === 'contraste';
+    const isServicios = FichState.viewMode === 'servicios';
+    const isTrabajadores = FichState.viewMode === 'trabajadores';
+    const isListado = FichState.viewMode === 'listado' || FichState.viewMode === 'table';
+
+    let contentHtml = '';
+    if (isServicios) {
+      ensureLegacyDataLoaded();
+      const items = getFilteredItems();
+      const compliance = getComplianceMatrix();
+      contentHtml = renderServicesViewWithCheck(items, compliance.evaluatedWorkers);
+    } else if (isTrabajadores) {
+      ensureLegacyDataLoaded();
+      const compliance = getComplianceMatrix();
+      contentHtml = renderWorkersCheckView(compliance.evaluatedWorkers);
+    } else if (isListado) {
+      ensureLegacyDataLoaded();
+      const items = getFilteredItems();
+      contentHtml = renderTableView(items);
+    } else {
+      contentHtml = renderContrasteView();
+    }
+
     return `
       <div class="fichajes-dashboard-container">
-        ${renderContrasteView()}
+        <!-- BARRA DE MODOS DE VISTA PRINCIPALES -->
+        <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:8px 16px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <span style="font-size:12px; font-weight:800; color:#475569; margin-right:4px;">👁️ VISTAS DISPONIBLES:</span>
+          <button type="button" class="fich-view-mode-btn ${isContraste ? 'active' : ''}" onclick="window.FichajesModule.setViewMode('contraste')">
+            <span>⚡ 1. Contraste Multi-Gestor (En Vivo)</span>
+          </button>
+          <button type="button" class="fich-view-mode-btn ${isServicios ? 'active' : ''}" onclick="window.FichajesModule.setViewMode('servicios')">
+            <span>🏢 2. Por Centros / Servicios</span>
+          </button>
+          <button type="button" class="fich-view-mode-btn ${isTrabajadores ? 'active' : ''}" onclick="window.FichajesModule.setViewMode('trabajadores')">
+            <span>👥 3. Por Trabajadores</span>
+          </button>
+          <button type="button" class="fich-view-mode-btn ${isListado ? 'active' : ''}" onclick="window.FichajesModule.setViewMode('listado')">
+            <span>📋 4. Historial Marcajes Brutos</span>
+          </button>
+        </div>
+        ${contentHtml}
       </div>
     `;
   };
@@ -542,7 +894,7 @@
     const servicesMap = {};
 
     displayWorkers.forEach(w => {
-      const sKey = w.centro || 'SERVICIOS GENERALES GIRONA';
+      const sKey = w.centro || 'SERVICIOS GENERALES BARCELONA';
       if (!servicesMap[sKey]) {
         servicesMap[sKey] = {
           nombre: sKey,
@@ -744,82 +1096,305 @@
     `;
   }
 
-  // Helper para filtrar y ordenar trabajadores del portal de la app
+  // Helper oficial de clasificación sectorial para Barcelona (Delegación 0801)
+  function getSectorTrabajador(w) {
+    if (!w) return 'LIMPIEZA';
+    const gid = String(w.gestor_id || '').trim();
+    const s = String(w.servicio || '').toUpperCase();
+    const c = String(w.cliente || '').toUpperCase();
+    const sec = String(w.sector || '').toUpperCase();
+    if (gid === '00062620' || s.includes('INDRA') || c.includes('INDRA') || s.includes('ROC BORONAT')) {
+      return 'INDRA';
+    }
+    if (s.includes('ALDI') || c.includes('ALDI') || sec.includes('ALDI')) {
+      return 'ALDI';
+    }
+    if (sec.includes('JARDIN') || sec.includes('MEDIO') || s.includes('JARDIN')) {
+      return 'MEDIO_AMBIENTE';
+    }
+    if (sec.includes('AUX') || s.includes('(AUX)') || s.includes('AUXILIAR') || s.includes('CONSERJ') || s.includes('CONTROL ACCESO')) {
+      return 'AUXILIARES';
+    }
+    if (gid === '00066957' || s.includes('MULTI') || c.includes('MULTI') || sec.includes('MULTI')) {
+      return 'MULTICLIENTE';
+    }
+    return 'LIMPIEZA';
+  }
+
+  // Helper para filtrar y ordenar trabajadores del portal de la app (Ultra-optimizado con caché O(1))
   function getContrasteFilteredWorkers() {
-    const payload = window.FICHAJES_CONTRASTE_PAYLOAD || { trabajadores: [], fecha_sincronizacion: 'En Vivo' };
-    const list = payload.trabajadores || [];
+    let list = [];
+    if (window.FichajesCarterasUnifier && typeof window.FichajesCarterasUnifier.buildUnifiedFichajesContraste === 'function') {
+      const unified = window.FichajesCarterasUnifier.buildUnifiedFichajesContraste(window.FICHAJES_CONTRASTE_PAYLOAD, window.HO_CARTERAS_PAYLOAD);
+      list = unified.trabajadores || [];
+    } else {
+      const payload = window.FICHAJES_CONTRASTE_PAYLOAD || { trabajadores: [], fecha_sincronizacion: 'En Vivo' };
+      list = payload.trabajadores || [];
+    }
     const mesActivo = FichState.contrasteMes || 10;
     const anioActivo = FichState.contrasteAnio || 2026;
+    const mesActual = mesActivo;
+    const anioActual = anioActivo;
     const mesPad = String(mesActivo).padStart(2, '0');
     const anioStr = String(anioActivo);
-    
-    // Normalizar estado canónico de cada trabajador para el mes y año activo
-    list.forEach(w => {
-      // Filtrar fichajes pertenecientes al mes y año seleccionado
-      const fMes = (w.fichajes || []).filter(f => {
-        if (!f.fecha) return false;
-        const p = f.fecha.split('/');
-        return p[1] === mesPad && (!p[2] || p[2] === anioStr);
-      });
-      w.fichajes_mes_activo = fMes;
+    const mesKey = `${anioStr}-${mesPad}`;
+    const nowRef = new Date();
+    const totalDiasMesActivo = new Date(anioActivo, mesActivo, 0).getDate();
+    const maxDiaTranscurrido = (nowRef.getFullYear() === anioActivo && (nowRef.getMonth() + 1) === mesActivo)
+      ? nowRef.getDate()
+      : ((anioActivo < nowRef.getFullYear() || (anioActivo === nowRef.getFullYear() && mesActivo < (nowRef.getMonth() + 1))) ? totalDiasMesActivo : 0);
 
-      if (fMes.length > 0) {
-        w.dias_fichados_activos = [...new Set(fMes.map(f => f.fecha.split('/')[0]))].sort();
-      } else if (mesActivo === 10 && anioActivo === 2026 && (w.dias_fichados || []).length > 0) {
-        w.dias_fichados_activos = w.dias_fichados;
-      } else {
-        w.dias_fichados_activos = [];
-      }
+    const syncStamp = (window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.fecha_sincronizacion) || 'v1';
+    const cacheKeyMes = `${mesKey}|${maxDiaTranscurrido}|${syncStamp}`;
+    const isCurrentMonthToday = (nowRef.getFullYear() === anioActivo && (nowRef.getMonth() + 1) === mesActivo);
+    const todayDateNum = nowRef.getDate();
 
-      if (esOperarioDeBaja(w.nombre, w.dni)) {
-        w.isBaja = true;
-        w.estado_semaforo = 'baja';
-        w.diagnostico = '🩺 BAJA MÉDICA IT JUSTIFICADA (Incapacidad Temporal en SAP)';
-      } else {
-        w.isBaja = false;
-        if (w.estado_semaforo === 'baja') {
-          w.estado_semaforo = (w.total_fichajes > 0 || w.dias_fichados_activos.length > 0) ? 'ok' : 'noficha';
+    // Precalcular días de fin de semana del mes activo una sola vez
+    const weekendDaySet = new Set();
+    for (let d = 1; d <= totalDiasMesActivo; d++) {
+      const dow = new Date(anioActivo, mesActivo - 1, d).getDay();
+      if (dow === 0 || dow === 6) weekendDaySet.add(d);
+    }
+
+    const dSelActive = (FichState.contrasteDia && FichState.contrasteDia !== 'todos')
+      ? String(FichState.contrasteDia).padStart(2, '0')
+      : null;
+    const dSelNum = dSelActive ? parseInt(dSelActive, 10) : 0;
+
+    // Normalizar estado canónico y calcular trazabilidad exacta de días fichados, incompletos y fallados (Cacheado por mes/sync)
+    for (let i = 0; i < list.length; i++) {
+      const w = list[i];
+
+      if (w._calcCacheKey !== cacheKeyMes) {
+        const fichajesPorDiaMap = Object.create(null);
+        const fMes = [];
+        const rawFichs = w.fichajes || [];
+        for (let j = 0; j < rawFichs.length; j++) {
+          const f = rawFichs[j];
+          if (!f.fecha) continue;
+          const p = f.fecha.split('/');
+          if (p[1] === mesPad && (!p[2] || p[2] === anioStr)) {
+            fMes.push(f);
+            const dKey = String(p[0]).padStart(2, '0');
+            if (!fichajesPorDiaMap[dKey]) fichajesPorDiaMap[dKey] = [];
+            fichajesPorDiaMap[dKey].push(f);
+          }
         }
+        w.fichajes_mes_activo = fMes;
+        w._fichajesPorDiaMap = fichajesPorDiaMap;
+
+        if (fMes.length > 0) {
+          w.dias_fichados_activos = Object.keys(fichajesPorDiaMap).sort();
+        } else if (mesActivo === 10 && anioActivo === 2026 && (w.dias_fichados || []).length > 0) {
+          w.dias_fichados_activos = w.dias_fichados.map(d => String(d).padStart(2, '0')).sort();
+        } else {
+          w.dias_fichados_activos = [];
+        }
+
+        const esBaja = esOperarioDeBaja(w.nombre, w.dni, w);
+        const esVac = esOperarioDeVacaciones(w.nombre, w.dni, w);
+
+        if (esBaja) {
+          w.isBaja = true;
+          w.en_baja = true;
+          w.de_vacaciones = false;
+          w.estado_semaforo = 'baja';
+          w.estado_hoy = 'BAJA_IT';
+          w.situacion_personal = 'BAJA_IT';
+          w.diagnostico = '🩺 BAJA MÉDICA IT JUSTIFICADA (Incapacidad Temporal en SAP HO / CTI)';
+          w.diagnostico_hoy = '🏥 En situación de Baja Médica (IT) justificada en SAP HO';
+        } else if (esVac) {
+          w.isBaja = false;
+          w.en_baja = false;
+          w.de_vacaciones = true;
+          w.estado_semaforo = 'vacaciones';
+          w.estado_hoy = 'VACACIONES';
+          w.situacion_personal = 'VACACIONES';
+          w.diagnostico = '🏖️ PERIODO VACACIONAL / PERMISO JUSTIFICADO (Aprobado en SAP HO / CTI)';
+          w.diagnostico_hoy = '🏖️ De vacaciones según planificación oficial de SAP HO';
+        } else {
+          w.isBaja = false;
+          w.en_baja = false;
+          w.de_vacaciones = false;
+          w.situacion_personal = 'ACTIVO';
+          if (w.estado_semaforo === 'baja' || w.estado_semaforo === 'vacaciones') {
+            w.estado_semaforo = (w.total_fichajes > 0 || w.dias_fichados_activos.length > 0) ? 'ok' : 'noficha';
+          }
+          if (w.estado_hoy === 'BAJA_IT' || w.estado_hoy === 'VACACIONES') {
+            w.estado_hoy = (w.dias_fichados_activos.includes(String(todayDateNum).padStart(2, '0'))) ? 'FINALIZADO' : 'NO_FICHADO';
+          }
+        }
+
+        const diasFichadosSet = new Set(w.dias_fichados_activos);
+        w._diasFichadosSet = diasFichadosSet;
+        w.usa_app_mes = (diasFichadosSet.size > 0 || (w.total_fichajes || 0) > 0);
+
+        const diasFallados = [];
+        const diasIncompletos = [];
+        const v2Month = (w.meses && w.meses[mesKey]) ? w.meses[mesKey] : null;
+        const esVacacionesGlobal = (w.estado_hoy === 'VACACIONES' || w.de_vacaciones);
+        const esBajaGlobal = Boolean(w.isBaja || w.en_baja || w.estado_semaforo === 'baja');
+
+        if (!esBajaGlobal && !esVacacionesGlobal && maxDiaTranscurrido > 0) {
+          // Si el backend ya calculó los días fallados reales con CTI, usarlos directamente
+          if (Array.isArray(w.dias_fallados_activos) && w._calcCacheKey === cacheKeyMes) {
+            diasFallados.push(...w.dias_fallados_activos);
+          } else {
+            for (let d = 1; d <= maxDiaTranscurrido; d++) {
+              const dPad = String(d).padStart(2, '0');
+              const estContrato = getEstadoContractualDia(w, d, mesActivo, anioActivo);
+              if (!estContrato.contratado) continue;
+
+              const dayCal = (w.calendar_days && (w.calendar_days[String(d)] || w.calendar_days[dPad])) || {};
+              if (dayCal.isBaja || dayCal.isVacaciones || dayCal.isDescanso || dayCal.isNoContrato) continue;
+
+              if (diasFichadosSet.has(dPad)) {
+                const v2Day = (v2Month && v2Month.dias) ? v2Month.dias[dPad] : null;
+                if (v2Day && (v2Day.estado === 'INCOMPLETO_SIN_SALIDA' || v2Day.estado === 'SOLO_SALIDA')) {
+                  diasIncompletos.push(dPad);
+                } else if (!v2Day) {
+                  const dFichs = fichajesPorDiaMap[dPad] || [];
+                  let tieneEnt = false;
+                  let tieneSal = false;
+                  for (let k = 0; k < dFichs.length; k++) {
+                    const fk = dFichs[k];
+                    const tLow = (fk.tipo || '').toLowerCase();
+                    if (fk.isEntrada || tLow.includes('entrada')) tieneEnt = true;
+                    if (!fk.isEntrada || tLow.includes('salida')) tieneSal = true;
+                  }
+                  const isHoy = (isCurrentMonthToday && d === todayDateNum);
+                  if (!isHoy && dFichs.length > 0 && (!tieneEnt || !tieneSal)) {
+                    diasIncompletos.push(dPad);
+                  }
+                }
+              } else if (dayCal.isFallo || (w.usa_app_mes && !weekendDaySet.has(d) && !w.es_trabajador_finde)) {
+                diasFallados.push(dPad);
+              }
+            }
+          }
+        }
+        w.dias_fallados_activos = esBajaGlobal ? [] : (w.dias_fallados_activos || diasFallados);
+        w.dias_incompletos_activos = diasIncompletos;
+        w._diasIncompletosSet = new Set(diasIncompletos);
+        w._diasFalladosSet = new Set(w.dias_fallados_activos);
+        w._searchBlob = `${w.nombre || ''} ${w.dni || ''} ${w.servicio || ''} ${w.cliente || ''} ${w.sector || ''} ${w.gestor_nombre || ''} ${w.gestor_corto || ''} ${(w.dias_fichados_activos || w.dias_fichados || []).join(' ')}`.toLowerCase();
+        w._calcCacheKey = cacheKeyMes;
       }
-    });
+
+      // Si hay un día específico seleccionado, calcular el estado exacto de ESE día cruzado con CTI / SAP HO
+      if (dSelActive) {
+        const estC = getEstadoContractualDia(w, dSelNum, mesActivo, anioActivo);
+        const dayCal = (w.calendar_days && (w.calendar_days[String(dSelNum)] || w.calendar_days[dSelActive])) || {};
+        const fichoEseDia = w._diasFichadosSet && w._diasFichadosSet.has(dSelActive);
+        const incompletoEseDia = w._diasIncompletosSet && w._diasIncompletosSet.has(dSelActive);
+
+        if (!estC.contratado || dayCal.isNoContrato) {
+          w.estado_dia_sel = 'nocontrato';
+        } else if (fichoEseDia) {
+          w.estado_dia_sel = incompletoEseDia ? 'nook' : 'ok';
+        } else if (dayCal.isBaja || w.isBaja || w.en_baja || w.estado_semaforo === 'baja' || (w.dias_baja_activos && w.dias_baja_activos.includes(dSelActive))) {
+          w.estado_dia_sel = 'baja';
+        } else if (dayCal.isVacaciones || w.estado_hoy === 'VACACIONES' || w.de_vacaciones || (w.dias_vacaciones_activos && w.dias_vacaciones_activos.includes(dSelActive))) {
+          w.estado_dia_sel = 'vacaciones';
+        } else if (dayCal.isDescanso || (w.dias_descanso_activos && w.dias_descanso_activos.includes(dSelActive))) {
+          w.estado_dia_sel = 'descanso';
+        } else if (dayCal.isFallo || (w.usa_app_mes && !dayCal.isDescanso)) {
+          w.estado_dia_sel = 'fallo_app';
+        } else {
+          w.estado_dia_sel = 'nunca_app';
+        }
+      } else {
+        w.estado_dia_sel = null;
+      }
+    }
 
     const q = (FichState.search || '').toLowerCase().trim();
+    const gestorFilter = FichState.contrasteGestor || 'todos';
     const sectorFilter = FichState.contrasteSector || 'todos';
     const semaforoFilter = FichState.contrasteSemaforo || 'todos';
     const sortMode = FichState.contrasteSort || 'nombre';
     const cFilters = FichState.compactColFilters || {};
 
     let filtered = list.filter(w => {
-      if (q) {
-        const match = (w.nombre || '').toLowerCase().includes(q) ||
-                      (w.dni || '').toLowerCase().includes(q) ||
-                      (w.servicio || '').toLowerCase().includes(q) ||
-                      (w.sector || '').toLowerCase().includes(q);
+      // Filtro por Gestor de Operaciones de Barcelona (con soporte multi-formato, tildes y IDs)
+      if (gestorFilter !== 'todos') {
+        const gid = String(w.gestor_id || '').trim();
+        const normFilter = normalizeText(gestorFilter);
+        const normCorto = normalizeText(w.gestor_corto || '');
+        const normNom = normalizeText(w.gestor_nombre || '');
+        const gList = getGestoresDisponiblesList();
+        const gObj = gList.find(g => g.id === gestorFilter || normalizeText(g.nombre_corto) === normFilter || normalizeText(g.nombre) === normFilter);
+
+        const match = (gid === gestorFilter) ||
+                      (normFilter && (normCorto.includes(normFilter) || normFilter.includes(normCorto) || normNom.includes(normFilter) || normFilter.includes(normNom))) ||
+                      (gObj && (gid === gObj.id || normCorto.includes(normalizeText(gObj.nombre_corto)) || normalizeText(gObj.nombre_corto).includes(normCorto) || normNom.includes(normalizeText(gObj.nombre_corto))));
         if (!match) return false;
       }
-      if (sectorFilter !== 'todos') {
-        if (sectorFilter === 'CASTILLO' && !(w.servicio || '').includes('CASTILLO')) return false;
-        if (sectorFilter === 'ALBERGUES' && !(w.servicio || '').includes('ALBERGUE') && !(w.servicio || '').includes('JOVENTUT')) return false;
-        if (sectorFilter === 'JARDINERIA' && !(w.servicio || '').includes('JARDINERIA')) return false;
-        if (sectorFilter === 'LIMPIEZA' && ((w.servicio || '').includes('CASTILLO') || (w.servicio || '').includes('ALBERGUE') || (w.servicio || '').includes('JOVENTUT') || (w.servicio || '').includes('JARDINERIA'))) return false;
+
+      if (q) {
+        if (!(w._searchBlob || '').includes(q)) return false;
       }
+      if (sectorFilter !== 'todos') {
+        const sec = getSectorTrabajador(w);
+        const wSec = String(w.sector || '').toUpperCase();
+        if (sectorFilter === 'LIMPIEZA' && sec !== 'LIMPIEZA') return false;
+        if (sectorFilter === 'AUXILIARES' && sec !== 'AUXILIARES') return false;
+        if (sectorFilter === 'INDRA' && sec !== 'INDRA') return false;
+        if (sectorFilter === 'MULTICLIENTE' && sec !== 'MULTICLIENTE') return false;
+        if (sectorFilter === 'ALDI' && sec !== 'ALDI' && !wSec.includes('ALDI')) return false;
+        if (sectorFilter === 'MEDIO_AMBIENTE' && sec !== 'MEDIO_AMBIENTE' && !wSec.includes('MEDIO') && !wSec.includes('JARDIN')) return false;
+      }
+      // Si estamos en vista de mes completo, aplicar semaforoFilter mensual; si hay día seleccionado, aplicarlo al estado de ese día
       if (semaforoFilter !== 'todos') {
-        if (w.estado_semaforo !== semaforoFilter) return false;
+        if (FichState.contrasteDia && FichState.contrasteDia !== 'todos') {
+          if (semaforoFilter === 'ok' && w.estado_dia_sel !== 'ok') return false;
+          if (semaforoFilter === 'nook' && w.estado_dia_sel !== 'nook' && w.estado_dia_sel !== 'fallo_app') return false;
+          if (semaforoFilter === 'noficha' && w.estado_dia_sel !== 'fallo_app' && w.estado_dia_sel !== 'nunca_app') return false;
+          if (semaforoFilter === 'baja' && w.estado_dia_sel !== 'baja') return false;
+          if (semaforoFilter === 'vacaciones' && w.estado_dia_sel !== 'vacaciones') return false;
+        } else {
+          if (w.estado_semaforo !== semaforoFilter) return false;
+        }
       }
 
-      // Filtro reactivo por Día de Fichaje y Modo (fichó / no fichó)
+      // Filtro reactivo por Día de Fichaje y Modo (fallo_app / ficho / incompleto / baja / vacaciones / descanso / nunca_app / todos)
       if (FichState.contrasteDia && FichState.contrasteDia !== 'todos') {
         const diaPad = String(FichState.contrasteDia).padStart(2, '0');
-        const diasList = w.dias_fichados_activos || w.dias_fichados || [];
-        const fichoEseDia = diasList.includes(diaPad);
-        if (FichState.contrasteDiaModo === 'ficho' && !fichoEseDia) return false;
-        if (FichState.contrasteDiaModo === 'noficho' && fichoEseDia) return false;
+        const diaNum = parseInt(diaPad, 10);
+        const estContrato = getEstadoContractualDia(w, diaNum, mesActual, anioActual);
+
+        // Si el trabajador NO estaba de alta o ya había finalizado su contrato en este día específico
+        if (!estContrato.contratado) {
+          if (FichState.contrasteDiaModo !== 'todos') return false;
+        } else {
+          if (FichState.contrasteDiaModo === 'ficho' && w.estado_dia_sel !== 'ok' && w.estado_dia_sel !== 'nook') return false;
+          if (FichState.contrasteDiaModo === 'incompleto' && w.estado_dia_sel !== 'nook') return false;
+          if (FichState.contrasteDiaModo === 'fallo_app' && w.estado_dia_sel !== 'fallo_app') return false;
+          if (FichState.contrasteDiaModo === 'baja' && w.estado_dia_sel !== 'baja') return false;
+          if (FichState.contrasteDiaModo === 'vacaciones' && w.estado_dia_sel !== 'vacaciones') return false;
+          if (FichState.contrasteDiaModo === 'descanso' && w.estado_dia_sel !== 'descanso') return false;
+          if (FichState.contrasteDiaModo === 'nunca_app' && w.estado_dia_sel !== 'nunca_app') return false;
+        }
       }
 
-      // Buscadores individuales por cada columna de la tabla compacta (correspondencia exacta 1:1)
+      // Buscadores individuales por cada columna de la tabla compacta (sensible al día seleccionado)
       if (cFilters.estado) {
         const est = cFilters.estado.toLowerCase().trim();
-        if (est && w.estado_semaforo !== est) return false;
+        if (est) {
+          if (FichState.contrasteDia && FichState.contrasteDia !== 'todos') {
+            if (est === 'ok' && w.estado_dia_sel !== 'ok') return false;
+            if (est === 'nook' && w.estado_dia_sel !== 'nook' && w.estado_dia_sel !== 'fallo_app') return false;
+            if (est === 'noficha' && w.estado_dia_sel !== 'fallo_app' && w.estado_dia_sel !== 'nunca_app') return false;
+            if (est === 'baja' && w.estado_dia_sel !== 'baja') return false;
+          } else {
+            if (w.estado_semaforo !== est) return false;
+          }
+        }
+      }
+      if (cFilters.gestor) {
+        const gVal = cFilters.gestor.toLowerCase().trim();
+        const gStr = `${w.gestor_corto || ''} ${w.gestor_nombre || ''} ${w.empresa_badge || ''}`.toLowerCase();
+        if (!gStr.includes(gVal)) return false;
       }
       if (cFilters.trabajador) {
         const tr = cFilters.trabajador.toLowerCase().trim();
@@ -841,7 +1416,8 @@
         const dayVal = cFilters.dia.trim();
         const dayStr = dayVal.padStart(2, '0');
         const diasList = w.dias_fichados_activos || w.dias_fichados || [];
-        const matchDay = diasList.some(d => d.includes(dayVal) || d === dayStr);
+        const falladosList = w.dias_fallados_activos || [];
+        const matchDay = diasList.some(d => d.includes(dayVal) || d === dayStr) || falladosList.some(d => d.includes(dayVal) || d === dayStr);
         if (!matchDay) return false;
       }
       if (cFilters.fichajes) {
@@ -861,7 +1437,16 @@
       return true;
     });
 
-    if (sortMode === 'fichajes') {
+    if (FichState.contrasteDia && FichState.contrasteDia !== 'todos') {
+      // Ordenar priorizando a quienes tienen actividad/fallo puntual ese día por encima de los que tienen 0 en todo el mes
+      const dayWeight = { fallo_app: 1, nook: 2, ok: 3, nunca_app: 4, baja: 5, nocontrato: 6 };
+      filtered.sort((a, b) => {
+        const wa = dayWeight[a.estado_dia_sel] || 99;
+        const wb = dayWeight[b.estado_dia_sel] || 99;
+        if (wa !== wb) return wa - wb;
+        return (a.nombre || '').localeCompare(b.nombre || '');
+      });
+    } else if (sortMode === 'fichajes') {
       filtered.sort((a, b) => b.total_fichajes - a.total_fichajes);
     } else if (sortMode === 'semaforo') {
       const weight = { noficha: 1, nook: 2, ok: 3, baja: 4 };
@@ -875,8 +1460,48 @@
 
   // Renderizar fila individual de la tabla compacta con letra en color negro
   function renderCompactTableRowHTML(w) {
-    const badgeClass = w.estado_semaforo === 'ok' ? 'badge-ok' : (w.estado_semaforo === 'nook' ? 'badge-nook' : (w.estado_semaforo === 'baja' ? 'badge-baja' : 'badge-noficha'));
-    const badgeLabel = w.estado_semaforo === 'ok' ? '🟢 OK 100%' : (w.estado_semaforo === 'nook' ? '🟡 PARCIAL' : (w.estado_semaforo === 'baja' ? '🩺 BAJA IT' : '🔴 NO FICHA'));
+    const diaActivo = (FichState.contrasteDia && FichState.contrasteDia !== 'todos') ? String(FichState.contrasteDia).padStart(2, '0') : null;
+    const mesPadRow = String(FichState.contrasteMes || 10).padStart(2, '0');
+    let badgeClass = 'badge-noficha';
+    let badgeLabel = '🔴 NO FICHA';
+    if (w.isBaja || w.en_baja || w.estado_semaforo === 'baja' || w.situacion_personal === 'BAJA_IT') {
+      badgeClass = 'badge-baja';
+      badgeLabel = '🩺 BAJA IT';
+    } else if (w.isVacaciones || w.de_vacaciones || w.estado_semaforo === 'vacaciones' || w.situacion_personal === 'VACACIONES') {
+      badgeClass = 'badge-vacaciones';
+      badgeLabel = '🏖️ VACACIONES';
+    } else if (w.estado_semaforo === 'ok') {
+      badgeClass = 'badge-ok';
+      badgeLabel = '🟢 OK 100%';
+    } else if (w.estado_semaforo === 'nook') {
+      badgeClass = 'badge-nook';
+      badgeLabel = '🟡 PARCIAL';
+    }
+
+    if (diaActivo && w.estado_dia_sel) {
+      if (w.estado_dia_sel === 'ok') {
+        badgeClass = 'badge-ok';
+        badgeLabel = `🟢 FICHÓ DÍA ${diaActivo}`;
+      } else if (w.estado_dia_sel === 'nook') {
+        badgeClass = 'badge-nook';
+        badgeLabel = `🟡 SIN SALIDA DÍA ${diaActivo}`;
+      } else if (w.estado_dia_sel === 'fallo_app') {
+        badgeClass = 'badge-noficha';
+        badgeLabel = `🔴 FALLÓ DÍA ${diaActivo}`;
+      } else if (w.estado_dia_sel === 'nunca_app') {
+        badgeClass = 'badge-noficha';
+        badgeLabel = `⚫ 0 EN TODO EL MES`;
+      } else if (w.estado_dia_sel === 'baja') {
+        badgeClass = 'badge-baja';
+        badgeLabel = `🩺 BAJA IT`;
+      } else if (w.estado_dia_sel === 'vacaciones') {
+        badgeClass = 'badge-vacaciones';
+        badgeLabel = `🏖️ VACACIONES`;
+      } else if (w.estado_dia_sel === 'descanso') {
+        badgeClass = 'badge-descanso';
+        badgeLabel = `☕ DESCANSO`;
+      }
+    }
     const ultFich = w.ultimo_fichaje ? `${w.ultimo_fichaje.fecha} ${w.ultimo_fichaje.hora}` : '-';
     const hasFichs = (w.fichajes && w.fichajes.length > 0);
 
@@ -888,7 +1513,14 @@
           </span>
         </td>
         <td>
+          <span style="font-size:11px; font-weight:800; background:#f1f5f9; padding:2px 6px; border-radius:4px; border:1px solid #cbd5e1; color:#000000 !important; white-space:nowrap;" title="${w.gestor_nombre || ''}">
+            ${w.empresa_badge || '🏢 SIFU'} ${w.gestor_corto || 'A. Coscolin'}
+          </span>
+        </td>
+        <td>
           <div style="font-weight:800; color:#000000 !important; font-size:12px;">${w.nombre}</div>
+          ${w.inicio_contrato ? `<div style="font-size:10px; color:#0284c7; font-weight:700;">Alta: ${w.inicio_contrato}</div>` : ''}
+          ${(w.fin_contrato && w.fin_contrato.toLowerCase() !== 'indefinido') ? `<div style="font-size:10px; color:#e11d48; font-weight:700;">Fin: ${w.fin_contrato}</div>` : ''}
         </td>
         <td>
           <span style="font-family:monospace; font-size:11px; color:#000000 !important; font-weight:700;">${w.dni}</span>
@@ -903,12 +1535,26 @@
         </td>
         <td>
           ${(() => {
-            const mesPad = String(FichState.contrasteMes || 10).padStart(2, '0');
+            const mesActual = FichState.contrasteMes || 10;
+            const anioActual = FichState.contrasteAnio || 2026;
+            const mesPad = String(mesActual).padStart(2, '0');
             const diasList = w.dias_fichados_activos || w.dias_fichados || [];
             if (FichState.contrasteDia && FichState.contrasteDia !== 'todos') {
               const diaPad = String(FichState.contrasteDia).padStart(2, '0');
-              const fichoEseDia = diasList.includes(diaPad);
-              const dFichs = (w.fichajes || []).filter(f => f.fecha && f.fecha.split('/')[0] === diaPad && f.fecha.split('/')[1] === mesPad);
+              const diaNum = parseInt(diaPad, 10);
+              const estContrato = getEstadoContractualDia(w, diaNum, mesActual, anioActual);
+
+              if (!estContrato.contratado) {
+                return `
+                  <div style="font-size:11px; font-weight:800; color:#475569; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                    <span>⚪</span>
+                    <span>${estContrato.label}</span>
+                  </div>
+                `;
+              }
+
+              const fichoEseDia = w._diasFichadosSet ? w._diasFichadosSet.has(diaPad) : diasList.includes(diaPad);
+              const dFichs = (w._fichajesPorDiaMap && w._fichajesPorDiaMap[diaPad]) ? w._fichajesPorDiaMap[diaPad] : [];
               if (fichoEseDia && dFichs.length > 0) {
                 const fEntrada = dFichs.find(f => f.isEntrada || (f.tipo || '').toLowerCase().includes('entrada'));
                 const fSalida = [...dFichs].reverse().find(f => !f.isEntrada || (f.tipo || '').toLowerCase().includes('salida'));
@@ -928,19 +1574,69 @@
                     <span>Marcaje registrado día ${diaPad}/${mesPad}</span>
                   </div>
                 `;
+              } else if (w.estado_dia_sel === 'baja' || (w.calendar_days && w.calendar_days[diaPad] && w.calendar_days[diaPad].isBaja)) {
+                return `
+                  <div style="font-size:11px; font-weight:800; color:#6d28d9; background:#f5f3ff; border:1px solid #ddd6fe; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                    <span>🩺</span>
+                    <span>Baja Médica IT justificada (SAP HO / CTI)</span>
+                  </div>
+                `;
+              } else if (w.estado_dia_sel === 'vacaciones' || (w.calendar_days && w.calendar_days[diaPad] && w.calendar_days[diaPad].isVacaciones)) {
+                return `
+                  <div style="font-size:11px; font-weight:800; color:#0284c7; background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                    <span>🏖️</span>
+                    <span>Vacaciones / Permiso justificado (SAP HO / CTI)</span>
+                  </div>
+                `;
+              } else if (w.estado_dia_sel === 'descanso' || (w.calendar_days && w.calendar_days[diaPad] && w.calendar_days[diaPad].isDescanso)) {
+                return `
+                  <div style="font-size:11px; font-weight:800; color:#475569; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                    <span>☕</span>
+                    <span>Día de descanso según cuadrante CTI</span>
+                  </div>
+                `;
+              } else if (w.usa_app_mes) {
+                const falladosList = w.dias_fallados_activos || [];
+                return `
+                  <div style="display:flex; flex-direction:column; gap:3px;">
+                    <div style="font-size:11px; font-weight:900; color:#dc2626; background:#fee2e2; border:1px solid #f87171; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                      <span>🔴</span>
+                      <span>FALLÓ EL DÍA ${diaPad}/${mesPad} (Sí ficha otros ${diasList.length} días)</span>
+                    </div>
+                    <div style="font-size:10px; color:#334155; font-weight:700;">
+                      🟢 Días que sí fichó: ${diasList.map(d => `<span class="fich-day-chip" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;">${d}</span>`).join('')}
+                    </div>
+                    ${falladosList.length > 1 ? `
+                      <div style="font-size:10px; color:#be123c; font-weight:700;">
+                        🔴 Todos sus días con fallo: ${falladosList.map(d => `<span class="fich-day-chip fallo" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;">${d}</span>`).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
               } else {
                 return `
-                  <div style="font-size:11px; font-weight:800; color:#dc2626; background:#fee2e2; border:1px solid #fecaca; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
-                    <span>🔴</span>
-                    <span>Sin marcaje el día ${diaPad}/${mesPad}</span>
+                  <div style="font-size:11px; font-weight:800; color:#475569; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; padding:3px 7px; display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+                    <span>⚫</span>
+                    <span>Sin uso de App en todo el mes (0 marcajes en Octubre)</span>
                   </div>
                 `;
               }
             } else {
+              const falladosList = w.dias_fallados_activos || [];
+              const incompletosList = w.dias_incompletos_activos || [];
               return `
-                <div style="display:flex; align-items:center; gap:2px; flex-wrap:wrap; max-width:260px;">
-                  ${diasList.map(d => `<span class="fich-day-chip" title="Día ${d}/${mesPad} fichado - Clic para ver este día" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;">${d}</span>`).join('')}
-                  ${diasList.length === 0 ? '<span style="color:#000000; font-weight:600; font-style:italic;">0 días</span>' : ''}
+                <div style="display:flex; flex-direction:column; gap:4px; max-width:300px;">
+                  <div style="display:flex; align-items:center; gap:2px; flex-wrap:wrap;">
+                    <span style="font-size:9.5px; font-weight:800; color:#15803d; margin-right:2px;">🟢 OK (${diasList.length}):</span>
+                    ${diasList.map(d => `<span class="fich-day-chip ${incompletosList.includes(d) ? 'incompleto' : ''}" title="Día ${d}/${mesPad} ${incompletosList.includes(d) ? 'INCOMPLETO (Sin salida)' : 'fichado OK'} - Clic para auditar este día" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;">${d}</span>`).join('')}
+                    ${diasList.length === 0 ? '<span style="color:#64748b; font-size:10px; font-weight:700;">Ninguno</span>' : ''}
+                  </div>
+                  ${(!w.isBaja && !w.en_baja && falladosList.length > 0) ? `
+                    <div style="display:flex; align-items:center; gap:2px; flex-wrap:wrap;">
+                      <span style="font-size:9.5px; font-weight:800; color:#dc2626; margin-right:2px;">🔴 Falló (${falladosList.length}):</span>
+                      ${falladosList.map(d => `<span class="fich-day-chip fallo" title="🔴 FALLO Día ${d}/${mesPad}: Sin fichar - Clic para ver quién falló este día" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;">${d}</span>`).join('')}
+                    </div>
+                  ` : ''}
                 </div>
               `;
             }
@@ -956,11 +1652,16 @@
           ${w.diagnostico}
         </td>
         <td style="text-align:center;">
-          ${hasFichs ? `
-            <button class="fich-btn-action" style="padding:2px 8px; font-size:10.5px; background:#0284c7; color:#ffffff !important; border:none;" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')">
-              👁️ Ver (${w.fichajes.length})
+          <div style="display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:nowrap;">
+            ${hasFichs ? `
+              <button class="fich-btn-action" style="padding:2px 8px; font-size:10.5px; background:#0284c7; color:#ffffff !important; border:none; cursor:pointer;" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" title="Ver detalle de marcajes">
+                👁️ Ver (${w.fichajes.length})
+              </button>
+            ` : ''}
+            <button class="fich-btn-action" style="padding:2px 6px; font-size:10px; background:#fee2e2; color:#b91c1c !important; border:1px solid #fca5a5; border-radius:4px; font-weight:700; cursor:pointer; white-space:nowrap;" onclick="window.FichajesModule.marcarBajaEmpresa('${w.dni}', '${(w.nombre || '').replace(/'/g, "\\'")}')" title="Marcar como baja definitiva de SIFU (Ya no está en la empresa)">
+              ❌ Baja SIFU
             </button>
-          ` : '<span style="color:#64748b; font-size:11px; font-weight:700;">-</span>'}
+          </div>
         </td>
       </tr>
     `;
@@ -968,28 +1669,64 @@
 
   // Obtener la fecha y hora de la última sincronización en vivo
   function getLastSyncContrasteTime() {
-    const localTime = localStorage.getItem('sifu_fichajes_last_sync_contraste');
     const payload = window.FICHAJES_CONTRASTE_PAYLOAD;
     const payloadTime = payload && payload.fecha_sincronizacion;
-    return localTime || payloadTime || '13/10/2026 22:28:38';
+    const localTime = localStorage.getItem('sifu_fichajes_last_sync_contraste');
+    if (payloadTime) {
+      localStorage.setItem('sifu_fichajes_last_sync_contraste', payloadTime);
+      return payloadTime;
+    }
+    return localTime || '18/10/2026 14:36:55';
   }
 
   // VISTA PRINCIPAL: CONTRASTE EN TIEMPO REAL VÍA PORTAL EMPLEADO (gruposifuapp.gcalidad.com)
   function renderContrasteView() {
     const { list, filtered } = getContrasteFilteredWorkers();
 
-    // Contadores de estado canónicos
-    const countTotal = list.length;
-    const countOk = list.filter(w => w.estado_semaforo === 'ok').length;
-    const countNook = list.filter(w => w.estado_semaforo === 'nook').length;
-    const countNoFicha = list.filter(w => w.estado_semaforo === 'noficha').length;
-    const countBaja = list.filter(w => w.estado_semaforo === 'baja').length;
+    // Filtros locales
+    const q = (FichState.search || '').toLowerCase().trim();
+    const gestorFilter = FichState.contrasteGestor || 'todos';
+    const sectorFilter = FichState.contrasteSector || 'todos';
+    const semaforoFilter = FichState.contrasteSemaforo || 'todos';
+    const subView = FichState.contrasteSubView || 'tarjetas';
+    const sortMode = FichState.contrasteSort || 'nombre';
+    const cFilters = FichState.compactColFilters || {};
+    const diaSel = FichState.contrasteDia || 'todos';
+    const diaModo = FichState.contrasteDiaModo || 'todos';
 
-    // Contadores por sector
-    const countCastillo = list.filter(w => (w.servicio || '').includes('CASTILLO')).length;
-    const countAlbergues = list.filter(w => (w.servicio || '').includes('ALBERGUE') || (w.servicio || '').includes('JOVENTUT')).length;
-    const countJardineria = list.filter(w => (w.servicio || '').includes('JARDINERIA')).length;
-    const countLimpieza = list.filter(w => !(w.servicio || '').includes('CASTILLO') && !(w.servicio || '').includes('ALBERGUE') && !(w.servicio || '').includes('JOVENTUT') && !(w.servicio || '').includes('JARDINERIA')).length;
+    const gestoresDisponibles = getGestoresDisponiblesList();
+    const normGF = normalizeText(gestorFilter);
+    const gObjActive = gestorFilter !== 'todos' ? gestoresDisponibles.find(g => g.id === gestorFilter || normalizeText(g.nombre_corto) === normGF || normalizeText(g.nombre) === normGF) : null;
+
+    // Base de trabajadores acotada al gestor seleccionado (para que los KPIs reflejen fielmente el gestor)
+    const listScope = gestorFilter === 'todos'
+      ? list
+      : list.filter(w => {
+          const gid = String(w.gestor_id || '').trim();
+          const normCorto = normalizeText(w.gestor_corto || '');
+          const normNom = normalizeText(w.gestor_nombre || '');
+          if (gid === gestorFilter || (gObjActive && gid === gObjActive.id)) return true;
+          if (normGF && (normCorto.includes(normGF) || normGF.includes(normCorto) || normNom.includes(normGF))) return true;
+          if (gObjActive) {
+            const gObjNorm = normalizeText(gObjActive.nombre_corto);
+            if (normCorto.includes(gObjNorm) || gObjNorm.includes(normCorto) || normNom.includes(gObjNorm)) return true;
+          }
+          return false;
+        });
+
+    // Contadores de estado canónicos (Las personas de baja IT y vacaciones no suman a ok, nook ni noficha)
+    const countTotal = listScope.length;
+    const countBaja = listScope.filter(w => w.estado_semaforo === 'baja' || w.isBaja || w.en_baja).length;
+    const countVacaciones = listScope.filter(w => (w.estado_semaforo === 'vacaciones' || w.de_vacaciones) && !w.isBaja && !w.en_baja).length;
+    const countOk = listScope.filter(w => w.estado_semaforo === 'ok' && !w.isBaja && !w.en_baja && !w.de_vacaciones).length;
+    const countNook = listScope.filter(w => w.estado_semaforo === 'nook' && !w.isBaja && !w.en_baja && !w.de_vacaciones).length;
+    const countNoFicha = listScope.filter(w => (w.estado_semaforo === 'noficha' || !w.estado_semaforo) && !w.isBaja && !w.en_baja && !w.de_vacaciones).length;
+
+    // Contadores por sector Barcelona
+    const countIndra = listScope.filter(w => getSectorTrabajador(w) === 'INDRA').length;
+    const countAuxiliares = listScope.filter(w => getSectorTrabajador(w) === 'AUXILIARES').length;
+    const countMulticliente = listScope.filter(w => getSectorTrabajador(w) === 'MULTICLIENTE').length;
+    const countLimpieza = listScope.filter(w => getSectorTrabajador(w) === 'LIMPIEZA').length;
 
     // Mes y Año seleccionados dinámicamente
     const mesActual = FichState.contrasteMes || 10;
@@ -1002,18 +1739,75 @@
     const isCurrentMonthYear = (now.getFullYear() === anioActual && (now.getMonth() + 1) === mesActual);
     const todayDay = now.getDate();
 
-    // Filtros locales
-    const q = (FichState.search || '').toLowerCase().trim();
-    const sectorFilter = FichState.contrasteSector || 'todos';
-    const semaforoFilter = FichState.contrasteSemaforo || 'todos';
-    const subView = FichState.contrasteSubView || 'tarjetas';
-    const sortMode = FichState.contrasteSort || 'nombre';
-    const cFilters = FichState.compactColFilters || {};
-    const diaSel = FichState.contrasteDia || 'todos';
-    const diaModo = FichState.contrasteDiaModo || 'todos';
     const diaPad = diaSel !== 'todos' ? String(diaSel).padStart(2, '0') : '';
-    const countFichoDia = diaSel !== 'todos' ? list.filter(w => (w.dias_fichados_activos || w.dias_fichados || []).includes(diaPad)).length : 0;
-    const countNoFichoDia = diaSel !== 'todos' ? (list.length - countFichoDia) : 0;
+    const diaNum = diaSel !== 'todos' ? parseInt(diaPad, 10) : 0;
+    
+    // Solo se audita a quienes estaban de alta y con contrato vigente en la fecha seleccionada
+    const trabajadoresConContratoEnDia = diaSel !== 'todos' 
+      ? listScope.filter(w => getEstadoContractualDia(w, diaNum, mesActual, anioActual).contratado)
+      : listScope;
+    
+    const countFichoDia = diaSel !== 'todos' 
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'ok' || w.estado_dia_sel === 'nook').length 
+      : 0;
+    const countIncompletoDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'nook').length
+      : 0;
+    const countBajaDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'baja').length
+      : 0;
+    const countVacacionesDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'vacaciones').length
+      : 0;
+    const countDescansoDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'descanso').length
+      : 0;
+    const countFalloAppDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'fallo_app').length
+      : 0;
+    const countNuncaAppDia = diaSel !== 'todos'
+      ? trabajadoresConContratoEnDia.filter(w => w.estado_dia_sel === 'nunca_app').length
+      : 0;
+    const countNoFichoDia = countFalloAppDia;
+
+    // Mapa de fallos reales por cada día del mes (solo trabajadores convocados que fallaron ese día específico)
+    const fallosPorDiaMap = {};
+    const ficharonPorDiaMap = {};
+    diasMes.forEach(dObj => {
+      let fallosCnt = 0;
+      let fichoCnt = 0;
+      const pad = dObj.pad;
+      const numD = dObj.num;
+      for (let i = 0; i < listScope.length; i++) {
+        const w = listScope[i];
+        const dayCal = (w.calendar_days && (w.calendar_days[String(numD)] || w.calendar_days[pad])) || {};
+        if (dayCal.isOrange || (w._diasFichadosSet && w._diasFichadosSet.has(pad))) {
+          fichoCnt++;
+        }
+        if (dayCal.isFallo || (w.usa_app_mes && w._diasFalladosSet && w._diasFalladosSet.has(pad))) {
+          fallosCnt++;
+        }
+      }
+      fallosPorDiaMap[pad] = fallosCnt;
+      ficharonPorDiaMap[pad] = fichoCnt;
+    });
+
+    const countPorGestor = {};
+    list.forEach(w => {
+      const gid = String(w.gestor_id || '').trim();
+      const gCortoNorm = String(w.gestor_corto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      if (gid) countPorGestor[gid] = (countPorGestor[gid] || 0) + 1;
+      if (gCortoNorm) countPorGestor[gCortoNorm] = (countPorGestor[gCortoNorm] || 0) + 1;
+    });
+
+    function getGestorCount(g) {
+      const gCortoNorm = String(g.nombre_corto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      if (countPorGestor[g.id]) return countPorGestor[g.id];
+      if (countPorGestor[gCortoNorm]) return countPorGestor[gCortoNorm];
+      const payloadGestores = (window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.gestores) || [];
+      const pg = payloadGestores.find(x => x.id === g.id);
+      return pg ? (pg.total_trabajadores || 0) : 0;
+    }
 
     // Segmentación de días para el select según la fecha actual del sistema
     let diasTranscurridosDesc = [];
@@ -1030,8 +1824,8 @@
       diasProximosAsc = diasMes.slice();
     }
 
-    // Render del mini-calendario mensual dinámico
-    function renderMiniCalendarHTML(calendarDays, fichajes) {
+    // Render del mini-calendario mensual dinámico con cálculo matemático de turnos y horas reales
+    function renderMiniCalendarHTML(calendarDays, fichajes, workerObj) {
       const dayNames = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB', 'DO'];
       let html = '<div class="fich-mini-cal"><div class="fich-mini-cal-header">';
       dayNames.forEach(d => {
@@ -1046,41 +1840,87 @@
       }
 
       const mesPad = String(mesActual).padStart(2, '0');
+      const mesKey = `${anioActual}-${mesPad}`;
+
+      // Comprobar si el trabajador tiene datos v2 precalculados
+      const v2Month = (workerObj && workerObj.meses && workerObj.meses[mesKey]) ? workerObj.meses[mesKey] : null;
 
       for (let day = 1; day <= totalDiasEnMes; day++) {
         const dStr = String(day).padStart(2, '0');
-        const dayInfo = (calendarDays && calendarDays[dStr]) || {};
-        
-        // Comprobar si hay fichajes este día en este mes y año
-        const dFichs = (fichajes || []).filter(f => {
-          if (!f.fecha) return false;
-          const p = f.fecha.split('/');
-          return p[0] === dStr && p[1] === mesPad && (!p[2] || p[2] === String(anioActual));
-        });
+        const dayCal = (calendarDays && (calendarDays[String(day)] || calendarDays[dStr])) || {};
+        const dayInfo = dayCal;
+        const v2Day = (v2Month && v2Month.dias) ? v2Month.dias[dStr] : null;
 
-        const hasFichaje = (dFichs.length > 0) || (mesActual === 10 && anioActual === 2026 && (dayInfo.isOrange || dayInfo.status === 'FICHO'));
+        // Fichajes de este día (O(1) pre-indexado)
+        const dFichs = (workerObj && workerObj._fichajesPorDiaMap && workerObj._fichajesPorDiaMap[dStr])
+          ? workerObj._fichajesPorDiaMap[dStr]
+          : [];
+
         const isHoy = isCurrentMonthYear && (day === todayDay);
+        const dayDate = new Date(anioActual, mesActual - 1, day);
+        const isFuturo = dayDate > now;
 
-        let cellClass = 'fich-cal-cell cyan';
-        let tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Sin fichaje en la app`;
+        let cellClass = 'fich-cal-cell fich-status-sinfichar';
+        let tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Sin fichaje registrado`;
+        let horasBadge = '';
 
-        if (hasFichaje) {
-          cellClass = 'fich-cal-cell orange';
-          if (dFichs.length > 0) {
-            tooltip = `Día ${dStr}/${mesPad} (Fichado): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+        const estContratoDia = getEstadoContractualDia(workerObj, day, mesActual, anioActual);
+
+        if (!estContratoDia.contratado) {
+          cellClass = 'fich-cal-cell fich-status-nocontrato';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: ${estContratoDia.label}`;
+        } else if (v2Day && v2Day.marcajes && v2Day.marcajes.length > 0) {
+          const st = v2Day.estado;
+          const hrs = v2Day.horas_trabajadas || 0;
+          if (st === 'COMPLETO') {
+            cellClass = 'fich-cal-cell fich-status-completo';
+            tooltip = `Día ${dStr}/${mesPad} (${hrs}h trabajadas): ` + v2Day.marcajes.map(m => `${m.tipo} ${m.hora}`).join(' · ');
+          } else if (st === 'EN_CURSO') {
+            cellClass = 'fich-cal-cell fich-status-encurso';
+            tooltip = `Día ${dStr}/${mesPad} (EN TURNO AHORA): Entrada ` + v2Day.marcajes.map(m => m.hora).join(' · ');
           } else {
-            tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Marcaje registrado`;
+            cellClass = 'fich-cal-cell fich-status-incompleto';
+            tooltip = `Día ${dStr}/${mesPad} (Marcaje Parcial / Sin Salida): ` + v2Day.marcajes.map(m => `${m.tipo} ${m.hora}`).join(' · ');
           }
-        } else if (isHoy || dayInfo.isRed || dayInfo.status === 'HOY_INCIDENCIA') {
-          cellClass = 'fich-cal-cell red';
-          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Hoy / Marcaje en curso`;
+        } else if (dFichs.length > 0) {
+          // Fallback inteligente para Schema v1
+          const ent = dFichs.find(f => f.isEntrada || (f.tipo || '').toLowerCase().includes('entrada'));
+          const sal = dFichs.find(f => !f.isEntrada || (f.tipo || '').toLowerCase().includes('salida'));
+          if (ent && sal) {
+            cellClass = 'fich-cal-cell fich-status-completo';
+            tooltip = `Día ${dStr}/${mesPad} (Jornada Completa): ${ent.hora} ➔ ${sal.hora}`;
+          } else if (isHoy) {
+            cellClass = 'fich-cal-cell fich-status-encurso';
+            tooltip = `Día ${dStr}/${mesPad} (Turno de hoy en curso): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+          } else {
+            cellClass = 'fich-cal-cell fich-status-incompleto';
+            tooltip = `Día ${dStr}/${mesPad} (Marcaje registrado): ` + dFichs.map(f => `${f.tipo} ${f.hora}`).join(' · ');
+          }
+        } else if (dayCal.isBaja || (workerObj && (workerObj.estado_semaforo === 'baja' || workerObj.isBaja || workerObj.en_baja || (workerObj.dias_baja_activos && workerObj.dias_baja_activos.includes(dStr))))) {
+          cellClass = 'fich-cal-cell fich-status-baja';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: 🩺 Baja Médica IT Justificada en SAP HO / CTI`;
+        } else if (dayCal.isVacaciones || (workerObj && (workerObj.estado_semaforo === 'vacaciones' || workerObj.de_vacaciones || (workerObj.dias_vacaciones_activos && workerObj.dias_vacaciones_activos.includes(dStr))))) {
+          cellClass = 'fich-cal-cell fich-status-vacaciones';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: 🏖️ Vacaciones / Permiso en SAP HO / CTI`;
+        } else if (dayCal.isDescanso || (workerObj && workerObj.dias_descanso_activos && workerObj.dias_descanso_activos.includes(dStr))) {
+          cellClass = 'fich-cal-cell fich-status-descanso';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: ☕ Descanso / Sin Turno según Cuadrante CTI`;
+        } else if (isHoy) {
+          cellClass = 'fich-cal-cell fich-status-hoy-vacio';
+          tooltip = `🔴 Día ${dStr}/${mesPad}/${anioActual}: HOY (Sin marcaje registrado)`;
+        } else if (isFuturo) {
+          cellClass = 'fich-cal-cell empty';
+          tooltip = `Día ${dStr}/${mesPad}/${anioActual}: Día futuro`;
+        } else if (dayCal.isFallo || (workerObj && Array.isArray(workerObj.dias_fallados_activos) && workerObj.dias_fallados_activos.includes(dStr))) {
+          cellClass = 'fich-cal-cell fich-status-fallo';
+          tooltip = `🔴 FALLO Día ${dStr}/${mesPad}/${anioActual}: Trabajador activo SIN FICHAR (Clic para auditar este día)`;
         }
 
         if (FichState.contrasteDia && FichState.contrasteDia === dStr) {
           cellClass += ' selected-day';
         }
 
-        html += `<div class="${cellClass}" title="${tooltip} - Clic para ver marcajes del día ${dStr}" onclick="window.FichajesModule.setContrasteDia('${dStr}')" style="cursor:pointer;"><span>${dStr}</span></div>`;
+        html += `<div class="${cellClass}" title="${tooltip} - Clic para filtrar este día" onclick="window.FichajesModule.setContrasteDia('${dStr}')" style="cursor:pointer;"><span>${dStr}</span></div>`;
       }
 
       html += '</div></div>';
@@ -1106,9 +1946,29 @@
               <button class="fich-col-clear-btn" style="width:auto; padding:4px 12px; font-size:11px;" onclick="window.FichajesModule.closeModal()">✕ Cerrar</button>
             </div>
 
+            <!-- Resumen de Trazabilidad Exacta de Días Fallados vs Fichados en el Modal -->
+            <div style="margin-top:12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <span style="font-size:11.5px; font-weight:800; color:#0f172a;">📊 Trazabilidad Mensual (${nombreMes} ${anioActual}):</span>
+                <span style="font-size:11px; font-weight:800; color:#15803d;">🟢 ${(w.dias_fichados_activos || []).length} días fichados · 🔴 ${(w.dias_fallados_activos || []).length} días sin fichar · 🟡 ${(w.dias_incompletos_activos || []).length} incompletos</span>
+              </div>
+              ${(w.dias_fallados_activos && w.dias_fallados_activos.length > 0) ? `
+                <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+                  <span style="font-size:11px; font-weight:800; color:#dc2626;">🔴 Días exactos que NO fichó:</span>
+                  ${w.dias_fallados_activos.map(d => `<span class="fich-day-chip fallo" style="cursor:pointer;" onclick="window.FichajesModule.closeModal(); window.FichajesModule.setContrasteDia('${d}')" title="Ir al día ${d}/${String(mesActual).padStart(2, '0')}">${d}/${String(mesActual).padStart(2, '0')}</span>`).join('')}
+                </div>
+              ` : ''}
+              ${(w.dias_incompletos_activos && w.dias_incompletos_activos.length > 0) ? `
+                <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+                  <span style="font-size:11px; font-weight:800; color:#b45309;">🟡 Días incompletos (Sin salida):</span>
+                  ${w.dias_incompletos_activos.map(d => `<span class="fich-day-chip incompleto" style="cursor:pointer;" onclick="window.FichajesModule.closeModal(); window.FichajesModule.setContrasteDia('${d}')" title="Ir al día ${d}/${String(mesActual).padStart(2, '0')}">${d}/${String(mesActual).padStart(2, '0')}</span>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+
             <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
               <span style="font-size:12px; font-weight:800; color:#334155;">Historial de Fichajes Registrados (${(w.fichajes || []).length}):</span>
-              <span style="font-size:11px; color:#d97706; font-weight:800;">🟠 ${w.dias_naranja_count || 0} días activos en Octubre</span>
+              <span style="font-size:11px; color:#15803d; font-weight:800;">🟢 ${(w.dias_fichados_activos || []).length} días con marcaje</span>
             </div>
 
             <div style="margin-top:8px; max-height:420px; overflow-y:auto; display:flex; flex-direction:column; gap:5px; padding-right:4px;">
@@ -1136,6 +1996,340 @@
       `;
     }
 
+    // VISTA 3: TABLERO HOY EN VIVO (KANBAN OPERATIVO)
+    function renderHoyBoardHTML() {
+      const trabajando = filtered.filter(w => w.estado_hoy === 'TRABAJANDO');
+      const finalizados = filtered.filter(w => w.estado_hoy === 'FINALIZADO');
+      const deBaja = filtered.filter(w => (w.isBaja || w.estado_hoy === 'BAJA_IT' || w.estado_semaforo === 'baja') && w.estado_hoy !== 'TRABAJANDO' && w.estado_hoy !== 'FINALIZADO');
+      const sinFichar = filtered.filter(w => !w.isBaja && w.estado_semaforo !== 'baja' && w.estado_hoy !== 'BAJA_IT' && (w.estado_hoy === 'NO_FICHADO' || w.estado_hoy === 'SIN_MARCAJE'));
+
+      return `
+        <div id="fich-today-board-container" class="fich-today-board">
+          <!-- Columna 1: En Turno Ahora -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#16a34a;">
+              <span>🟢 EN TURNO AHORA (${trabajando.length})</span>
+              <span style="font-size:11px; background:#dcfce7; padding:2px 8px; border-radius:12px;">Activos</span>
+            </div>
+            ${trabajando.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Ningún trabajador en turno actualmente.</div>' : ''}
+            ${trabajando.map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #16a34a;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#16a34a; display:flex; justify-content:space-between;">
+                  <span>Entrada: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                  <span>📍 ${w.ultimo_fichaje ? (w.ultimo_fichaje.punto || '').substring(0, 18) : ''}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Columna 2: Jornada Finalizada Hoy -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#0284c7;">
+              <span>🏁 TURNO COMPLETADO (${finalizados.length})</span>
+              <span style="font-size:11px; background:#e0f2fe; padding:2px 8px; border-radius:12px;">Salida OK</span>
+            </div>
+            ${finalizados.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Aún no hay turnos finalizados hoy.</div>' : ''}
+            ${finalizados.map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #0284c7;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#0284c7; display:flex; justify-content:space-between;">
+                  <span>Última Salida: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                  <span>✅ Fin</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Columna 3: Pendiente / Sin Marcaje Hoy (Solo activos convocados) -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#dc2626;">
+              <span>🔴 PENDIENTE / SIN MARCAJE (${sinFichar.length})</span>
+              <span style="font-size:11px; background:#fee2e2; padding:2px 8px; border-radius:12px;">Alerta</span>
+            </div>
+            ${sinFichar.slice(0, 60).map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #ef4444;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11px; color:#dc2626; font-weight:700;">
+                  Sin fichajes registrados en el día de hoy
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Columna 4: De Baja Médica IT (Ausencia Justificada en SAP HO) -->
+          <div class="fich-board-col">
+            <div class="fich-board-col-header" style="color:#7c3aed;">
+              <span>🩺 DE BAJA MÉDICA IT (${deBaja.length})</span>
+              <span style="font-size:11px; background:#ede9fe; color:#6d28d9; padding:2px 8px; border-radius:12px; font-weight:700;">Justificado</span>
+            </div>
+            ${deBaja.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Ningún trabajador de baja registrado hoy.</div>' : ''}
+            ${deBaja.map(w => `
+              <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #8b5cf6; background:#faf5ff;">
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                <div style="margin-top:6px; font-size:11px; color:#6d28d9; font-weight:700; display:flex; align-items:center; gap:4px;">
+                  <span>🏥</span>
+                  <span>Incapacidad Temporal (IT) justificada en SAP HO</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // VISTA 4: MATRIZ MENSUAL HEATMAP (EXPORTABLE)
+    function renderHeatmapHTML() {
+      return `
+        <div id="fich-heatmap-container" class="fich-heatmap-wrapper">
+          <div style="padding:12px 16px; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:800; font-size:13px; color:#0f172a;">📊 Matriz de Control de Presencia (${nombreMes} ${anioActual})</span>
+            <button class="fich-btn-action" onclick="window.FichajesModule.exportarExcel()" style="padding:5px 12px; font-size:11px; font-weight:700;">
+              📥 Descargar Matriz Excel / CSV
+            </button>
+          </div>
+          <table class="fich-heatmap-table">
+            <thead>
+              <tr>
+                <th style="min-width:200px; text-align:left;">Trabajador</th>
+                <th style="min-width:130px;">Servicio</th>
+                ${diasMes.map(d => `<th style="min-width:32px;">${d.pad}</th>`).join('')}
+                <th style="min-width:60px;">Total Días</th>
+              </tr>
+            </thead>
+            <tbody id="fich-heatmap-tbody">
+              ${filtered.map(w => {
+                const diasFichados = w.dias_fichados || [];
+                return `
+                  <tr>
+                    <td class="worker-name" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="cursor:pointer;" title="Ver detalle de ${w.nombre}">
+                      ${w.nombre}
+                    </td>
+                    <td style="font-size:11px; color:#64748b;">${w.servicio}</td>
+                    ${diasMes.map(d => {
+                      const has = diasFichados.includes(d.pad);
+                      const isHoy = d.isHoy;
+                      let cls = has ? 'fich-heatmap-cell-ok' : (isHoy ? 'fich-heatmap-cell-partial' : 'fich-heatmap-cell-none');
+                      return `<td class="${cls}" title="${w.nombre} - Día ${d.pad}">${has ? '✓' : (isHoy ? '•' : '-')}</td>`;
+                    }).join('')}
+                    <td style="font-weight:900; color:#0f172a;">${diasFichados.length}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Renderizado modular de tarjeta individual para actualización ultrarrápida (<2ms)
+    function renderWorkerCardHTML(w) {
+      const hasFichs = (w.total_fichajes || 0) > 0;
+      const isBaja = Boolean(w.isBaja || w.en_baja || w.estado_semaforo === 'baja' || w.estado_hoy === 'BAJA_IT');
+      const isVac = Boolean(w.de_vacaciones || w.isVacaciones || w.estado_semaforo === 'vacaciones' || w.estado_hoy === 'VACACIONES');
+
+      let badgeClass = 'badge-noficha';
+      let badgeLabel = '🔴 ACTIVO · SIN MARCAJES';
+      if (isBaja) {
+        badgeClass = 'badge-baja';
+        badgeLabel = '🩺 BAJA MÉDICA IT';
+      } else if (isVac) {
+        badgeClass = 'badge-vacaciones';
+        badgeLabel = '🏖️ VACACIONES';
+      } else if (w.estado_semaforo === 'ok') {
+        badgeClass = 'badge-ok';
+        badgeLabel = '🟢 ACTIVO · 100%';
+      } else if (w.estado_semaforo === 'nook') {
+        badgeClass = 'badge-nook';
+        badgeLabel = '🟡 ACTIVO · PARCIAL';
+      }
+
+      const borderTopColor = isBaja ? '#8b5cf6' : (isVac ? '#0284c7' : (w.estado_semaforo === 'ok' ? '#10b981' : (w.estado_semaforo === 'nook' ? '#f59e0b' : '#ef4444')));
+
+      return `
+        <div class="fich-worker-card ${isBaja ? 'is-baja' : (isVac ? 'is-vacaciones' : '')}" style="border-top: 4px solid ${borderTopColor}; display:flex; flex-direction:column; gap:10px; color:#000000 !important;">
+          <!-- Cabecera de la tarjeta -->
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                <span style="font-size:14px; font-weight:800; color:#000000 !important;">${w.nombre}</span>
+                <span style="font-size:10.5px; font-weight:800; background:#f1f5f9; padding:2px 6px; border-radius:4px; border:1px solid #cbd5e1; color:#0f172a !important; white-space:nowrap;">
+                  ${w.empresa_badge || '🏢 SIFU'} ${w.gestor_corto || 'A. Coscolin'}
+                </span>
+              </div>
+              <div style="font-size:11.5px; color:#334155; font-family:monospace; font-weight:700;">
+                DNI: <strong style="color:#000000;">${w.dni}</strong> · ${w.servicio}
+                ${w.inicio_contrato ? ` · <span style="color:#0284c7; font-weight:800;">Alta: ${w.inicio_contrato}</span>` : ''}
+                ${(w.fin_contrato && w.fin_contrato.toLowerCase() !== 'indefinido') ? ` · <span style="color:#e11d48; font-weight:800;">Fin: ${w.fin_contrato}</span>` : ''}
+              </div>
+            </div>
+            <span class="fich-check-badge ${badgeClass}" style="font-size:10.5px; white-space:nowrap;">
+              ${badgeLabel}
+            </span>
+          </div>
+
+          <!-- Diagnóstico Operativo -->
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:7px 10px; font-size:11.5px; font-weight:700; color:#000000 !important;">
+            ${w.diagnostico}
+          </div>
+
+          <!-- Bloque de Enfoque del Día Seleccionado -->
+          ${(() => {
+            if (!diaSel || diaSel === 'todos') return '';
+            const mesPad = String(mesActual).padStart(2, '0');
+            const diaNum = parseInt(diaPad, 10);
+            const estContrato = getEstadoContractualDia(w, diaNum, mesActual, anioActual);
+
+            if (!estContrato.contratado) {
+              return `
+                <div class="fich-card-day-focus" style="background:#f1f5f9; border-color:#cbd5e1;">
+                  <div style="font-size:11.5px; font-weight:800; color:#475569;">
+                    ⚪ ${estContrato.label} · No computa ausencia
+                  </div>
+                </div>
+              `;
+            }
+
+            const dayCal = (w.calendar_days && (w.calendar_days[String(diaNum)] || w.calendar_days[diaPad])) || {};
+
+            if (w.estado_dia_sel === 'baja' || dayCal.isBaja) {
+              return `
+                <div class="fich-card-day-focus" style="background:#f5f3ff; border:1px solid #ddd6fe; border-radius:7px; padding:7px 10px;">
+                  <div style="font-size:11.5px; font-weight:800; color:#6d28d9; display:flex; align-items:center; gap:6px;">
+                    <span>🩺</span>
+                    <span>EN SITUACIÓN DE BAJA MÉDICA IT EL DÍA ${diaPad}/${mesPad} · Justificado en SAP HO / CTI (No computa falta)</span>
+                  </div>
+                </div>
+              `;
+            }
+
+            if (w.estado_dia_sel === 'vacaciones' || dayCal.isVacaciones) {
+              return `
+                <div class="fich-card-day-focus" style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:7px; padding:7px 10px;">
+                  <div style="font-size:11.5px; font-weight:800; color:#0284c7; display:flex; align-items:center; gap:6px;">
+                    <span>🏖️</span>
+                    <span>DE VACACIONES / PERMISO EL DÍA ${diaPad}/${mesPad} · Justificado en SAP HO / CTI</span>
+                  </div>
+                </div>
+              `;
+            }
+
+            if (w.estado_dia_sel === 'descanso' || dayCal.isDescanso) {
+              return `
+                <div class="fich-card-day-focus" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:7px; padding:7px 10px;">
+                  <div style="font-size:11.5px; font-weight:800; color:#475569; display:flex; align-items:center; gap:6px;">
+                    <span>☕</span>
+                    <span>DÍA DE DESCANSO / SIN TURNO PROGRAMADO EL DÍA ${diaPad}/${mesPad} · Según Cuadrante CTI</span>
+                  </div>
+                </div>
+              `;
+            }
+
+            const fichoEseDia = w._diasFichadosSet ? w._diasFichadosSet.has(diaPad) : (w.dias_fichados_activos || w.dias_fichados || []).includes(diaPad);
+            const dFichs = (w._fichajesPorDiaMap && w._fichajesPorDiaMap[diaPad]) ? w._fichajesPorDiaMap[diaPad] : [];
+            if (fichoEseDia && dFichs.length > 0) {
+              const fEntrada = dFichs.find(f => f.isEntrada || (f.tipo || '').toLowerCase().includes('entrada'));
+              const fSalida = [...dFichs].reverse().find(f => !f.isEntrada || (f.tipo || '').toLowerCase().includes('salida'));
+              const entHora = fEntrada ? fEntrada.hora : (dFichs[0] ? dFichs[0].hora : '--:--');
+              const salHora = (fSalida && fSalida !== fEntrada) ? fSalida.hora : (dFichs.length > 1 ? dFichs[dFichs.length - 1].hora : entHora);
+              return `
+                <div class="fich-card-day-focus">
+                  <div style="font-size:11.5px; font-weight:800; color:#047857; display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+                    <span>🟢 Marcajes Día ${diaPad}/${mesPad}: Entrada ${entHora} | Salida ${salHora} (${dFichs.length} fichajes)</span>
+                  </div>
+                  <div style="margin-top:4px; font-size:10.5px; color:#334155; font-weight:700;">
+                    ${dFichs.map(f => `<strong>${f.tipo}:</strong> ${f.hora} <span style="color:#64748b;">(${f.punto || '-'})</span>`).join(' · ')}
+                  </div>
+                </div>
+              `;
+            } else if (fichoEseDia) {
+              return `
+                <div class="fich-card-day-focus">
+                  <div style="font-size:11.5px; font-weight:800; color:#047857;">
+                    🟢 Marcaje registrado el Día ${diaPad}/${mesPad} en la app
+                  </div>
+                </div>
+              `;
+            } else if (w.estado_dia_sel === 'fallo_app' || (w.usa_app_mes && dayCal.isFallo)) {
+              return `
+                <div class="fich-card-day-focus" style="background:#fff1f2; border-color:#fecdd3;">
+                  <div style="font-size:11.5px; font-weight:900; color:#dc2626;">
+                    🔴 NO REGISTRÓ FICHAJE EL DÍA ${diaPad}/${mesPad} (Sí usa la app en otras fechas)
+                  </div>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="fich-card-day-focus" style="background:#f8fafc; border-color:#e2e8f0;">
+                  <div style="font-size:11.5px; font-weight:800; color:#475569;">
+                    ⚫ Sin actividad registrada en la aplicación durante el mes
+                  </div>
+                </div>
+              `;
+            }
+          })()}
+
+          <!-- Mini-calendario interactivo -->
+          ${renderMiniCalendarHTML(w.calendar_days, w.fichajes, w)}
+
+          <!-- Días fallados / incompletos con interacción directa -->
+          ${(() => {
+            const fallados = w.dias_fallados_activos || [];
+            const incompletos = w.dias_incompletos_activos || [];
+            const mesPad = String(mesActual).padStart(2, '0');
+            if (fallados.length === 0 && incompletos.length === 0) {
+              return `<div style="background:#f0fdf4; border:1px solid #86efac; border-radius:7px; padding:6px 9px; font-size:11px; font-weight:800; color:#15803d;">✅ 0 días laborables fallados en lo que va de ${nombreMes}</div>`;
+            }
+            return `
+              <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:7px; padding:7px 9px; display:flex; flex-direction:column; gap:5px;">
+                ${fallados.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:3px; flex-wrap:wrap;">
+                    <span style="font-size:10.5px; font-weight:900; color:#be123c; margin-right:2px;">🔴 Días sin fichar (${fallados.length}):</span>
+                    ${fallados.map(d => `<span class="fich-day-chip fallo" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;" title="Falló el día ${d}/${mesPad} (Sin marcaje) - Clic para filtrar este día">${d}</span>`).join('')}
+                  </div>
+                ` : ''}
+                ${incompletos.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:3px; flex-wrap:wrap;">
+                    <span style="font-size:10.5px; font-weight:900; color:#b45309; margin-right:2px;">🟡 Sin salida (${incompletos.length}):</span>
+                    ${incompletos.map(d => `<span class="fich-day-chip incompleto" onclick="window.FichajesModule.setContrasteDia('${d}')" style="cursor:pointer;" title="Marcaje incompleto el día ${d}/${mesPad} - Clic para filtrar este día">${d}</span>`).join('')}
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          })()}
+
+          <!-- Leyenda interactiva de alta visibilidad -->
+          <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:10px; color:#334155; font-weight:700;">
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#86efac; border:1px solid #16a34a;"></span> Verde: Completo</span>
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#fde68a; border:1px solid #d97706;"></span> Ámbar: Sin salida / En curso</span>
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#fee2e2; border:1px solid #ef4444;"></span> Rojo: Falta injustificada</span>
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#ede9fe; border:1px solid #8b5cf6;"></span> Morado: Baja Médica IT</span>
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#e0f2fe; border:1px solid #0284c7;"></span> Azul: Vacaciones</span>
+            <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#f8fafc; border:1px solid #cbd5e1;"></span> Gris: Descanso / Sin Turno</span>
+          </div>
+
+          <!-- Detalle de los fichajes -->
+          ${hasFichs ? `
+            <button type="button" class="fich-btn-action" style="width:100%; justify-content:center; padding:6px 10px; font-size:11.5px; font-weight:800; color:#0284c7 !important; background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; cursor:pointer;" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')">
+              👁️ Ver todos los marcajes registrados (${w.fichajes.length})
+            </button>
+          ` : `
+            <div style="padding:6px 10px; background:#fef2f2; border:1px solid #fecaca; border-radius:6px; font-size:11px; color:#991b1b; font-weight:700; text-align:center; display:flex; flex-direction:column; gap:6px; align-items:center;">
+              <div>⚠️ No tiene registros de fichaje en la aplicación este mes.</div>
+              <button style="padding:3px 8px; font-size:10.5px; background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; border-radius:5px; font-weight:800; cursor:pointer;" onclick="window.FichajesModule.marcarBajaEmpresa('${w.dni}', '${(w.nombre || '').replace(/'/g, "\\'")}')">
+                ❌ Ya no está en SIFU (Baja Definitiva)
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+    window.FichajesModule._renderWorkerCardHTML = renderWorkerCardHTML;
+
     return `
       <div style="display:flex; flex-direction:column; gap:16px;">
         <!-- CABECERA DE CONTRASTE -->
@@ -1148,20 +2342,31 @@
                 <span class="fich-badge-live"><span class="fich-pulse-dot"></span> EN VIVO</span>
               </div>
               <div style="font-size:12.5px; color:#475569; margin-top:4px;">
-                Fichaje auditado en tiempo real con el DNI de cada trabajador frente a los cuadrantes operativos del <strong>Castillo de Figueres</strong> y <strong>Albergues Pirineus</strong>.
+                Fichaje auditado en tiempo real con el DNI de cada trabajador frente a los cuadrantes operativos y carteras de <strong>Barcelona Operaciones (Delegación 0801)</strong>.
               </div>
             </div>
             <div class="fich-sync-banner-actions">
-              <!-- Botón Evolucionado de Sincronización en Vivo -->
-              <button class="fich-btn-sync-pro" id="fich-btn-sync" onclick="window.FichajesModule.sincronizarContrasteEnVivo()">
+              <!-- Botón Evolucionado de Sincronización en Vivo conectado a FichajesLiveEngine -->
+              <button class="fich-btn-sync-pro" id="fich-btn-sync" onclick="window.FichajesLiveEngine ? window.FichajesLiveEngine.triggerManualSync() : window.FichajesModule.sincronizarContrasteEnVivo()">
                 <span class="sync-spin-icon">🔄</span>
                 <span id="fich-btn-sync-text">Sincronizar en Vivo (gruposifuapp)</span>
               </button>
 
-              <!-- Hora de la última actualización al lado del botón -->
+              <!-- Indicador de conexión SSE / Polling en tiempo real -->
+              <span id="fich-live-status-pill" class="fich-live-pill live" title="Conexión en tiempo real activa">
+                <span class="fich-live-indicator"></span> EN VIVO
+              </span>
+
+              <!-- Contador de próxima sincronización automática -->
+              <div class="fich-last-sync-badge" title="Auto-sincronización cada 15 min en jornada laboral">
+                <span>⏱️ Próxima comprobación:</span>
+                <strong id="fich-live-countdown" style="font-family:monospace; color:#0284c7;">14:45</strong>
+              </div>
+
+              <!-- Hora de la última actualización -->
               <div class="fich-last-sync-badge" id="fich-last-sync-badge" title="Fichajes contrastados en tiempo real desde gruposifuapp.gcalidad.com">
                 <span class="fich-sync-pulse-dot"></span>
-                <span>Última actualización:</span>
+                <span>Última:</span>
                 <strong id="fich-last-sync-label">${getLastSyncContrasteTime()}</strong>
               </div>
 
@@ -1174,7 +2379,7 @@
         </div>
 
         <!-- KPIS DEL CONTRASTE MÓVIL (FILTRABLES CON CLIC) -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:12px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
           <div class="fich-check-kpi-card check-ok ${semaforoFilter === 'ok' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSemaforo('ok')">
             <div>
               <div class="fich-check-title"><span>🟢</span> FICHAN 100%</div>
@@ -1207,25 +2412,39 @@
             <div class="fich-check-val">${countBaja} <span style="font-size:13px; opacity:0.8;">it</span></div>
           </div>
 
+          <div class="fich-check-kpi-card ${semaforoFilter === 'vacaciones' ? 'active' : ''}" style="border-left:4px solid #0284c7;" onclick="window.FichajesModule.setContrasteSemaforo('vacaciones')">
+            <div>
+              <div class="fich-check-title"><span>🏖️</span> DE VACACIONES</div>
+              <div class="fich-check-sub">Permiso / Vacaciones (SAP)</div>
+            </div>
+            <div class="fich-check-val" style="color:#0284c7;">${countVacaciones} <span style="font-size:13px; opacity:0.8;">vac</span></div>
+          </div>
+
           <div class="fich-check-kpi-card ${semaforoFilter === 'todos' ? 'active' : ''}" style="border-left:4px solid #0284c7;" onclick="window.FichajesModule.setContrasteSemaforo('todos')">
             <div>
               <div class="fich-check-title"><span>👥</span> TOTAL AUDITADOS</div>
-              <div class="fich-check-sub">Plantilla Girona contrastada</div>
+              <div class="fich-check-sub">Plantilla Barcelona contrastada</div>
             </div>
             <div class="fich-check-val" style="color:#0284c7;">${countTotal} <span style="font-size:13px; opacity:0.8;">op</span></div>
           </div>
         </div>
 
-        <!-- BARRA DE HERRAMIENTAS: SELECTOR DE 2 VISTAS, SELECTOR DE DÍA, FILTROS DE SECTOR Y BUSCADOR -->
+        <!-- BARRA DE HERRAMIENTAS: SELECTOR DE 4 VISTAS, SELECTOR DE DÍA, FILTROS DE SECTOR Y BUSCADOR -->
         <div style="background:#ffffff; border:1px solid var(--fich-border); border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
           
-          <!-- Selector de las 2 Vistas (Tarjetas vs Listado Rápido) -->
+          <!-- Selector de las 4 Vistas -->
           <div class="fich-view-mode-toggle">
             <button class="fich-view-mode-btn ${subView === 'tarjetas' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('tarjetas')">
               <span>🗂️ 1. Tarjetas & Calendario</span>
             </button>
             <button class="fich-view-mode-btn ${subView === 'listado' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('listado')">
-              <span>📋 2. Listado Compacto (Rápido)</span>
+              <span>📋 2. Listado Compacto</span>
+            </button>
+            <button class="fich-view-mode-btn ${subView === 'hoy' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('hoy')">
+              <span>⚡ 3. En Vivo Hoy</span>
+            </button>
+            <button class="fich-view-mode-btn ${subView === 'heatmap' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSubView('heatmap')">
+              <span>📊 4. Matriz Heatmap</span>
             </button>
           </div>
 
@@ -1277,40 +2496,65 @@
 
             ${diaSel !== 'todos' ? `
               <div class="fich-day-mode-group">
-                <button type="button" class="fich-day-mode-btn ${diaModo === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('todos')" title="Ver todos los auditados el día ${diaPad}">
-                  👥 Todos (${list.length})
+                <button type="button" class="fich-day-mode-btn ${diaModo === 'fallo_app' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('fallo_app')" title="Ver quienes debían fichar pero fallaron el día ${diaPad}">
+                  🔴 Fallaron Día ${diaPad} (${countFalloAppDia})
                 </button>
                 <button type="button" class="fich-day-mode-btn ${diaModo === 'ficho' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('ficho')" title="Ver solo los que ficharon el día ${diaPad}">
                   🟢 Ficharon (${countFichoDia})
                 </button>
-                <button type="button" class="fich-day-mode-btn ${diaModo === 'noficho' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('noficho')" title="Ver los que NO ficharon el día ${diaPad}">
-                  🔴 No Ficharon (${countNoFichoDia})
+                <button type="button" class="fich-day-mode-btn ${diaModo === 'baja' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('baja')" title="Ver trabajadores de Baja Médica IT en SAP HO / CTI">
+                  🩺 Baja IT (${countBajaDia})
+                </button>
+                ${countVacacionesDia > 0 ? `
+                  <button type="button" class="fich-day-mode-btn ${diaModo === 'vacaciones' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('vacaciones')" title="Ver trabajadores de Vacaciones / Permiso en SAP HO">
+                    🏖️ Vacaciones (${countVacacionesDia})
+                  </button>
+                ` : ''}
+                <button type="button" class="fich-day-mode-btn ${diaModo === 'descanso' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('descanso')" title="Ver trabajadores en descanso o sin turno de cuadrante CTI">
+                  ☕ Descanso (${countDescansoDia})
+                </button>
+                <button type="button" class="fich-day-mode-btn ${diaModo === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('todos')" title="Ver todos los convocados el día ${diaPad}">
+                  👥 Todos (${trabajadoresConContratoEnDia.length})
                 </button>
               </div>
             ` : ''}
           </div>
 
           <!-- Buscador en tiempo real -->
-          <div style="display:flex; align-items:center; gap:8px; flex:1; max-width:280px;">
+          <div style="display:flex; align-items:center; gap:8px; flex:1; max-width:260px;">
             <input type="text" id="fich-search-input" class="fich-col-filter" placeholder="🔍 Buscar trabajador, DNI, centro..." value="${FichState.search}" oninput="window.FichajesModule.setSearch(this.value)" style="height:34px; font-size:12px; color:#000000 !important;">
           </div>
 
-          <!-- Filtro por Sector Operativo con Letra Negra en botones -->
+          <!-- SELECTOR DE GESTOR MULTI-CARTERA (BARCELONA OPERACIONES) -->
+          <div class="fich-gestor-picker-container" style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:12px; font-weight:800; color:#000000; display:flex; align-items:center; gap:4px; white-space:nowrap;">👔 Gestor:</span>
+            <select id="fich-select-gestor" class="fich-col-filter" style="width:auto; height:34px; color:#000000 !important; font-weight:800; border-color:#0284c7; background:#f0f9ff;" onchange="window.FichajesModule.setContrasteGestor(this.value)">
+              <option value="todos" ${gestorFilter === 'todos' ? 'selected' : ''}>👥 Todos los Gestores (${countTotal})</option>
+              ${gestoresDisponibles.map(g => {
+                const cnt = getGestorCount(g);
+                const extra = g.id === '00062620' ? ' - Indra Roc Boronat' : '';
+                const isSel = (gestorFilter === g.id) || (normalizeText(gestorFilter) === normalizeText(g.nombre_corto));
+                return `<option value="${g.id}" ${isSel ? 'selected' : ''}>${g.empresa_badge || '🏢'} ${g.nombre_corto}${extra} (${cnt})</option>`;
+              }).join('')}
+            </select>
+          </div>
+
+          <!-- Filtro por Sector Operativo Barcelona -->
           <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-            <button class="fich-sector-btn ${sectorFilter === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('todos')">
+            <button type="button" class="fich-sector-btn ${sectorFilter === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('todos')">
               🏢 Todos (${countTotal})
             </button>
-            <button class="fich-sector-btn ${sectorFilter === 'CASTILLO' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('CASTILLO')">
-              🏰 Castillo Figueres (${countCastillo})
+            <button type="button" class="fich-sector-btn ${sectorFilter === 'LIMPIEZA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('LIMPIEZA')">
+              🧹 Limpieza (${countLimpieza})
             </button>
-            <button class="fich-sector-btn ${sectorFilter === 'ALBERGUES' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('ALBERGUES')">
-              🏕️ Albergues (${countAlbergues})
+            <button type="button" class="fich-sector-btn ${sectorFilter === 'AUXILIARES' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('AUXILIARES')">
+              🛡️ Auxiliares (${countAuxiliares})
             </button>
-            <button class="fich-sector-btn ${sectorFilter === 'JARDINERIA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('JARDINERIA')">
-              🌿 Jardinería (${countJardineria})
+            <button type="button" class="fich-sector-btn ${sectorFilter === 'INDRA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('INDRA')">
+              💻 Indra Roc Boronat (${countIndra})
             </button>
-            <button class="fich-sector-btn ${sectorFilter === 'LIMPIEZA' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('LIMPIEZA')">
-              🧹 Limpieza / Dipsalut (${countLimpieza})
+            <button type="button" class="fich-sector-btn ${sectorFilter === 'MULTICLIENTE' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteSector('MULTICLIENTE')">
+              🏢 Multicliente BCN (${countMulticliente})
             </button>
           </div>
 
@@ -1325,18 +2569,88 @@
           </div>
         </div>
 
+        <!-- TIRA RÁPIDA DE GESTORES DE BARCELONA (CON UN CLIC) -->
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; padding:2px 4px;">
+          <span style="font-size:11.5px; font-weight:800; color:#0f172a; white-space:nowrap; margin-right:4px;">👔 Cartera Gestor:</span>
+          <button type="button" class="fich-sector-btn ${gestorFilter === 'todos' ? 'active' : ''}" style="font-size:11px;" onclick="window.FichajesModule.setContrasteGestor('todos')">
+            👥 Todos (${countTotal})
+          </button>
+          ${gestoresDisponibles.map(g => {
+            const cnt = getGestorCount(g);
+            const extra = g.id === '00062620' ? ' (Indra)' : '';
+            const isSel = (gestorFilter === g.id) || (normalizeText(gestorFilter) === normalizeText(g.nombre_corto));
+            return `
+              <button type="button" class="fich-sector-btn ${isSel ? 'active' : ''}" style="font-size:11px;" onclick="window.FichajesModule.setContrasteGestor('${g.id}')">
+                ${g.empresa_badge || '🏢'} ${g.nombre_corto}${extra} (${cnt})
+              </button>
+            `;
+          }).join('')}
+        </div>
+
         <!-- TIRA RÁPIDA DE CHIPS DE DÍAS INTERACTIVOS (01 a ${totalDiasEnMes} DE ${nombreMes.toUpperCase()}) -->
         <div class="fich-quick-days-strip">
-          <span style="font-size:11px; font-weight:800; color:#334155; white-space:nowrap; margin-right:4px;">🗓️ Días ${nombreMes}:</span>
+          <span style="font-size:11px; font-weight:800; color:#334155; white-space:nowrap; margin-right:4px;">🗓️ Días ${nombreMes} (Clic para ver fallos del día):</span>
           <button type="button" class="fich-quick-day-chip ${diaSel === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDia('todos')" title="Ver todo el mes de ${nombreMes} completo">
             📅 Todo el Mes
           </button>
-          ${diasMes.map(d => `
-            <button type="button" class="fich-quick-day-chip ${diaSel === d.pad ? 'active' : ''} ${d.isHoy ? 'today' : ''}" onclick="window.FichajesModule.setContrasteDia('${d.pad}')" title="Día ${d.pad}/${String(mesActual).padStart(2, '0')} (${d.nombre})">
-              ${d.isHoy ? `🔥 ${d.num} (HOY)` : d.pad}
-            </button>
-          `).join('')}
+          ${diasMes.map(d => {
+            const fallosCnt = fallosPorDiaMap[d.pad] || 0;
+            const fichoCnt = ficharonPorDiaMap[d.pad] || 0;
+            return `
+              <button type="button" class="fich-quick-day-chip ${diaSel === d.pad ? 'active' : ''} ${d.isHoy ? 'today' : ''}" onclick="window.FichajesModule.setContrasteDia('${d.pad}')" title="Día ${d.pad}/${String(mesActual).padStart(2, '0')} (${d.nombre}) · 🟢 ${fichoCnt} ficharon · 🔴 ${fallosCnt} con fallo">
+                <span>${d.isHoy ? `🔥 ${d.pad} (HOY)` : d.pad}</span>
+                ${fallosCnt > 0 ? `<span class="day-fail-dot" title="${fallosCnt} trabajadores fallaron el día ${d.pad}">${fallosCnt}</span>` : ''}
+              </button>
+            `;
+          }).join('')}
         </div>
+
+        ${diaSel !== 'todos' ? `
+          <!-- PANEL DE AUDITORÍA Y TRAZABILIDAD DEL DÍA SELECCIONADO -->
+          <div style="background:#fff1f2; border:1.5px solid #fda4af; border-radius:10px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="font-size:13px; font-weight:900; color:#9f1239;">
+                🎯 AUDITORÍA DÍA ${diaPad}/${String(mesActual).padStart(2, '0')}/${anioActual}:
+              </span>
+              <span style="font-size:12px; font-weight:700; color:#1e293b;">
+                Filtra con un clic quién ha fallado o cumplido en este día exacto:
+              </span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <button type="button" class="fich-sector-btn ${diaModo === 'fallo_app' ? 'active' : ''}" style="border-color:#f87171; background:${diaModo === 'fallo_app' ? '#dc2626 !important' : '#fef2f2'}; color:${diaModo === 'fallo_app' ? '#ffffff !important' : '#991b1b !important'};" onclick="window.FichajesModule.setContrasteDiaModo('fallo_app')" title="Trabajadores activos convocados que fallaron este día ${diaPad}">
+                🔴 Fallaron el Día ${diaPad} (${countFalloAppDia})
+              </button>
+              <button type="button" class="fich-sector-btn ${diaModo === 'ficho' ? 'active' : ''}" style="border-color:#4ade80; background:${diaModo === 'ficho' ? '#16a34a !important' : '#f0fdf4'}; color:${diaModo === 'ficho' ? '#ffffff !important' : '#166534 !important'};" onclick="window.FichajesModule.setContrasteDiaModo('ficho')" title="Trabajadores que sí ficharon el día ${diaPad}">
+                🟢 Ficharon el Día ${diaPad} (${countFichoDia})
+              </button>
+              ${countIncompletoDia > 0 ? `
+                <button type="button" class="fich-sector-btn ${diaModo === 'incompleto' ? 'active' : ''}" style="border-color:#fbbf24; background:${diaModo === 'incompleto' ? '#d97706 !important' : '#fffbeb'}; color:${diaModo === 'incompleto' ? '#ffffff !important' : '#92400e !important'};" onclick="window.FichajesModule.setContrasteDiaModo('incompleto')" title="Marcajes incompletos sin salida registrada">
+                  🟡 Incompletos sin Salida (${countIncompletoDia})
+                </button>
+              ` : ''}
+              <button type="button" class="fich-sector-btn ${diaModo === 'baja' ? 'active' : ''}" style="border-color:#c4b5fd; background:${diaModo === 'baja' ? '#7c3aed !important' : '#f5f3ff'}; color:${diaModo === 'baja' ? '#ffffff !important' : '#6d28d9 !important'};" onclick="window.FichajesModule.setContrasteDiaModo('baja')" title="Trabajadores en situación de Baja Médica IT en SAP HO / CTI">
+                🩺 De Baja IT (${countBajaDia})
+              </button>
+              ${countVacacionesDia > 0 ? `
+                <button type="button" class="fich-sector-btn ${diaModo === 'vacaciones' ? 'active' : ''}" style="border-color:#7dd3fc; background:${diaModo === 'vacaciones' ? '#0284c7 !important' : '#f0f9ff'}; color:${diaModo === 'vacaciones' ? '#ffffff !important' : '#0369a1 !important'};" onclick="window.FichajesModule.setContrasteDiaModo('vacaciones')" title="Trabajadores en periodo de vacaciones o permisos en SAP HO">
+                  🏖️ Vacaciones (${countVacacionesDia})
+                </button>
+              ` : ''}
+              <button type="button" class="fich-sector-btn ${diaModo === 'descanso' ? 'active' : ''}" style="border-color:#cbd5e1; background:${diaModo === 'descanso' ? '#475569 !important' : '#f8fafc'}; color:${diaModo === 'descanso' ? '#ffffff !important' : '#334155 !important'};" onclick="window.FichajesModule.setContrasteDiaModo('descanso')" title="Trabajadores con descanso asignado o sin turno programado en Cuadrante CTI">
+                ☕ Descanso / Sin Turno (${countDescansoDia})
+              </button>
+              <button type="button" class="fich-sector-btn ${diaModo === 'nunca_app' ? 'active' : ''}" style="border-color:#94a3b8; background:${diaModo === 'nunca_app' ? '#334155 !important' : '#f8fafc'}; color:${diaModo === 'nunca_app' ? '#ffffff !important' : '#334155 !important'};" onclick="window.FichajesModule.setContrasteDiaModo('nunca_app')" title="Trabajadores que tienen 0 fichajes en todo el mes de Octubre">
+                ⚫ Sin App todo el mes (${countNuncaAppDia})
+              </button>
+              <button type="button" class="fich-sector-btn ${diaModo === 'todos' ? 'active' : ''}" onclick="window.FichajesModule.setContrasteDiaModo('todos')">
+                👥 Todos (${trabajadoresConContratoEnDia.length})
+              </button>
+              <button type="button" class="fich-col-clear-btn" style="width:auto; padding:5px 10px;" onclick="window.FichajesModule.setContrasteDia('todos')">
+                ✕ Volver a Todo el Mes
+              </button>
+            </div>
+          </div>
+        ` : ''}
 
         <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#000000; font-weight:700; padding:0 4px;">
           <span id="fich-compact-count">Mostrando <strong>${filtered.length}</strong> de ${countTotal} trabajadores auditados</span>
@@ -1356,6 +2670,7 @@
                 <thead>
                   <tr>
                     <th style="min-width:110px;">Estado</th>
+                    <th style="min-width:140px;">Gestor</th>
                     <th style="min-width:210px;">Trabajador</th>
                     <th style="min-width:110px;">DNI</th>
                     <th style="min-width:180px;">Servicio / Proyecto</th>
@@ -1376,6 +2691,9 @@
                         <option value="noficha" ${cFilters.estado === 'noficha' ? 'selected' : ''}>🔴 No Ficha</option>
                         <option value="baja" ${cFilters.estado === 'baja' ? 'selected' : ''}>🩺 Baja IT</option>
                       </select>
+                    </th>
+                    <th>
+                      <input type="text" class="fich-compact-filter-input" data-col="gestor" placeholder="🔍 Gestor..." value="${cFilters.gestor || ''}" oninput="window.FichajesModule.setCompactColFilter('gestor', this.value)">
                     </th>
                     <th>
                       <input type="text" class="fich-compact-filter-input" data-col="trabajador" placeholder="🔍 Trabajador..." value="${cFilters.trabajador || ''}" oninput="window.FichajesModule.setCompactColFilter('trabajador', this.value)">
@@ -1414,115 +2732,19 @@
               </table>
             </div>
           </div>
-        ` : `
-          <!-- VISTA 1: TARJETAS CON MINI-CALENDARIO INTERACTIVO (LA ACTUAL) -->
-          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:14px;">
-            ${filtered.map(w => {
-              const hasFichs = w.total_fichajes > 0;
-              const badgeClass = w.estado_semaforo === 'ok' ? 'badge-ok' : (w.estado_semaforo === 'nook' ? 'badge-nook' : (w.estado_semaforo === 'baja' ? 'badge-baja' : 'badge-noficha'));
-              const badgeLabel = w.estado_semaforo === 'ok' ? '🟢 FICHA AL 100%' : (w.estado_semaforo === 'nook' ? '🟡 PARCIAL / DESFASE' : (w.estado_semaforo === 'baja' ? '🩺 BAJA MÉDICA IT' : '🔴 NO FICHA (0)'));
-
-              return `
-                <div class="fich-worker-card" style="border-top: 4px solid ${w.estado_semaforo === 'ok' ? '#10b981' : (w.estado_semaforo === 'nook' ? '#f59e0b' : (w.estado_semaforo === 'baja' ? '#8b5cf6' : '#ef4444'))}; display:flex; flex-direction:column; gap:10px; color:#000000 !important;">
-                  <!-- Cabecera de la tarjeta -->
-                  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
-                    <div>
-                      <div style="font-size:14px; font-weight:800; color:#000000 !important;">${w.nombre}</div>
-                      <div style="font-size:11.5px; color:#334155; font-family:monospace; font-weight:700;">DNI: <strong style="color:#000000;">${w.dni}</strong> · ${w.servicio}</div>
-                    </div>
-                    <span class="fich-check-badge ${badgeClass}" style="font-size:10.5px; white-space:nowrap;">
-                      ${badgeLabel}
-                    </span>
-                  </div>
-
-                  <!-- Diagnóstico Operativo -->
-                  <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:7px 10px; font-size:11.5px; font-weight:700; color:#000000 !important;">
-                    ${w.diagnostico}
-                  </div>
-
-                  <!-- Bloque de Enfoque del Día Seleccionado -->
-                  ${(() => {
-                    if (!diaSel || diaSel === 'todos') return '';
-                    const mesPad = String(mesActual).padStart(2, '0');
-                    const diasList = w.dias_fichados_activos || w.dias_fichados || [];
-                    const fichoEseDia = diasList.includes(diaPad);
-                    const dFichs = (w.fichajes || []).filter(f => f.fecha && f.fecha.split('/')[0] === diaPad && f.fecha.split('/')[1] === mesPad);
-                    if (fichoEseDia && dFichs.length > 0) {
-                      const fEntrada = dFichs.find(f => f.isEntrada || (f.tipo || '').toLowerCase().includes('entrada'));
-                      const fSalida = [...dFichs].reverse().find(f => !f.isEntrada || (f.tipo || '').toLowerCase().includes('salida'));
-                      const entHora = fEntrada ? fEntrada.hora : (dFichs[0] ? dFichs[0].hora : '--:--');
-                      const salHora = (fSalida && fSalida !== fEntrada) ? fSalida.hora : (dFichs.length > 1 ? dFichs[dFichs.length - 1].hora : entHora);
-                      return `
-                        <div class="fich-card-day-focus">
-                          <div style="font-size:11.5px; font-weight:800; color:#047857; display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
-                            <span>🟢 Marcajes Día ${diaPad}/${mesPad}: Entrada ${entHora} | Salida ${salHora} (${dFichs.length} fichajes)</span>
-                          </div>
-                          <div style="margin-top:4px; font-size:10.5px; color:#334155; font-weight:700;">
-                            ${dFichs.map(f => `<strong>${f.tipo}:</strong> ${f.hora} <span style="color:#64748b;">(${f.punto || '-'})</span>`).join(' · ')}
-                          </div>
-                        </div>
-                      `;
-                    } else if (fichoEseDia) {
-                      return `
-                        <div class="fich-card-day-focus">
-                          <div style="font-size:11.5px; font-weight:800; color:#047857;">
-                            🟢 Marcaje registrado el Día ${diaPad}/${mesPad} en la app
-                          </div>
-                        </div>
-                      `;
-                    } else {
-                      return `
-                        <div class="fich-card-day-focus no-fich">
-                          <div style="font-size:11.5px; font-weight:800; color:#dc2626;">
-                            🔴 Sin fichajes registrados el Día ${diaPad}/${mesPad}
-                          </div>
-                        </div>
-                      `;
-                    }
-                  })()}
-
-                  <!-- Mini Calendario de Fichajes Realizados (${nombreMes} ${anioActual}) -->
-                  <div>
-                    <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:#000000; margin-bottom:4px; display:flex; justify-content:space-between;">
-                      <span>📅 Calendario de la App (${nombreMes} ${anioActual}):</span>
-                      <span style="color:#d97706; font-weight:800;">🟠 ${w.dias_fichados_activos ? w.dias_fichados_activos.length : (mesActual === 10 && anioActual === 2026 ? (w.dias_naranja_count || 0) : 0)} días con marcaje</span>
-                    </div>
-                    ${renderMiniCalendarHTML(w.calendar_days, w.fichajes)}
-                  </div>
-
-                  <!-- Leyenda del mini calendario -->
-                  <div style="display:flex; gap:8px; font-size:10.5px; color:#334155; font-weight:700;">
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#ff851b;"></span> Naranja: Ha Fichado</span>
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#2ca8c2;"></span> Azul: Sin Marcaje</span>
-                    <span style="display:inline-flex; align-items:center; gap:3px;"><span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#dd4b39;"></span> Rojo: Hoy</span>
-                  </div>
-
-                  <!-- Detalle de los fichajes -->
-                  ${hasFichs ? `
-                    <details style="font-size:11.5px; color:#000000; background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:6px 10px;">
-                      <summary style="font-weight:700; cursor:pointer; color:#0284c7;">
-                        Ver todos los marcajes registrados (${w.fichajes.length})
-                      </summary>
-                      <div style="margin-top:6px; max-height:140px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; padding-top:4px; border-top:1px solid #f1f5f9;">
-                        ${(w.fichajes || []).slice(0, 30).map(f => `
-                          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; border-bottom:1px dashed #f1f5f9; padding-bottom:3px; color:#000000;">
-                            <span><strong>${f.fecha}</strong> ${f.hora}</span>
-                            <span style="font-weight:700; color:${f.isEntrada ? '#16a34a' : '#dc2626'};">${f.tipo}</span>
-                            <span style="font-size:10px; color:#334155; max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${f.punto}">${f.punto || '-'}</span>
-                          </div>
-                        `).join('')}
-                      </div>
-                    </details>
-                  ` : `
-                    <div style="padding:6px 10px; background:#fef2f2; border:1px solid #fecaca; border-radius:6px; font-size:11px; color:#991b1b; font-weight:700; text-align:center;">
-                      ⚠️ No tiene registros de fichaje en la aplicación este mes.
-                    </div>
-                  `}
-                </div>
-              `;
-            }).join('')}
+        ` : (subView === 'hoy' ? renderHoyBoardHTML() : (subView === 'heatmap' ? renderHeatmapHTML() : `
+          <!-- VISTA 1: TARJETAS CON MINI-CALENDARIO INTERACTIVO (PAGINADA PARA MÁXIMA VELOCIDAD) -->
+          <div id="fich-cards-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:14px;">
+            ${(FichState.showAllCards ? filtered : filtered.slice(0, FichState.cardsLimit || 36)).map(w => renderWorkerCardHTML(w)).join('')}
           </div>
-        `}
+          ${(!FichState.showAllCards && filtered.length > (FichState.cardsLimit || 36)) ? `
+            <div style="display:flex; justify-content:center; margin-top:8px;">
+              <button type="button" class="fich-btn-sync-pro" style="padding:10px 24px; font-size:13px;" onclick="window.FichajesModule.mostrarTodasLasTarjetas()">
+                ⚡ Mostrar las ${filtered.length} tarjetas completas (Mostrando ${FichState.cardsLimit || 36} para respuesta instantánea)
+              </button>
+            </div>
+          ` : ''}
+        `))}
 
         <!-- Modal flotante si hay trabajador seleccionado -->
         ${renderModalDetalleHTML()}
@@ -1653,15 +2875,210 @@
   // API PÚBLICA DEL MÓDULO FICHAJES
   // ==========================================================================
   window.FichajesModule = {
-    setViewMode(mode) {
-      FichState.viewMode = mode;
+    _incidenciasCache: null,
+    _incidenciasCacheKey: null,
+    // Incidencias del día (NO OK + NO FICHA, sin bajas IT) para el badge de la pestaña (O(1) en memoria)
+    getIncidenciasHoy() {
+      const payload = window.FICHAJES_CONTRASTE_PAYLOAD;
+      const syncKey = (payload && payload.fecha_sincronizacion) || 'v1';
+      if (this._incidenciasCache && this._incidenciasCacheKey === syncKey) {
+        return this._incidenciasCache;
+      }
+      if (payload && payload.resumen_estado) {
+        const noOk = payload.resumen_estado.nook || 0;
+        const noFicha = payload.resumen_estado.noficha || 0;
+        const res = {
+          total: noOk + noFicha,
+          noOk,
+          noFicha,
+          fecha: payload.fecha_sincronizacion || getHoyFechaStr()
+        };
+        this._incidenciasCacheKey = syncKey;
+        this._incidenciasCache = res;
+        return res;
+      }
+      return { total: 0, noOk: 0, noFicha: 0, fecha: null };
+    },
+
+    mostrarTodasLasTarjetas() {
+      FichState.showAllCards = true;
       this.refreshUI();
     },
 
+    setViewMode(mode) {
+      FichState.viewMode = mode;
+      if (mode !== 'contraste') ensureLegacyDataLoaded();
+      this.refreshUI();
+    },
+
+    _searchTimer: null,
     setSearch(q) {
       FichState.search = q;
       FichState.currentPage = 1;
+      if (this._searchTimer) clearTimeout(this._searchTimer);
+      this._searchTimer = setTimeout(() => {
+        if (FichState.viewMode === 'table' && document.getElementById('fich-table-tbody')) {
+          this.updateTableViewOnly();
+        } else if (FichState.viewMode === 'contraste') {
+          this.updateContrasteSubViewOnly();
+        } else {
+          this.refreshUI();
+        }
+      }, 15);
+    },
+
+    // Actualización quirúrgica en memoria O(1) para búsqueda Big Data instantánea (<2ms)
+    updateContrasteSubViewOnly() {
+      const { list, filtered } = getContrasteFilteredWorkers();
+      const countSpan = document.getElementById('fich-compact-count');
+      if (countSpan) {
+        countSpan.innerHTML = `Mostrando <strong>${filtered.length}</strong> de ${list.length} trabajadores auditados`;
+      }
+
+      const subView = FichState.contrasteSubView || 'tarjetas';
+
+      // 1. Subvista Tarjetas
+      if (subView === 'tarjetas') {
+        const grid = document.getElementById('fich-cards-grid');
+        if (grid && typeof window.FichajesModule._renderWorkerCardHTML === 'function') {
+          const limit = FichState.showAllCards ? filtered.length : (FichState.cardsLimit || 36);
+          const visible = filtered.slice(0, limit);
+          grid.innerHTML = visible.map(w => window.FichajesModule._renderWorkerCardHTML(w)).join('');
+          return;
+        }
+      }
+
+      // 2. Subvista Listado Compacto
+      if (subView === 'listado' || subView === 'compact') {
+        const tbody = document.getElementById('fich-compact-tbody');
+        if (tbody) {
+          tbody.innerHTML = filtered.map(w => renderCompactTableRowHTML(w)).join('');
+          return;
+        }
+      }
+
+      // 3. Subvista Hoy en Vivo (Tablero Kanban)
+      if (subView === 'hoy') {
+        const board = document.getElementById('fich-today-board-container');
+        if (board) {
+          const trabajando = filtered.filter(w => w.estado_hoy === 'TRABAJANDO');
+          const finalizados = filtered.filter(w => w.estado_hoy === 'FINALIZADO');
+          const deBaja = filtered.filter(w => (w.isBaja || w.estado_hoy === 'BAJA_IT' || w.estado_semaforo === 'baja') && w.estado_hoy !== 'TRABAJANDO' && w.estado_hoy !== 'FINALIZADO');
+          const sinFichar = filtered.filter(w => !w.isBaja && w.estado_semaforo !== 'baja' && w.estado_hoy !== 'BAJA_IT' && (w.estado_hoy === 'NO_FICHADO' || w.estado_hoy === 'SIN_MARCAJE'));
+          board.innerHTML = `
+            <div class="fich-board-col">
+              <div class="fich-board-col-header" style="color:#16a34a;">
+                <span>🟢 EN TURNO AHORA (${trabajando.length})</span>
+                <span style="font-size:11px; background:#dcfce7; padding:2px 8px; border-radius:12px;">Activos</span>
+              </div>
+              ${trabajando.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Ningún trabajador en turno actualmente.</div>' : ''}
+              ${trabajando.map(w => `
+                <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #16a34a;">
+                  <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                  <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#16a34a; display:flex; justify-content:space-between;">
+                    <span>Entrada: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                    <span>📍 ${w.ultimo_fichaje ? (w.ultimo_fichaje.punto || '').substring(0, 18) : ''}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="fich-board-col">
+              <div class="fich-board-col-header" style="color:#0284c7;">
+                <span>🏁 TURNO COMPLETADO (${finalizados.length})</span>
+                <span style="font-size:11px; background:#e0f2fe; padding:2px 8px; border-radius:12px;">Salida OK</span>
+              </div>
+              ${finalizados.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Aún no hay turnos finalizados hoy.</div>' : ''}
+              ${finalizados.map(w => `
+                <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #0284c7;">
+                  <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                  <div style="margin-top:6px; font-size:11.5px; font-weight:700; color:#0284c7; display:flex; justify-content:space-between;">
+                    <span>Última Salida: ${w.ultimo_fichaje ? w.ultimo_fichaje.hora : '--:--'}</span>
+                    <span>✅ Fin</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="fich-board-col">
+              <div class="fich-board-col-header" style="color:#dc2626;">
+                <span>🔴 PENDIENTE / SIN MARCAJE (${sinFichar.length})</span>
+                <span style="font-size:11px; background:#fee2e2; padding:2px 8px; border-radius:12px;">Alerta</span>
+              </div>
+              ${sinFichar.slice(0, 60).map(w => `
+                <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #ef4444;">
+                  <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                  <div style="margin-top:6px; font-size:11px; color:#dc2626; font-weight:700;">
+                    Sin fichajes registrados en el día de hoy
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="fich-board-col">
+              <div class="fich-board-col-header" style="color:#7c3aed;">
+                <span>🩺 DE BAJA MÉDICA IT (${deBaja.length})</span>
+                <span style="font-size:11px; background:#ede9fe; color:#6d28d9; padding:2px 8px; border-radius:12px; font-weight:700;">Justificado</span>
+              </div>
+              ${deBaja.length === 0 ? '<div style="font-size:12px; color:#64748b; padding:12px; text-align:center;">Ningún trabajador de baja registrado hoy.</div>' : ''}
+              ${deBaja.map(w => `
+                <div class="fich-board-card" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="border-left:4px solid #8b5cf6; background:#faf5ff;">
+                  <div style="font-weight:800; font-size:13px; color:#0f172a;">${w.nombre}</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">${w.servicio}</div>
+                  <div style="margin-top:6px; font-size:11px; color:#6d28d9; font-weight:700; display:flex; align-items:center; gap:4px;">
+                    <span>🏥</span>
+                    <span>Incapacidad Temporal (IT) justificada en SAP HO</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+          return;
+        }
+      }
+
+      // 4. Subvista Heatmap
+      if (subView === 'heatmap') {
+        const tbodyH = document.getElementById('fich-heatmap-tbody');
+        if (tbodyH) {
+          const mesActual = FichState.contrasteMes || 10;
+          const anioActual = FichState.contrasteAnio || 2026;
+          const diasMes = getDiasDelMes(mesActual, anioActual);
+          tbodyH.innerHTML = filtered.map(w => {
+            const diasFichados = w.dias_fichados || [];
+            return `
+              <tr>
+                <td class="worker-name" onclick="window.FichajesModule.toggleFichajesModal('${w.dni}')" style="cursor:pointer;" title="Ver detalle de ${w.nombre}">
+                  ${w.nombre}
+                </td>
+                <td style="font-size:11px; color:#64748b;">${w.servicio}</td>
+                ${diasMes.map(d => {
+                  const has = diasFichados.includes(d.pad);
+                  const isHoy = d.isHoy;
+                  let cls = has ? 'fich-heatmap-cell-ok' : (isHoy ? 'fich-heatmap-cell-partial' : 'fich-heatmap-cell-none');
+                  return `<td class="${cls}" title="${w.nombre} - Día ${d.pad}">${has ? '✓' : (isHoy ? '•' : '-')}</td>`;
+                }).join('')}
+                <td style="font-weight:900; color:#0f172a;">${diasFichados.length}</td>
+              </tr>
+            `;
+          }).join('');
+          return;
+        }
+      }
+
+      // Fallback seguro conservando foco y cursor de búsqueda
+      const activeEl = document.activeElement;
+      const wasSearch = activeEl && activeEl.id === 'fich-search-input';
+      const selStart = wasSearch ? activeEl.selectionStart : 0;
+      const selEnd = wasSearch ? activeEl.selectionEnd : 0;
       this.refreshUI();
+      if (wasSearch) {
+        const newInp = document.getElementById('fich-search-input');
+        if (newInp) {
+          newInp.focus();
+          newInp.setSelectionRange(selStart, selEnd);
+        }
+      }
     },
 
     setFilterFecha(fecha) {
@@ -1707,11 +3124,15 @@
       this.refreshUI();
     },
 
+    _colFilterTimer: null,
     setColumnFilter(col, val) {
       if (!FichState.colFilters) FichState.colFilters = {};
       FichState.colFilters[col] = val;
       FichState.currentPage = 1;
-      this.updateTableViewOnly();
+      if (this._colFilterTimer) clearTimeout(this._colFilterTimer);
+      this._colFilterTimer = setTimeout(() => {
+        this.updateTableViewOnly();
+      }, 100);
     },
 
     resetColumnFilters() {
@@ -1789,14 +3210,36 @@
       this.refreshUI();
     },
 
+    setContrasteGestor(gestorId) {
+      FichState.contrasteGestor = gestorId || 'todos';
+      this.refreshUI();
+      const gestores = getGestoresDisponiblesList();
+      const normInput = normalizeText(gestorId);
+      const gObj = gestores.find(g => g.id === gestorId || normalizeText(g.nombre_corto) === normInput || normalizeText(g.nombre) === normInput);
+      const gNom = gObj ? `${gObj.empresa_badge || '🏢'} ${gObj.nombre_corto}` : (gestorId === 'todos' ? 'Todos los gestores' : gestorId);
+      this.mostrarNotificacion(`👔 Filtrando por Gestor: ${gNom}`);
+      if (window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.syncFromFichajes === 'function') {
+        window.SifuEnterprisePlatform.syncFromFichajes({
+          gestor: gObj ? gObj.nombre_corto : (gestorId || 'todos')
+        });
+      }
+    },
+
     setContrasteSector(sec) {
       FichState.contrasteSector = sec;
       this.refreshUI();
+      if (window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.syncFromFichajes === 'function') {
+        window.SifuEnterprisePlatform.syncFromFichajes({ sector: sec });
+      }
     },
 
     setContrasteSemaforo(sem) {
       FichState.contrasteSemaforo = sem;
       this.refreshUI();
+      if (window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.syncFromFichajes === 'function') {
+        const valMap = { ok: 'ok', nook: 'issue', noficha: 'issue', baja: 'exempt', vacaciones: 'exempt', todos: 'todos' };
+        window.SifuEnterprisePlatform.syncFromFichajes({ validationStatus: valMap[sem] || sem });
+      }
     },
 
     setContrasteMes(mesAnoStr) {
@@ -1829,6 +3272,11 @@
       this.refreshUI();
       const nombreMes = NOMBRES_MESES[FichState.contrasteMes - 1] || 'Mes';
       this.mostrarNotificacion(`🗓️ Visualizando ${nombreMes} ${FichState.contrasteAnio}`);
+      if (window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.syncFromFichajes === 'function') {
+        window.SifuEnterprisePlatform.syncFromFichajes({
+          mes: `${FichState.contrasteAnio}-${String(FichState.contrasteMes).padStart(2, '0')}`
+        });
+      }
     },
 
     cambiarMes(delta) {
@@ -1845,12 +3293,34 @@
     },
 
     setContrasteDia(dia) {
-      FichState.contrasteDia = dia || 'todos';
+      const targetDia = (!dia || dia === 'todos') ? 'todos' : String(dia).padStart(2, '0');
+      if (targetDia === 'todos') {
+        FichState.contrasteDia = 'todos';
+        FichState.contrasteDiaModo = 'todos';
+      } else {
+        FichState.contrasteDia = targetDia;
+        // Limpiar filtro mensual de estado ("No Ficha todo el mes") para que no bloquee los resultados del día concreto
+        if (FichState.compactColFilters && FichState.compactColFilters.estado) {
+          FichState.compactColFilters.estado = '';
+        }
+        if (FichState.contrasteSemaforo === 'noficha') {
+          FichState.contrasteSemaforo = 'todos';
+        }
+        // Por defecto, al pulsar un día concreto, mostrar directamente los trabajadores que fallaron ese día específico
+        const dObj = new Date(FichState.contrasteAnio || 2026, (FichState.contrasteMes || 10) - 1, parseInt(targetDia, 10));
+        const isWeekend = (dObj.getDay() === 0 || dObj.getDay() === 6);
+        FichState.contrasteDiaModo = isWeekend ? 'ficho' : 'fallo_app';
+      }
       this.refreshUI();
       const mesPad = String(FichState.contrasteMes || 10).padStart(2, '0');
       const nombreMes = NOMBRES_MESES[(FichState.contrasteMes || 10) - 1] || 'Mes';
-      const txt = (!dia || dia === 'todos') ? `todo el mes de ${nombreMes}` : `el Día ${dia}/${mesPad}`;
-      this.mostrarNotificacion(`🗓️ Filtrando por ${txt}`);
+      const txt = (FichState.contrasteDia === 'todos') ? `todo el mes de ${nombreMes}` : `los fallos exactos del Día ${FichState.contrasteDia}/${mesPad}`;
+      this.mostrarNotificacion(`🗓️ Mostrando ${txt}`);
+      if (window.SifuEnterprisePlatform && typeof window.SifuEnterprisePlatform.syncFromFichajes === 'function') {
+        window.SifuEnterprisePlatform.syncFromFichajes({
+          dia: FichState.contrasteDia === 'todos' ? 'all' : FichState.contrasteDia
+        });
+      }
     },
 
     setContrasteDiaModo(modo) {
@@ -1874,7 +3344,8 @@
       const timer = setInterval(() => {
         elapsedSec++;
         if (btnText) {
-          btnText.textContent = `Sincronizando 56 trabajadores... (${elapsedSec}s)`;
+          const tot = (window.FICHAJES_CONTRASTE_PAYLOAD && window.FICHAJES_CONTRASTE_PAYLOAD.total_trabajadores) || 689;
+          btnText.textContent = `Sincronizando ${tot} trabajadores... (${elapsedSec}s)`;
         }
       }, 1000);
 
@@ -1960,6 +3431,37 @@
       }
     },
 
+    async marcarBajaEmpresa(dni, nombre) {
+      if (!confirm(`¿Confirmas que "${nombre}" (DNI: ${dni}) ya no trabaja en SIFU?\n\nAl confirmar, se registrará como baja definitiva y se eliminará permanentemente de todos los listados de control, fichajes y cuadrantes.`)) {
+        return;
+      }
+      try {
+        const res = await fetch('http://127.0.0.1:5005/marcar_baja_empresa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dni, nombre, motivo: 'Baja definitiva de empresa confirmada desde la interfaz' })
+        });
+        const data = await res.json();
+        if (data.status === 'ok') {
+          if (window.FICHAJES_CONTRASTE_PAYLOAD && Array.isArray(window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores)) {
+            window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores = window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores.filter(w => w.dni !== dni);
+            window.FICHAJES_CONTRASTE_PAYLOAD.total_trabajadores = window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores.length;
+          }
+          this.refreshUI();
+          this.mostrarNotificacion(`✅ ${nombre} ha sido registrado como baja definitiva y eliminado de los listados.`);
+        } else {
+          this.mostrarNotificacion(`⚠️ Aviso: ${data.mensaje || 'No se pudo registrar la baja'}`);
+        }
+      } catch (err) {
+        if (window.FICHAJES_CONTRASTE_PAYLOAD && Array.isArray(window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores)) {
+          window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores = window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores.filter(w => w.dni !== dni);
+          window.FICHAJES_CONTRASTE_PAYLOAD.total_trabajadores = window.FICHAJES_CONTRASTE_PAYLOAD.trabajadores.length;
+        }
+        this.refreshUI();
+        this.mostrarNotificacion(`🗑️ Trabajador retirado de la vista actual.`);
+      }
+    },
+
     // Modal informativo para cuando se accede desde GitHub Pages
     mostrarModalInfoGitHubPages() {
       const modalId = 'fich-gh-pages-modal';
@@ -1988,7 +3490,7 @@
             <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px; margin-bottom:12px;">
               <div style="font-weight:800; color:#0f172a; margin-bottom:4px;">🤖 Automatización en la Nube Activada:</div>
               <div style="font-size:12px; color:#475569;">
-                • El flujo de <strong>GitHub Actions</strong> se ejecuta automáticamente durante la jornada laboral en los servidores de GitHub y actualiza los fichajes de Girona.<br>
+                • El flujo de <strong>GitHub Actions</strong> se ejecuta automáticamente durante la jornada laboral en los servidores de GitHub y actualiza los fichajes de Barcelona.<br>
                 • Última sincronización disponible en la nube: <strong style="color:#0284c7;">${lastSync}</strong>.
               </div>
             </div>
@@ -2010,10 +3512,14 @@
       document.body.appendChild(div);
     },
 
+    _compactColTimer: null,
     setCompactColFilter(col, val) {
       if (!FichState.compactColFilters) FichState.compactColFilters = {};
       FichState.compactColFilters[col] = val;
-      this.updateCompactTableOnly();
+      if (this._compactColTimer) clearTimeout(this._compactColTimer);
+      this._compactColTimer = setTimeout(() => {
+        this.updateCompactTableOnly();
+      }, 100);
     },
 
     resetCompactColFilters() {
@@ -2021,6 +3527,7 @@
       FichState.contrasteDiaModo = 'todos';
       FichState.compactColFilters = {
         estado: '',
+        gestor: '',
         trabajador: '',
         dni: '',
         servicio: '',
@@ -2058,12 +3565,14 @@
       FichState.filterTipo = 'todos';
       FichState.filterMetodo = 'todos';
       FichState.filterCheck = 'todos';
+      FichState.contrasteGestor = 'todos';
       FichState.contrasteSector = 'todos';
       FichState.contrasteSemaforo = 'todos';
       FichState.contrasteDia = 'todos';
       FichState.contrasteDiaModo = 'todos';
       FichState.compactColFilters = {
         estado: '',
+        gestor: '',
         trabajador: '',
         dni: '',
         servicio: '',
@@ -2097,14 +3606,82 @@
     },
 
     refreshUI() {
-      const container = document.querySelector('.pro-main-content');
-      if (container && (!window.AppState || window.AppState.activeTab === 'fichajes')) {
+      const liveContainer = document.getElementById('ent-fichajes-live-container');
+      if (liveContainer) {
+        liveContainer.innerHTML = window.renderFichajesDashboardView();
+        const searchInput = document.getElementById('fich-search-input');
+        if (searchInput && FichState.search) {
+          searchInput.focus();
+          searchInput.selectionStart = searchInput.selectionEnd = searchInput.value.length;
+        }
+        return;
+      }
+
+      // Si la plataforma Enterprise está activa y no estamos dentro del contenedor específico de fichajes en vivo,
+      // bajo ningún concepto sobreescribir el viewport maestro de Enterprise
+      if (window.SifuEnterprisePlatform && window.SifuEnterprisePlatform.isEnterpriseActive) {
+        return;
+      }
+
+      const container = document.querySelector('.pro-main-content') ||
+                        document.getElementById('ent-main-viewport');
+      if (container) {
         container.innerHTML = window.renderFichajesDashboardView();
         const searchInput = document.getElementById('fich-search-input');
         if (searchInput && FichState.search) {
           searchInput.focus();
           searchInput.selectionStart = searchInput.selectionEnd = searchInput.value.length;
         }
+      }
+    },
+
+    syncFromEnterprise(state) {
+      if (!state) return;
+      let changed = false;
+      if (state.gestor !== undefined) {
+        const gestores = getGestoresDisponiblesList();
+        const normG = normalizeText(state.gestor);
+        const found = gestores.find(g => normalizeText(g.nombre_corto) === normG || normalizeText(g.nombre) === normG || g.id === state.gestor);
+        const targetG = found ? found.id : (state.gestor === 'todos' ? 'todos' : state.gestor);
+        if (FichState.contrasteGestor !== targetG) {
+          FichState.contrasteGestor = targetG;
+          changed = true;
+        }
+      }
+      if (state.sector !== undefined && FichState.contrasteSector !== state.sector) {
+        FichState.contrasteSector = state.sector;
+        changed = true;
+      }
+      const dayVal = state.day !== undefined ? state.day : state.selectedDay;
+      if (dayVal !== undefined) {
+        const targetDay = (dayVal === 'all' || dayVal === 'todos') ? 'todos' : String(dayVal).padStart(2, '0');
+        if (FichState.contrasteDia !== targetDay) {
+          FichState.contrasteDia = targetDay;
+          changed = true;
+        }
+      }
+      const monthVal = state.monthStr || state.selectedMonth || state.mes;
+      if (monthVal && typeof monthVal === 'string' && monthVal.includes('-')) {
+        const parts = monthVal.split('-');
+        const y = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10);
+        if (!isNaN(m) && (FichState.contrasteAnio !== y || FichState.contrasteMes !== m)) {
+          FichState.contrasteAnio = y;
+          FichState.contrasteMes = m;
+          changed = true;
+        }
+      }
+      const statusVal = state.validationStatus !== undefined ? state.validationStatus : (state.status !== undefined ? state.status : state.semaforo);
+      if (statusVal !== undefined) {
+        const semMap = { ok: 'ok', in_progress: 'ok', issue: 'nook', exempt: 'baja', todos: 'todos' };
+        const mapped = semMap[statusVal] || statusVal;
+        if (FichState.contrasteSemaforo !== mapped) {
+          FichState.contrasteSemaforo = mapped;
+          changed = true;
+        }
+      }
+      if (changed) {
+        this.refreshUI();
       }
     },
 
@@ -2183,7 +3760,7 @@
             "Sociedad": i.sociedad
           }));
           const ws = window.XLSX.utils.json_to_sheet(rows);
-          window.XLSX.utils.book_append_sheet(wb, ws, "Fichajes Octubre Girona");
+          window.XLSX.utils.book_append_sheet(wb, ws, "Fichajes Octubre Barcelona");
 
           // Hoja 2: Matriz de Cumplimiento
           const compliance = getComplianceMatrix();
@@ -2202,7 +3779,7 @@
           const wsComp = window.XLSX.utils.json_to_sheet(complianceRows);
           window.XLSX.utils.book_append_sheet(wb, wsComp, "Check Cumplimiento");
 
-          window.XLSX.writeFile(wb, `CONTROL_PRESENCIA_GIRONA_${FichState.filterFecha.replace(/\//g, '-')}_${dateStr}.xlsx`);
+          window.XLSX.writeFile(wb, `CONTROL_PRESENCIA_BARCELONA_${FichState.filterFecha.replace(/\//g, '-')}_${dateStr}.xlsx`);
           this.mostrarNotificacion(`📊 Archivo Excel multi-hoja exportado con éxito.`);
           return;
         } catch (e) {
@@ -2255,13 +3832,13 @@
             distanciaNum: parseFloat(String(row['Información asociada al chequeo'] || row['ORDETA'] || '0').replace('m', '').trim()) || 0,
             lat: row['LATI'] || null,
             lng: row['LONG'] || null,
-            delegacion: 'SIFU GIRONA',
+            delegacion: 'SIFU BARCELONA',
             sociedad: 'GRUPO SIFU OPERATIVA'
           }));
 
           FichState.items = normalized;
           FichState.lastSync = `Cargado desde Excel: ${file.name}`;
-          loadPlantillaGirona();
+          loadPlantillaOperativa();
           saveToCache();
           this.refreshUI();
           this.mostrarNotificacion(`✅ Cargados ${normalized.length} fichajes desde "${file.name}".`);
@@ -2283,5 +3860,13 @@
       }
     }
   };
+
+  window.syncFichajesFromEnterprise = function(state) {
+    if (window.FichajesModule && typeof window.FichajesModule.syncFromEnterprise === 'function') {
+      window.FichajesModule.syncFromEnterprise(state);
+    }
+  };
+
+  window.FichState = FichState;
 
 })();

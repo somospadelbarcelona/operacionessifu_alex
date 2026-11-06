@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CMH - CONTROL MENSUAL DE HORAS (GIRONA SIFU) v3.0
+   CMH - CONTROL MENSUAL DE HORAS (BARCELONA 0801 SIFU) v3.0
    Estilos Ejecutivos para Auditoría, Verificación de Excel y Conciliación SAP S/4HANA
    ========================================================================== */
 
@@ -145,7 +145,8 @@
   white-space: nowrap;
 }
 
-.cmh-live-badge.badge-girona {
+.cmh-live-badge.badge-girona,
+.cmh-live-badge.badge-bcn {
   background: rgba(59, 130, 246, 0.22);
   color: #93c5fd;
   border-color: rgba(59, 130, 246, 0.4);
@@ -1067,7 +1068,7 @@
 }
 
 /* ==========================================================================
-   ESTILOS DEDICADOS: ALBERGUES & DEMANDA VARIABLE XANASCAT
+   ESTILOS DEDICADOS: SERVICIOS SINGULARES & DEMANDA VARIABLE
    ========================================================================== */
 .cmh-kpi-card.kpi-albergue {
   border-left: 5px solid #6366f1;
@@ -1355,4 +1356,271 @@
     width: 100%;
     justify-content: flex-start;
   }
+}
+
+/* ==========================================================================
+   REVOLUCIÓN CMH SECCIÓN 3: RENTABILIDAD, CLIENTES RENTABLES & ACCIONES (BARCELONA 0801)
+   ========================================================================== */
+
+.cmh-rentabilidad-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.cmh-profit-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cmh-profit-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.1);
+}
+
+.cmh-profit-card.card-radar {
+  border-left: 5px solid #059669;
+}
+
+.cmh-profit-card.card-powerbi {
+  border-left: 5px solid #f59e0b;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%);
+}
+
+.cmh-profit-card.card-choque {
+  border-left: 5px solid #6366f1;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+}
+
+.cmh-profit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.cmh-profit-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmh-profit-icon {
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-radar { background: #dcfce7; color: #15803d; }
+.icon-pbi { background: #fef3c7; color: #b45309; }
+.icon-choque { background: #e0e7ff; color: #4338ca; }
+
+.cmh-profit-title {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.cmh-profit-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.cmh-profit-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.cmh-profit-client-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 11.5px;
+}
+
+.cmh-profit-client-name {
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmh-profit-client-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  text-transform: uppercase;
+}
+
+.badge-estrella { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.badge-albergue-vol { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+.badge-toxico-crit { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+.cmh-dial-compare {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 6px;
+}
+
+.cmh-dial-item {
+  text-align: center;
+}
+
+.cmh-dial-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.cmh-dial-val {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 2px;
+}
+
+.val-bad { color: #f87171; }
+.val-good { color: #4ade80; }
+
+.cmh-btn-choque-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cmh-btn-choque-item {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.cmh-btn-choque-item:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.cmh-btn-choque-item.primary-full {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  color: #ffffff;
+  border: none;
+  justify-content: center;
+  padding: 10px;
+  font-size: 12px;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+.cmh-btn-choque-item.primary-full:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+}
+
+/* Badges de rentabilidad en tabla */
+.cmh-tag-rentable {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cmh-tag-toxic {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cmh-tag-volatil {
+  background: #e0e7ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cmh-tag-recuperable {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Chips adicionales */
+.cmh-chip.chip-rentable.active {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.cmh-chip.chip-toxic.active {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+}
+
+.cmh-chip.chip-recuperable.active {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #d97706;
+}
+
+.cmh-chip.chip-powerbi.active {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4f46e5;
 }
