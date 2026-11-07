@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "fecha_sincronizacion": "06/11/2026 20:02:18",
-  "generado_iso": "2026-11-06T20:02:18.015639",
-  "duracion_seg": 21.94,
+  "fecha_sincronizacion": "07/11/2026 00:11:11",
+  "generado_iso": "2026-11-07T00:11:11.582840",
+  "duracion_seg": 23.9,
   "mes_actual": "2026-11",
   "meses_disponibles": [
     "2026-11"
@@ -13,14 +13,14 @@
     "fallidos": 0,
     "sin_acceso": 0,
     "obsoletos": 0,
-    "proxima_sync_iso": "2026-11-06T20:17:18.015639",
+    "proxima_sync_iso": "2026-11-07T00:26:11.582840",
     "intervalo_min": 15,
     "en_curso": false
   },
   "kpis": {
-    "trabajando_ahora": 2,
-    "finalizados_hoy": 10,
-    "no_fichados_hoy_previstos": 2,
+    "trabajando_ahora": 0,
+    "finalizados_hoy": 0,
+    "no_fichados_hoy_previstos": 14,
     "bajas": 1,
     "vacaciones": 0,
     "incidencias_hoy": 0,
@@ -51,7 +51,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:23.247950",
+      "ultima_consulta_ok": "2026-11-07T00:11:17.919454",
       "datos_obsoletos": false,
       "estado_hoy": "BAJA_IT",
       "estado_semaforo": "baja",
@@ -177,7 +177,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -485,16 +485,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -685,9 +685,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:23.547874",
+      "ultima_consulta_ok": "2026-11-07T00:11:17.781935",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (5 días con marcaje)",
       "ultimo_fichaje": {
@@ -774,14 +774,14 @@
                 }
               ],
               "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "estado": "INCOMPLETO_SIN_SALIDA",
               "turno_previsto": null,
               "retraso_min": null
             },
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -950,7 +950,7 @@
           "resumen": {
             "dias_fichados": 5,
             "dias_completos": 0,
-            "dias_incompletos": 4,
+            "dias_incompletos": 5,
             "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
@@ -1049,16 +1049,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -1248,9 +1248,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:23.760964",
+      "ultima_consulta_ok": "2026-11-07T00:11:17.402219",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 8 marcajes)",
       "ultimo_fichaje": {
@@ -1362,7 +1362,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -1654,16 +1654,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -1853,9 +1853,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:23.138908",
+      "ultima_consulta_ok": "2026-11-07T00:11:17.329513",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 10 marcajes)",
       "ultimo_fichaje": {
@@ -1979,7 +1979,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -2287,16 +2287,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -2486,9 +2486,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:23.599575",
+      "ultima_consulta_ok": "2026-11-07T00:11:17.851927",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 10 marcajes)",
       "ultimo_fichaje": {
@@ -2612,7 +2612,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -2920,16 +2920,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -3119,9 +3119,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:27.315751",
+      "ultima_consulta_ok": "2026-11-07T00:11:21.790933",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 10 marcajes)",
       "ultimo_fichaje": {
@@ -3245,7 +3245,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -3553,16 +3553,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -3752,9 +3752,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:27.421254",
+      "ultima_consulta_ok": "2026-11-07T00:11:22.184660",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 9 marcajes)",
       "ultimo_fichaje": {
@@ -3872,7 +3872,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -4172,16 +4172,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -4371,7 +4371,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:27.838472",
+      "ultima_consulta_ok": "2026-11-07T00:11:21.859048",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -4425,7 +4425,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -4645,17 +4645,17 @@
         },
         "6": {
           "isOrange": false,
-          "isCyan": false,
-          "isRed": true,
-          "isNoContrato": false,
-          "status": "HOY"
-        },
-        "7": {
-          "isOrange": false,
           "isCyan": true,
           "isRed": false,
           "isNoContrato": false,
           "status": "NO_FICHO"
+        },
+        "7": {
+          "isOrange": false,
+          "isCyan": false,
+          "isRed": true,
+          "isNoContrato": false,
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -4845,9 +4845,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:27.900786",
+      "ultima_consulta_ok": "2026-11-07T00:11:22.109064",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (4 días con marcaje)",
       "ultimo_fichaje": {
@@ -4945,14 +4945,14 @@
                 }
               ],
               "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "estado": "INCOMPLETO_SIN_SALIDA",
               "turno_previsto": null,
               "retraso_min": null
             },
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -5121,7 +5121,7 @@
           "resumen": {
             "dias_fichados": 4,
             "dias_completos": 3,
-            "dias_incompletos": 0,
+            "dias_incompletos": 1,
             "horas_totales": 20.28,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
@@ -5235,16 +5235,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -5434,9 +5434,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:27.533336",
+      "ultima_consulta_ok": "2026-11-07T00:11:21.763122",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "nook",
       "diagnostico": "🟡 Fichaje parcial (3 días con marcaje)",
       "ultimo_fichaje": {
@@ -5534,7 +5534,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -5808,16 +5808,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -6007,9 +6007,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:31.567223",
+      "ultima_consulta_ok": "2026-11-07T00:11:26.303470",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 10 marcajes)",
       "ultimo_fichaje": {
@@ -6133,7 +6133,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -6441,16 +6441,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -6640,9 +6640,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:31.578318",
+      "ultima_consulta_ok": "2026-11-07T00:11:25.935592",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (6 días, 22 marcajes)",
       "ultimo_fichaje": {
@@ -6839,7 +6839,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -7244,16 +7244,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -7443,9 +7443,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:31.739005",
+      "ultima_consulta_ok": "2026-11-07T00:11:26.516521",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 10 marcajes)",
       "ultimo_fichaje": {
@@ -7569,7 +7569,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -7877,16 +7877,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -8076,9 +8076,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:32.140292",
+      "ultima_consulta_ok": "2026-11-07T00:11:27.205587",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (5 días, 20 marcajes)",
       "ultimo_fichaje": {
@@ -8262,7 +8262,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -8650,16 +8650,16 @@
         "6": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "7": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
@@ -8849,7 +8849,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-06T20:02:39.828642",
+      "ultima_consulta_ok": "2026-11-07T00:11:35.299100",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -8903,7 +8903,7 @@
             "07": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -9123,17 +9123,17 @@
         },
         "6": {
           "isOrange": false,
-          "isCyan": false,
-          "isRed": true,
-          "isNoContrato": false,
-          "status": "HOY"
-        },
-        "7": {
-          "isOrange": false,
           "isCyan": true,
           "isRed": false,
           "isNoContrato": false,
           "status": "NO_FICHO"
+        },
+        "7": {
+          "isOrange": false,
+          "isCyan": false,
+          "isRed": true,
+          "isNoContrato": false,
+          "status": "HOY"
         },
         "8": {
           "isOrange": false,
