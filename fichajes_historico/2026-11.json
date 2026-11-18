@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "fecha_sincronizacion": "18/11/2026 14:50:28",
-  "generado_iso": "2026-11-18T14:50:28.855764",
-  "duracion_seg": 22.91,
+  "fecha_sincronizacion": "18/11/2026 22:26:30",
+  "generado_iso": "2026-11-18T22:26:30.138035",
+  "duracion_seg": 25.06,
   "mes_actual": "2026-11",
   "meses_disponibles": [
     "2026-11"
@@ -13,18 +13,18 @@
     "fallidos": 0,
     "sin_acceso": 0,
     "obsoletos": 0,
-    "proxima_sync_iso": "2026-11-18T15:05:28.855764",
+    "proxima_sync_iso": "2026-11-18T22:41:30.138035",
     "intervalo_min": 15,
     "en_curso": false
   },
   "kpis": {
-    "trabajando_ahora": 6,
-    "finalizados_hoy": 7,
+    "trabajando_ahora": 1,
+    "finalizados_hoy": 12,
     "no_fichados_hoy_previstos": 1,
     "bajas": 1,
     "vacaciones": 0,
     "incidencias_hoy": 0,
-    "horas_mes_total": 804.28
+    "horas_mes_total": 833.55
   },
   "total_trabajadores": 15,
   "trabajadores": [
@@ -51,16 +51,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:34.698044",
+      "ultima_consulta_ok": "2026-11-18T22:26:36.668668",
       "datos_obsoletos": false,
       "estado_hoy": "BAJA_IT",
       "estado_semaforo": "baja",
       "diagnostico": "🩺 BAJA MÉDICA IT JUSTIFICADA (Incapacidad Temporal en SAP)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "14:24:35",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:39:19",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -349,10 +349,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:39:19",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 6.25,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -443,16 +449,16 @@
           },
           "resumen": {
             "dias_fichados": 13,
-            "dias_completos": 12,
+            "dias_completos": 13,
             "dias_incompletos": 0,
-            "horas_totales": 66.21,
+            "horas_totales": 72.46,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 59.1
           }
         }
       },
-      "total_fichajes": 25,
+      "total_fichajes": 26,
       "dias_fichados": [
         "02",
         "03",
@@ -471,6 +477,14 @@
       "dias_naranja_count": 13,
       "dias_sin_fichar_count": 18,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "20:39:19",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "14:24:35",
@@ -911,7 +925,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:34.136882",
+      "ultima_consulta_ok": "2026-11-18T22:26:36.729032",
       "datos_obsoletos": false,
       "estado_hoy": "TRABAJANDO",
       "estado_semaforo": "ok",
@@ -1602,16 +1616,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:34.227448",
+      "ultima_consulta_ok": "2026-11-18T22:26:36.530511",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (13 días, 23 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (13 días, 24 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "14:38:43",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "16:48:04",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY08324-P2-C001 - FCC AQUALIA SANT FELIU DE GUÍXOLS",
         "descanso": false
       },
@@ -1888,10 +1902,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY08324-P2-C001 - FCC AQUALIA SANT FELIU DE GUÍXOLS",
                   "descanso": false
+                },
+                {
+                  "hora": "16:48:04",
+                  "tipo": "Salida",
+                  "punto": "PROY08324-P2-C001 - FCC AQUALIA SANT FELIU DE GUÍXOLS",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 2.16,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -1982,16 +2002,16 @@
           },
           "resumen": {
             "dias_fichados": 13,
-            "dias_completos": 10,
+            "dias_completos": 11,
             "dias_incompletos": 2,
-            "horas_totales": 21.54,
+            "horas_totales": 23.7,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 59.1
           }
         }
       },
-      "total_fichajes": 23,
+      "total_fichajes": 24,
       "dias_fichados": [
         "02",
         "03",
@@ -2010,6 +2030,14 @@
       "dias_naranja_count": 13,
       "dias_sin_fichar_count": 18,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "16:48:04",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY08324-P2-C001 - FCC AQUALIA SANT FELIU DE GUÍXOLS",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "14:38:43",
@@ -2433,7 +2461,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:35.221455",
+      "ultima_consulta_ok": "2026-11-18T22:26:36.061728",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -3306,7 +3334,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:32.772397",
+      "ultima_consulta_ok": "2026-11-18T22:26:36.829936",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -4207,16 +4235,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:37.332661",
+      "ultima_consulta_ok": "2026-11-18T22:26:41.043282",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (13 días, 33 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (13 días, 34 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "14:36:21",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "18:10:57",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
         "descanso": false
       },
@@ -4553,10 +4581,16 @@
                   "tipo": "Entrada",
                   "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
                   "descanso": false
+                },
+                {
+                  "hora": "18:10:57",
+                  "tipo": "Salida",
+                  "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 3.58,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -4647,16 +4681,16 @@
           },
           "resumen": {
             "dias_fichados": 13,
-            "dias_completos": 12,
+            "dias_completos": 13,
             "dias_incompletos": 0,
-            "horas_totales": 65.19,
+            "horas_totales": 68.76,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 59.1
           }
         }
       },
-      "total_fichajes": 33,
+      "total_fichajes": 34,
       "dias_fichados": [
         "02",
         "03",
@@ -4675,6 +4709,14 @@
       "dias_naranja_count": 13,
       "dias_sin_fichar_count": 18,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "18:10:57",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "14:36:21",
@@ -5178,7 +5220,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:39.571032",
+      "ultima_consulta_ok": "2026-11-18T22:26:42.004435",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -6037,16 +6079,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:39.634029",
+      "ultima_consulta_ok": "2026-11-18T22:26:42.010666",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (6 días, 11 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (6 días, 12 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "14:45:03",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:50:41",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -6244,10 +6286,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:50:41",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 6.09,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -6338,16 +6386,16 @@
           },
           "resumen": {
             "dias_fichados": 6,
-            "dias_completos": 5,
+            "dias_completos": 6,
             "dias_incompletos": 0,
-            "horas_totales": 30.59,
+            "horas_totales": 36.69,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 27.3
           }
         }
       },
-      "total_fichajes": 11,
+      "total_fichajes": 12,
       "dias_fichados": [
         "10",
         "12",
@@ -6359,6 +6407,14 @@
       "dias_naranja_count": 6,
       "dias_sin_fichar_count": 25,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "20:50:41",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "14:45:03",
@@ -6686,7 +6742,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:38.557317",
+      "ultima_consulta_ok": "2026-11-18T22:26:42.063103",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -7529,16 +7585,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:39.030823",
+      "ultima_consulta_ok": "2026-11-18T22:26:41.785629",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (11 días, 21 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (11 días, 22 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "13:18:52",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "17:21:18",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -7801,10 +7857,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "17:21:18",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 4.04,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -7895,16 +7957,16 @@
           },
           "resumen": {
             "dias_fichados": 11,
-            "dias_completos": 10,
+            "dias_completos": 11,
             "dias_incompletos": 0,
-            "horas_totales": 44.76,
+            "horas_totales": 48.8,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 50.0
           }
         }
       },
-      "total_fichajes": 21,
+      "total_fichajes": 22,
       "dias_fichados": [
         "02",
         "05",
@@ -7921,6 +7983,14 @@
       "dias_naranja_count": 11,
       "dias_sin_fichar_count": 20,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "17:21:18",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "13:18:52",
@@ -8328,16 +8398,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:41.428529",
+      "ultima_consulta_ok": "2026-11-18T22:26:45.897656",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (12 días, 23 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (12 días, 24 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "15:31:18",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:51:30",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -8613,10 +8683,16 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:51:30",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 5.34,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -8707,16 +8783,16 @@
           },
           "resumen": {
             "dias_fichados": 12,
-            "dias_completos": 11,
+            "dias_completos": 12,
             "dias_incompletos": 0,
-            "horas_totales": 50.81,
+            "horas_totales": 56.14,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 54.5
           }
         }
       },
-      "total_fichajes": 23,
+      "total_fichajes": 24,
       "dias_fichados": [
         "02",
         "03",
@@ -8734,6 +8810,14 @@
       "dias_naranja_count": 12,
       "dias_sin_fichar_count": 19,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "20:51:30",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "15:31:18",
@@ -9157,7 +9241,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:42.709593",
+      "ultima_consulta_ok": "2026-11-18T22:26:47.124662",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -10484,7 +10568,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:43.170929",
+      "ultima_consulta_ok": "2026-11-18T22:26:47.498786",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
@@ -11343,14 +11427,14 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:43.699374",
+      "ultima_consulta_ok": "2026-11-18T22:26:47.086530",
       "datos_obsoletos": false,
       "estado_hoy": "FINALIZADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 56 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (15 días, 58 marcajes)",
       "ultimo_fichaje": {
         "fecha": "18/11/2026",
-        "hora": "09:40:22",
+        "hora": "17:50:07",
         "tipo": "Salida",
         "isEntrada": false,
         "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
@@ -11829,9 +11913,21 @@
                   "tipo": "Salida",
                   "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
                   "descanso": false
+                },
+                {
+                  "hora": "16:01:09",
+                  "tipo": "Entrada",
+                  "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
+                  "descanso": false
+                },
+                {
+                  "hora": "17:50:07",
+                  "tipo": "Salida",
+                  "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 3.69,
+              "horas_trabajadas": 5.51,
               "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
@@ -11925,14 +12021,14 @@
             "dias_fichados": 15,
             "dias_completos": 15,
             "dias_incompletos": 0,
-            "horas_totales": 86.31,
+            "horas_totales": 88.13,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 68.2
           }
         }
       },
-      "total_fichajes": 56,
+      "total_fichajes": 58,
       "dias_fichados": [
         "02",
         "03",
@@ -11953,6 +12049,22 @@
       "dias_naranja_count": 15,
       "dias_sin_fichar_count": 16,
       "fichajes": [
+        {
+          "fecha": "18/11/2026",
+          "hora": "17:50:07",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
+          "descanso": false
+        },
+        {
+          "fecha": "18/11/2026",
+          "hora": "16:01:09",
+          "tipo": "Entrada",
+          "isEntrada": true,
+          "punto": "PROY014012-P2-C001 - UNISONO BARCELONA",
+          "descanso": false
+        },
         {
           "fecha": "18/11/2026",
           "hora": "09:40:22",
@@ -12640,7 +12752,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-18T14:50:51.634194",
+      "ultima_consulta_ok": "2026-11-18T22:26:55.036238",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
