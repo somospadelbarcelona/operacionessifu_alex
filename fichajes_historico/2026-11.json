@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "fecha_sincronizacion": "23/11/2026 16:58:19",
-  "generado_iso": "2026-11-23T16:58:19.767810",
-  "duracion_seg": 27.31,
+  "fecha_sincronizacion": "24/11/2026 03:07:26",
+  "generado_iso": "2026-11-24T03:07:26.160689",
+  "duracion_seg": 23.68,
   "mes_actual": "2026-11",
   "meses_disponibles": [
     "2026-11"
@@ -13,18 +13,18 @@
     "fallidos": 0,
     "sin_acceso": 0,
     "obsoletos": 0,
-    "proxima_sync_iso": "2026-11-23T17:13:19.767810",
+    "proxima_sync_iso": "2026-11-24T03:22:26.160689",
     "intervalo_min": 15,
     "en_curso": false
   },
   "kpis": {
-    "trabajando_ahora": 4,
-    "finalizados_hoy": 9,
-    "no_fichados_hoy_previstos": 1,
+    "trabajando_ahora": 0,
+    "finalizados_hoy": 0,
+    "no_fichados_hoy_previstos": 14,
     "bajas": 1,
     "vacaciones": 0,
     "incidencias_hoy": 0,
-    "horas_mes_total": 1035.99
+    "horas_mes_total": 1056.81
   },
   "total_trabajadores": 15,
   "trabajadores": [
@@ -51,16 +51,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:28.173401",
+      "ultima_consulta_ok": "2026-11-24T03:07:32.780460",
       "datos_obsoletos": false,
       "estado_hoy": "BAJA_IT",
       "estado_semaforo": "baja",
       "diagnostico": "🩺 BAJA MÉDICA IT JUSTIFICADA (Incapacidad Temporal en SAP)",
       "ultimo_fichaje": {
         "fecha": "23/11/2026",
-        "hora": "14:41:39",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:40:15",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -423,17 +423,23 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:40:15",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 5.98,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -482,16 +488,16 @@
           },
           "resumen": {
             "dias_fichados": 16,
-            "dias_completos": 14,
+            "dias_completos": 15,
             "dias_incompletos": 1,
-            "horas_totales": 78.58,
+            "horas_totales": 84.55,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 72.7
           }
         }
       },
-      "total_fichajes": 31,
+      "total_fichajes": 32,
       "dias_fichados": [
         "02",
         "03",
@@ -513,6 +519,14 @@
       "dias_naranja_count": 16,
       "dias_sin_fichar_count": 15,
       "fichajes": [
+        {
+          "fecha": "23/11/2026",
+          "hora": "20:40:15",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "23/11/2026",
           "hora": "14:41:39",
@@ -920,16 +934,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -1001,9 +1015,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:28.089763",
+      "ultima_consulta_ok": "2026-11-24T03:07:31.747172",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 16 marcajes)",
       "ultimo_fichaje": {
@@ -1286,14 +1300,14 @@
                 }
               ],
               "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "estado": "INCOMPLETO_SIN_SALIDA",
               "turno_previsto": null,
               "retraso_min": null
             },
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -1343,7 +1357,7 @@
           "resumen": {
             "dias_fichados": 16,
             "dias_completos": 0,
-            "dias_incompletos": 15,
+            "dias_incompletos": 16,
             "horas_totales": 0.0,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
@@ -1660,16 +1674,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -1740,9 +1754,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:28.171521",
+      "ultima_consulta_ok": "2026-11-24T03:07:30.843062",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 30 marcajes)",
       "ultimo_fichaje": {
@@ -2116,7 +2130,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -2595,16 +2609,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -2675,9 +2689,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:27.815910",
+      "ultima_consulta_ok": "2026-11-24T03:07:30.945416",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 32 marcajes)",
       "ultimo_fichaje": {
@@ -3063,7 +3077,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -3558,16 +3572,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -3638,9 +3652,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:28.651010",
+      "ultima_consulta_ok": "2026-11-24T03:07:32.240238",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 36 marcajes)",
       "ultimo_fichaje": {
@@ -4050,7 +4064,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -4577,16 +4591,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -4657,16 +4671,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:32.295953",
+      "ultima_consulta_ok": "2026-11-24T03:07:36.835921",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (16 días, 43 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (16 días, 44 marcajes)",
       "ultimo_fichaje": {
         "fecha": "23/11/2026",
-        "hora": "14:39:28",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "18:17:24",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
         "descanso": false
       },
@@ -5101,9 +5115,15 @@
                   "tipo": "Entrada",
                   "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
                   "descanso": false
+                },
+                {
+                  "hora": "18:17:24",
+                  "tipo": "Salida",
+                  "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 2.89,
+              "horas_trabajadas": 6.52,
               "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
@@ -5111,7 +5131,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -5162,14 +5182,14 @@
             "dias_fichados": 16,
             "dias_completos": 16,
             "dias_incompletos": 0,
-            "horas_totales": 86.14,
+            "horas_totales": 89.77,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 72.7
           }
         }
       },
-      "total_fichajes": 43,
+      "total_fichajes": 44,
       "dias_fichados": [
         "02",
         "03",
@@ -5191,6 +5211,14 @@
       "dias_naranja_count": 16,
       "dias_sin_fichar_count": 15,
       "fichajes": [
+        {
+          "fecha": "23/11/2026",
+          "hora": "18:17:24",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PIEC018081 - PIE NO FACTURABLE BARCELONA",
+          "descanso": false
+        },
         {
           "fecha": "23/11/2026",
           "hora": "14:39:28",
@@ -5694,16 +5722,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -5774,9 +5802,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:33.016626",
+      "ultima_consulta_ok": "2026-11-24T03:07:36.902848",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 31 marcajes)",
       "ultimo_fichaje": {
@@ -6156,7 +6184,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -6643,16 +6671,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -6723,16 +6751,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:33.517093",
+      "ultima_consulta_ok": "2026-11-24T03:07:36.199792",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (9 días, 17 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (9 días, 18 marcajes)",
       "ultimo_fichaje": {
         "fecha": "23/11/2026",
-        "hora": "14:15:16",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:55:01",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -7004,17 +7032,23 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:55:01",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 6.66,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -7063,16 +7097,16 @@
           },
           "resumen": {
             "dias_fichados": 9,
-            "dias_completos": 8,
+            "dias_completos": 9,
             "dias_incompletos": 0,
-            "horas_totales": 49.27,
+            "horas_totales": 55.93,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 40.9
           }
         }
       },
-      "total_fichajes": 17,
+      "total_fichajes": 18,
       "dias_fichados": [
         "10",
         "12",
@@ -7087,6 +7121,14 @@
       "dias_naranja_count": 9,
       "dias_sin_fichar_count": 22,
       "fichajes": [
+        {
+          "fecha": "23/11/2026",
+          "hora": "20:55:01",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "23/11/2026",
           "hora": "14:15:16",
@@ -7382,16 +7424,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -7462,9 +7504,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:33.460787",
+      "ultima_consulta_ok": "2026-11-24T03:07:36.107026",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (15 días, 30 marcajes)",
       "ultimo_fichaje": {
@@ -7837,7 +7879,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -8315,16 +8357,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -8395,9 +8437,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:33.646591",
+      "ultima_consulta_ok": "2026-11-24T03:07:37.650244",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (14 días, 28 marcajes)",
       "ultimo_fichaje": {
@@ -8757,7 +8799,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -9218,16 +9260,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -9298,16 +9340,16 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:36.973300",
+      "ultima_consulta_ok": "2026-11-24T03:07:41.413695",
       "datos_obsoletos": false,
-      "estado_hoy": "TRABAJANDO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
-      "diagnostico": "🟢 Ficha con regularidad (15 días, 29 marcajes)",
+      "diagnostico": "🟢 Ficha con regularidad (15 días, 30 marcajes)",
       "ultimo_fichaje": {
         "fecha": "23/11/2026",
-        "hora": "16:06:23",
-        "tipo": "Entrada",
-        "isEntrada": true,
+        "hora": "20:40:27",
+        "tipo": "Salida",
+        "isEntrada": false,
         "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
         "descanso": false
       },
@@ -9657,17 +9699,23 @@
                   "tipo": "Entrada",
                   "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
                   "descanso": false
+                },
+                {
+                  "hora": "20:40:27",
+                  "tipo": "Salida",
+                  "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+                  "descanso": false
                 }
               ],
-              "horas_trabajadas": 0.0,
-              "estado": "EN_CURSO",
+              "horas_trabajadas": 4.57,
+              "estado": "COMPLETO",
               "turno_previsto": null,
               "retraso_min": null
             },
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -9716,16 +9764,16 @@
           },
           "resumen": {
             "dias_fichados": 15,
-            "dias_completos": 14,
+            "dias_completos": 15,
             "dias_incompletos": 0,
-            "horas_totales": 65.29,
+            "horas_totales": 69.85,
             "dias_previstos": 22,
             "dias_previstos_sin_fichar": 0,
             "cumplimiento_pct": 68.2
           }
         }
       },
-      "total_fichajes": 29,
+      "total_fichajes": 30,
       "dias_fichados": [
         "02",
         "03",
@@ -9746,6 +9794,14 @@
       "dias_naranja_count": 15,
       "dias_sin_fichar_count": 16,
       "fichajes": [
+        {
+          "fecha": "23/11/2026",
+          "hora": "20:40:27",
+          "tipo": "Salida",
+          "isEntrada": false,
+          "punto": "PROY015730-P2-C018 - LIMPIEZA INDRA  ROC BORONAT",
+          "descanso": false
+        },
         {
           "fecha": "23/11/2026",
           "hora": "16:06:23",
@@ -10137,16 +10193,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -10217,9 +10273,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:37.927267",
+      "ultima_consulta_ok": "2026-11-24T03:07:40.681562",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (20 días, 72 marcajes)",
       "ultimo_fichaje": {
@@ -10849,7 +10905,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -11668,16 +11724,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -11748,9 +11804,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:38.468958",
+      "ultima_consulta_ok": "2026-11-24T03:07:42.306162",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (16 días, 32 marcajes)",
       "ultimo_fichaje": {
@@ -12136,7 +12192,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -12631,16 +12687,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -12711,9 +12767,9 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:37.789164",
+      "ultima_consulta_ok": "2026-11-24T03:07:41.437712",
       "datos_obsoletos": false,
-      "estado_hoy": "FINALIZADO",
+      "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "ok",
       "diagnostico": "🟢 Ficha con regularidad (19 días, 72 marcajes)",
       "ultimo_fichaje": {
@@ -13342,7 +13398,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -14160,16 +14216,16 @@
         "23": {
           "isOrange": true,
           "isCyan": false,
-          "isRed": true,
+          "isRed": false,
           "isNoContrato": false,
           "status": "FICHO"
         },
         "24": {
           "isOrange": false,
-          "isCyan": true,
-          "isRed": false,
+          "isCyan": false,
+          "isRed": true,
           "isNoContrato": false,
-          "status": "NO_FICHO"
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
@@ -14240,7 +14296,7 @@
       "sync_ok": true,
       "sync_error": null,
       "intentos": 1,
-      "ultima_consulta_ok": "2026-11-23T16:58:46.957868",
+      "ultima_consulta_ok": "2026-11-24T03:07:49.684532",
       "datos_obsoletos": false,
       "estado_hoy": "NO_FICHADO",
       "estado_semaforo": "noficha",
@@ -14413,7 +14469,7 @@
             "24": {
               "marcajes": [],
               "horas_trabajadas": 0.0,
-              "estado": "FUTURO",
+              "estado": "SIN_MARCAJE",
               "turno_previsto": null,
               "retraso_min": null
             },
@@ -14633,17 +14689,17 @@
         },
         "23": {
           "isOrange": false,
-          "isCyan": false,
-          "isRed": true,
-          "isNoContrato": false,
-          "status": "HOY"
-        },
-        "24": {
-          "isOrange": false,
           "isCyan": true,
           "isRed": false,
           "isNoContrato": false,
           "status": "NO_FICHO"
+        },
+        "24": {
+          "isOrange": false,
+          "isCyan": false,
+          "isRed": true,
+          "isNoContrato": false,
+          "status": "HOY"
         },
         "25": {
           "isOrange": false,
